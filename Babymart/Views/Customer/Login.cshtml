@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Login";
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+@section SEOContent{
+    <title>@(IsLangVN ? "Đăng nhập - Babymart.vn" : "Login - Babymart.vn")</title>
+    <link href="~/Content/forntpage/css/bootstrap-social.css" rel="stylesheet" />
+} 
+<div class="columns-container">
+    <div class="container" id="columns">
+        <!-- breadcrumb -->
+        <div class="breadcrumb clearfix">
+            <a class="home" href="@(IsLangVN?"/":"/en")" title="Return to Home">@(IsLangVN ? "Trang chủ" : "Home")</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span class="navigation_page">@(FBabymartvn.IsLangVN() ? "Đăng nhập" : "Login")</span>
+        </div> 
+        <h2 class="page-heading">
+            <span class="page-heading-title2">@(FBabymartvn.IsLangVN() ? "Đăng nhập" : "Login")</span>
+        </h2> 
+        @Html.Partial("Partial/_Login")
+    </div>
+</div>

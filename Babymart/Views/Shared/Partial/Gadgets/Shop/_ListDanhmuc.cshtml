@@ -1,0 +1,26 @@
+﻿@model IList<Babymart.Models.shop_danhmuccon>
+@{
+    var action = FBabymartvn.ActionNameCurrent();
+    var IsLangVN = FBabymartvn.IsLangVN();
+} 
+<div class="block left-module">
+    <p class="title_block">@(IsLangVN ? "Danh mục con" : "Categories")</p>
+    <div class="block_content"> 
+        <div class="layered layered-category">
+            <div class="layered-content">
+                <ul class="tree-menu"> 
+                    @foreach (var item in Model)
+                    {
+                        if(item.hide == false)
+                        { 
+                            <li>
+                                <span></span>
+                                <a href="@((IsLangVN ? "/chuyen-muc/" + item.url : "/en/group/" + item.url_us) + ".html")">@(FBabymartvn.IsLangVNHasValue(item.tendanhmuccon_us) ? item.tendanhmuccon : item.tendanhmuccon_us)</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div> 
+    </div>
+</div>

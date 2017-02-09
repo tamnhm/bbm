@@ -1,0 +1,534 @@
+﻿@{
+    Layout = null;
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+<!DOCTYPE html>
+<!--[if lt IE 8]>      <html class="no-js lt-ie10 lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie10 lt-ie9"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<!-- Mirrored from www.proteusthemes.com/themes/webmarket-html/checkout-step-1.html by HTTrack Website Copier/3.x [XR&CO'2013], Fri, 01 Nov 2013 11:56:12 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <title>Tình trạng đặt hàng - Babymart.vn</title>
+    <link href="~/Content/img/data/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="/Content/checkout/stylesheets/main.css" rel="stylesheet">
+    <link href="~/Content/forntpage/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/Content/me/css/bootstrap.min.css" />
+    <style>
+        .btn-2 {
+            width: 70px;
+            background: #61B849;
+            -webkit-border-radius: 5px !important;
+            -moz-border-radius: 5px !important;
+            border-radius: 5px !important;
+            color: #FFFFFF !important;
+            font-size: 17px !important;
+            text-decoration: none !important;
+            cursor: pointer !important;
+            padding: 10px 20px;
+            margin: 0 5px;
+        }
+
+            .btn-2:hover {
+                background: #027102;
+            }
+
+        [data-tooltip],
+        .tooltip {
+            position: relative;
+            cursor: pointer;
+        }
+
+            /* Base styles for the entire tooltip */
+            [data-tooltip]:before,
+            [data-tooltip]:after,
+            .tooltip:before,
+            .tooltip:after {
+                position: absolute;
+                visibility: hidden;
+                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+                filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+                opacity: 0;
+                -webkit-transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, -webkit-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+                -moz-transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, -moz-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+                transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+                -webkit-transform: translate3d(0, 0, 0);
+                -moz-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+                pointer-events: none;
+                text-align: center;
+            }
+
+            /* Show the entire tooltip on hover and focus */
+            [data-tooltip]:hover:before,
+            [data-tooltip]:hover:after,
+            [data-tooltip]:focus:before,
+            [data-tooltip]:focus:after,
+            .tooltip:hover:before,
+            .tooltip:hover:after,
+            .tooltip:focus:before,
+            .tooltip:focus:after {
+                visibility: visible;
+                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+                filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+                opacity: 1;
+            }
+
+            /* Base styles for the tooltip's directional arrow */
+            .tooltip:before,
+            [data-tooltip]:before {
+                z-index: 1001;
+                border: 6px solid transparent;
+                background: transparent;
+                content: "";
+            }
+
+            /* Base styles for the tooltip's content area */
+            .tooltip:after,
+            [data-tooltip]:after {
+                z-index: 1000;
+                padding: 8px;
+                width: 130px;
+                background-color: #61B849;
+                background-color: hsla(107,44%,50%,0.9);
+                color: #fff;
+                content: attr(data-tooltip);
+                font-size: 14px;
+                line-height: 1.2;
+            }
+
+            /* Directions */
+
+            /* Top (default) */
+            [data-tooltip]:before,
+            [data-tooltip]:after,
+            .tooltip:before,
+            .tooltip:after,
+            .tooltip-top:before,
+            .tooltip-top:after {
+                bottom: 100%;
+                left: 50%;
+            }
+
+            [data-tooltip]:before,
+            .tooltip:before,
+            .tooltip-top:before {
+                margin-left: -6px;
+                margin-bottom: -12px;
+                border-top-color: #61B849;
+                border-top-color: hsla(107,44%,50%,0.9);
+            }
+
+            /* Horizontally align top/bottom tooltips */
+            [data-tooltip]:after,
+            .tooltip:after,
+            .tooltip-top:after {
+                margin-left: -72px;
+            }
+
+            [data-tooltip]:hover:before,
+            [data-tooltip]:hover:after,
+            [data-tooltip]:focus:before,
+            [data-tooltip]:focus:after,
+            .tooltip:hover:before,
+            .tooltip:hover:after,
+            .tooltip:focus:before,
+            .tooltip:focus:after,
+            .tooltip-top:hover:before,
+            .tooltip-top:hover:after,
+            .tooltip-top:focus:before,
+            .tooltip-top:focus:after {
+                -webkit-transform: translateY(-25px);
+                -moz-transform: translateY(-25px);
+                transform: translateY(-25px);
+                border-radius: 5px;
+            }
+
+        /* Left */
+        .tooltip-left:before,
+        .tooltip-left:after {
+            right: 100%;
+            bottom: 50%;
+            left: auto;
+        }
+
+        .tooltip-left:before {
+            margin-left: 0;
+            margin-right: -12px;
+            margin-bottom: 0;
+            border-top-color: transparent;
+            border-left-color: #000;
+            border-left-color: hsla(0, 0%, 20%, 0.9);
+        }
+
+        .tooltip-left:hover:before,
+        .tooltip-left:hover:after,
+        .tooltip-left:focus:before,
+        .tooltip-left:focus:after {
+            -webkit-transform: translateX(-12px);
+            -moz-transform: translateX(-12px);
+            transform: translateX(-12px);
+        }
+
+        /* Bottom */
+        .tooltip-bottom:before,
+        .tooltip-bottom:after {
+            top: 100%;
+            bottom: auto;
+            left: 50%;
+        }
+
+        .tooltip-bottom:before {
+            margin-top: -12px;
+            margin-bottom: 0;
+            border-top-color: transparent;
+            border-bottom-color: #000;
+            border-bottom-color: hsla(0, 0%, 20%, 0.9);
+        }
+
+        .tooltip-bottom:hover:before,
+        .tooltip-bottom:hover:after,
+        .tooltip-bottom:focus:before,
+        .tooltip-bottom:focus:after {
+            -webkit-transform: translateY(12px);
+            -moz-transform: translateY(12px);
+            transform: translateY(12px);
+        }
+
+        /* Right */
+        .tooltip-right:before,
+        .tooltip-right:after {
+            bottom: 50%;
+            left: 100%;
+        }
+
+        .tooltip-right:before {
+            margin-bottom: 0;
+            margin-left: -12px;
+            border-top-color: transparent;
+            border-right-color: #000;
+            border-right-color: hsla(0, 0%, 20%, 0.9);
+        }
+
+        .tooltip-right:hover:before,
+        .tooltip-right:hover:after,
+        .tooltip-right:focus:before,
+        .tooltip-right:focus:after {
+            -webkit-transform: translateX(12px);
+            -moz-transform: translateX(12px);
+            transform: translateX(12px);
+        }
+
+        /* Move directional arrows down a bit for left/right tooltips */
+        .tooltip-left:before,
+        .tooltip-right:before {
+            top: 3px;
+        }
+
+        /* Vertically center tooltip content for left/right tooltips */
+        .tooltip-left:after,
+        .tooltip-right:after {
+            margin-left: 0;
+            margin-bottom: -16px;
+        }
+
+        ul#top-nav {
+            margin: 50px 0 25px 0;
+            text-align: center;
+        }
+
+        .modal-body {
+            overflow: visible;
+            text-align: center;
+            padding: 0;
+        }
+        /*.btn-success {
+            background: #4c69ba;
+            background: -webkit-linear-gradient(#4c69ba, #3b55a0);
+            background: linear-gradient(#4c69ba, #3b55a0);
+            border: none;
+            border-radius: 2px;
+            font-weight: bold;
+            height: 20px;
+            padding: 0 10px;
+            font-size: 11px;
+            margin-top: -2px;
+            text-shadow: 0 -1px 0 #354c8c;
+            white-space: nowrap;
+        }
+            .btn-success:hover {
+            background: #5b7bd5;
+            background: -webkit-linear-gradient(#5b7bd5, #4864b1);
+            background: linear-gradient(#5b7bd5, #4864b1);
+            border-color: #5874c3 #4961a8 #41599f;
+            box-shadow: inset 0 0 1px #607fd6;
+        }*/
+        .modal-header [data-dismiss="modal"] {
+            position: absolute;
+            top: 0px;
+            right: -65px;
+        }
+    </style>
+</head>
+<body class="checkout-page">
+
+    <div class="master-wrapper">
+
+        <div class="container">
+            <div class="row">
+
+                <!--  ==========  -->
+                <!--  = Main content =  -->
+                <!--  ==========  -->
+                <section class="span12">
+
+                    <div class="checkout-container" style="margin-top:2%">
+                        <header style="text-align: center;">
+                            <h2>
+                                @if (IsLangVN)
+                                {
+                                    <img id="logo" alt="babymart.vn" src="/Content/forntpage/images/ui/logo-cart.png">
+                                }
+                                else
+                                {
+                                    <img id="logo" alt="babymart.vn" src="/Content/forntpage/images/ui/logo-cart-en.png">
+                                }
+                                <p style="padding-top: 10px;color: rgb(255, 178, 0);">
+                                    @*@(IsLangVN ? "Đặt hàng thành công" : "Congratulations on your successful order")*@
+                                    @if (ViewBag.Code == "1")
+                                    {
+                                        @(IsLangVN ? Html.Raw(ViewBag.Message) : "Congratulations on your successful order")
+                                    }
+                                    else
+                                    {
+                                        @(IsLangVN ? Html.Raw(ViewBag.Message) : "Opps unsucessful order, try it again")
+                                    }
+
+                                </p>
+                            </h2>
+                        </header>
+                        <div class="row">
+                            <div class="span10 offset1">
+
+                                <!--  ==========  -->
+                                <!--  = Header =  -->
+                                <!--  ==========  -->
+                                @if (ViewBag.Code == "1")
+                                {
+                                    <h3 style="text-align: center; width: 100%; margin: 0 auto; font-size: 20px; padding-top: 10px; padding-bottom: 10px;">
+                                        @if (IsLangVN == false)
+                                        {
+                                            if (@ViewBag.Madh != null)
+                                            {
+                                                <span style="text-align: center;font-size: 20px;font-weight: bold"><span style="text-align: center;font-size: 20px;font-weight: bold">The confirmation of order <strong>@ViewBag.Madh</strong> has been sent to your e-mail.<br />Order in HCMC will be delivered within 1-2 business days.</span></span>
+                                            }
+                                            else
+                                            {
+                                                <span style="text-align: center;font-size: 20px;font-weight: bold"><span style="text-align: center;font-size: 20px;font-weight: bold">The order "Online Payment" has been sent to your e-mail.<br />Order in HCMC will be delivered within 1-2 business days.</span></span>
+                                            }
+
+                                            <br />
+                                            <span style="text-align: center;font-size: 20px;font-weight: bold"><span style="text-align: center;font-size: 20px;font-weight: bold">Thank you for shopping with babymart.vn </span></span>
+                                        }
+                                        else
+                                        {
+                                            if (@ViewBag.Madh != null)
+                                            {
+                                                <span>Đơn hàng số</span><strong> @ViewBag.Madh</strong> <span>đã được gửi đến địa chỉ email của bạn.<br />Đơn hàng tại TP.HCM sẽ được giao đến bạn trong 1-2 ngày làm việc.</span>
+                                            }
+                                            else
+                                            {
+                                                <span>Đơn hàng thanh toán trực tuyến đã được gửi đến địa chỉ email của bạn.</span>
+                                            }
+                                        }
+                                        @if (ViewBag.DiemKh != null)
+                                        {   <br />
+                                        <span style="text-align: center;font-size: 20px;font-weight: bold">@(IsLangVN ? "Số điểm tích lũy của bạn hiện tại là" : "Your accumulated points") <span style="color:red">@ViewBag.DiemKh </span></span>
+                                        }
+                                    </h3>
+                                    <p style="font-size: 18px; line-height: 25px; color: blue; font-weight: bold; text-align: center;">@(IsLangVN ? "Trong trường hợp bạn không nhận được email xác nhận đơn hàng (có thể do lỗi mạng), bạn vui lòng liên hệ số đt 0165.663.6620 để babymart.vn kiểm tra và xác nhận lại" : "")</p>
+
+                                }
+
+                                @if (this.Session["PlanCart"] != null)
+                                {
+                                    <h4 style="text-align: center;color: rgb(255, 178, 55);">
+                                        @(IsLangVN ? "Bạn vẫn còn gói đồ sơ sinh trong giỏ hàng. Bạn muốn xem và tiếp tục mua hay hủy giỏ hàng ?" : "You have cart packet newborn.Do you can review and continue order or cancel?")
+                                    </h4>
+                                    <div style="text-align: center; padding: 20px 0 40px 0;">
+                                        <a href="@(IsLangVN ? "/goi-do-so-sinh.html" : "/en/new-baby-checklist.html")" class="btn-2">@(IsLangVN ? "Xem gói đồ sơ sinh" : "Review cart packet newborn") </a>
+                                        <a href="/huy-do-so-sinh.html" class="btn-2">@(IsLangVN ? "Hủy gói đồ sơ sinh" : "Cancel cart packet newborn")</a>
+                                    </div>
+                                }
+                                <div style="clear:both"></div>
+                                <div style=" margin-top 20px; ">
+
+                                    <div style="text-align: center;">
+                                        @if (IsLangVN)
+                                        {
+                                            <p style="font-size:16px;">Để babymart.vn phục vụ bạn được tốt hơn, bạn vui lòng góp ý / nhận xét về dịch vụ của chúng tôi <strong><a href="https://www.facebook.com/babymartvietnam/?fref=ts" target="_blank">tại đây</a></strong>.</p>
+                                        }
+                                        else
+                                        {
+                                            <p style="font-size:16px;">To help <strong>babymart.vn</strong> serve you better, please show your <strong>suggestions / comments</strong> about our services at <strong><a href="https://www.facebook.com/babymartvietnam/?fref=ts" target="_blank">here</a></strong>!</p>
+                                        }
+                                        <div class="fb-like" data-href="https://babymart.vn" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+
+                                        <ul id='top-nav'>
+
+                                            <li>
+                                                @if (ViewBag.Code == "1")
+                                                {
+                                                    <a href="@(FBabymartvn.IsLangVN()?"/":"/en")" class="btn-2">
+                                                        @(IsLangVN ? "Về trang chủ" : "Homepage")
+                                                    </a>
+                                                        <!-- Modal -->
+                                                    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="width: 400px; margin-left: -200px; top: 20%;">
+                                                        <div class="modal-dialog modal-sm">
+                                                            <div class="modal-content" style=" position relative; ">
+                                                                <div class="modal-header">
+                                                                    @if (IsLangVN)
+                                                                    {
+                                                                        <h4 style="font-family: monospace; font-size: 15.5px; text-align: justify; ">Nếu bạn hài lòng với babymart.vn, bạn hãy ủng hộ chúng tôi bằng cách bấm "Thích Trang" nhé. <span style="text-align: center; display: block;">Xin cảm ơn!</span></h4>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <h4 style="font-family: monospace; font-size: 15.5px; text-align: justify; ">If you're satisfied with babymart.vn, please support us by clicking "Like" on our page. <span style="text-align: center; display: block;">Thank you!</span></h4>
+                                                                    }
+                                                                    <button type="button" class="btn btn-success" data-dismiss="modal">@(IsLangVN ? "Đóng" : "Close")</button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="fb-page" data-href="https://www.facebook.com/babymartvietnam/?fref=ts" data-tabs="timeline" data-width="400" data-height="250" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/babymartvietnam/?fref=ts"><a href="https://www.facebook.com/babymartvietnam/?fref=ts">Babymart VN</a></blockquote></div></div>
+                                                                    <img src="/content/forntpage/images/ui/arrow-red.png" style="position: absolute; top: -70px; left: -95px;" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    @*<script>
+                                                            window.onload = function () {
+                                                                var countdownElement = document.getElementById('countdown'),
+                                                                    downloadButton = document.getElementById('download'),
+                                                                    seconds = 3,
+                                                                    second = 0,
+                                                                    interval;
+
+                                                                interval = setInterval(function () {
+                                                                    countdownElement.firstChild.data = (seconds - second);
+                                                                    if (second >= seconds) {
+                                                                        clearInterval(interval);
+                                                                        window.open("/xac-nhan-2.html", '_self');
+                                                                    }
+
+                                                                    second++;
+                                                                }, 1000);
+                                                            }
+                                                        </script>*@
+                                                    <span id="countdown" style="font-weight:bold; display:none"> </span>
+                                                        <a href="@(IsLangVN ? "/xac-nhan-2.html" : "/en")" class="btn-2">
+                                                            @(IsLangVN ? "Thanh toán lại" : "Order again")
+                                                        </a>
+
+                                                }
+                                            </li>
+
+                                            @*<li>
+                                                    <a href="/game.html" title='' class="tooltip-top" data-tooltip="Game vui">
+                                                        <img src='~/Content/forntpage/images/ui/System-Game-Controllers-icon.png' alt='' />
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="/am-nhac.html" title='' class="tooltip-top" data-tooltip="Nhạc cho bé">
+                                                        <img src='~/Content/forntpage/images/ui/music-note-SH-icon.png' alt='' />
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="/hoat-hinh.html" title='' class="tooltip-top" data-tooltip="Phim hoạt hình">
+                                                        <img src='~/Content/forntpage/images/ui/smurf-house-icon.png' alt='' />
+                                                    </a>
+                                                </li>*@
+                                            @if (ViewBag.Code=="1")
+                                            {
+                                                if (IsLangVN)
+                                                {
+                                                <li>
+                                                    <a href="/cam-nang.html" title='' class="btn-2">
+                                                        Cẩm nang
+                                                    </a>
+                                                </li>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (IsLangVN)
+                                                {
+                                                    <li>
+                                                        <a href="/" title='' class="btn-2">
+                                                            Trang chủ
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+
+                                        @*@if (ViewBag.Code != "0")
+                                        {
+                                        <div style="text-align:center;padding-top: 55px;">
+                                            <a href="@(IsLangVN ? "/" : "/en")" class="btn-2">@(IsLangVN ? "Trang chủ" : "Home")</a>
+                                        </div>
+                                        }*@
+                                    </div>
+                                </div>
+                                <div style="clear:both"></div>
+                                <h3 style="text-align: center; width: 100%; margin: 0 auto; line-height: 50px; color: #333;">
+                                    <span style="font-size: 15px">
+                                        @if (ViewBag.Code == "1")
+                                        {
+                                            if (IsLangVN)
+                                            {
+                                                <i>Bạn vui lòng <span style="color: #61B748">giữ máy điện thoại</span> trong thời gian hẹn giao hàng để chúng tôi tiện liên lạc. Xin cám ơn!</i>
+                                            }
+                                            else
+                                            {
+                                                <i>Please <span style="color: #61B748">keep your mobile phone</span> ready during delivery for easy contact. Thank you!</i>
+                                            }
+                                        }
+                                    </span>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </section> <!-- /main content -->
+            </div>
+        </div> <!-- /container -->
+    </div> <!-- end of master-wrapper -->
+    <button id="button-share" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-example-modal-sm" style="display:none">
+        Launch demo modal
+    </button>
+
+    <div id="fb-root"></div>
+    <script src="~/Scripts/forntpage/jquery-1.11.2.min.js"></script>
+    <script src="~/Scripts/forntpage/bootstrap.min.js"></script>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.5&appId=1728675160694106";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script type="text/javascript">
+        $("#button-share").click();
+    </script>
+</body>
+</html>

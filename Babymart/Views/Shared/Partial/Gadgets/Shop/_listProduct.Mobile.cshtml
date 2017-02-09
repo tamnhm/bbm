@@ -1,0 +1,52 @@
+﻿@model IList<Babymart.Models.shop_collection>
+@{
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+
+@foreach (var item in Model)
+{
+    var bienthe = item.shop_sanpham.shop_bienthe.Where(o => o.isdelete == false).ToList();
+    bool isone_bienthe = bienthe.Count == 1 ? true : false;
+    <div class="homeProductWrapper">
+        <a href="@((IsLangVN ? "/tin-tuc/" + item.shop_sanpham.spurl : "/en/product/" + item.shop_sanpham.spurl_us) + ".html")">
+            @if (item.shop_sanpham.shop_image.Count > 0)
+            {
+                <img onerror="imgError(this)" src="@(Common.urlProduct() + item.shop_sanpham.shop_image.FirstOrDefault().url)" alt="@item.shop_sanpham.tensp" width='156' height='156' />
+            }
+            else
+            {
+                <img onerror="imgError(this)" src="" alt="sản phẩm" width='156' height='156' />
+
+            }
+        </a>
+        <div class="homeProductInfoWrapper">
+            <span class="homeProductTitle">
+                <a href="@((IsLangVN ? "/tin-tuc/" + item.shop_sanpham.spurl : "/en/product/" + item.shop_sanpham.spurl_us) + ".html")">
+                    @(FBabymartvn.IsLangVNHasValue(item.shop_sanpham.tensp_us) ? item.shop_sanpham.tensp : item.shop_sanpham.tensp_us)
+                </a>
+            </span>
+            @if (isone_bienthe == true)
+            {
+                if (bienthe.First().giasosanh > 0)
+                {
+                    <span class="gia-goc">@string.Format("{0:0,0 đ}", bienthe.First().giasosanh)</span>
+                }
+                <a href="@((IsLangVN ? "/tin-tuc/" + item.shop_sanpham.spurl : "/en/product/" + item.shop_sanpham.spurl_us) + ".html")" class="homePurchaseButtonsaleoff">
+                    @if (item.shop_sanpham.ischeckout == false)
+                    {
+                        <span>@string.Format("{0:0,0 đ}", bienthe.First().gia)</span>
+                    }
+                    else
+                    {
+                        <span>@(IsLangVN ? "Tạm hết hàng" : "Sold out")</span>
+                    }
+                </a>
+            }
+            else
+            {
+                <a href="@((IsLangVN ? "/tin-tuc/" + item.shop_sanpham.spurl : "/en/product/" + item.shop_sanpham.spurl_us) + ".html")" class="homePurchaseButtonsaleoff">@(IsLangVN ? "Xem chi tiết" : "Detail")</a>
+            }
+
+        </div>
+    </div>
+}

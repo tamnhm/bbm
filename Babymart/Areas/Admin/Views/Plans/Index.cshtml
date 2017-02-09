@@ -1,0 +1,149 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@section stylesheet{
+}
+@section script{
+}
+@section scripts_ko{
+    <script src="~/Scripts/module/plans/m.plan.js" type="text/javascript"></script>
+    <script src="~/Scripts/module/plans/mv.plan.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            (new Plan.mvPlan().Start())
+        });
+    </script>
+}
+
+
+@section templates {
+}
+
+
+<div class="row-fluid list_link">
+    <div class="box box-color box-bordered green">
+        <div class="box-title">
+            <h3>
+                Tên danh mục
+            </h3>
+            <h3 class="icon-tooledit">
+                <i class="icon-plus-sign" data-bind="click:linkaddType"></i>
+            </h3>
+        </div>
+        <div class="box-content" data-bind="foreach:ListplanTypebyAdmin">
+            <p><span data-bind="text: Id"></span>.<a data-bind="text:Type,click:$parent.linkeditType"></a></p>
+        </div>
+    </div>
+</div>
+<div id="modal-edit-type" data-bind="with:mtypePlan" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+        <div class="box box-bordered">
+            <div class="form-horizontal form-bordered">
+                <div class="control-group">
+                    <label for="textfield" class="control-label">Id</label>
+                    <div class="controls">
+                        <input type="text" data-bind="value:Id" class="input-small" disabled="disabled">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="textfield" class="control-label">Tên</label>
+                    <div class="controls">
+                        <input type="text" data-bind="value:Type" class="input-xlarge">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="textfield" class="control-label">Tên TA</label>
+                    <div class="controls">
+                        <input type="text" data-bind="value:Type_us" class="input-xlarge">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        <button class="btn btn-danger" data-bind="click:$parent.delete_type">Xóa</button>
+        <button class="btn btn-primary" data-bind="click:$parent.submitEditType">Lưu</button>
+    </div>
+</div>
+<div id="modal-add-type" data-bind="with:mtypePlan" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+        <div class="box box-bordered">
+            <div class="form-horizontal form-bordered">
+                <div class="control-group">
+                    <label for="textfield" class="control-label">Id</label>
+                    <div class="controls">
+                        <input type="text" data-bind="value:Id" class="input-small">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="textfield" class="control-label">Tên</label>
+                    <div class="controls">
+                        <input type="text" data-bind="value:Type" class="input-xlarge">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="textfield" class="control-label">Tên TA</label>
+                    <div class="controls">
+                        <input type="text" data-bind="value:Type_us" class="input-xlarge">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        <button class="btn btn-primary" data-bind="click:$parent.submitAddType">Lưu</button>
+    </div>
+</div>
+<div class="row-fluid list_link">
+    <div class="box box-color box-bordered green">
+        <div class="box-title">
+            <h3>
+                Giảm %
+            </h3>
+            <h3 class="icon-tooledit">
+                <i class="icon-plus-sign" @*data-bind="click:linkaddType"*@></i>
+            </h3>
+        </div>
+        <div class="box-content" data-bind="foreach:ListSalleoffbyAdmin">
+            <!--ko if:Name()=='Percent'-->
+            <p>
+                Giảm <span data-bind="text:Value"></span> % khi <span data-bind="text:OperatorOption"></span> <span data-bind="textMoney:OperatorValue"></span>đ
+                <!--ko if: Visible()==true-->
+                <span>(Ẩn)</span>
+                <!--/ko-->
+            </p>
+            <!--/ko-->
+        </div>
+    </div>
+</div>
+<div class="row-fluid list_link">
+    <div class="box box-color box-bordered green">
+        <div class="box-title">
+            <h3>
+                Tặng quà
+            </h3>
+            <h3 class="icon-tooledit">
+                <i class="icon-plus-sign" @*data-bind="click:linkaddType"*@></i>
+            </h3>
+        </div>
+        <div class="box-content" data-bind="foreach:ListSalleoffbyAdmin">
+            <!--ko if:Name()=='Gift'-->
+            <p>
+                Tặng sp có mã Id= <span data-bind="text:Value"></span> khi <span data-bind="text:OperatorOption"></span> <span data-bind="textMoney:OperatorValue"></span>đ
+                <!--ko if: Visible()==true-->
+                <span>(Ẩn)</span>
+                <!--/ko-->
+            </p>
+            <!--/ko-->
+        </div>
+    </div>
+</div>

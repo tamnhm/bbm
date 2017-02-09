@@ -1,0 +1,63 @@
+﻿@model Babymart.ViewModels.ShoppingCartViewModel
+@{
+    var urllocation = System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocation"];
+    var modelsSS = (Babymart.Models.Module.PlanCartModel)Session["PlanCart"];
+    var totalCart = (Model.CartItemModel.Count > 0 ? Model.CartTotal : 0) + (modelsSS != null ? modelsSS.TotalSum : 0);
+    var IsLangVN = FBabymartvn.IsLangVN();
+    var countItem = (Model.CartItemModel.Count > 0 ? Model.CartItemModel.Count() : 0) + (modelsSS != null ? 1 : 0);
+}
+<form id="shoppingCartWrapper" class="shoppingCartWrapper" action="#" method="post">
+    <fieldset>
+        @if (Model.CartItemModel.Count() >= 1 || modelsSS != null)
+        {
+
+            if (Model.CartItemModel.Count() >= 1)
+            {
+                foreach (var item in Model.CartItemModel)
+                {
+                    <div class="shoppingCartProductWrapper" id="row-bar-@item.RecordId">
+                        <a href="@((IsLangVN ? "/tin-tuc/" + item.shop_bienthe.spurl : "/en/product/" + item.shop_bienthe.spurl_us) + ".html")" class="shoppingCartProductImageWrapper">
+                            <img onerror="imgError(this)" src='@(urllocation + item.shop_bienthe.imgsp)' class="shoppingCartProductImage" />
+                        </a>
+                        <div class="shoppingCartProductInfoWrapper">
+                            <a href="#" class="shoppingCartProductTitle">@(IsLangVN ? item.shop_bienthe.tensp : item.shop_bienthe.tensp_us)</a>
+                            <div class="shoppingCartProductButtonsWrapper">
+                                <input type="text" class="shoppingCartProductNumber" name="product-1" value="@item.Count" />
+                                <span class="shoppingCartProductPrice">@string.Format("{0:0,0 đ}", item.shop_bienthe.gia)</span>
+                                <a href="#" class="shoppingCartRemoveProductButton delete RemoveLinkBar" data-id="@item.RecordId"></a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            if (modelsSS != null)
+            {
+                @*<li class="clearfix">
+                        <div style="float:left;width: 90%;">
+                            <a href="/goi-do-so-sinh.html">
+                                <img src="/Content/forntpage/images/module/cart-plan.jpg" style="width: 100%;">
+                            </a>
+                        </div>
+                        <div style="float:left">
+                            <a class="delete RemoveLinkBar_Plan RemoveLinkBar">
+                                <img src="http://localhost:11418/Content/forntpage/images/ui/card-remove-home-page.png">
+                            </a>
+                        </div>
+                        <div id="bb_loading" style="display:none;  position: absolute;  top: 0px;left: -0.1%;background: rgba(25, 25, 25, 0.43);width: 100%; height: 100%;">
+                            <img src="~/Images/Sys/baby-loading.gif" style="width: 100px;margin-left: 40%;" />
+                        </div>
+                    </li>*@
+            }
+            <div class="shoppingCartInfoWrapper">
+                <span class="shoppingCartProductsNumber" id="cart-total-bar">Products: @countItem</span>
+                <span id="total-price" class="shoppingCartProductsTotal">@(IsLangVN ? "Tổng đơn hàng:" : "Total:"): @string.Format("{0:0,0 đ}", totalCart)</span>
+            </div>
+        <!-- shopping cart info wrapper ends -->
+            <div class="shoppingCartButtonsWrapper">
+                <a href="/thanh-toan.html" class="shoppingCartCheckoutButton">@(IsLangVN?"Thanh toán":"Payment")</a>
+            </div>
+            @*<li class="total-price">@(IsLangVN ? "Tổng đơn hàng:" : "Total:") <span id="total-price">@string.Format("{0:0,0 đ}", totalCart)</span></li>
+                <li class="clearfix"><a class="babymartlink" href="/gio-hang.html" title="xem giỏ hàng">@(IsLangVN ? "Xem giỏ hàng:" : "Review:")</a></li>*@
+        }
+    </fieldset>
+</form>

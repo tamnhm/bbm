@@ -1,0 +1,47 @@
+﻿@model IList<Babymart.Models.module_menu>
+@{
+    int type = ViewBag.type;
+    string Url;
+    switch (type)
+    {
+        case 1:
+            Url = "/game";
+            break;
+        case 2:
+            Url = "/am-nhac";
+            break;
+        case 3:
+            Url = "/hoat-hinh";
+            break;
+        case 4:
+            Url = "/tintuc";
+            break;
+        case 5:
+            Url = "/cam-nang";
+            break;
+        default:
+            Url = "";
+            break;
+
+    }
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+<div id="list-extra" class="block left-module">
+    <p class="title_block">@(IsLangVN ? "Danh mục" : "Categories")</p>
+    <div class="block_content">
+        <!-- layered -->
+        <div class="layered layered-category">
+            <div class="layered-content">
+                <ul class="tree-menu">
+                    @if (Model.Count == 1 && Model.FirstOrDefault().tenloai == "default")
+                    {
+                        foreach (var item in Model.FirstOrDefault().module_group)
+                        {
+                            <li><span></span><a href="@(Url+"/"+item.module_menu.url +"/"+item.url+".html")">@(FBabymartvn.IsLangVNHasValue(item.title_us) ? item.title : item.title_us)</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> 

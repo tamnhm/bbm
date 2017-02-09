@@ -1,0 +1,40 @@
+﻿@model IList<Babymart.Models.shop_danhmuc>
+@{    var IsLangVN = FBabymartvn.IsLangVN();
+}
+<div id='cssmenu'>
+    <div>
+        <div class="close"><img src="/Images/mobile/images/common/btn-del.png" alt="Xóa" style="
+    float: left;">@(IsLangVN ? "Đóng" : "Close")</div> </div>
+    <ul>
+        <li>
+            <a href="@(IsLangVN ? "/goi-do-so-sinh.html" : "/en/new-baby-checklist.html")">
+                <div class="icon-menu dososinh"></div>
+                <span>     @(IsLangVN ? "Đồ dùng cho mẹ chuẩn bị sinh" : "New Baby Checklist")</span>
+            </a>
+        </li>
+        @foreach (var item in Model.Where(o => o.hide == false))
+        {
+            <li class='has-sub'>
+                <a href="@((IsLangVN ? "/danh-muc/" + item.url : "/en/category/" + item.url_us) + ".html")">
+                    @if (!String.IsNullOrEmpty(item.icon))
+                    {
+                        <div class="@item.icon"></div>
+                    }
+                    <span>  @(FBabymartvn.IsLangVNHasValue(item.tendanhmuc_us) ? item.tendanhmuc : item.tendanhmuc_us)</span>
+                </a>
+                <ul>
+                    @foreach (var item2 in item.shop_danhmuccon.Where(o => o.hide == false))
+                    {
+                        <li>
+                            <a href="@((IsLangVN ? "/chuyen-muc/" + item2.url : "/en/group/" + item2.url_us) + ".html")">
+                                <span>
+                                    @(FBabymartvn.IsLangVNHasValue(item2.tendanhmuccon_us) ? item2.tendanhmuccon : item2.tendanhmuccon_us)
+                                </span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+</div>

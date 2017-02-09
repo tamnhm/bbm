@@ -1,0 +1,70 @@
+﻿@model PagedList.IPagedList<Babymart.Models.module_detail>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Index";
+}
+@section SEOContent{
+
+    <title>@Html.Raw(Model.FirstOrDefault().module_group.title)</title>
+    <meta name="keywords" content="@Html.Raw(Model.FirstOrDefault().module_group.keyword)" />
+    <meta name="description" content="@Html.Raw(Model.FirstOrDefault().module_group.des)" />
+}
+<div class="columns-container">
+    <div class="container" id="columns">
+        <!-- breadcrumb -->
+        <div class="breadcrumb clearfix">
+            <a class="home" href="#" title="Return to Home">Trang chủ</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span class="navigation_page">Game vui</span>
+        </div>
+        <!-- ./breadcrumb -->
+        <!-- row -->
+        <div class="row blog-cate">
+            <!-- Left colunm -->
+            <div class="column col-xs-12 col-sm-3 col-sm-push-9" id="left_column">
+                <!-- Blog category -->
+                @if (ViewBag.typemodule != null)
+                {
+                    Html.RenderAction("MenuModule", "Common", new { idtype = ViewBag.typemodule });
+                }
+                <!-- ./blog category  -->
+                <!-- Popular Posts --> 
+                    @{Html.RenderAction("GadgetsMagazine2", "Common");} 
+            </div>
+            <!-- ./left colunm -->
+            <!-- Center colunm-->
+            <div class="center_column col-xs-12 col-sm-9 col-sm-pull-3" id="center_column">
+                <div class="blog-list">
+                    <h1 class="page-heading">
+                        <a href="#"><span class="page-heading-title2">@(Model.FirstOrDefault() != null ? Model.FirstOrDefault().module_group.title : "")</span></a>
+                    </h1>
+                    <ul class="blog-posts">
+                        @foreach (var item in Model)
+                        {
+                        <li class="post-item col-sm-3 ">
+                            <article class="entry">
+                                <div class="handbook-pic">
+                                    <div class="entry-thumb image-hover2">
+                                        <a href="@("/game/" + (item.module_group.url == "default" ? "-" : item.module_group.url) + "/" + item.id + "/" + item.url + ".html")" title="@item.title">
+                                            <img src="@(Common.urlModule() + item.img)" alt="@item.title">
+                                        </a>
+                                    </div>
+                                    <h3 class="entry-title"><a href="@("/game/" + (item.module_group.url == "default" ? "-" : item.module_group.url) + "/" + item.id + "/" + item.url + ".html")" title="@item.title">@item.title</a></h3>
+                                </div>
+                            </article>
+                        </li>
+                        }
+                    </ul> 
+                    <div class="clearfix"></div>
+                    <div style="text-align:center">
+                        @Html.PagedListPager(Model, page => Url.Action("ArticleChild",
+                                            new { page, urlgroup = ViewBag.Currentgroup, urlmenu = ViewBag.Currentmenu }))
+                    </div>
+                </div>
+            </div>
+            <!-- ./ Center colunm -->
+        </div>
+        <!-- ./row-->
+    </div>
+</div>

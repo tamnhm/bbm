@@ -1,0 +1,146 @@
+﻿@{
+    Layout = null;
+    var IsLangVN = FBabymartvn.IsLangVN();
+    var headcontent = (Babymart.Models.sys_content)FBabymartvn.GetContents("Head", "Head");
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <!-- css -->
+    <link href="~/Content/img/data/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="~/Content/forntpage/css/style.css" rel="stylesheet" />
+    <link href="~/Content/forntpage/css/default.css" rel="stylesheet" />
+    <link href="~/Content/forntpage/css/shake.css" rel="stylesheet" />
+
+    @foreach (var item in (List<Babymart.Models.sys_content>)FBabymartvn.ListContents("Index"))
+    {
+
+        if (!item.Name.Equals("H1"))
+        {
+            if (item.Name.Equals("title"))
+            {
+                <title>@item.Contents</title>
+            }
+
+            else
+            {
+                <meta name="@item.Name" content="@item.Contents" />
+            }
+        }
+    }
+    @Html.Raw(headcontent.Contents)
+</head>
+<body>
+    <div class='wrapper-page'>
+        <div id="wrapper-header">
+            <div class="wrapper">
+                <!-- Logo -->
+                <h1 class="display-none">@FBabymartvn.GetContents("Index", "H1").Contents</h1>
+                <img id="logo" alt="babymart.vn" src="~/Content/forntpage/images/ui/logo.png" />
+                <!-- about us -->
+                @*<a class="shake" href="/bai-viet/shop-me-va-be-do-so-sinh.html" id="about-us"><img src="~/Content/forntpage/images/ui/home-gioi-thieu.png" alt="gioi thieu" title="gioi thieu" /></a>*@
+
+                <!-- site map -->
+                <a class="shake" href="/bai-viet/shop-me-va-be-do-so-sinh.html" id="sitemap"><img src="~/Content/forntpage/images/ui/home-gioi-thieu.png" alt="site-map" title="site map" /></a>
+
+                <!-- contact -->
+                <a class="shake" href="/lien-he.html" id="contact"><img src="~/Content/forntpage/images/ui/home-lien-he.png" alt="site-map" title="contact" /></a>
+
+            </div>
+            <!-- End class wrapper -->
+        </div>
+        <!-- end wrapper-header -->
+
+        <div id="wrapper-section">
+            <div class="wrapper">
+
+                <!-- images baby -->
+                <img src="~/Content/forntpage/images/ui/home-em-be.png" alt="Hình ảnh bé con" id="img-em-be" />
+                <!-- end image baby -->
+                <!-- main-contain -->
+                <div id="main-contain">
+
+                    <div class="block shake" id="game-cho-be">
+                        <a href="/game.html" title="game-cho-be">
+                            <img src="~/Content/forntpage/images/ui/home-game-cho-be.png" alt="game-cho-be" />
+                        </a>
+                    </div>
+                    <!-- End game cho be -->
+
+                    <div class="block shake" id="mua-sam" style="top: 150px;">
+                        <a href="@(IsLangVN?"/":"/en")" title="mua sắm">
+                            <img src="~/Content/forntpage/images/ui/home-mua-sam.png" alt="mua-sam" />
+                        </a>
+                    </div>
+                    <!-- End mua sam -->
+
+                    <div class="block shake" id="nhac-cua-be">
+                        <a href="/am-nhac.html" title="nhạc của bé">
+                            <img src="~/Content/forntpage/images/ui/home-nhac-cua-be.png" alt="nhac-cua-be" />
+                        </a>
+                    </div>
+                    <!-- End nhac cua be -->
+
+                    <div class="block shake" id="cam-nang">
+                        <a href="/cam-nang.html" title="cẩm nang">
+                            <img src="~/Content/forntpage/images/ui/home-cam-nang.png" alt="cam-nang" />
+                        </a>
+                    </div>
+                    <!-- End cam nang -->
+
+                    <div class="block shake" id="phim-hoat-hinh">
+                        <a href="/hoat-hinh.html" title="phim hoạt hình">
+                            <img src="~/Content/forntpage/images/ui/home-phim-hoat-hinh.png" alt="phim-hoat-hinh" />
+                        </a>
+                    </div>
+                    <!-- End phim hoạt hình -->
+                    @*<div class="block shake" id="tin-tuc">
+                            <a href="/tintuc.html" title="tin tức">
+                                <img src="~/Content/forntpage/images/ui/home-tin-tuc.png" alt="tin-tuc" />
+                            </a>
+                        </div>*@
+                    <!-- End tin tuc -->
+                    <div class='clearb'></div>
+                </div>
+                <!-- end main-contain-->
+                <div class='clearb'></div>
+            </div><!-- end wrapper -->
+        </div>
+        <!-- End wrapper section -->
+        <!-- Footer -->
+        <div id="wrapper-footer">
+
+            <div id="footer-content">
+                <div class="wrapper">
+                    <div class='content'>
+                        <p>
+                            Địa chỉ: 325 Trương Vĩnh Ký - Phường Tân Thành - Quận Tân Phú - Tp. HCM
+                        </p>
+                        <p>
+                            ĐT: 08.6672.0909 - 08.3812.3813 - Email: www.babymart.vn@gmail.com
+                        </p>
+                        <p>
+                            Đồ chơi trẻ em | Đồ Sơ Sinh | Mẹ và bé | Máy hút sữa
+                        </p>
+
+                    </div><!-- end content -->
+                </div><!-- End wrapper -->
+            </div>
+            <!-- End footer content -->
+
+            <div id="footer-copyright">
+                <div class='wrapper'>
+                    <div class='content'>
+                        <p>Copyright&copy; 2104 BABYMART</p>
+                    </div>
+                </div><!-- End wrapper-->
+            </div>
+            <!-- End footer copy right -->
+
+        </div>
+        <!-- End footer -->
+    </div>
+</body>
+</html>

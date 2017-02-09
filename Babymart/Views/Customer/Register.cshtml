@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = "Register";
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+@section SEOContent{
+  <title>Đăng ký thành viên - Babymart.vn</title>
+<link href="~/Content/mystyle.css" rel="stylesheet" />
+<link rel="stylesheet" href="/Content/me/custom/checkbox.css" /> 
+
+}
+@section scripts{
+  
+    @Scripts.Render("~/bundles/commonjs_ko") 
+    <script src="/Scripts/module/shipping/mshipping.js" type="text/javascript"></script>
+    <script src="/Scripts/module/customer/mcustomer.js" type="text/javascript"></script>
+    <script src="/Scripts/module/customer/mvedit.js" type="text/javascript"></script> 
+    <script>
+        $(document).ready(function () {
+            (new Customer.mvedit().Start())
+        });
+    </script>
+}
+<div class="columns-container layout-content-common"> 
+    <div data-bind="visible:waitting" style="width: 100%; background: rgba(0, 0, 0, 0.35); z-index: 999999999; position: fixed; height: 100%; top: 0px; left: 0px;">
+        <h1 style="color: white;margin-top: 25%;margin-left: 25%;">@(IsLangVN ? "Xin vui lòng đợi trong giây lát ..." : "Please wait..")</h1>
+    </div>
+    <div class="container" id="columns">
+        <div class="breadcrumb clearfix">
+            <a class="home" href="@(IsLangVN?"/":"/en")" title=" return to home">@(IsLangVN ? "Trang chủ" : "Home")</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span class="navigation_page">@(IsLangVN ? "Đăng ký" : "Register")</span>
+        </div>
+        <h2 class="page-heading">
+            <span class="page-heading-title2">@(IsLangVN ? "Đăng ký" : "Register")</span>
+        </h2>
+        <div class="content">
+            <!--ko if:!thanhcong()-->
+            <form method='post' class='frm-common' data-bind="with:mCustomer">
+                <div class="page-content checkout-page">
+                    <div class="box-border">
+                        <ul class="col-sm-6">
+                            <li class="row">
+                                <h3>@(IsLangVN ? "Thông tin cá nhân:" : "My Information:")</h3>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-11">
+                                    <label for="first_name" class="required">@(IsLangVN ? "Họ tên" : "Name") <span class='text-danger'>*</span></label>
+                                    <input type="text" class="input form-control" data-bind="value:hoten" id="first_name">
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-11">
+                                    <label for="phone">@(IsLangVN ? "Điện thoại" : "Phone") <span class='text-danger'>*</span></label>
+                                    <input type="tel" data-bind="value:dienthoai" class="input form-control" id="phone">
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-11">
+                                    <label for="email" class="required">Email <span class='text-danger'>*</span></label>
+                                    <input type="email" class="input form-control" data-bind="value:$parent.email" id="email">
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    <label class="required">@(IsLangVN ? "Tỉnh/Thành" : "City") <span class='text-danger'>*</span></label>
+                                    <select data-bind="options: $parent.ArrayTp, optionsText: 'tentp',optionsValue:'id', value: idtp" class="input form-control"></select>
+                                    <img src="/Images/Sys/baby-loading.gif" data-bind="visible:$parent.loadfullTP" style="width: 40px; float: right; margin-top: -30px;">
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    <label class="required">@(IsLangVN ? "Quận/Huyện" : "District") <span class='text-danger'>*</span></label>
+                                    <select data-bind="options: $parent.ArrayTinh, optionsText: 'tentinh',optionsValue:'id', value: idquan" class="input form-control"></select>
+                                    <img src="/Images/Sys/baby-loading.gif" data-bind="visible:$parent.loadfullQuan" style="width: 40px; float: right; margin-top: -30px;">
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-11">
+                                    <label for="address" class="required">@(IsLangVN ? "Địa chỉ" : "Address") <span class='text-danger'>*</span></label>
+                                    <input type="text" class="input form-control" data-bind="value:duong" id="address">
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="col-sm-6">
+                            <li class="row">
+                                <h3>@(IsLangVN ? "Thông tin tài khoản:" : "Account:")</h3>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-11">
+                                    <label for="account" class="required">@(IsLangVN ? "Tên đăng nhập" : "User name") <span class='text-danger'>*</span></label>
+                                    <input type="text" class="input form-control" data-bind="value:$parent.tendangnhap" id="account">
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-11">
+                                    <label for="password">@(IsLangVN ? "Mật khẩu" : "Password") <span class='text-danger'>*</span></label>
+                                    <input type="password" data-bind="value:matkhau" class="input form-control" id="password">
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-11">
+                                    <label for="password-rep" class="required">@(IsLangVN ? "Nhập lại mật khẩu" : "Replace password") <span class='text-danger'>*</span></label>
+                                    <input type="password" class="input form-control" data-bind="value:matkhaunhaplai" id="password-rep">
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-11">
+                                    <label class="required">@(IsLangVN ? "Mã bảo vệ" : "Code protect")</label>
+                                    <div>
+                                        <span data-bind="text:$parent.StringCapcha" class="capcha"></span>
+                                        <span data-bind="click:$parent.RandomCapcha" class="glyphicon glyphicon-refresh" style="line-height:33px"></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-11">
+                                    <label for="captcha" class="required">@(IsLangVN ? "Nhập mã bảo vệ" : "Code protect") <span class='text-danger'>*</span></label>
+                                    <input type="text" class="input form-control" data-bind="value:$parent.Capcha" id="captcha">
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-11">
+                                    <input type="checkbox" name="nhanmail" id="nhanmail" class="css-checkbox" data-bind="checked:konhanmail">
+                                    <label for="nhanmail" class="receive-email">
+                                        @(IsLangVN ? "Không nhận email thông tin khuyến mãi (trong thông tin đăng ký và thông tin thành viên)" : "Not receive email sale off news")
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <button type='submit' data-bind="click:$parent.submit" class="button"><span class="glyphicon glyphicon-check"></span> @(IsLangVN ? "Đăng ký" : "Register")</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+            <!--/ko-->
+            <!--ko if:thanhcong()-->
+            <h3 style="border-bottom:none;font-size: 20px;text-align: center;margin-top: 20px;">
+                Cám ơn bạn <strong data-bind="text:tendangnhap"></strong> đã đăng ký thành công !
+            </h3>
+            <!--/ko-->
+        </div><!-- end content -->
+        <!--ko if: HasError() && (Validator().errors().length > 0 || !CompareCapcha())-->
+        <div class="control-group error" style="padding:10px">
+            <div class="controls">
+                <!--ko if:Validator().errors().length > 0 -->
+                <span data-bind="text: 'Có ' + Validator().errors().length + ' lỗi trên trang:'"></span>
+                <ul data-bind="foreach: Validator().errors">
+                    <li data-bind="text: $data"></li>
+                </ul>
+                <!--/ko-->
+                <!--ko if:!CompareCapcha() -->
+                <ul>
+                    <li>Mã bảo vệ không đúng</li>
+                </ul>
+                <!--/ko-->
+            </div>
+        </div>
+        <!--/ko-->
+    </div>
+</div>

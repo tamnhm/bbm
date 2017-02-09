@@ -1,0 +1,9 @@
+﻿@model Babymart.Models.shop_page
+<div id="wrapper-footer">
+    <div class="wrapper"> 
+        @if (Model != null)
+        {
+            @Html.Raw(FBabymartvn.IsLangVNHasValue(Model.noidung_us) ? Model.noidung : Model.noidung_us)
+        }
+    </div>
+</div>

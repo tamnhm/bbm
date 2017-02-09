@@ -1,0 +1,266 @@
+﻿@model Babymart.Models.Module.ModeCustomer
+@{
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+@section SEOContent{
+    <title>Thông tin khách hàng - Babymart.vn</title>
+    <link href="~/Content/me/custom/tabs.css" rel="stylesheet" />
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+
+        .field-Success {
+            font-size: 20px;
+            color: green;
+        }
+
+        #results {
+            background: rgba(85, 163, 184, 0.4);
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        div#loading {
+            display: none;
+            position: absolute;
+            z-index: 9999;
+            top: 25%;
+            left: 50%;
+        }
+    </style>
+}
+@section scripts{ 
+    <script src="@Url.Content("~/Scripts/sys/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script> 
+    <script type="text/javascript">
+        function onLoginSuccess(response) {
+            $('#loading').hide();
+            $('#results').show();
+            if (response.errors != undefined) {
+                if (response.errors.length > 0) {
+                    $("#results").html("");
+                    $("#results").attr("class", "field-validation-error");
+                    response.errors.forEach(function (entry) {
+                        $("#results").append("<p>" + entry + "</p>")
+                    });
+                }
+            } else {
+                $("#results").attr("class", "field-Success");
+                $('#results').hide().html(response).fadeIn('slow').delay(1000).hide(1);
+            } 
+        } 
+        $(function () {
+            $("#PlatformDropDownList").change(function () {
+                debugger
+                var platformId = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("LoadQuaHuyen")',
+                    type: 'GET',
+                    data: { id: platformId },
+                    cache: 'false',
+                    success: function (result) {
+                        $('#EditionDropDownList').empty();
+                        debugger
+                        if (result.length > 0) {
+                            $.each(result, function (result) {
+                                $('#EditionDropDownList').append(
+                                    $('<option/>')
+                                         .attr('value', this.id)
+                                         .text(this.tentinh)
+                                );
+                            });
+                        }
+                        else {
+                            $('#EditionDropDownList').append(
+                                $('<option/>')
+                                    .attr('value', "")
+                                    .text("No edition found for this game")
+                            );
+                        } 
+                    },
+                    error: function (result) {
+                        alert('An Error has occurred');
+                    }
+                });
+            });
+        });
+    </script>
+} 
+<div class="columns-container">
+    <div class="container" id="columns">
+        <!-- breadcrumb -->
+        <div class="breadcrumb clearfix">
+            <a class="home" href="@(IsLangVN?"/":"/en")" title="Return to Home">@(IsLangVN ? "Trang chủ" : "Home")</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span class="navigation_page">@(IsLangVN ? "Thông tin tài khoản" : "Account information")</span>
+        </div>
+        <!-- ./breadcrumb -->
+        <!-- row --> 
+        <div class="row">
+            <div class="center_column col-xs-12">
+                <!-- page heading-->
+                <h2 class="page-heading">
+                    <span class="page-heading-title2">@(IsLangVN ? "Thông tin tài khoản" : "Account information")</span>
+                </h2> 
+                <div id="results"></div>
+                <div class="product-tab">
+                    <ul class="nav-tab">
+                        <li class="active">
+                            <a aria-expanded="false" data-toggle="tab" href="#product-detail">@(IsLangVN ? "Thông tin tài khoản" : "Account information")</a>
+                        </li>
+                        <li>
+                            <a aria-expanded="true" data-toggle="tab" href="#information">@(IsLangVN ? "Lịch sử mua hàng" : "History order")</a>
+                        </li>
+                    </ul>
+                    <div class="tab-container clearfix">
+                        <div id="product-detail" class="tab-panel box-border active">
+                            @using (Ajax.BeginForm("UpdateCustomer", "Customer", new AjaxOptions
+                            {
+                                LoadingElementId = "loading",
+                                OnSuccess = "onLoginSuccess"
+                            }, new { @class = "frm-common" }))
+                            {
+                                @Html.HiddenFor(model => model.MaKH)
+                                <ul class="col-sm-7 profile">
+                                    <li class="row">
+                                        <h3>@(IsLangVN ? "Thông tin cá nhân:" : "Personal information:")</h3>
+                                    </li>
+                                    <li class="row">
+                                        <div class="col-sm-11">
+                                            <label for="first_name" class="required">@(IsLangVN ? "Điểm tích lũy:" : "Point:")</label>
+                                            <span class="score">@Model.diem</span>
+                                        </div>
+                                    </li>
+                                    <li class="row">
+                                        <div class="col-sm-11">
+                                            <label for="first_name" class="required">@(IsLangVN ? "Họ Tên" : "Name") <span class='text-danger'>*</span></label> 
+                                            @Html.TextBoxFor(model => model.hoten, new { @class="input form-control" }) 
+                                            @Html.ValidationMessageFor(model => model.hoten)
+                                        </div>
+                                    </li>
+                                    <li class="row">
+                                        <div class="col-sm-11">
+                                            <label for="phone">@(IsLangVN ? "Điện thoại" : "Phone") <span class='text-danger'>*</span></label>
+                                            @Html.TextBoxFor(model => model.dienthoai, new { @class = "input form-control" })
+                                            @Html.ValidationMessageFor(model => model.dienthoai)
+                                        </div>
+                                    </li>
+                                    <li class="row">
+                                        <div class="col-sm-11">
+                                            <label for="email" class="required">Email <span class='text-danger'>*</span></label>                 @Html.TextBoxFor(model => model.email, new { @class = "input form-control" })
+                                            @Html.ValidationMessageFor(model => model.email)
+                                        </div>
+                                    </li>
+                                    <li class="row">
+                                        <div class="col-sm-6">
+                                            <label class="required">@(IsLangVN ? "Tỉnh/Thành" : "City") <span class='text-danger'>*</span></label>
+                                            @Html.DropDownListFor(n => n.idtp, new SelectList((List<Babymart.Models.donhang_chuyenphat_tp>)ViewData["Thanhpho"], "id", "tentp", 1), new { id = "PlatformDropDownList", name = "PlatformDropDownList", @class = "input form-control" })
+                                        </div>
+                                    </li>
+                                    <li class="row">
+                                        <div class="col-sm-6">
+                                            <label class="required">@(IsLangVN ? "Quận/Huyện" : "Districts") <span class='text-danger'>*</span></label>
+                                            @Html.DropDownListFor(n => n.idquan, new SelectList((List<Babymart.Models.donhang_chuyenphat_tinh>)ViewData["Tinhthanh"], "id", "tentinh", 1), new { id = "EditionDropDownList", name = "EditionDropDownList", @class = "input form-control" })
+                                        </div>
+                                    </li>
+                                    <li class="row">
+                                        <div class="col-sm-11">
+                                            <label for="address" class="required">@(IsLangVN ? "Địa chỉ" : "Address") <span class='text-danger'>*</span></label>
+                                            @Html.TextBoxFor(model => model.duong, new { @class = "input form-control" })
+                                            @Html.ValidationMessageFor(model => model.duong)
+                                        </div>
+                                    </li>
+                                    <li class="row">
+                                        <div class="col-sm-11">
+                                            @Html.CheckBoxFor(m => m.konhanmail, Model.konhanmail)
+                                            <label for="konhanmail" class="receive-email">
+                                                @(IsLangVN ? "Không nhận email thông tin khuyến mãi (trong thông tin đăng ký và thông tin thành viên)" : "Not receive email sale off news")
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button type='submit' class="button"><span class="glyphicon glyphicon-refresh" style="padding:0"></span> @(IsLangVN ? "Cập nhật" : "Update")</button>
+                                    </li>
+                                </ul>
+                            } 
+                            <div id="update_panel"></div>
+                            @using (Ajax.BeginForm("UpdatePassword", "Customer", new AjaxOptions
+                            {
+                                LoadingElementId = "loading",
+                                OnSuccess = "onLoginSuccess"
+                            }, new { @class = "frm-common" }))
+                            {
+                            <ul class="col-sm-5 profile">
+                                <li class="row">
+                                    <h3>@(IsLangVN ? "Đổi mật khẩu:" : "Change password")</h3>
+                                </li>
+                                <li class="row">
+                                    <div class="col-sm-12">
+                                        <label for="old-pass" class="required">@(IsLangVN ? "Nhập lại mật khẩu cũ" : "Old password") <span class='text-danger'>*</span></label>
+                                        <input type="password" class="input form-control" name="_passCurrent" id="old-pass">
+                                    </div>
+                                </li>
+                                <li class="row">
+                                    <div class="col-sm-12">
+                                        <label for="old-pass-rep">@(IsLangVN ? "Mật khẩu mới" : "New password") <span class='text-danger'>*</span></label>
+                                        <input type="password" name="_passNew" class="input form-control" id="old-pass-rep">
+                                    </div>
+                                </li>
+                                <li class="row">
+                                    <div class="col-sm-12">
+                                        <label for="new-pass" class="required">@(IsLangVN ? "Nhập lại mật khẩu mới" : "Replace new password") <span class='text-danger'>*</span></label>
+                                        <input type="password" class="input form-control" name="_passNewRe" id="new-pass">
+                                    </div>
+                                </li>
+                                <li>
+                                    <button class="button"><span class="glyphicon glyphicon-refresh" style="padding:0"></span> @(IsLangVN ? "Cập nhật" : "Update")</button>
+                                </li>
+                            </ul> 
+                            }
+                        </div>
+                        <div id="information" class="tab-panel">
+                            <table class="table table-hover text-center">
+                                <thead>
+                                    <tr class="row">
+                                        <th>@(IsLangVN ? "Mã DH" : "Id")</th>
+                                        <th>@(IsLangVN ? "Ngày đặt" : "Date")</th>
+                                        <th>@(IsLangVN ? "Tổng tiền" : "Total")</th>
+                                        <th>@(IsLangVN ? "Tình trạng" : "Status")</th> 
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody> 
+                                    @foreach (var item in Model.donhangs)
+                                    {
+                                        <tr class="row">
+                                            <td>@item.id</td>
+                                            <td>@item.ngaydat</td>
+                                            <td>@string.Format("{0:0,0 đ}", item.tongtien)</td>
+                                            <td>
+                                                @if (IsLangVN)
+                                                {<span>@(item.dagiao == true ? "Đã giao" : "Chưa giao hàng")</span> }
+                                                else
+                                                {<span>@(item.dagiao == true ? "Delivered" : "No delivery")</span>  }
+                                            </td>
+                                            <td>
+                                                @if (IsLangVN)
+                                                {<span>@Html.ActionLink("Xem chi tiết", "HistoryCartDetail", "Customer", new { id = item.id }, null)</span> }
+                                                else
+                                                {<span>@Html.ActionLink("Detail", "HistoryCartDetail", "Customer", new { id = item.id }, null)</span>  }
+                                            </td>
+                                        </tr> 
+                                    }
+                                </tbody>
+                            </table>
+                        </div> 
+                        <div class="clearfix"></div>
+                    </div>
+                </div> 
+            </div>
+        </div> 
+    </div>
+</div>
+<div id="loading">
+    <img src="~/Content/img/load_s.gif" />
+</div>

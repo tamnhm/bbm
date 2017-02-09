@@ -1,0 +1,123 @@
+﻿<script id="ModuleAddTmpl" type="text/html">
+    <div class="row-fluid" data-bind="with:mModule">
+        <div class="span12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3><i class="icon-th-list"></i> <span data-bind="text:$parent.NameModule"></span></h3>
+                </div>
+                <div class="box-content nopadding">
+                    <form class='form-horizontal form-bordered'>
+                        <!--ko if: $parent.HasError() && $parent.Validator().errors().length > 0-->
+                        <div class="control-group error">
+                            <label for="textfield" class="control-label"><b>Lỗi</b></label>
+                            <div class="controls">
+                                <span data-bind="text: 'Có ' + $parent.Validator().errors().length + ' lỗi trên trang:'"></span>
+                                <ul data-bind="foreach: $parent.Validator().errors">
+                                    <li data-bind="text: $data"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--/ko-->
+
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Module</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <select class="select2-me input-xlarge" data-bind="options:$parent.ListModuel, optionsText: 'name',optionsValue: 'id',optionsCaption: 'Chọn Module',value:$parent.SelectTypeModule"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Nhóm Menu</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <select class="select2-me input-xlarge" data-bind="options:$parent.ListMenu, optionsText: 'tenloai',optionsValue: 'id',optionsCaption: 'Chọn Menu',value:$parent.SelectMenu"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Nhóm bài viết</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <select class="select2-me input-xlarge" data-bind="options:$parent.ListGroup,optionsValue: 'id', optionsText: 'title',optionsCaption: 'Chọn Nhóm',value:$parent.SelectGroup"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Tiều đề</b></label>
+                            <div class="controls">
+                                <input type="text" data-bind="value:$parent.tieude,valueUpdate: 'afterkeydown'" class="input-xxxlarge">
+                                <div style="margin-top:10px">
+                                    <input type="checkbox" name="autourl" id="autourl" class="css-checkbox" data-bind="checked:$parent.autourl,checkedValue:false">
+                                    <label for="autourl" class="css-label radGroup1 chk" style="font-size:15px">Tự động điền biểu mẫu</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Ẩn</b></label>
+                            <div class="controls">
+                                <div class="check-line">
+                                    <input type="checkbox" name="checshow" id="checshow" class="css-checkbox" data-bind="checked:$parent.hide,checkedValue:true">
+                                    <label for="checshow" class="css-label radGroup1 chk"><b>Ẩn</b></label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Hình ảnh</b></label>
+                            <div class="controls">
+                                <input type="text" data-bind="value:img,valueUpdate: 'afterkeydown'" class="input-xxxlarge">
+                                <img data-bind="attr: { src:img() }" onerror="imgerror(this)" style="width:220px" />
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Mô tả</b></label>
+                            <div class="controls">
+                                <textarea class="form-control" rows="10" data-bind="value:extract" style="width: 98%;"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Nội dung</b></label>
+                            <div class="controls">
+                                <!-- ko if:$parent.InitFinish() -->
+                                <textarea class="form-control" rows="10" data-bind="tinymce:contents"></textarea>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <h4 class="control-label">SEO</h4>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Description</b></label>
+                            <div class="controls">
+                                <textarea rows="5" data-bind="value:description" class="input-xxxlarge"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Key word</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:keyword">
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Url</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:url">
+
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <div class="form-actions actionsz">
+                                <button data-bind="click:$parent.submit" class="btn btn-primary"><i class="icon-save"></i></button>
+                                <a class="btn" data-bind="attr:{href:$parent.linkback}"><i class="icon-arrow-left"> Hủy</i></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

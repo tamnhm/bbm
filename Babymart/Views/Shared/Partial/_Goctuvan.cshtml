@@ -1,0 +1,35 @@
+﻿@model IList<Babymart.Models.Module.ModelModuleDetail>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="blog-list advisory">
+        <h2 class="page-heading "><span class="page-heading-title">@(FBabymartvn.IsLangVN() ? "Góc tư vấn:" : "Advisory:")</span></h2>
+        <div class="blog-list-wapper">
+            <ul>
+                @foreach (var item in Model)
+                {
+                    <li class="col-md-6">
+                        <div class="post-thumb image-hover2 col-sm-5">
+                            <a href="@("/cam-nang/bai-viet/" + item.id + "/" + item.url + ".html")" title="@item.title"><img src="@(Common.urlModule() + item.img)" width="270" height="180" alt="@(FBabymartvn.IsLangVNHasValue(item.title_us) ? item.title : item.title_us)"></a>
+                        </div>
+                        <div class="post-desc col-sm-7">
+                            <h4 class="post-title">
+                                <a href="@("/cam-nang/bai-viet/" + item.id + "/" + item.url + ".html")" title="@item.title">@(FBabymartvn.IsLangVNHasValue(item.title_us) ? item.title : item.title_us)</a>
+                            </h4>
+                            <div class="post-meta">
+                                <span class="date">@String.Format("{0:dd/MM/yyyy}", item.createdate)</span>
+                            </div>
+                            <div class="summary">
+                                @Html.Raw(FBabymartvn.IsLangVNHasValue(item.extract_us) ? item.extract : item.extract_us)
+                            </div>
+                            <div class="readmore">
+                                <a href="@("/cam-nang/bai-viet/" + item.id + "/" + item.url + ".html")" title="@item.title">Xem thêm</a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+}

@@ -1,0 +1,102 @@
+﻿@model Babymart.Models.shop_sanpham
+@{
+    var IsLangVN = FBabymartvn.IsLangVN();
+    var bienthe = Model.shop_bienthe.Where(o => o.isdelete == false).ToList();
+    bool isone = bienthe.Count == 1 ? true : false; 
+    var action = FBabymartvn.ActionNameCurrent();
+    var listArticle = (List<Babymart.Models.Module.ModelModuleDetail>)ViewData["ListArticleTags"];
+} 
+<li itemscope="" itemtype="http://schema.org/Product">
+    <div class="left-block"> 
+        <a href="@((IsLangVN ? "/tin-tuc/" + Model.spurl : "/en/product/" + Model.spurl_us) + ".html")">
+            @if (Model.shop_image.Count > 0)
+            {
+                <img itemprop="image" onerror="imgError(this)" src="@(Common.urlProduct() + Model.shop_image.FirstOrDefault().url)" alt="@Model.tensp" width="212" height="212" />
+            }
+            else
+            {
+                <img itemprop="image" onerror="imgError(this)" src="" alt="sản phẩm" width='208' height='208' />
+
+            }
+        </a>
+        <div class="add-to-cart">
+            @if (Model.ischeckout == false)
+            {
+                if (bienthe.Count <= 1)
+                {
+                    if (bienthe.First().giasosanh > 0)
+                    {
+                        <a href="@("/gio-hang.html/" + Model.shop_bienthe.FirstOrDefault().id + "/1")">@(IsLangVN ? "Thêm vào giỏ hàng" : "Add to cart")</a>
+                    }
+                    else
+                    {
+                        <a href="@("/gio-hang.html/" + Model.shop_bienthe.FirstOrDefault().id + "/1")">@(IsLangVN ? "Thêm vào giỏ hàng" : "Add to cart")</a>
+                    }
+                }
+            }
+            else
+            {
+                if (bienthe.First().giasosanh > 0)
+                { 
+                }
+                else
+                { 
+                }
+            }
+        </div>
+        <div class="label-promo">
+            @if (isone)
+            {
+                if (bienthe.First().giasosanh > 0)
+                {
+                    <span>-@(100 - (bienthe.First().gia * 100) / bienthe.First().giasosanh)%</span>
+                }
+            }
+            else
+            {
+                foreach (var i in bienthe)
+                {
+                    if (i.giasosanh > 0)
+                    {
+                        <span class="sold-out">Sale off</span>
+                        break;
+                    }
+                }
+            }
+            @if (Model.ischeckout == true)
+            {
+                <span class="sold-out-2">@(IsLangVN ? "Tạm hết hàng" : "Sold out")</span>
+            }
+        </div> 
+    </div>
+    <div class="right-block">
+        @helper Truncate(string input, int length)
+        {
+            if (input.Length <= length)
+            {
+                @input
+            }
+            else
+            {
+                @input.Substring(0, input.IndexOf(' ', input.IndexOf(' ') + 20))<text>...</text>
+            }
+        }
+        <h3 itemprop="name" class="product-name"><a itemprop="url" title="@(FBabymartvn.IsLangVNHasValue(Model.tensp_us) ? Model.tensp : Model.tensp_us)" href="@((IsLangVN ? "/tin-tuc/" + Model.spurl : "/en/product/" + Model.spurl_us) + ".html")">@Truncate((FBabymartvn.IsLangVNHasValue(Model.tensp_us) ? Model.tensp : Model.tensp_us), 40)</a> - <span>@Model.masp</span></h3>
+
+        <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer" class="content_price">
+            @if (isone)
+            {
+                <span itemprop="price" class="price product-price"> @string.Format("{0:0,0 đ}", bienthe.First().gia) </span>
+                if (bienthe.First().giasosanh > 0)
+                {
+                    <span class="price old-price">@string.Format("{0:0,0 đ}", bienthe.First().giasosanh)</span>
+                }
+            }
+            else
+            {
+                <span itemprop="price" class="price product-price">@(IsLangVN ? "Xem giá chi tiết" : "Detail")</span>
+            }
+
+        </div>
+    </div>
+</li>

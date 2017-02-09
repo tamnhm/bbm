@@ -1,0 +1,312 @@
+﻿@section stylesheet{
+
+    <!-- Datepicker -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/datepicker/datepicker.css">
+
+
+}
+@section script{
+    <script type="text/javascript" src="~/Scripts/me/tiny_mce/tinymce.min.js"> </script>
+    <script type="text/javascript" src="https://tinymce.cachefly.net/4.0/jquery.tinymce.min.js"> </script>
+    <script src="~/Scripts/me/custom/bootstrap-datetimepicker.js"></script>
+    <script src="/Scripts/me/file-upload/jquery.fileupload.js"></script>
+    <script src="/Scripts/me/file-upload/jquery.fileupload-ui.js"></script>
+    <script src="/Scripts/me/file-upload/jquery.iframe-transport.js"></script>
+
+
+}
+@section scripts_ko{
+    @Scripts.Render("~/module/shipping")
+    <script>
+        @*var chars = @Html.Raw(Babymart.Infractstructure.BHNEnumHelper.ToJson(typeof(Babymart.Models.Module.Enum.CharEnum)) + ";")*@
+        @*var statusEnum = @Babymart.Infractstructure.BHNEnumHelper.ConvertToJson(typeof(Babymart.Models.Module.Enum.CharEnum));*@
+        $(document).ready(function () {
+            (new Shipping.mvShipping().Start())
+        });
+    </script>
+}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    Vùng giao hàng
+                </h3>
+            </div>
+            <div class="box-content">
+                <div class="form-horizontal form-bordered">
+
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Mã Vùng</label>
+                        <div class="controls">
+                            <div class="input-append">
+                                <select class="form-control" data-bind="options:OptionVung, value:selectVung"></select>
+                            </div>
+                        </div>
+                        <div class="control-group" data-bind="visible:ArrayVung().length>0">
+                            <label for="textfield" class="control-label"><b>Phí giao hàng</b></label>
+                            <div class="controls">
+                                <table class="table table-hover table-nomargin table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Kg</th>
+                                            <th>Ship</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach:ArrayVung">
+                                        <tr class="gradeX">
+                                            <td data-bind="text:kilogram"></td>
+                                            <td data-bind="textMoney:ship"></td>
+                                            <td><button class="btn  btn-danger" data-bind="click:$parent.removeVung"><i class="icon-trash"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Kg - Ship</b></label>
+                            <div class="controls">
+                                <input type="text" data-bind="value:kgvung" placeholder="Kg">
+                                <input type="text" data-bind="value:shipvung" placeholder="Giá tiền">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"></label>
+                            <div class="controls">
+                                <button class="btn btn-primary" data-bind="click:AddVung">Thêm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="box box-color box-bordered">
+            <div class="box-content nopadding">
+                <div class="box box-color box-bordered">
+                    <div class="box-title">
+                        <h3>
+                            <i class="icon-table"></i>
+
+                        </h3>
+                        <h3 class="icon-tooledit">
+
+                            <i class="icon-plus-sign" data-bind="click:addthanhpho"></i>
+                        </h3>
+                    </div>
+
+                    <div class='form-horizontal form-bordered' style="margin: 0 auto;width: 40%;border: 2px solid rgb(150, 150, 150);">
+                        <div class="control-group">
+                            <h4 class="control-label">Thành phố</h4>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Thành phố</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <select class="form-control" data-bind="options: OptionArrayTp,optionsText: 'tentp', optionsValue: 'id', value: TpSelectedValue,optionsCaption: 'Chọn danh thành phố'"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box box-color box-bordered" data-bind="with:Tp,visible:isNotSelect">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-link"></i>
+                    <span data-bind="text:tentp"></span>
+                </h3>
+            </div>
+            <div class="box-content">
+                <div class='form-horizontal form-bordered'>
+
+                    <!--ko if: $parent.HasError() && $parent.Validator().errors().length > 0-->
+                    <div class="control-group error">
+                        <label for="textfield" class="control-label"><b>Lỗi</b></label>
+                        <div class="controls">
+                            <span data-bind="text: 'Có ' + $parent.Validator().errors().length + ' lỗi trên trang:'"></span>
+                            <ul data-bind="foreach: $parent.Validator().errors">
+                                <li data-bind="text: $data"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--/ko-->
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"><b>Tên Thành phố</b></label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:tentp,valueUpdate: 'afterkeydown'">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"><b>Tên Thành phố (TA)</b></label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:tentp_us,valueUpdate: 'afterkeydown'">
+                        </div>
+                    </div>
+                    <!--ko if:$parent.tphcm()==false-->
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"><b>Thời gian vận chuyển</b></label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:thoigian,valueUpdate: 'afterkeydown'">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"><b>Tỉnh thành</b></label>
+                        <div class="controls">
+                            <!--ko foreach:donhang_chuyenphat_tinh-->
+                            <div>
+                                <input type="text" data-bind="value:tentinh">
+                                <input type="text" data-bind="value:tentinh_us">
+                                <button class="btn  btn-danger" data-bind="click:$root.removetinhthanh"><i class="icon-trash"></i></button>
+                            </div>
+                            <!--/ko-->
+                            <!--ko foreach:$parent.tinhthanhmoi-->
+                            <div>
+                                <input type="text" data-bind="value:tentinh">
+                                <input type="text" data-bind="value:tentinh_us">
+                                <button class="btn  btn-danger" data-bind="click:$root.removetinhthanh"><i class="icon-trash"></i></button>
+                            </div>
+                            <!--/ko-->
+                            <span class="btn btn-success" data-bind="click:$parent.addtinhthanh">Thêm Tỉnh</span>
+                        </div>
+
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"><b>Khu vực trả hàng</b></label>
+                        <div class="controls">
+                            <div class="input-append">
+                                <select class="form-control" data-bind="options:donhang_chuyenphat_tinh, optionsText: 'tentinh', optionsValue: 'id', value:$parent.idtinhtra"></select>
+                            </div>
+                            <span class="btn btn-success" data-bind="click:$parent.themtinhtra">Thêm tỉnh trả</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"></label>
+                        <div class="controls">
+                            <!--ko foreach:$parent.ListTinhtra()-->
+                            <p>
+                                <span data-bind="text: Tentinhtra"></span>
+                                <span class="btn  btn-danger" data-bind="click:$root.xoatinhtra"><i class="icon-trash"></i></span>
+                            </p>
+                            <!--/ko-->
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"><b>Mã Vùng</b></label>
+                        <div class="controls">
+                            <div class="input-append">
+                                <select class="form-control" data-bind="options:$parent.OptionVung, value:$parent.selectVung"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group" data-bind="visible:$parent.ArrayVung().length>0">
+                        <label for="textfield" class="control-label"><b>Phí giao hàng</b></label>
+                        <div class="controls">
+                            <table class="table table-hover table-nomargin table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Kg</th>
+                                        <th>Ship</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach:$parent.ArrayVung">
+                                    <tr class="gradeX">
+                                        <td data-bind="text:kilogram"></td>
+                                        <td data-bind="textMoney:ship"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!--/ko-->
+                    <!--ko if:$parent.tphcm()==true-->
+
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"><b>Quận/Huyện</b> <span class="btn btn-success" data-bind="click:$parent.addtinhthanh">Thêm Tỉnh/Quận</span></label>
+                        <div class="controls">
+                            <!--ko if:donhang_chuyenphat_tinh!=null-->
+                            <!--ko foreach:donhang_chuyenphat_tinh-->
+                            <input type="text" data-bind="value:tentinh" style="float:left" class="input-medium" placeholder="Tên tỉnh/quận">
+                            <input type="text" data-bind="value:tentinh_us" style="float:left" class="input-medium" placeholder="Tên tỉnh/quận (TA)">
+                            <input type="text" data-bind="value:Phivanchuyen" style="float:left" class="input-medium" placeholder="Phí giao hàng">
+                            <span class="btn btn-danger" data-bind="click:$root.removetinhthanh" style="float:left"><i class="icon-trash"></i></span>
+                            <div style="clear:both"></div>
+                            <!--/ko-->
+                            <!--ko foreach:$parent.tinhthanhmoi-->
+                            <div>
+                                <input type="text" data-bind="value:tentinh" placeholder="Quận/Huyện">
+                                <input type="text" data-bind="value:tentinh_us" placeholder="Quận/Huyện (TA)">
+                                <input type="text" data-bind="value:Phivanchuyen" placeholder="Phí giao hàng">
+                                <button class="btn  btn-danger" data-bind="click:$root.removetinhthanh"><i class="icon-trash"></i></button>
+                            </div>
+                            <!--/ko-->
+                            <!--/ko-->
+                        </div>
+                    </div>
+
+                    <!--/ko-->
+                    <div class="form-horizontal form-bordered" data-bind="foreach:ArrayTinh">
+                        <div class="control-group">
+                            <label for="textfield" class="control-label">
+                                <label for="textfield" class="control-label"><b>Khu vực trả hàng</b></label>
+                            </label>
+                            <div class="controls">
+                                <input type="text" data-bind="value:tentinh" style="float:left" class="input-medium" placeholder="Tên tỉnh/quận">
+
+                                <input type="text" data-bind="value:tentinh_us" style="float:left" class="input-medium" placeholder="Tên tỉnh/quận (TA)">
+                                <input type="text" data-bind="numericText:ship,visible:$parent.id()==1" style="float:left" class="input-medium" placeholder="Phí giao hàng">
+                                <span class="btn btn-danger" data-bind="click:$root.deletetinh" style="float:left"><i class="icon-trash"></i></span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions actionsz">
+                        <button data-bind="click:$parent.SumitXoaTp" class="btn btn-danger"><i class="icon-trash"></i></button>
+                        <button data-bind="click:$parent.SubmitSave" class="btn btn-primary"><i class="icon-save"></i></button>
+                        <button data-bind="click:$parent.addthanhpho" class="btn"><i class="icon-file-alt"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="modal-setting" data-bind="with:Tp" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Thêm thành phố</h3>
+    </div>
+    <div class="modal-body">
+        <div class="box box-bordered">
+            <div class="form-horizontal form-bordered">
+                <!--ko if: $parent.HasError() && $parent.Validator().errors().length > 0-->
+                <div class="control-group error">
+                    <label for="textfield" class="control-label"><b>Lỗi</b></label>
+                    <div class="controls">
+                        <span data-bind="text: 'Có ' + $parent.Validator().errors().length + ' lỗi trên trang:'"></span>
+                        <ul data-bind="foreach: $parent.Validator().errors">
+                            <li data-bind="text: $data"></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--/ko-->
+                <div class="control-group">
+                    <label for="textfield" class="control-label">Tên thành phố</label>
+                    <div class="controls">
+                        <input type="text" data-bind="value:tentp" class="input-xlarge" style="float:left">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary" data-bind="click:$parent.SumitAddTp">Thêm thành phố</button>
+    </div>
+    <div class="hide_delete modal-backdrop fade in" style="display:none"></div>
+</div>

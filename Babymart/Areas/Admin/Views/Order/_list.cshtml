@@ -1,0 +1,251 @@
+﻿<script id="OrderListTmpl" type="text/html">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3>
+                        <i class="icon-table"></i>
+
+                    </h3>
+                </div>
+                <div class="box-content nopadding">
+                    <div class="paging_ko">
+                        <div class="filter-ko">
+                            <strong>Tìm kiếm:  </strong>
+                            <input placeholder="Mã đơn hàng" type="text" data-bind="value: FreeSearch, valueUpdate: 'afterkeydown'" style="width: 100px;">
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                <table class="table table-hover table-nomargin dataTable table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Số DH</th>
+                            <th>Ngày đặt</th>
+                            <th>Tên tài khoản</th>
+                            <th>Tổng tiền</th>
+                            <th>Tình trạng</th>
+                            <th>Xác nhận</th>
+                            @*<th>In đơn hàng</th>*@
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: DataArray">
+                        <tr class="gradeX">
+                            <td data-bind="text:id"></td>
+                            <td data-bind="datelong:ngaydat"></td>
+                            <td>
+                                <strong data-bind="text:tendn()"></strong>
+                            </td>
+                            <td data-bind="textMoney:tongtien"></td>
+                            <td>
+                                <!--ko if: dagiao()-->
+                                <span class="btn btn-primary">Đã giao</span>
+                                <!--/ko-->
+                                <!--ko if: !dagiao()-->
+                                <span class="btn btn-danger">Chưa giao</span>
+                                <!--/ko-->
+                                <!--ko if: dahuy()-->
+                                <span class="btn btn-orange">Đã hủy</span>
+                                <!--/ko-->
+                            </td>
+                            <td>
+                                <button class="btn btn-warning" data-bind="click:$parent.chitiet">Xem</button>
+                            </td>
+                            <td>
+                                @*<a data-bind="attr: { 'href': '@Url.Action("Indonhang", "Order")/' + id(), 'target':'_blank'}" class="cssClass">
+                                    In đơn
+                                </a>*@
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="paging_ko" style="padding:10px">
+                    <div class="Pager">
+                        Page <span data-bind="text: indexPage"></span> of <span data-bind="text:maxpage"></span> [<span data-bind="text:countRecord"></span> dòng]&nbsp;&nbsp;
+                        <a class="btn-paging" href="#" data-bind="click:previousPage">&lt;&lt;</a>
+                        <a class="btn-paging" href="#" data-bind="click: nextPage">&gt;&gt;</a>
+                        <div style="float:right">
+                            Hiển thị:
+                            <select data-bind="value: pageSize">
+                                <option value="10">10</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="200">250</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="modal-setting1" data-bind="with:donhang" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Đơn hàng</h3>
+        </div>
+        <div class="modal-body">
+            <div class="box box-bordered">
+                <form class='form-horizontal form-bordered'>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"><b>Tình trạng giao hàng</b></label>
+                        <div class="controls">
+                            <!--ko if: dagiao()-->
+                            <span class="btn btn-primary">Đã giao</span>
+                            <!--/ko-->
+                            <!--ko if: !dagiao()-->
+                            <span class="btn btn-danger">Chưa giao</span>
+                            <!--/ko-->
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"><b>Tài khoản</b></label>
+                        <div class="controls">
+                            <strong data-bind="text:tendn()"></strong>
+                        </div>
+                    </div>
+                    <!--ko if: makh()-->
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"><b>Điểm tích lũy</b></label>
+                        <div class="controls">
+                            <strong data-bind="text:diem"></strong>
+                        </div>
+                    </div>
+                    <!--/ko-->
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"><b>Số điện thoại</b></label>
+                        <div class="controls">
+                            <strong data-bind="text:dienthoai()"></strong>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"><b>Email</b></label>
+                        <div class="controls">
+                            <strong data-bind="text:email()"></strong>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"><b>Tổng tiền</b></label>
+                        <div class="controls">
+                            <label data-bind="textMoney:tongtien"></label>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"><b>Ghi chú</b></label>
+                        <div class="controls">
+                            <textarea rows="5" data-bind="value:ghichu" class="input-xxxlarge"></textarea>
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-hover table-nomargin dataTable table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Mã sp</th>
+                            <th>Tên sản phẩm</th>
+                            <td>Số lượng</td>
+                            <th>Giá</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: $parent.sanpham">
+                        <tr class="gradeX">
+                            <td data-bind="text:masp"></td>
+                            <td data-bind="text:fullten"></td>
+                            <td data-bind="text:soluong"></td>
+                            <td data-bind="textMoney:gia"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-success" data-bind="visible:!dagiao(),click:$parent.giaohang" aria-hidden="true">Giao hàng</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </div>
+    <div id="modal-setting" data-bind="with:donhang" class="modal hide" style="width:100%;left:22%;top:0px" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3>Đơn hàng</h3>
+                </div>
+                <div class="modal-body" style="min-height:550px">
+                    <div class="box box-bordered">
+                        <form class='form-horizontal form-bordered'>
+                            <div class="control-group">
+                                <label for="textfield" class="control-label"><b>Tình trạng giao hàng</b></label>
+                                <div class="controls">
+                                    <!--ko if: dagiao()-->
+                                    <span class="btn btn-primary">Đã giao</span>
+                                    <!--ko if: ngaygiao()-->
+                                    (<span data-bind="datelong:ngaygiao"></span>)
+                                    <!--/ko-->
+                                    <!--/ko-->
+                                    <!--ko if: !dagiao()-->
+                                    <span class="btn btn-danger">Chưa giao</span>
+                                    <!--/ko-->
+                                    <!--ko if: dahuy()-->
+                                    <span class="btn btn-orange">Đã Hủy</span>
+                                    <!--ko if: ngayhuy()-->
+                                    (<span data-bind="datelong:ngayhuy"></span>)
+                                    <!--/ko-->
+                                    <!--/ko-->
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="textfield" class="control-label"><b>Tài khoản</b></label>
+                                <div class="controls">
+                                    <strong data-bind="text:tendn()"></strong>
+                                </div>
+                            </div>
+                            <!--ko if: makh()-->
+                            <div class="control-group">
+                                <label for="textfield" class="control-label"><b>Điểm tích lũy</b></label>
+                                <div class="controls">
+                                    <strong data-bind="text:diem"></strong>
+                                </div>
+                            </div>
+                            <!--/ko-->
+                            <div class="control-group">
+                                <label for="textfield" class="control-label"><b>Tổng tiền</b></label>
+                                <div class="controls">
+                                    <label data-bind="textMoney:tongtien"></label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="textfield" class="control-label"><b>Xác nhân đơn hàng</b></label>
+                                <div class="controls">
+                                    <label data-bind="text:confrimLable"></label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="textfield" class="control-label"><b>Ghi chú</b></label>
+                                <div class="controls">
+                                    <textarea rows="5" data-bind="value:ghichu" class="input-xxxlarge"></textarea>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="textfield" class="control-label"><b>Nội dung </b></label>
+                                <div class="controls">
+                                    <div data-bind="html:noidung"></div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--ko if: !dagiao()-->
+                    <button class="btn btn-primary" data-bind="click:$parent.giaohang" aria-hidden="true">Giao hàng</button>
+                    <!--/ko-->
+                    <!--ko if: !dahuy()-->
+                    <button class="btn btn-orange" data-bind="click:$parent.CancelOrder" aria-hidden="true">Hủy đơn hàng</button>
+                    <!--/ko-->
+                    <button class="btn btn-success" data-bind="click:$parent.ghichu" aria-hidden="true">Cập nhật</button>
+
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

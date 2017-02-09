@@ -1,0 +1,84 @@
+﻿@model IList<Babymart.Models.module_group>
+@{
+    ViewBag.Title = "Index";
+}
+@section SEOContent{
+
+    @foreach (var item in (List<Babymart.Models.sys_content>)FBabymartvn.ListContents("Game"))
+    {
+        if (!item.Name.Equals("H1"))
+        {
+            if (item.Name.Equals("title"))
+            {
+                <title>@item.Contents</title>
+            }
+
+            else
+            {
+                <meta name="@item.Name" content="@item.Contents" />
+            }
+        }
+    }
+}
+<h1 class="display-none">@FBabymartvn.GetContents("Game", "H1").Contents</h1>
+<div class="columns-container">
+    <div class="container" id="columns">
+        <!-- breadcrumb -->
+        <div class="breadcrumb clearfix">
+            <a class="home" href="/" title="Return to Home">Trang chủ</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span class="navigation_page">Game vui</span>
+        </div>
+        <!-- ./breadcrumb -->
+        <!-- row -->
+        <div class="row blog-cate">
+            <!-- Left colunm -->
+            <div class="column col-xs-12 col-sm-3 col-sm-push-9" id="left_column">
+                <!-- Blog category -->
+                @if (ViewBag.typemodule != null)
+                {
+                    Html.RenderAction("MenuModule", "Common", new { idtype = ViewBag.typemodule });
+                }
+                <!-- ./blog category  -->
+                <!-- Popular Posts --> 
+                    @{Html.RenderAction("GadgetsMagazine2", "Common");} 
+            </div>
+            <!-- ./left colunm -->
+            <!-- Center colunm-->
+            <div class="center_column col-xs-12 col-sm-9 col-sm-pull-3" id="center_column">
+                @foreach (var item in Model)
+                {
+                    var article = item.module_detail.Where(p => p.hide == false && p.StoreId == FBabymartvn.GetStoreId()).OrderBy(p => p.title).Take(8).ToList();
+            	    <div class="blog-list">
+                        <h3 class="page-heading">
+                            <a href="@("/game/danhmuc/" + item.url + ".html")"><span class="page-heading-title2">@item.title</span></a>
+                        </h3> 
+                        <ul class="blog-posts">
+                            @foreach (var item2 in article)
+                            {
+                            <li class="post-item col-sm-3 ">
+                                <article class="entry"> 
+                                    <div class="handbook-pic">
+                                        <div class="entry-thumb image-hover2">
+                                            <a href="@("/game/" + (item.url == "default" ? "-" : item.url) + "/" + item2.id + "/" + item2.url + ".html")" title="@item2.title">
+                                                <img src="@(Common.urlModule() + item2.img)" alt="@item2.title">
+                                            </a>
+                                        </div>
+                                        <h3 class="entry-title"><a href="@("/game/" + (item.url == "default" ? "-" : item.url) + "/" + item2.id + "/" + item2.url + ".html")" title="@item2.title">@item2.title</a></h3>
+                                    </div> 
+                                </article>
+                            </li>
+                            }
+                        </ul>  
+                    </div>  
+                }
+            </div>
+            <!-- ./ Center colunm -->
+        </div>
+        <!-- ./row-->
+    </div>
+</div> 
+
+
+
+

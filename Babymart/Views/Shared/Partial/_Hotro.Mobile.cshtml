@@ -1,0 +1,8 @@
+﻿@model IList<Babymart.Models.shop_page>
+@if (Model != null && Model.Count > 0)
+{
+    foreach (var item in Model)
+    {
+        <li><a href="@("/bai-viet/"+item.url+".html")">@(FBabymartvn.IsLangVNHasValue(item.tieude_us) ? item.tieude : item.tieude_us)</a></li>
+    }
+}

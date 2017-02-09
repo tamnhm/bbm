@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Errordirect";
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+@section scripts{
+    <script>
+        //$(document).ready(function () {
+        //    // Handler for .ready() called.
+        //    window.setTimeout(function () {
+        //        location.href = "/trang-chu.html";
+        //    }, 5000)
+        //});
+        window.onload = function () {
+            var countdownElement = document.getElementById('countdown'),
+                seconds = 10,
+                second = 0,
+                interval;
+            interval = setInterval(function () {
+                countdownElement.firstChild.data = (seconds - second);
+                if (second >= seconds) {
+                    clearInterval(interval);
+                    location.href = @(IsLangVN ? "/" : "/en");
+                }
+                second++;
+            }, 1000);
+        }
+    </script>
+}
+@section SEOContent{
+
+    @foreach (var item in (List<Babymart.Models.sys_content>)FBabymartvn.ListContents("Index"))
+    {
+        if (!item.Name.Equals("H1"))
+        {
+            if (item.Name.Equals("title"))
+            {
+                <title>@item.Contents</title>
+            }
+
+            else
+            {
+                <meta name="@item.Name" content="@item.Contents" />
+            }
+        }
+    }
+}
+@if (IsLangVN)
+{
+    <div class='clearfix layout-content-common' style="text-align:center">
+        <img src="~/Content/forntpage/images/error.png" />
+        <p style="font-size: 16px">Trang này không tồn tại, sẽ chuyển về trang chủ trong vòng <span id="countdown" style="font-weight:bold"> </span> giây, hoặc bạn bấm  <a href="/" title="Babymart.vn" style="color:blue">vào đây</a> để chuyển nhanh.</p>
+    </div>
+
+}
+else
+{
+    <div class='clearfix layout-content-common' style="text-align:center">
+        <img src="~/Content/forntpage/images/error.png" />
+        <p style="font-size: 16px">Page not found, auto redirect to home page about <span id="countdown" style="font-weight:bold"> </span> sencond , or click  <a href="/en" title="Babymart.vn" style="color:blue">here</a></p>
+    </div>
+
+}

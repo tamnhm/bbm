@@ -1,0 +1,32 @@
+﻿@{
+    var IsLangVN = FBabymartvn.IsLangVN();
+    var kh = Session["khachhang"] as Babymart.Models.Module.ModeCustomerPost;
+}
+<div class="mainMenuOuterWrapper">
+    <!-- main menu wrapper starts -->
+    <ul class="mainMenuWrapper">
+        <li class="currentPage"><a href="@(IsLangVN?"/":"/en")">Trang chủ</a></li>
+        <li><a href="/bai-viet/shop-me-va-be-do-so-sinh.html">@(IsLangVN ? "Giới thiệu" : "About us")</a></li>
+        @{Html.RenderAction("Support_Partial", "Common"); }
+        <li><a href="/lien-he.html">@(IsLangVN ? "Liên hệ" : "Contact")</a></li> 
+        @if(IsLangVN)
+        { 
+            <li><a href="/tuyen-dung.html">Tin tuyển dụng</a></li>
+        } 
+        else
+        {}
+        @if (kh != null)
+        {
+            <li>
+                @Html.ActionLink((IsLangVN ? "Đăng xuất" : "Login"), "Logout", "Customer", new { returnUrl = Request.RawUrl }, null)
+            </li>
+        }
+        else
+        {
+            <li><a href="/dang-ky.html">@(IsLangVN ? "Đăng ký" : "Register")</a></li>
+        }
+
+    </ul>
+    <!-- main menu wrapper ends -->
+    <div class="mainMenuBottomDecoration"></div>
+</div>

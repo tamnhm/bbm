@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Thongbao";
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+<style>
+    a.submit {
+        padding: 8px 10px;
+        border-radius: 5px;
+        border: 0px;
+        min-width: 80px;
+        background: #f9d105; /* Old browsers */
+        background: -moz-linear-gradient(top, #f9d105 0%, #ffb80e 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9d105), color-stop(100%,#ffb80e)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #f9d105 0%,#ffb80e 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #f9d105 0%,#ffb80e 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #f9d105 0%,#ffb80e 100%); /* IE10+ */
+        background: linear-gradient(to bottom, #f9d105 0%,#ffb80e 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9d105', endColorstr='#ffb80e',GradientType=0 ); /* IE6-9 */
+    }
+</style>
+<div id='login' class="columns-container">
+    <div class="container" id="columns">
+        <!-- breadcrumb -->
+        <div class="breadcrumb clearfix">
+            <a class="home" href="@(IsLangVN?"/":"/en")" title="Return to Home">@(IsLangVN ? "Trang chủ" : "Home")</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span class="navigation_page">@(IsLangVN ? "Thông báo - Babymart.vn" : "Notify - Babymart.vn")</span>
+        </div>
+        <h2 class="page-heading">
+            <span class="page-heading-title2">@(IsLangVN ? "Thông báo - Babymart.vn" : "Notify - Babymart.vn")</span>
+        </h2>
+        <div class='content clearfix' style="text-align:center">
+            @if (Session["khachhang"] != null)
+            {
+                var a = Session["khachhang"] as Babymart.Models.Module.ModeCustomerPost;
+
+                <h4 style="padding-top:20px">@(IsLangVN ? "Chào mừng " + a.tendn + " đăng nhập thành công" : "Welcome " + a.tendn + " login succeed") </h4>
+                <p style="padding-top:10px">@(IsLangVN ? "Bạn có thể xem và thay đổi thông tin tài khoản...." : "You can view and change your account")</p>
+                <p id="xacnhandh" style="margin-top:20px">
+                    <a href="/thong-tin-tai-khoan.html" class="order button" style="padding:10px">@(IsLangVN ? "Xem thông tin tài khoản" : "View Account")</a>
+                    <a href="@(IsLangVN ? "/" : "/en")" style="padding:10px" class="order button">@(IsLangVN ? "Trang chủ" : "Home")</a>
+                    @if (this.Session["ModelSessionCart"] != null)
+                    {
+                        <a href="@(FBabymartvn.IsMobileDevice() ? "/xac-nhan-2.html" : "/xac-nhan.html")" class="order button" style="padding:10px">@(IsLangVN ? "Tiếp tục đặt hàng" : "Continue order")</a>
+                    }
+                    @if (this.Session["PlanCart"] != null)
+                    {
+                        <a href="@(FBabymartvn.IsMobileDevice() ? "/xac-nhan-2-do-so-sinh.html" : "/xac-nhan-do-so-sinh.html")" class="order button" style="padding:10px">@(IsLangVN ? "Tiếp tục đặt hàng gói đồ sơ sinh" : "Continue order package newborn")</a>
+                    }
+
+
+                </p>
+            }
+
+        </div>
+    </div>
+</div> 

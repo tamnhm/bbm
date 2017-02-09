@@ -1,0 +1,11 @@
+﻿@{    var IsLangVN = FBabymartvn.IsLangVN();
+}
+<div class="col-sm-12 search-box">
+    @using (Html.BeginForm("SearchPost", "Shop", FormMethod.Post, new { @class = "form-inline",@id="searchForm" }))
+    { 
+        <div class="form-group input-serach">
+            <input type='text' name='search' value='' id='qsearch' placeholder="@(IsLangVN ? "Mẹ tìm gì cho bé..." : "What are you looking for...")">
+        </div>
+        <button id="btnSearch" type="submit" class="pull-right btn-search">@(IsLangVN ? "Tìm kiếm" : "Search")</button>
+    }
+</div> 

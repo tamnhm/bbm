@@ -1,0 +1,124 @@
+﻿<script id="PageEditTmpl" type="text/html">
+    <div class="row-fluid" data-bind="with:mPage">
+        <div class="span12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3><i class="icon-th-list"></i>Bài viết</h3>
+                </div>
+                <div class="box-content nopadding">
+                    <form class='form-horizontal form-bordered'>
+                        <div class="control-group">
+                            <div class="form-actions actionsz">
+                                <button data-bind="click:$parent.submit" class="btn btn-primary"><i class="icon-save"></i></button>
+                                <a class="btn" data-bind="attr:{href:$parent.linkback}"><i class="icon-arrow-left"> Hủy</i></a>
+
+                            </div>
+                        </div>
+                        <!--ko if: $parent.HasError() && $parent.Validator().errors().length > 0-->
+                        <div class="control-group error">
+                            <label for="textfield" class="control-label"><b>Lỗi</b></label>
+                            <div class="controls">
+                                <span data-bind="text: 'Có ' + $parent.Validator().errors().length + ' lỗi trên trang:'"></span>
+                                <ul data-bind="foreach: $parent.Validator().errors">
+                                    <li data-bind="text: $data"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--/ko-->
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Tiêu đề</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:tieude">
+                                <input type="text" class="input-xxxlarge margin-top-10" data-bind="value:tieude_us" placeholder="TA">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Ẩn /Hiện</b></label>
+                            <div class="controls">
+                                <div class="check-line">
+                                    <input type="checkbox" name="checshow" id="checshow" class="css-checkbox" data-bind="checked:hide,checkedValue:true">
+                                    <label for="checshow" class="css-label radGroup1 chk" style="width:100%"><b>Ẩn bài viết</b></label>
+
+                                </div>
+                                <div class="check-line">
+                                    <input type="checkbox" name="showmenu" id="showmenu" class="css-checkbox" data-bind="checked:showmenu,checkedValue:true">
+                                    <label for="showmenu" class="css-label radGroup1 chk" style="width:100%"><b>Hiển thị trên menu</b></label>
+
+                                </div>
+                                <div class="check-line">
+                                    <input type="checkbox" name="islinkout" id="islinkout" class="css-checkbox" data-bind="checked:islinkout,checkedValue:true">
+                                    <label for="islinkout" class="css-label radGroup1 chk" style="width:100%"><b>Link Out</b></label>
+
+                                </div>
+                                <div class="check-line">
+                                    <b>Sort</b>
+                                    <input type="text" data-bind="value:sort" placeholder="Index" style="width:30px">
+                                </div>
+                                <div class="check-line">
+                                    <b>Code Type</b>
+                                    <input type="text" data-bind="value:codetype" placeholder="KM" style="width:30px">
+                                    <ul>
+                                        <li><strong>"TD"</strong>- Tuyển dụng</li>
+                                        <li><strong>"HH"</strong>- Hỗ trợ</li>
+                                        <li><strong>"KM"</strong>- Khuyến mãi</li>
+                                        <li><strong>Lưu ý:</strong> Không được để trống, có thể nhập kí tự nào cũng được</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Hình ảnh</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:hinhanh">
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Url</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:url">
+
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Nội dung</b></label>
+                            <div class="controls">
+                                <!-- ko if:$parent.InitFinish() -->
+                                <textarea class="form-control" rows="10" data-bind="tinymce:noidung"></textarea>
+                                <p><b>(TA :)</b></p>
+                                <textarea class="form-control" rows="10" data-bind="tinymce:noidung_us"></textarea>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Meta Title</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:metatitle">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Meta Keywords</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:keywords">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Meta Description</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:description">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="form-actions actionsz">
+                                <button data-bind="click:$parent.submit" class="btn btn-primary"><i class="icon-save"></i></button>
+                                <a class="btn" data-bind="attr:{href:$parent.linkback}"><i class="icon-arrow-left"> Hủy</i></a>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

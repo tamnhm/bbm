@@ -1,0 +1,66 @@
+﻿@model IList<Babymart.Models.module_group>
+@{
+    ViewBag.Title = "Index";
+}
+@if (Model.Count > 0)
+{
+    <div id='product-detail' class='clearfix'>
+        <div class='top-container clearfix'>
+            @foreach (var item in Model)
+            {
+                var article = item.module_detail.Where(p => p.hide == false && p.StoreId == FBabymartvn.GetStoreId()).OrderByDescending(p => p.id).Take(4);
+                if (article.Count() > 0)
+                {
+                    <div class="wbox mageta game-latest catitem-hanh-dong">
+                        <h3 class="whd">
+
+                            <a href="@("/game/"+item.module_menu.url+"/"+item.url+".html")">
+                                @if (FBabymartvn.GetHttpCookieLang() == null
+                                            || FBabymartvn.GetHttpCookieLang().Value == null
+                                            || FBabymartvn.GetHttpCookieLang().Value == "vn"
+                                            || String.IsNullOrEmpty(item.title_us))
+                                {
+                                    @item.title
+                                }
+                                else
+                                {
+                                    @item.title_us
+                                }
+                            </a>
+                        </h3>
+                        <div class="wbd">
+                            <ul class="listview clearfix">
+                                @foreach (var item2 in article)
+                                {
+                                    <li class="gameitem newgame">
+                                        <a href="@("/game/"+item2.module_group.url +"/"+item2.id+"/"+item2.url+".html")" title="@item2.title">
+                                            <span class="thumb">
+                                                <img alt="@item2.title" src="@(Common.urlModule()+item2.img)" class="lazy" style="display: block;">
+                                            </span><span class="title">
+                                                @if (FBabymartvn.GetHttpCookieLang() == null
+                                            || FBabymartvn.GetHttpCookieLang().Value == null
+                                            || FBabymartvn.GetHttpCookieLang().Value == "vn"
+                                            || String.IsNullOrEmpty(item2.title_us))
+                                                {
+                                                    @item2.title
+                                                }
+                                                else
+                                                {
+                                                    @item2.title_us
+                                                }
+                                            </span>
+                                            <span class="icon-new icon-status"></span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                }
+
+            }
+        </div><!-- end block -->
+
+
+    </div>
+}

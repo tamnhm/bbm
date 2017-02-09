@@ -1,0 +1,92 @@
+﻿@{
+}
+<!DOCTYPE html>
+<!--[if lt IE 8]>      <html class="no-js lt-ie10 lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie10 lt-ie9"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<!-- Mirrored from www.proteusthemes.com/themes/webmarket-html/checkout-step-1.html by HTTrack Website Copier/3.x [XR&CO'2013], Fri, 01 Nov 2013 11:56:12 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <title>Babymart.vn</title>
+    <link href="~/Content/img/data/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    @*<link href="/Content/checkout/stylesheets/bootstrap.css" rel="stylesheet">*@
+    <link href="/Content/checkout/stylesheets/responsive.css" rel="stylesheet">
+    <link href="/Content/checkout/stylesheets/main.css" rel="stylesheet">
+
+    <link href="/Content/checkout/style.css" media="screen" rel="stylesheet" type="text/css">
+     
+    <script type="text/javascript" src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="~/Scripts/forntpage/jquery-1.11.2.min.js"></script>
+    <script src="/Scripts/me/flat/bootstrap.min.js"></script>
+    <script src="/Scripts/me/flat/plugins/bootbox/jquery.bootbox.js"></script>
+    <link rel="stylesheet" href="/Content/me/css/bootstrap.min.css">
+    @RenderSection("SEOContent", required: false)
+    @Scripts.Render("~/bundles/commonjs_ko") 
+    <script>
+        function imgError(image) {
+            image.onerror = "";
+            image.src = "/Content/img/imgerror.png";
+            return true;
+        }
+    </script>
+    <style>
+        /*.modal-body table tr td:first-child {
+                width: 200px;
+           }*/
+        .form-kh lable {
+            padding-top: 5px;
+        }
+
+        .validationMessage, .error {
+            color: red;
+            padding-left: 10px;
+            float:right
+        }   
+    </style>
+    @RenderSection("scripts", required: false)
+
+</head>
+<body class=" checkout-page">
+
+    <div class="master-wrapper">
+
+
+
+        <div class="container">
+            <div class="row">
+
+                <!--  ==========  -->
+                <!--  = Main content =  -->
+                <!--  ==========  -->
+                <section class="span12">
+
+                    <div class="checkout-container">
+                        <div class="row">
+                            <div class="span10 offset1">
+
+                                <!--  ==========  -->
+                                <!--  = Header =  -->
+                                <!--  ==========  -->
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+
+
+                </section> <!-- /main content -->
+
+            </div>
+        </div> <!-- /container -->
+
+
+
+
+    </div> <!-- end of master-wrapper -->
+    @RenderSection("templates", required: false)
+</body>
+</html>

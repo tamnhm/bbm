@@ -1,0 +1,85 @@
+﻿@{
+    var controller = FBabymartvn.ControllerNameCurrent();
+    var IsLangVN = FBabymartvn.IsLangVN();
+
+}
+<div class="top-header">
+    <div class="container">
+        <div class="nav-top-links">
+
+            <a id="phoneheader">&nbsp;</a><a class="first-item" href="#">@(IsLangVN ? "84.8.6672.0909 - 84.8.3812.3813 - 84.8.3813.0245 | Hotline: 0909.324.824" : "Hotline: 0918.644.643")</a>
+        </div>
+        <div id="language" class="pull-right" style="margin-right: 55px;">
+            <div class="language">
+                <a href="/"><div class="flag-vn"></div></a>
+                <a href="/en"><div class="flag-en"></div></a>
+            </div>
+        </div>
+        @if (FBabymartvn.GetStoreId() == 1000 && IsLangVN)
+        {
+            <div class="currency pull-right">
+                <a href="/cam-nang.html" title=''><i class="fa fa-book"></i> Cẩm nang</a>
+            </div>
+            @*<div class="support-link">
+                    <div class="dropdown">
+                        <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>Giải trí cho bé</span></a>
+                        <ul class="dropdown-menu mega_dropdown" role="menu">
+                            @if (controller.ToString() != "Game")
+                            {
+                                <li><a href="/game.html"><img src="~/Content/forntpage/images/ui/System-Game-Controllers-icon.png" width="30" height="30" />Game vui</a></li>
+                            }
+                            @if (controller.ToString() != "Music")
+                            {
+                                <li><a href="/am-nhac.html"><img src="~/Content/forntpage/images/ui/music-note-SH-icon.png" width="30" height="30" />Nhạc của bé</a></li>
+                            }
+                            @if (controller.ToString() != "Cartoon")
+                            {
+                                <li><a href="/hoat-hinh.html" title=''><img src="~/Content/forntpage/images/ui/smurf-house-icon.png" width="30" height="30" />Phim hoạt hình</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>*@
+        }
+        <div class="support-link">
+            <div class="dropdown">
+                <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>@(IsLangVN ? "Hỗ trợ khách hàng" : "Support")</span></a>
+                <ul class="dropdown-menu mega_dropdown" role="menu">
+                    @{Html.RenderAction("Support_Partial", "Common"); }
+                </ul>
+            </div>
+        </div>
+        @Html.Partial("Partial/_Loginbar")
+    </div>
+</div>
+<div class="container main-header">
+    <div class="row">
+        <div class="col-xs-12 col-sm-3 logo">
+            <a href='@(IsLangVN?"/":"/en")' title='babymart'>
+                @if (IsLangVN)
+                {<img width="270" height="55" alt="babymart.vn" src="~/Content/forntpage/images/ui/logo.png" style="margin-top: 15px;" />}
+                else
+                {<img width="270" height="55" alt="babymart.vn" src="~/Content/forntpage/images/ui/logo-TA.png" />}
+            </a>
+        </div>
+        <div class="col-xs-7 col-sm-9 col-md-7 header-search-box">
+            <div class="row">
+                @Html.Partial("Partial/_Search")
+                <div class="col-sm-12">
+                    <ol class="nav-menu">
+                        <li><a href="@(IsLangVN?"/":"/en")" title='Trang chủ'>@(IsLangVN ? "Trang chủ" : "Home")</a></li>
+                        <li><a href="/bai-viet/shop-me-va-be-do-so-sinh.html">@(IsLangVN ? "Giới thiệu" : "About us")</a></li>
+                        <li><a href="/lien-he.html">@(IsLangVN ? "Liên hệ" : "Contact")</a></li>
+                        @if (IsLangVN)
+                        {
+                            <li><a href="/tuyen-dung.html">Tin tuyển dụng</a></li>
+                        }
+                        else
+                        { }
+                    </ol>
+                </div>
+            </div>
+        </div>
+        @{Html.RenderAction("Cart", "Common");}
+    </div>
+
+</div>  

@@ -1,0 +1,2918 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="babymart_vnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="admin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Roles" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="admin_role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminId" Type="int" Nullable="false" />
+          <Property Name="Role" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="350" />
+        </EntityType>
+        <EntityType Name="cart">
+          <Key>
+            <PropertyRef Name="RecordId" />
+          </Key>
+          <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CartId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductId" Type="bigint" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="donhang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="makh" Type="int" />
+          <Property Name="diemsp" Type="int" />
+          <Property Name="vanglai" Type="int" />
+          <Property Name="ghichu" Type="ntext" />
+          <Property Name="noidung" Type="nvarchar(max)" />
+          <Property Name="ship" Type="int" />
+          <Property Name="tongtien" Type="bigint" />
+          <Property Name="idgiogiao" Type="int" />
+          <Property Name="ngaydat" Type="smalldatetime" />
+          <Property Name="pttt" Type="int" />
+          <Property Name="ptgh" Type="int" />
+          <Property Name="typeconfim" Type="int" />
+          <Property Name="dagiao" Type="bit" />
+          <Property Name="ngaygiao" Type="smalldatetime" />
+          <Property Name="datru_diem" Type="int" />
+          <Property Name="dahuy" Type="bit" />
+          <Property Name="ngayhuy" Type="smalldatetime" />
+          <Property Name="thongtinxedo" Type="nvarchar" MaxLength="650" />
+          <Property Name="tinhtrang" Type="nchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="donhang_chuyenphat_tp_tinhtra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IpTp" Type="int" />
+          <Property Name="IdTinhtra" Type="int" />
+          <Property Name="Tentinhtra" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="donhang_ct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sodh" Type="bigint" Nullable="false" />
+          <Property Name="IdPro" Type="bigint" Nullable="false" />
+          <Property Name="Soluong" Type="int" Nullable="false" />
+          <Property Name="Dongia" Type="int" />
+        </EntityType>
+        <EntityType Name="donhang_gio_giaohang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="350" />
+        </EntityType>
+        <EntityType Name="donhang-chuyenphat_tinh">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idtp" Type="int" />
+          <Property Name="tentinh" Type="nvarchar" MaxLength="50" />
+          <Property Name="tentinh_us" Type="nvarchar" MaxLength="50" />
+          <Property Name="vungsau" Type="bit" />
+          <Property Name="ship" Type="decimal" Precision="18" Scale="4" />
+        </EntityType>
+        <EntityType Name="donhang-chuyenphat_tp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tentp" Type="nvarchar" MaxLength="150" />
+          <Property Name="tentp_us" Type="nvarchar" MaxLength="150" />
+          <Property Name="mavung" Type="char" MaxLength="1" />
+          <Property Name="thoigian" Type="nvarchar" MaxLength="50" />
+          <Property Name="idtinhtra" Type="int" />
+          <Property Name="uutien" Type="char" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="donhang-chuyenphat_vung">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kilogram" Type="float" />
+          <Property Name="mavung" Type="char" MaxLength="1" />
+          <Property Name="ship" Type="int" />
+        </EntityType>
+        <EntityType Name="khachhang">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idtp" Type="int" />
+          <Property Name="idquan" Type="int" />
+          <Property Name="hoten" Type="nvarchar" MaxLength="750" Nullable="false" />
+          <Property Name="duong" Type="nvarchar" MaxLength="900" Nullable="false" />
+          <Property Name="dienthoai" Type="varchar" MaxLength="105" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="tendn" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="matkhau" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="diem" Type="varchar" MaxLength="30" />
+          <Property Name="konhanmail" Type="bit" Nullable="false" />
+          <Property Name="ngaydangky" Type="date" />
+        </EntityType>
+        <EntityType Name="khachhang_lienhe">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="250" />
+          <Property Name="Contents" Type="ntext" />
+        </EntityType>
+        <EntityType Name="khachhang-vanglai">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hoten" Type="nvarchar" MaxLength="250" />
+          <Property Name="dienthoai" Type="varchar" MaxLength="15" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="duong" Type="nvarchar" MaxLength="500" />
+          <Property Name="idquan" Type="int" />
+          <Property Name="idtp" Type="int" />
+        </EntityType>
+        <EntityType Name="module-detail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="title" Type="nvarchar" MaxLength="350" />
+          <Property Name="title_us" Type="nvarchar" MaxLength="350" />
+          <Property Name="groupid" Type="int" />
+          <Property Name="typlemodule" Type="int" />
+          <Property Name="menuid" Type="int" />
+          <Property Name="extract" Type="ntext" />
+          <Property Name="extract_us" Type="ntext" />
+          <Property Name="contents" Type="ntext" />
+          <Property Name="contents_us" Type="ntext" />
+          <Property Name="img" Type="varchar" MaxLength="150" />
+          <Property Name="description" Type="ntext" />
+          <Property Name="keyword" Type="nvarchar" MaxLength="350" />
+          <Property Name="url" Type="nvarchar" MaxLength="250" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="hide" Type="bit" />
+        </EntityType>
+        <EntityType Name="module-group">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="title" Type="nvarchar" MaxLength="150" />
+          <Property Name="title_us" Type="nvarchar" MaxLength="350" />
+          <Property Name="url" Type="nvarchar" MaxLength="50" />
+          <Property Name="idmenu" Type="int" />
+          <Property Name="showhome" Type="int" />
+          <Property Name="des" Type="nvarchar" MaxLength="550" />
+          <Property Name="keyword" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="module-menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="tenloai" Type="nvarchar" MaxLength="250" />
+          <Property Name="tenloai_us" Type="nvarchar" MaxLength="250" />
+          <Property Name="typemodule" Type="int" />
+          <Property Name="url" Type="varchar" MaxLength="150" />
+          <Property Name="des" Type="nvarchar" MaxLength="550" />
+          <Property Name="keyword" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="shop_danhmuc_group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="550" />
+          <Property Name="name_us" Type="nvarchar" MaxLength="550" />
+          <Property Name="url" Type="varchar" MaxLength="250" />
+          <Property Name="background" Type="varchar" MaxLength="450" />
+          <Property Name="icon" Type="varchar" MaxLength="250" />
+          <Property Name="sort" Type="int" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="noidung" Type="ntext" />
+        </EntityType>
+        <EntityType Name="shop_page">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="codetype" Type="varchar" MaxLength="20" />
+          <Property Name="tieude" Type="nvarchar" MaxLength="550" />
+          <Property Name="tieude_us" Type="nvarchar" MaxLength="550" />
+          <Property Name="hinhanh" Type="varchar" MaxLength="50" />
+          <Property Name="titlemenu" Type="nvarchar" MaxLength="50" />
+          <Property Name="noidung" Type="ntext" />
+          <Property Name="noidung_us" Type="ntext" />
+          <Property Name="ngayviet" Type="smalldatetime" />
+          <Property Name="islinkout" Type="bit" />
+          <Property Name="showmenu" Type="bit" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="url" Type="varchar" MaxLength="550" />
+          <Property Name="sort" Type="int" />
+          <Property Name="metatitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="keywords" Type="nvarchar" MaxLength="250" />
+          <Property Name="description" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="shop_plan_saleoff">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="ntext" />
+          <Property Name="OperatorOption" Type="varchar" MaxLength="20" />
+          <Property Name="OperatorValue" Type="int" />
+          <Property Name="Visible" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="shop_plan_type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="250" />
+          <Property Name="Type_us" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="shop_showhome">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tieude" Type="nvarchar" MaxLength="50" />
+          <Property Name="mota" Type="ntext" />
+          <Property Name="get" Type="int" />
+        </EntityType>
+        <EntityType Name="shop-bienthe">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idsp" Type="int" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="title_us" Type="nvarchar" MaxLength="50" />
+          <Property Name="gia" Type="int" />
+          <Property Name="giasosanh" Type="int" />
+          <Property Name="isdelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="shop-collection">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idloai" Type="int" />
+          <Property Name="iddm" Type="int" />
+          <Property Name="iddmc" Type="int" />
+          <Property Name="idsp" Type="int" />
+          <Property Name="lable" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="shop-danhmuc">
+          <Key>
+            <PropertyRef Name="madanhmuc" />
+          </Key>
+          <Property Name="madanhmuc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="groupId" Type="int" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="tendanhmuc" Type="nvarchar" MaxLength="250" />
+          <Property Name="tendanhmuc_us" Type="nvarchar" MaxLength="250" />
+          <Property Name="noidung" Type="ntext" />
+          <Property Name="noidung_us" Type="ntext" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="maloai" Type="int" />
+          <Property Name="meta_keyword" Type="nvarchar" MaxLength="350" />
+          <Property Name="meta_description" Type="ntext" />
+          <Property Name="meta_title" Type="nvarchar" MaxLength="350" />
+          <Property Name="meta_keyword_us" Type="nvarchar" MaxLength="350" />
+          <Property Name="meta_description_us" Type="ntext" />
+          <Property Name="meta_title_us" Type="nvarchar" MaxLength="350" />
+          <Property Name="url" Type="varchar" MaxLength="150" />
+          <Property Name="url_us" Type="varchar" MaxLength="150" />
+          <Property Name="background" Type="varchar" MaxLength="150" />
+          <Property Name="sort" Type="int" Nullable="false" />
+          <Property Name="icon" Type="varchar" MaxLength="150" />
+          <Property Name="css" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="shop-danhmuccon">
+          <Key>
+            <PropertyRef Name="madanhmuccon" />
+          </Key>
+          <Property Name="madanhmuccon" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="grouplink" Type="nvarchar" MaxLength="350" />
+          <Property Name="grouplink_us" Type="nvarchar" MaxLength="350" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="tendanhmuccon" Type="nvarchar" MaxLength="50" />
+          <Property Name="tendanhmuccon_us" Type="nvarchar" MaxLength="50" />
+          <Property Name="madanhmuc" Type="int" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="noidung" Type="ntext" />
+          <Property Name="noidung_us" Type="ntext" />
+          <Property Name="hinhanh" Type="varchar" MaxLength="70" />
+          <Property Name="metatitle" Type="nvarchar" MaxLength="350" />
+          <Property Name="metakeywords" Type="nvarchar" MaxLength="350" />
+          <Property Name="metadescription" Type="nvarchar" MaxLength="350" />
+          <Property Name="metatitle_us" Type="nvarchar" MaxLength="350" />
+          <Property Name="metakeywords_us" Type="nvarchar" MaxLength="350" />
+          <Property Name="metadescription_us" Type="nvarchar" MaxLength="350" />
+          <Property Name="url" Type="varchar" MaxLength="350" />
+          <Property Name="url_us" Type="varchar" MaxLength="350" />
+          <Property Name="color" Type="varchar" MaxLength="100" />
+          <Property Name="sort" Type="int" />
+          <Property Name="css" Type="varchar" MaxLength="550" />
+          <Property Name="ma_loai" Type="int" />
+          <Property Name="uutien" Type="int" />
+        </EntityType>
+        <EntityType Name="shop-image">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefId" Type="int" />
+          <Property Name="url" Type="varchar" MaxLength="250" />
+          <Property Name="alt" Type="nvarchar" MaxLength="150" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="ImgPrimary" Type="bit" />
+        </EntityType>
+        <EntityType Name="shop-loai">
+          <Key>
+            <PropertyRef Name="maloai" />
+          </Key>
+          <Property Name="maloai" Type="int" Nullable="false" />
+          <Property Name="tenloai" Type="nvarchar" MaxLength="50" />
+          <Property Name="title" Type="nvarchar" MaxLength="550" />
+          <Property Name="metadescription" Type="nvarchar" MaxLength="550" />
+          <Property Name="metakeywords" Type="nvarchar" MaxLength="550" />
+          <Property Name="banner-top-con" Type="ntext" />
+          <Property Name="link" Type="varchar" MaxLength="70" />
+          <Property Name="hinh" Type="varchar" MaxLength="100" />
+          <Property Name="km" Type="bit" />
+          <Property Name="banner-top" Type="ntext" />
+        </EntityType>
+        <EntityType Name="shop-phanloai_dotuoi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dotuoi" Type="nvarchar" MaxLength="50" />
+          <Property Name="grouptuoi" Type="int" />
+        </EntityType>
+        <EntityType Name="shop-rightcol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="img" Type="varchar" MaxLength="150" />
+          <Property Name="url" Type="varchar" MaxLength="150" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="alt" Type="nvarchar" MaxLength="150" />
+          <Property Name="title" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="shop-sanpham">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="masp" Type="nchar" MaxLength="10" />
+          <Property Name="maloai" Type="int" />
+          <Property Name="mahieu" Type="int" />
+          <Property Name="plantype" Type="int" />
+          <Property Name="tensp" Type="nvarchar" MaxLength="250" />
+          <Property Name="tensp_us" Type="nvarchar" MaxLength="250" />
+          <Property Name="typeshowhome" Type="int" />
+          <Property Name="thongtin" Type="ntext" />
+          <Property Name="thongtin_us" Type="ntext" />
+          <Property Name="spurl" Type="varchar" MaxLength="350" />
+          <Property Name="spurl_us" Type="varchar" MaxLength="350" />
+          <Property Name="sptitle" Type="nvarchar" MaxLength="250" />
+          <Property Name="sptitle_us" Type="nvarchar" MaxLength="250" />
+          <Property Name="spdescription" Type="nvarchar" MaxLength="350" />
+          <Property Name="spdescription_us" Type="nvarchar" MaxLength="350" />
+          <Property Name="spkeywords_us" Type="nvarchar" MaxLength="350" />
+          <Property Name="spkeywords" Type="nvarchar" MaxLength="350" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="chitiet" Type="ntext" />
+          <Property Name="chitiet_us" Type="ntext" />
+          <Property Name="douutien" Type="int" />
+          <Property Name="ischeckout" Type="bit" />
+          <Property Name="ischecksaleoff" Type="bit" />
+          <Property Name="ischeckgift" Type="bit" />
+          <Property Name="gift" Type="ntext" />
+          <Property Name="countsale" Type="int" />
+          <Property Name="timeend" Type="date" />
+          <Property Name="kg" Type="float" />
+          <Property Name="chieudai" Type="float" />
+          <Property Name="chieurong" Type="float" />
+          <Property Name="chieucao" Type="float" />
+          <Property Name="chieudaisd" Type="float" />
+          <Property Name="chieurongsd" Type="float" />
+          <Property Name="chieucaosd" Type="float" />
+          <Property Name="showkg" Type="bit" />
+          <Property Name="showcm" Type="bit" />
+          <Property Name="showhome" Type="bit" />
+          <Property Name="showbanner" Type="bit" />
+          <Property Name="showsptangkemvaomuckm" Type="bit" />
+        </EntityType>
+        <EntityType Name="shop-thuonghieu">
+          <Key>
+            <PropertyRef Name="mahieu" />
+          </Key>
+          <Property Name="mahieu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="tenhieu" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="tenhieu_us" Type="nvarchar" MaxLength="150" />
+          <Property Name="noidung" Type="ntext" />
+          <Property Name="noidung_us" Type="ntext" />
+          <Property Name="hinh" Type="varchar" MaxLength="100" />
+          <Property Name="url" Type="varchar" MaxLength="100" />
+          <Property Name="sort_metro" Type="int" />
+          <Property Name="showhome" Type="bit" />
+          <Property Name="metakeywords" Type="nvarchar" MaxLength="350" />
+          <Property Name="metadescription" Type="nvarchar" MaxLength="350" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="maloai" Type="int" />
+        </EntityType>
+        <EntityType Name="support-cauhoi">
+          <Key>
+            <PropertyRef Name="mach" />
+          </Key>
+          <Property Name="mach" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cauhoi" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="traloi" Type="ntext" Nullable="false" />
+          <Property Name="nguon" Type="nvarchar" MaxLength="50" />
+          <Property Name="maloai" Type="int" />
+          <Property Name="ma_hieu" Type="int" />
+          <Property Name="ma_sp" Type="int" />
+        </EntityType>
+        <EntityType Name="support-feedback">
+          <Key>
+            <PropertyRef Name="ma" />
+          </Key>
+          <Property Name="ma" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ten" Type="nvarchar" MaxLength="150" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="sdt" Type="varchar" MaxLength="20" />
+          <Property Name="noidung" Type="ntext" />
+          <Property Name="ngay" Type="smalldatetime" />
+          <Property Name="doc" Type="bit" />
+        </EntityType>
+        <EntityType Name="support-silder">
+          <Key>
+            <PropertyRef Name="ma" />
+          </Key>
+          <Property Name="ma" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="maloai" Type="int" />
+          <Property Name="noidung" Type="nvarchar" MaxLength="400" />
+          <Property Name="show" Type="bit" />
+          <Property Name="link" Type="varchar" MaxLength="100" />
+          <Property Name="img" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="support-textlink">
+          <Key>
+            <PropertyRef Name="ma" />
+          </Key>
+          <Property Name="ma" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="textlink" Type="ntext" />
+          <Property Name="maloai" Type="int" />
+          <Property Name="vetinh" Type="int" />
+        </EntityType>
+        <EntityType Name="sys_Banner">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Banner" Type="varchar" MaxLength="550" />
+          <Property Name="Banner_us" Type="varchar" MaxLength="550" />
+          <Property Name="Type" Type="int" />
+          <Property Name="Hide" Type="bit" />
+          <Property Name="Link" Type="varchar" MaxLength="150" />
+          <Property Name="Link_us" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="sys_content">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="Type" Type="nvarchar" MaxLength="150" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="Name_us" Type="nvarchar" MaxLength="150" />
+          <Property Name="Contents" Type="nvarchar(max)" />
+          <Property Name="Contents_us" Type="nvarchar(max)" />
+          <Property Name="hide" Type="bit" />
+        </EntityType>
+        <EntityType Name="sys_mail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="titile" Type="nvarchar" MaxLength="250" />
+          <Property Name="contents" Type="ntext" />
+          <Property Name="type" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sys_tags_Ref">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefId" Type="int" />
+          <Property Name="RefTag" Type="int" />
+          <Property Name="RefCollection" Type="int" />
+          <Property Name="Type" Type="int" />
+          <Property Name="TypeCollection" Type="int" />
+        </EntityType>
+        <EntityType Name="sys_tags_Summary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tags" Type="nvarchar" MaxLength="500" />
+          <Property Name="RefType" Type="int" />
+        </EntityType>
+        <EntityType Name="sys-account-admin">
+          <Key>
+            <PropertyRef Name="ma" />
+          </Key>
+          <Property Name="ma" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tendn" Type="varchar" MaxLength="100" />
+          <Property Name="pass" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="sys-bangtin_conhang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nguoinhanbangtin" Type="int" />
+          <Property Name="idsp" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="sys-file">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="Files" Type="varchar" MaxLength="350" Nullable="false" />
+          <Property Name="Files_us" Type="varchar" MaxLength="350" />
+          <Property Name="type" Type="int" Nullable="false" />
+          <Property Name="link" Type="varchar" MaxLength="150" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="sort" Type="int" />
+        </EntityType>
+        <EntityType Name="sys-imagetype">
+          <Key>
+            <PropertyRef Name="idtype" />
+          </Key>
+          <Property Name="idtype" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refid" Type="int" />
+          <Property Name="hide" Type="bit" />
+        </EntityType>
+        <EntityType Name="sys-nhanbangtin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hoten" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="diachi" Type="nvarchar" MaxLength="50" />
+          <Property Name="sdt" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="dh_ctDH">
+          <End Role="donhang" Type="Self.donhang" Multiplicity="1" />
+          <End Role="donhang_ct" Type="Self.donhang_ct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="donhang">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="donhang_ct">
+              <PropertyRef Name="Sodh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="dh_sp">
+          <End Role="shop-bienthe" Type="Self.shop-bienthe" Multiplicity="1" />
+          <End Role="donhang_ct" Type="Self.donhang_ct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop-bienthe">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="donhang_ct">
+              <PropertyRef Name="IdPro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bangtin_conhang_nhanbangtin">
+          <End Role="sys-nhanbangtin" Type="Self.sys-nhanbangtin" Multiplicity="0..1" />
+          <End Role="sys-bangtin_conhang" Type="Self.sys-bangtin_conhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys-nhanbangtin">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys-bangtin_conhang">
+              <PropertyRef Name="nguoinhanbangtin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bangtin_conhang_sanpham">
+          <End Role="shop-sanpham" Type="Self.shop-sanpham" Multiplicity="0..1" />
+          <End Role="sys-bangtin_conhang" Type="Self.sys-bangtin_conhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop-sanpham">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys-bangtin_conhang">
+              <PropertyRef Name="idsp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bienthe_sanpham1">
+          <End Role="shop-sanpham" Type="Self.shop-sanpham" Multiplicity="0..1" />
+          <End Role="shop-bienthe" Type="Self.shop-bienthe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop-sanpham">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="shop-bienthe">
+              <PropertyRef Name="idsp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_shop-bienthe">
+          <End Role="shop-bienthe" Type="Self.shop-bienthe" Multiplicity="1" />
+          <End Role="cart" Type="Self.cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop-bienthe">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cart">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_collection_danhmuccon">
+          <End Role="shop-danhmuccon" Type="Self.shop-danhmuccon" Multiplicity="0..1" />
+          <End Role="shop-collection" Type="Self.shop-collection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop-danhmuccon">
+              <PropertyRef Name="madanhmuccon" />
+            </Principal>
+            <Dependent Role="shop-collection">
+              <PropertyRef Name="iddmc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_collection_sanpham">
+          <End Role="shop-sanpham" Type="Self.shop-sanpham" Multiplicity="0..1" />
+          <End Role="shop-collection" Type="Self.shop-collection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop-sanpham">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="shop-collection">
+              <PropertyRef Name="idsp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_danhmu_loai">
+          <End Role="shop-loai" Type="Self.shop-loai" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="shop-danhmuc" Type="Self.shop-danhmuc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop-loai">
+              <PropertyRef Name="maloai" />
+            </Principal>
+            <Dependent Role="shop-danhmuc">
+              <PropertyRef Name="maloai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_danhmuc_con">
+          <End Role="shop-danhmuc" Type="Self.shop-danhmuc" Multiplicity="0..1" />
+          <End Role="shop-danhmuccon" Type="Self.shop-danhmuccon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop-danhmuc">
+              <PropertyRef Name="madanhmuc" />
+            </Principal>
+            <Dependent Role="shop-danhmuccon">
+              <PropertyRef Name="madanhmuc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_donhang-chuyenphat_tinh_donhang-chuyenphat_tp">
+          <End Role="donhang-chuyenphat_tp" Type="Self.donhang-chuyenphat_tp" Multiplicity="0..1" />
+          <End Role="donhang-chuyenphat_tinh" Type="Self.donhang-chuyenphat_tinh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="donhang-chuyenphat_tp">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="donhang-chuyenphat_tinh">
+              <PropertyRef Name="idtp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_image_sanpham">
+          <End Role="shop-sanpham" Type="Self.shop-sanpham" Multiplicity="0..1" />
+          <End Role="shop-image" Type="Self.shop-image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop-sanpham">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="shop-image">
+              <PropertyRef Name="RefId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KHHH_DH">
+          <End Role="khachhang" Type="Self.khachhang" Multiplicity="0..1" />
+          <End Role="donhang" Type="Self.donhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="khachhang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="donhang">
+              <PropertyRef Name="makh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_maloai_nhanhieu">
+          <End Role="shop-danhmuccon" Type="Self.shop-danhmuccon" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="support-cauhoi" Type="Self.support-cauhoi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop-danhmuccon">
+              <PropertyRef Name="madanhmuccon" />
+            </Principal>
+            <Dependent Role="support-cauhoi">
+              <PropertyRef Name="ma_hieu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_maloai_sanpham">
+          <End Role="shop-sanpham" Type="Self.shop-sanpham" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="support-cauhoi" Type="Self.support-cauhoi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop-sanpham">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="support-cauhoi">
+              <PropertyRef Name="ma_sp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_maloai_Silder">
+          <End Role="shop-loai" Type="Self.shop-loai" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="support-silder" Type="Self.support-silder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop-loai">
+              <PropertyRef Name="maloai" />
+            </Principal>
+            <Dependent Role="support-silder">
+              <PropertyRef Name="maloai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_maloai_textlink223">
+          <End Role="shop-loai" Type="Self.shop-loai" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="support-textlink" Type="Self.support-textlink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop-loai">
+              <PropertyRef Name="maloai" />
+            </Principal>
+            <Dependent Role="support-textlink">
+              <PropertyRef Name="maloai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_module-detail_module-group">
+          <End Role="module-group" Type="Self.module-group" Multiplicity="0..1" />
+          <End Role="module-detail" Type="Self.module-detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="module-group">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="module-detail">
+              <PropertyRef Name="groupid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_module-detail_module-menu">
+          <End Role="module-menu" Type="Self.module-menu" Multiplicity="0..1" />
+          <End Role="module-detail" Type="Self.module-detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="module-menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="module-detail">
+              <PropertyRef Name="menuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_module-group_module-menu">
+          <End Role="module-menu" Type="Self.module-menu" Multiplicity="0..1" />
+          <End Role="module-group" Type="Self.module-group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="module-menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="module-group">
+              <PropertyRef Name="idmenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_nguoinhan_quan">
+          <End Role="donhang-chuyenphat_tp" Type="Self.donhang-chuyenphat_tp" Multiplicity="0..1" />
+          <End Role="khachhang-vanglai" Type="Self.khachhang-vanglai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="donhang-chuyenphat_tp">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="khachhang-vanglai">
+              <PropertyRef Name="idtp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_shop-sanpham_shop_showhome">
+          <End Role="shop_showhome" Type="Self.shop_showhome" Multiplicity="0..1" />
+          <End Role="shop-sanpham" Type="Self.shop-sanpham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_showhome">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="shop-sanpham">
+              <PropertyRef Name="typeshowhome" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sp_ma_phanloai_nhanhieu">
+          <End Role="shop-thuonghieu" Type="Self.shop-thuonghieu" Multiplicity="0..1" />
+          <End Role="shop-sanpham" Type="Self.shop-sanpham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop-thuonghieu">
+              <PropertyRef Name="mahieu" />
+            </Principal>
+            <Dependent Role="shop-sanpham">
+              <PropertyRef Name="mahieu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sys_tags_Ref_sys_tags_Summary">
+          <End Role="sys_tags_Summary" Type="Self.sys_tags_Summary" Multiplicity="0..1" />
+          <End Role="sys_tags_Ref" Type="Self.sys_tags_Ref" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_tags_Summary">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="sys_tags_Ref">
+              <PropertyRef Name="RefTag" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Thuonghieu_Loai">
+          <End Role="shop-loai" Type="Self.shop-loai" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="shop-thuonghieu" Type="Self.shop-thuonghieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop-loai">
+              <PropertyRef Name="maloai" />
+            </Principal>
+            <Dependent Role="shop-thuonghieu">
+              <PropertyRef Name="maloai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vanglai_dh">
+          <End Role="khachhang-vanglai" Type="Self.khachhang-vanglai" Multiplicity="0..1" />
+          <End Role="donhang" Type="Self.donhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="khachhang-vanglai">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="donhang">
+              <PropertyRef Name="vanglai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="babymart_vnModelStoreContainer">
+          <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="admin_role" EntityType="Self.admin_role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cart" EntityType="Self.cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="donhang" EntityType="Self.donhang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="donhang_chuyenphat_tp_tinhtra" EntityType="Self.donhang_chuyenphat_tp_tinhtra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="donhang_ct" EntityType="Self.donhang_ct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="donhang_gio_giaohang" EntityType="Self.donhang_gio_giaohang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="donhang-chuyenphat_tinh" EntityType="Self.donhang-chuyenphat_tinh" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="donhang-chuyenphat_tp" EntityType="Self.donhang-chuyenphat_tp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="donhang-chuyenphat_vung" EntityType="Self.donhang-chuyenphat_vung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="khachhang" EntityType="Self.khachhang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="khachhang_lienhe" EntityType="Self.khachhang_lienhe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="khachhang-vanglai" EntityType="Self.khachhang-vanglai" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="module-detail" EntityType="Self.module-detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="module-group" EntityType="Self.module-group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="module-menu" EntityType="Self.module-menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shop_danhmuc_group" EntityType="Self.shop_danhmuc_group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shop_page" EntityType="Self.shop_page" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shop_plan_saleoff" EntityType="Self.shop_plan_saleoff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shop_plan_type" EntityType="Self.shop_plan_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shop_showhome" EntityType="Self.shop_showhome" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shop-bienthe" EntityType="Self.shop-bienthe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shop-collection" EntityType="Self.shop-collection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shop-danhmuc" EntityType="Self.shop-danhmuc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shop-danhmuccon" EntityType="Self.shop-danhmuccon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shop-image" EntityType="Self.shop-image" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shop-loai" EntityType="Self.shop-loai" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shop-phanloai_dotuoi" EntityType="Self.shop-phanloai_dotuoi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shop-rightcol" EntityType="Self.shop-rightcol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shop-sanpham" EntityType="Self.shop-sanpham" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shop-thuonghieu" EntityType="Self.shop-thuonghieu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="support-cauhoi" EntityType="Self.support-cauhoi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="support-feedback" EntityType="Self.support-feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="support-silder" EntityType="Self.support-silder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="support-textlink" EntityType="Self.support-textlink" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys_Banner" EntityType="Self.sys_Banner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys_content" EntityType="Self.sys_content" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys_mail" EntityType="Self.sys_mail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys_tags_Ref" EntityType="Self.sys_tags_Ref" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys_tags_Summary" EntityType="Self.sys_tags_Summary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys-account-admin" EntityType="Self.sys-account-admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys-bangtin_conhang" EntityType="Self.sys-bangtin_conhang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys-file" EntityType="Self.sys-file" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys-imagetype" EntityType="Self.sys-imagetype" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys-nhanbangtin" EntityType="Self.sys-nhanbangtin" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="dh_ctDH" Association="Self.dh_ctDH">
+            <End Role="donhang" EntitySet="donhang" />
+            <End Role="donhang_ct" EntitySet="donhang_ct" />
+          </AssociationSet>
+          <AssociationSet Name="dh_sp" Association="Self.dh_sp">
+            <End Role="shop-bienthe" EntitySet="shop-bienthe" />
+            <End Role="donhang_ct" EntitySet="donhang_ct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bangtin_conhang_nhanbangtin" Association="Self.FK_bangtin_conhang_nhanbangtin">
+            <End Role="sys-nhanbangtin" EntitySet="sys-nhanbangtin" />
+            <End Role="sys-bangtin_conhang" EntitySet="sys-bangtin_conhang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bangtin_conhang_sanpham" Association="Self.FK_bangtin_conhang_sanpham">
+            <End Role="shop-sanpham" EntitySet="shop-sanpham" />
+            <End Role="sys-bangtin_conhang" EntitySet="sys-bangtin_conhang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bienthe_sanpham1" Association="Self.FK_bienthe_sanpham1">
+            <End Role="shop-sanpham" EntitySet="shop-sanpham" />
+            <End Role="shop-bienthe" EntitySet="shop-bienthe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_shop-bienthe" Association="Self.FK_Cart_shop-bienthe">
+            <End Role="shop-bienthe" EntitySet="shop-bienthe" />
+            <End Role="cart" EntitySet="cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_collection_danhmuccon" Association="Self.FK_collection_danhmuccon">
+            <End Role="shop-danhmuccon" EntitySet="shop-danhmuccon" />
+            <End Role="shop-collection" EntitySet="shop-collection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_collection_sanpham" Association="Self.FK_collection_sanpham">
+            <End Role="shop-sanpham" EntitySet="shop-sanpham" />
+            <End Role="shop-collection" EntitySet="shop-collection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_danhmu_loai" Association="Self.FK_danhmu_loai">
+            <End Role="shop-loai" EntitySet="shop-loai" />
+            <End Role="shop-danhmuc" EntitySet="shop-danhmuc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_danhmuc_con" Association="Self.FK_danhmuc_con">
+            <End Role="shop-danhmuc" EntitySet="shop-danhmuc" />
+            <End Role="shop-danhmuccon" EntitySet="shop-danhmuccon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_donhang-chuyenphat_tinh_donhang-chuyenphat_tp" Association="Self.FK_donhang-chuyenphat_tinh_donhang-chuyenphat_tp">
+            <End Role="donhang-chuyenphat_tp" EntitySet="donhang-chuyenphat_tp" />
+            <End Role="donhang-chuyenphat_tinh" EntitySet="donhang-chuyenphat_tinh" />
+          </AssociationSet>
+          <AssociationSet Name="FK_image_sanpham" Association="Self.FK_image_sanpham">
+            <End Role="shop-sanpham" EntitySet="shop-sanpham" />
+            <End Role="shop-image" EntitySet="shop-image" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KHHH_DH" Association="Self.FK_KHHH_DH">
+            <End Role="khachhang" EntitySet="khachhang" />
+            <End Role="donhang" EntitySet="donhang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_maloai_nhanhieu" Association="Self.FK_maloai_nhanhieu">
+            <End Role="shop-danhmuccon" EntitySet="shop-danhmuccon" />
+            <End Role="support-cauhoi" EntitySet="support-cauhoi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_maloai_sanpham" Association="Self.FK_maloai_sanpham">
+            <End Role="shop-sanpham" EntitySet="shop-sanpham" />
+            <End Role="support-cauhoi" EntitySet="support-cauhoi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_maloai_Silder" Association="Self.FK_maloai_Silder">
+            <End Role="shop-loai" EntitySet="shop-loai" />
+            <End Role="support-silder" EntitySet="support-silder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_maloai_textlink223" Association="Self.FK_maloai_textlink223">
+            <End Role="shop-loai" EntitySet="shop-loai" />
+            <End Role="support-textlink" EntitySet="support-textlink" />
+          </AssociationSet>
+          <AssociationSet Name="FK_module-detail_module-group" Association="Self.FK_module-detail_module-group">
+            <End Role="module-group" EntitySet="module-group" />
+            <End Role="module-detail" EntitySet="module-detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_module-detail_module-menu" Association="Self.FK_module-detail_module-menu">
+            <End Role="module-menu" EntitySet="module-menu" />
+            <End Role="module-detail" EntitySet="module-detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_module-group_module-menu" Association="Self.FK_module-group_module-menu">
+            <End Role="module-menu" EntitySet="module-menu" />
+            <End Role="module-group" EntitySet="module-group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_nguoinhan_quan" Association="Self.FK_nguoinhan_quan">
+            <End Role="donhang-chuyenphat_tp" EntitySet="donhang-chuyenphat_tp" />
+            <End Role="khachhang-vanglai" EntitySet="khachhang-vanglai" />
+          </AssociationSet>
+          <AssociationSet Name="FK_shop-sanpham_shop_showhome" Association="Self.FK_shop-sanpham_shop_showhome">
+            <End Role="shop_showhome" EntitySet="shop_showhome" />
+            <End Role="shop-sanpham" EntitySet="shop-sanpham" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sp_ma_phanloai_nhanhieu" Association="Self.FK_sp_ma_phanloai_nhanhieu">
+            <End Role="shop-thuonghieu" EntitySet="shop-thuonghieu" />
+            <End Role="shop-sanpham" EntitySet="shop-sanpham" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sys_tags_Ref_sys_tags_Summary" Association="Self.FK_sys_tags_Ref_sys_tags_Summary">
+            <End Role="sys_tags_Summary" EntitySet="sys_tags_Summary" />
+            <End Role="sys_tags_Ref" EntitySet="sys_tags_Ref" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Thuonghieu_Loai" Association="Self.FK_Thuonghieu_Loai">
+            <End Role="shop-loai" EntitySet="shop-loai" />
+            <End Role="shop-thuonghieu" EntitySet="shop-thuonghieu" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vanglai_dh" Association="Self.fk_vanglai_dh">
+            <End Role="khachhang-vanglai" EntitySet="khachhang-vanglai" />
+            <End Role="donhang" EntitySet="donhang" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="babymart_vnModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="babymart_vnEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="admins" EntityType="babymart_vnModel.admin" />
+          <EntitySet Name="admin_role" EntityType="babymart_vnModel.admin_role" />
+          <EntitySet Name="carts" EntityType="babymart_vnModel.cart" />
+          <EntitySet Name="donhangs" EntityType="babymart_vnModel.donhang" />
+          <EntitySet Name="donhang_chuyenphat_tp_tinhtra" EntityType="babymart_vnModel.donhang_chuyenphat_tp_tinhtra" />
+          <EntitySet Name="donhang_ct" EntityType="babymart_vnModel.donhang_ct" />
+          <EntitySet Name="donhang_gio_giaohang" EntityType="babymart_vnModel.donhang_gio_giaohang" />
+          <EntitySet Name="donhang_chuyenphat_tinh" EntityType="babymart_vnModel.donhang_chuyenphat_tinh" />
+          <EntitySet Name="donhang_chuyenphat_tp" EntityType="babymart_vnModel.donhang_chuyenphat_tp" />
+          <EntitySet Name="donhang_chuyenphat_vung" EntityType="babymart_vnModel.donhang_chuyenphat_vung" />
+          <EntitySet Name="khachhangs" EntityType="babymart_vnModel.khachhang" />
+          <EntitySet Name="khachhang_lienhe" EntityType="babymart_vnModel.khachhang_lienhe" />
+          <EntitySet Name="khachhang_vanglai" EntityType="babymart_vnModel.khachhang_vanglai" />
+          <EntitySet Name="module_detail" EntityType="babymart_vnModel.module_detail" />
+          <EntitySet Name="module_group" EntityType="babymart_vnModel.module_group" />
+          <EntitySet Name="module_menu" EntityType="babymart_vnModel.module_menu" />
+          <EntitySet Name="shop_danhmuc_group" EntityType="babymart_vnModel.shop_danhmuc_group" />
+          <EntitySet Name="shop_page" EntityType="babymart_vnModel.shop_page" />
+          <EntitySet Name="shop_plan_saleoff" EntityType="babymart_vnModel.shop_plan_saleoff" />
+          <EntitySet Name="shop_plan_type" EntityType="babymart_vnModel.shop_plan_type" />
+          <EntitySet Name="shop_showhome" EntityType="babymart_vnModel.shop_showhome" />
+          <EntitySet Name="shop_bienthe" EntityType="babymart_vnModel.shop_bienthe" />
+          <EntitySet Name="shop_collection" EntityType="babymart_vnModel.shop_collection" />
+          <EntitySet Name="shop_danhmuc" EntityType="babymart_vnModel.shop_danhmuc" />
+          <EntitySet Name="shop_danhmuccon" EntityType="babymart_vnModel.shop_danhmuccon" />
+          <EntitySet Name="shop_image" EntityType="babymart_vnModel.shop_image" />
+          <EntitySet Name="shop_loai" EntityType="babymart_vnModel.shop_loai" />
+          <EntitySet Name="shop_phanloai_dotuoi" EntityType="babymart_vnModel.shop_phanloai_dotuoi" />
+          <EntitySet Name="shop_rightcol" EntityType="babymart_vnModel.shop_rightcol" />
+          <EntitySet Name="shop_sanpham" EntityType="babymart_vnModel.shop_sanpham" />
+          <EntitySet Name="shop_thuonghieu" EntityType="babymart_vnModel.shop_thuonghieu" />
+          <EntitySet Name="support_cauhoi" EntityType="babymart_vnModel.support_cauhoi" />
+          <EntitySet Name="support_feedback" EntityType="babymart_vnModel.support_feedback" />
+          <EntitySet Name="support_silder" EntityType="babymart_vnModel.support_silder" />
+          <EntitySet Name="support_textlink" EntityType="babymart_vnModel.support_textlink" />
+          <EntitySet Name="sys_Banner" EntityType="babymart_vnModel.sys_Banner" />
+          <EntitySet Name="sys_content" EntityType="babymart_vnModel.sys_content" />
+          <EntitySet Name="sys_mail" EntityType="babymart_vnModel.sys_mail" />
+          <EntitySet Name="sys_tags_Ref" EntityType="babymart_vnModel.sys_tags_Ref" />
+          <EntitySet Name="sys_tags_Summary" EntityType="babymart_vnModel.sys_tags_Summary" />
+          <EntitySet Name="sys_account_admin" EntityType="babymart_vnModel.sys_account_admin" />
+          <EntitySet Name="sys_bangtin_conhang" EntityType="babymart_vnModel.sys_bangtin_conhang" />
+          <EntitySet Name="sysdiagrams" EntityType="babymart_vnModel.sysdiagram" />
+          <EntitySet Name="sys_file" EntityType="babymart_vnModel.sys_file" />
+          <EntitySet Name="sys_imagetype" EntityType="babymart_vnModel.sys_imagetype" />
+          <EntitySet Name="sys_nhanbangtin" EntityType="babymart_vnModel.sys_nhanbangtin" />
+          <AssociationSet Name="FK_Cart_shop_bienthe" Association="babymart_vnModel.FK_Cart_shop_bienthe">
+            <End Role="shop_bienthe" EntitySet="shop_bienthe" />
+            <End Role="cart" EntitySet="carts" />
+          </AssociationSet>
+          <AssociationSet Name="dh_ctDH" Association="babymart_vnModel.dh_ctDH">
+            <End Role="donhang" EntitySet="donhangs" />
+            <End Role="donhang_ct" EntitySet="donhang_ct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KHHH_DH" Association="babymart_vnModel.FK_KHHH_DH">
+            <End Role="khachhang" EntitySet="khachhangs" />
+            <End Role="donhang" EntitySet="donhangs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vanglai_dh" Association="babymart_vnModel.fk_vanglai_dh">
+            <End Role="khachhang_vanglai" EntitySet="khachhang_vanglai" />
+            <End Role="donhang" EntitySet="donhangs" />
+          </AssociationSet>
+          <AssociationSet Name="dh_sp" Association="babymart_vnModel.dh_sp">
+            <End Role="shop_bienthe" EntitySet="shop_bienthe" />
+            <End Role="donhang_ct" EntitySet="donhang_ct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_donhang_chuyenphat_tinh_donhang_chuyenphat_tp" Association="babymart_vnModel.FK_donhang_chuyenphat_tinh_donhang_chuyenphat_tp">
+            <End Role="donhang_chuyenphat_tp" EntitySet="donhang_chuyenphat_tp" />
+            <End Role="donhang_chuyenphat_tinh" EntitySet="donhang_chuyenphat_tinh" />
+          </AssociationSet>
+          <AssociationSet Name="FK_nguoinhan_quan" Association="babymart_vnModel.FK_nguoinhan_quan">
+            <End Role="donhang_chuyenphat_tp" EntitySet="donhang_chuyenphat_tp" />
+            <End Role="khachhang_vanglai" EntitySet="khachhang_vanglai" />
+          </AssociationSet>
+          <AssociationSet Name="FK_module_detail_module_group" Association="babymart_vnModel.FK_module_detail_module_group">
+            <End Role="module_group" EntitySet="module_group" />
+            <End Role="module_detail" EntitySet="module_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_module_detail_module_menu" Association="babymart_vnModel.FK_module_detail_module_menu">
+            <End Role="module_menu" EntitySet="module_menu" />
+            <End Role="module_detail" EntitySet="module_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_module_group_module_menu" Association="babymart_vnModel.FK_module_group_module_menu">
+            <End Role="module_menu" EntitySet="module_menu" />
+            <End Role="module_group" EntitySet="module_group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_shop_sanpham_shop_showhome" Association="babymart_vnModel.FK_shop_sanpham_shop_showhome">
+            <End Role="shop_showhome" EntitySet="shop_showhome" />
+            <End Role="shop_sanpham" EntitySet="shop_sanpham" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bienthe_sanpham1" Association="babymart_vnModel.FK_bienthe_sanpham1">
+            <End Role="shop_sanpham" EntitySet="shop_sanpham" />
+            <End Role="shop_bienthe" EntitySet="shop_bienthe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_collection_danhmuccon" Association="babymart_vnModel.FK_collection_danhmuccon">
+            <End Role="shop_danhmuccon" EntitySet="shop_danhmuccon" />
+            <End Role="shop_collection" EntitySet="shop_collection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_collection_sanpham" Association="babymart_vnModel.FK_collection_sanpham">
+            <End Role="shop_sanpham" EntitySet="shop_sanpham" />
+            <End Role="shop_collection" EntitySet="shop_collection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_danhmu_loai" Association="babymart_vnModel.FK_danhmu_loai">
+            <End Role="shop_loai" EntitySet="shop_loai" />
+            <End Role="shop_danhmuc" EntitySet="shop_danhmuc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_danhmuc_con" Association="babymart_vnModel.FK_danhmuc_con">
+            <End Role="shop_danhmuc" EntitySet="shop_danhmuc" />
+            <End Role="shop_danhmuccon" EntitySet="shop_danhmuccon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_maloai_nhanhieu" Association="babymart_vnModel.FK_maloai_nhanhieu">
+            <End Role="shop_danhmuccon" EntitySet="shop_danhmuccon" />
+            <End Role="support_cauhoi" EntitySet="support_cauhoi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_image_sanpham" Association="babymart_vnModel.FK_image_sanpham">
+            <End Role="shop_sanpham" EntitySet="shop_sanpham" />
+            <End Role="shop_image" EntitySet="shop_image" />
+          </AssociationSet>
+          <AssociationSet Name="FK_maloai_Silder" Association="babymart_vnModel.FK_maloai_Silder">
+            <End Role="shop_loai" EntitySet="shop_loai" />
+            <End Role="support_silder" EntitySet="support_silder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_maloai_textlink223" Association="babymart_vnModel.FK_maloai_textlink223">
+            <End Role="shop_loai" EntitySet="shop_loai" />
+            <End Role="support_textlink" EntitySet="support_textlink" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Thuonghieu_Loai" Association="babymart_vnModel.FK_Thuonghieu_Loai">
+            <End Role="shop_loai" EntitySet="shop_loai" />
+            <End Role="shop_thuonghieu" EntitySet="shop_thuonghieu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bangtin_conhang_sanpham" Association="babymart_vnModel.FK_bangtin_conhang_sanpham">
+            <End Role="shop_sanpham" EntitySet="shop_sanpham" />
+            <End Role="sys_bangtin_conhang" EntitySet="sys_bangtin_conhang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_maloai_sanpham" Association="babymart_vnModel.FK_maloai_sanpham">
+            <End Role="shop_sanpham" EntitySet="shop_sanpham" />
+            <End Role="support_cauhoi" EntitySet="support_cauhoi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sp_ma_phanloai_nhanhieu" Association="babymart_vnModel.FK_sp_ma_phanloai_nhanhieu">
+            <End Role="shop_thuonghieu" EntitySet="shop_thuonghieu" />
+            <End Role="shop_sanpham" EntitySet="shop_sanpham" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sys_tags_Ref_sys_tags_Summary" Association="babymart_vnModel.FK_sys_tags_Ref_sys_tags_Summary">
+            <End Role="sys_tags_Summary" EntitySet="sys_tags_Summary" />
+            <End Role="sys_tags_Ref" EntitySet="sys_tags_Ref" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bangtin_conhang_nhanbangtin" Association="babymart_vnModel.FK_bangtin_conhang_nhanbangtin">
+            <End Role="sys_nhanbangtin" EntitySet="sys_nhanbangtin" />
+            <End Role="sys_bangtin_conhang" EntitySet="sys_bangtin_conhang" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="admin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Roles" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="admin_role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminId" Type="Int32" Nullable="false" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="cart">
+          <Key>
+            <PropertyRef Name="RecordId" />
+          </Key>
+          <Property Name="RecordId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CartId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="shop_bienthe" Relationship="babymart_vnModel.FK_Cart_shop_bienthe" FromRole="cart" ToRole="shop_bienthe" />
+        </EntityType>
+        <EntityType Name="donhang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="makh" Type="Int32" />
+          <Property Name="diemsp" Type="Int32" />
+          <Property Name="vanglai" Type="Int32" />
+          <Property Name="ghichu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="noidung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ship" Type="Int32" />
+          <Property Name="tongtien" Type="Int64" />
+          <Property Name="idgiogiao" Type="Int32" />
+          <Property Name="ngaydat" Type="DateTime" Precision="0" />
+          <Property Name="pttt" Type="Int32" />
+          <Property Name="ptgh" Type="Int32" />
+          <Property Name="typeconfim" Type="Int32" />
+          <Property Name="dagiao" Type="Boolean" />
+          <Property Name="ngaygiao" Type="DateTime" Precision="0" />
+          <Property Name="datru_diem" Type="Int32" />
+          <Property Name="dahuy" Type="Boolean" />
+          <Property Name="ngayhuy" Type="DateTime" Precision="0" />
+          <Property Name="thongtinxedo" Type="String" MaxLength="650" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="donhang_ct" Relationship="babymart_vnModel.dh_ctDH" FromRole="donhang" ToRole="donhang_ct" />
+          <NavigationProperty Name="khachhang" Relationship="babymart_vnModel.FK_KHHH_DH" FromRole="donhang" ToRole="khachhang" />
+          <NavigationProperty Name="khachhang_vanglai" Relationship="babymart_vnModel.fk_vanglai_dh" FromRole="donhang" ToRole="khachhang_vanglai" />
+          <Property Name="tinhtrang" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="donhang_chuyenphat_tp_tinhtra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IpTp" Type="Int32" />
+          <Property Name="IdTinhtra" Type="Int32" />
+          <Property Name="Tentinhtra" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="donhang_ct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sodh" Type="Int64" Nullable="false" />
+          <Property Name="IdPro" Type="Int64" Nullable="false" />
+          <Property Name="Soluong" Type="Int32" Nullable="false" />
+          <Property Name="Dongia" Type="Int32" />
+          <NavigationProperty Name="donhang" Relationship="babymart_vnModel.dh_ctDH" FromRole="donhang_ct" ToRole="donhang" />
+          <NavigationProperty Name="shop_bienthe" Relationship="babymart_vnModel.dh_sp" FromRole="donhang_ct" ToRole="shop_bienthe" />
+        </EntityType>
+        <EntityType Name="donhang_gio_giaohang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="donhang_chuyenphat_tinh">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idtp" Type="Int32" />
+          <Property Name="tentinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tentinh_us" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="vungsau" Type="Boolean" />
+          <Property Name="ship" Type="Decimal" Precision="18" Scale="4" />
+          <NavigationProperty Name="donhang_chuyenphat_tp" Relationship="babymart_vnModel.FK_donhang_chuyenphat_tinh_donhang_chuyenphat_tp" FromRole="donhang_chuyenphat_tinh" ToRole="donhang_chuyenphat_tp" />
+        </EntityType>
+        <EntityType Name="donhang_chuyenphat_tp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tentp" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="tentp_us" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="mavung" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="thoigian" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idtinhtra" Type="Int32" />
+          <NavigationProperty Name="donhang_chuyenphat_tinh" Relationship="babymart_vnModel.FK_donhang_chuyenphat_tinh_donhang_chuyenphat_tp" FromRole="donhang_chuyenphat_tp" ToRole="donhang_chuyenphat_tinh" />
+          <NavigationProperty Name="khachhang_vanglai" Relationship="babymart_vnModel.FK_nguoinhan_quan" FromRole="donhang_chuyenphat_tp" ToRole="khachhang_vanglai" />
+          <Property Name="uutien" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="donhang_chuyenphat_vung">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kilogram" Type="Double" />
+          <Property Name="mavung" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ship" Type="Int32" />
+        </EntityType>
+        <EntityType Name="khachhang">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idtp" Type="Int32" />
+          <Property Name="idquan" Type="Int32" />
+          <Property Name="hoten" Type="String" Nullable="false" MaxLength="750" FixedLength="false" Unicode="true" />
+          <Property Name="duong" Type="String" Nullable="false" MaxLength="900" FixedLength="false" Unicode="true" />
+          <Property Name="dienthoai" Type="String" Nullable="false" MaxLength="105" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="tendn" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="matkhau" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="diem" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="konhanmail" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="donhangs" Relationship="babymart_vnModel.FK_KHHH_DH" FromRole="khachhang" ToRole="donhang" />
+          <Property Name="ngaydangky" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="khachhang_lienhe">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="khachhang_vanglai">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hoten" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="dienthoai" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="duong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="idquan" Type="Int32" />
+          <Property Name="idtp" Type="Int32" />
+          <NavigationProperty Name="donhangs" Relationship="babymart_vnModel.fk_vanglai_dh" FromRole="khachhang_vanglai" ToRole="donhang" />
+          <NavigationProperty Name="donhang_chuyenphat_tp" Relationship="babymart_vnModel.FK_nguoinhan_quan" FromRole="khachhang_vanglai" ToRole="donhang_chuyenphat_tp" />
+        </EntityType>
+        <EntityType Name="module_detail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="title_us" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="groupid" Type="Int32" />
+          <Property Name="typlemodule" Type="Int32" />
+          <Property Name="menuid" Type="Int32" />
+          <Property Name="extract" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="extract_us" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="contents_us" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="img" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="keyword" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="hide" Type="Boolean" />
+          <NavigationProperty Name="module_group" Relationship="babymart_vnModel.FK_module_detail_module_group" FromRole="module_detail" ToRole="module_group" />
+          <NavigationProperty Name="module_menu" Relationship="babymart_vnModel.FK_module_detail_module_menu" FromRole="module_detail" ToRole="module_menu" />
+        </EntityType>
+        <EntityType Name="module_group">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="title_us" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idmenu" Type="Int32" />
+          <Property Name="showhome" Type="Int32" />
+          <Property Name="des" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="keyword" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="module_detail" Relationship="babymart_vnModel.FK_module_detail_module_group" FromRole="module_group" ToRole="module_detail" />
+          <NavigationProperty Name="module_menu" Relationship="babymart_vnModel.FK_module_group_module_menu" FromRole="module_group" ToRole="module_menu" />
+        </EntityType>
+        <EntityType Name="module_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="tenloai" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="tenloai_us" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="typemodule" Type="Int32" />
+          <Property Name="url" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="des" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="keyword" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="module_detail" Relationship="babymart_vnModel.FK_module_detail_module_menu" FromRole="module_menu" ToRole="module_detail" />
+          <NavigationProperty Name="module_group" Relationship="babymart_vnModel.FK_module_group_module_menu" FromRole="module_menu" ToRole="module_group" />
+        </EntityType>
+        <EntityType Name="shop_danhmuc_group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="name_us" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="background" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+          <Property Name="icon" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="sort" Type="Int32" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="noidung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="shop_page">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="codetype" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="tieude" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="tieude_us" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="hinhanh" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="titlemenu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="noidung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="noidung_us" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ngayviet" Type="DateTime" Precision="0" />
+          <Property Name="islinkout" Type="Boolean" />
+          <Property Name="showmenu" Type="Boolean" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="url" Type="String" MaxLength="550" FixedLength="false" Unicode="false" />
+          <Property Name="sort" Type="Int32" />
+          <Property Name="metatitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="keywords" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="shop_plan_saleoff">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OperatorOption" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorValue" Type="Int32" />
+          <Property Name="Visible" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="shop_plan_type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Type_us" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="shop_showhome">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tieude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mota" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="get" Type="Int32" />
+          <NavigationProperty Name="shop_sanpham" Relationship="babymart_vnModel.FK_shop_sanpham_shop_showhome" FromRole="shop_showhome" ToRole="shop_sanpham" />
+        </EntityType>
+        <EntityType Name="shop_bienthe">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idsp" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="title_us" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="gia" Type="Int32" />
+          <Property Name="giasosanh" Type="Int32" />
+          <Property Name="isdelete" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="carts" Relationship="babymart_vnModel.FK_Cart_shop_bienthe" FromRole="shop_bienthe" ToRole="cart" />
+          <NavigationProperty Name="donhang_ct" Relationship="babymart_vnModel.dh_sp" FromRole="shop_bienthe" ToRole="donhang_ct" />
+          <NavigationProperty Name="shop_sanpham" Relationship="babymart_vnModel.FK_bienthe_sanpham1" FromRole="shop_bienthe" ToRole="shop_sanpham" />
+        </EntityType>
+        <EntityType Name="shop_collection">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idloai" Type="Int32" />
+          <Property Name="iddm" Type="Int32" />
+          <Property Name="iddmc" Type="Int32" />
+          <Property Name="idsp" Type="Int32" />
+          <Property Name="lable" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="shop_danhmuccon" Relationship="babymart_vnModel.FK_collection_danhmuccon" FromRole="shop_collection" ToRole="shop_danhmuccon" />
+          <NavigationProperty Name="shop_sanpham" Relationship="babymart_vnModel.FK_collection_sanpham" FromRole="shop_collection" ToRole="shop_sanpham" />
+        </EntityType>
+        <EntityType Name="shop_danhmuc">
+          <Key>
+            <PropertyRef Name="madanhmuc" />
+          </Key>
+          <Property Name="madanhmuc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="groupId" Type="Int32" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="tendanhmuc" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="tendanhmuc_us" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="noidung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="noidung_us" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="maloai" Type="Int32" />
+          <Property Name="meta_keyword" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="meta_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="meta_title" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="meta_keyword_us" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="meta_description_us" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="meta_title_us" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="url_us" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="background" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="sort" Type="Int32" Nullable="false" />
+          <Property Name="icon" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="css" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="shop_loai" Relationship="babymart_vnModel.FK_danhmu_loai" FromRole="shop_danhmuc" ToRole="shop_loai" />
+          <NavigationProperty Name="shop_danhmuccon" Relationship="babymart_vnModel.FK_danhmuc_con" FromRole="shop_danhmuc" ToRole="shop_danhmuccon" />
+        </EntityType>
+        <EntityType Name="shop_danhmuccon">
+          <Key>
+            <PropertyRef Name="madanhmuccon" />
+          </Key>
+          <Property Name="madanhmuccon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="grouplink" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="grouplink_us" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="tendanhmuccon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tendanhmuccon_us" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="madanhmuc" Type="Int32" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="noidung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="noidung_us" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="hinhanh" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="metatitle" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="metakeywords" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="metadescription" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="metatitle_us" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="metakeywords_us" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="metadescription_us" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="url_us" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="color" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="sort" Type="Int32" />
+          <Property Name="css" Type="String" MaxLength="550" FixedLength="false" Unicode="false" />
+          <Property Name="ma_loai" Type="Int32" />
+          <Property Name="uutien" Type="Int32" />
+          <NavigationProperty Name="shop_collection" Relationship="babymart_vnModel.FK_collection_danhmuccon" FromRole="shop_danhmuccon" ToRole="shop_collection" />
+          <NavigationProperty Name="shop_danhmuc" Relationship="babymart_vnModel.FK_danhmuc_con" FromRole="shop_danhmuccon" ToRole="shop_danhmuc" />
+          <NavigationProperty Name="support_cauhoi" Relationship="babymart_vnModel.FK_maloai_nhanhieu" FromRole="shop_danhmuccon" ToRole="support_cauhoi" />
+        </EntityType>
+        <EntityType Name="shop_image">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefId" Type="Int32" />
+          <Property Name="url" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="alt" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="ImgPrimary" Type="Boolean" />
+          <NavigationProperty Name="shop_sanpham" Relationship="babymart_vnModel.FK_image_sanpham" FromRole="shop_image" ToRole="shop_sanpham" />
+        </EntityType>
+        <EntityType Name="shop_loai">
+          <Key>
+            <PropertyRef Name="maloai" />
+          </Key>
+          <Property Name="maloai" Type="Int32" Nullable="false" />
+          <Property Name="tenloai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="title" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="metadescription" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="metakeywords" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="banner_top_con" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="link" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="hinh" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="km" Type="Boolean" />
+          <Property Name="banner_top" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="shop_danhmuc" Relationship="babymart_vnModel.FK_danhmu_loai" FromRole="shop_loai" ToRole="shop_danhmuc" />
+          <NavigationProperty Name="support_silder" Relationship="babymart_vnModel.FK_maloai_Silder" FromRole="shop_loai" ToRole="support_silder" />
+          <NavigationProperty Name="support_textlink" Relationship="babymart_vnModel.FK_maloai_textlink223" FromRole="shop_loai" ToRole="support_textlink" />
+          <NavigationProperty Name="shop_thuonghieu" Relationship="babymart_vnModel.FK_Thuonghieu_Loai" FromRole="shop_loai" ToRole="shop_thuonghieu" />
+        </EntityType>
+        <EntityType Name="shop_phanloai_dotuoi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dotuoi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="grouptuoi" Type="Int32" />
+        </EntityType>
+        <EntityType Name="shop_rightcol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="img" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="url" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="alt" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="shop_sanpham">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="masp" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="maloai" Type="Int32" />
+          <Property Name="mahieu" Type="Int32" />
+          <Property Name="plantype" Type="Int32" />
+          <Property Name="tensp" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="tensp_us" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="typeshowhome" Type="Int32" />
+          <Property Name="thongtin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="thongtin_us" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="spurl" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="spurl_us" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="sptitle" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="sptitle_us" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="spdescription" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="spdescription_us" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="spkeywords_us" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="spkeywords" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="chitiet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="chitiet_us" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="douutien" Type="Int32" />
+          <Property Name="ischeckout" Type="Boolean" />
+          <Property Name="ischecksaleoff" Type="Boolean" />
+          <Property Name="ischeckgift" Type="Boolean" />
+          <Property Name="gift" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="countsale" Type="Int32" />
+          <Property Name="timeend" Type="DateTime" Precision="0" />
+          <Property Name="kg" Type="Double" />
+          <Property Name="chieudai" Type="Double" />
+          <Property Name="chieurong" Type="Double" />
+          <Property Name="chieucao" Type="Double" />
+          <Property Name="showkg" Type="Boolean" />
+          <Property Name="showcm" Type="Boolean" />
+          <Property Name="showhome" Type="Boolean" />
+          <Property Name="showbanner" Type="Boolean" />
+          <NavigationProperty Name="shop_showhome" Relationship="babymart_vnModel.FK_shop_sanpham_shop_showhome" FromRole="shop_sanpham" ToRole="shop_showhome" />
+          <NavigationProperty Name="shop_bienthe" Relationship="babymart_vnModel.FK_bienthe_sanpham1" FromRole="shop_sanpham" ToRole="shop_bienthe" />
+          <NavigationProperty Name="shop_collection" Relationship="babymart_vnModel.FK_collection_sanpham" FromRole="shop_sanpham" ToRole="shop_collection" />
+          <NavigationProperty Name="shop_image" Relationship="babymart_vnModel.FK_image_sanpham" FromRole="shop_sanpham" ToRole="shop_image" />
+          <NavigationProperty Name="sys_bangtin_conhang" Relationship="babymart_vnModel.FK_bangtin_conhang_sanpham" FromRole="shop_sanpham" ToRole="sys_bangtin_conhang" />
+          <NavigationProperty Name="support_cauhoi" Relationship="babymart_vnModel.FK_maloai_sanpham" FromRole="shop_sanpham" ToRole="support_cauhoi" />
+          <NavigationProperty Name="shop_thuonghieu" Relationship="babymart_vnModel.FK_sp_ma_phanloai_nhanhieu" FromRole="shop_sanpham" ToRole="shop_thuonghieu" />
+          <Property Name="chieudaisd" Type="Double" />
+          <Property Name="chieurongsd" Type="Double" />
+          <Property Name="chieucaosd" Type="Double" />
+          <Property Name="showsptangkemvaomuckm" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="shop_thuonghieu">
+          <Key>
+            <PropertyRef Name="mahieu" />
+          </Key>
+          <Property Name="mahieu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="tenhieu" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="tenhieu_us" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="noidung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="noidung_us" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="hinh" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="sort_metro" Type="Int32" />
+          <Property Name="showhome" Type="Boolean" />
+          <Property Name="metakeywords" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="metadescription" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="maloai" Type="Int32" />
+          <NavigationProperty Name="shop_loai" Relationship="babymart_vnModel.FK_Thuonghieu_Loai" FromRole="shop_thuonghieu" ToRole="shop_loai" />
+          <NavigationProperty Name="shop_sanpham" Relationship="babymart_vnModel.FK_sp_ma_phanloai_nhanhieu" FromRole="shop_thuonghieu" ToRole="shop_sanpham" />
+        </EntityType>
+        <EntityType Name="support_cauhoi">
+          <Key>
+            <PropertyRef Name="mach" />
+          </Key>
+          <Property Name="mach" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cauhoi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="traloi" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="nguon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="maloai" Type="Int32" />
+          <Property Name="ma_hieu" Type="Int32" />
+          <Property Name="ma_sp" Type="Int32" />
+          <NavigationProperty Name="shop_danhmuccon" Relationship="babymart_vnModel.FK_maloai_nhanhieu" FromRole="support_cauhoi" ToRole="shop_danhmuccon" />
+          <NavigationProperty Name="shop_sanpham" Relationship="babymart_vnModel.FK_maloai_sanpham" FromRole="support_cauhoi" ToRole="shop_sanpham" />
+        </EntityType>
+        <EntityType Name="support_feedback">
+          <Key>
+            <PropertyRef Name="ma" />
+          </Key>
+          <Property Name="ma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ten" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sdt" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="noidung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ngay" Type="DateTime" Precision="0" />
+          <Property Name="doc" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="support_silder">
+          <Key>
+            <PropertyRef Name="ma" />
+          </Key>
+          <Property Name="ma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="maloai" Type="Int32" />
+          <Property Name="noidung" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="show" Type="Boolean" />
+          <Property Name="link" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="img" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="shop_loai" Relationship="babymart_vnModel.FK_maloai_Silder" FromRole="support_silder" ToRole="shop_loai" />
+        </EntityType>
+        <EntityType Name="support_textlink">
+          <Key>
+            <PropertyRef Name="ma" />
+          </Key>
+          <Property Name="ma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="textlink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="maloai" Type="Int32" />
+          <Property Name="vetinh" Type="Int32" />
+          <NavigationProperty Name="shop_loai" Relationship="babymart_vnModel.FK_maloai_textlink223" FromRole="support_textlink" ToRole="shop_loai" />
+        </EntityType>
+        <EntityType Name="sys_Banner">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Banner" Type="String" MaxLength="550" FixedLength="false" Unicode="false" />
+          <Property Name="Banner_us" Type="String" MaxLength="550" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="Hide" Type="Boolean" />
+          <Property Name="Link" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Link_us" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sys_content">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Name_us" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Contents_us" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="sys_mail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="titile" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sys_tags_Ref">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefId" Type="Int32" />
+          <Property Name="RefTag" Type="Int32" />
+          <Property Name="RefCollection" Type="Int32" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="TypeCollection" Type="Int32" />
+          <NavigationProperty Name="sys_tags_Summary" Relationship="babymart_vnModel.FK_sys_tags_Ref_sys_tags_Summary" FromRole="sys_tags_Ref" ToRole="sys_tags_Summary" />
+        </EntityType>
+        <EntityType Name="sys_tags_Summary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tags" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RefType" Type="Int32" />
+          <NavigationProperty Name="sys_tags_Ref" Relationship="babymart_vnModel.FK_sys_tags_Ref_sys_tags_Summary" FromRole="sys_tags_Summary" ToRole="sys_tags_Ref" />
+        </EntityType>
+        <EntityType Name="sys_account_admin">
+          <Key>
+            <PropertyRef Name="ma" />
+          </Key>
+          <Property Name="ma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tendn" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="pass" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sys_bangtin_conhang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nguoinhanbangtin" Type="Int32" />
+          <Property Name="idsp" Type="Int32" />
+          <NavigationProperty Name="shop_sanpham" Relationship="babymart_vnModel.FK_bangtin_conhang_sanpham" FromRole="sys_bangtin_conhang" ToRole="shop_sanpham" />
+          <NavigationProperty Name="sys_nhanbangtin" Relationship="babymart_vnModel.FK_bangtin_conhang_nhanbangtin" FromRole="sys_bangtin_conhang" ToRole="sys_nhanbangtin" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="sys_file">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="Files" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="Files_us" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="Int32" Nullable="false" />
+          <Property Name="link" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="sort" Type="Int32" />
+        </EntityType>
+        <EntityType Name="sys_imagetype">
+          <Key>
+            <PropertyRef Name="idtype" />
+          </Key>
+          <Property Name="idtype" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refid" Type="Int32" />
+          <Property Name="hide" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="sys_nhanbangtin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hoten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="diachi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sdt" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="sys_bangtin_conhang" Relationship="babymart_vnModel.FK_bangtin_conhang_nhanbangtin" FromRole="sys_nhanbangtin" ToRole="sys_bangtin_conhang" />
+        </EntityType>
+        <Association Name="FK_Cart_shop_bienthe">
+          <End Type="babymart_vnModel.shop_bienthe" Role="shop_bienthe" Multiplicity="1" />
+          <End Type="babymart_vnModel.cart" Role="cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_bienthe">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cart">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="dh_ctDH">
+          <End Type="babymart_vnModel.donhang" Role="donhang" Multiplicity="1" />
+          <End Type="babymart_vnModel.donhang_ct" Role="donhang_ct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="donhang">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="donhang_ct">
+              <PropertyRef Name="Sodh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KHHH_DH">
+          <End Type="babymart_vnModel.khachhang" Role="khachhang" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.donhang" Role="donhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="khachhang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="donhang">
+              <PropertyRef Name="makh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vanglai_dh">
+          <End Type="babymart_vnModel.khachhang_vanglai" Role="khachhang_vanglai" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.donhang" Role="donhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="khachhang_vanglai">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="donhang">
+              <PropertyRef Name="vanglai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="dh_sp">
+          <End Type="babymart_vnModel.shop_bienthe" Role="shop_bienthe" Multiplicity="1" />
+          <End Type="babymart_vnModel.donhang_ct" Role="donhang_ct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_bienthe">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="donhang_ct">
+              <PropertyRef Name="IdPro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_donhang_chuyenphat_tinh_donhang_chuyenphat_tp">
+          <End Type="babymart_vnModel.donhang_chuyenphat_tp" Role="donhang_chuyenphat_tp" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.donhang_chuyenphat_tinh" Role="donhang_chuyenphat_tinh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="donhang_chuyenphat_tp">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="donhang_chuyenphat_tinh">
+              <PropertyRef Name="idtp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_nguoinhan_quan">
+          <End Type="babymart_vnModel.donhang_chuyenphat_tp" Role="donhang_chuyenphat_tp" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.khachhang_vanglai" Role="khachhang_vanglai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="donhang_chuyenphat_tp">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="khachhang_vanglai">
+              <PropertyRef Name="idtp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_module_detail_module_group">
+          <End Type="babymart_vnModel.module_group" Role="module_group" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.module_detail" Role="module_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="module_group">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="module_detail">
+              <PropertyRef Name="groupid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_module_detail_module_menu">
+          <End Type="babymart_vnModel.module_menu" Role="module_menu" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.module_detail" Role="module_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="module_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="module_detail">
+              <PropertyRef Name="menuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_module_group_module_menu">
+          <End Type="babymart_vnModel.module_menu" Role="module_menu" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.module_group" Role="module_group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="module_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="module_group">
+              <PropertyRef Name="idmenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_shop_sanpham_shop_showhome">
+          <End Type="babymart_vnModel.shop_showhome" Role="shop_showhome" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.shop_sanpham" Role="shop_sanpham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_showhome">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="shop_sanpham">
+              <PropertyRef Name="typeshowhome" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bienthe_sanpham1">
+          <End Type="babymart_vnModel.shop_sanpham" Role="shop_sanpham" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.shop_bienthe" Role="shop_bienthe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_sanpham">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="shop_bienthe">
+              <PropertyRef Name="idsp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_collection_danhmuccon">
+          <End Type="babymart_vnModel.shop_danhmuccon" Role="shop_danhmuccon" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.shop_collection" Role="shop_collection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_danhmuccon">
+              <PropertyRef Name="madanhmuccon" />
+            </Principal>
+            <Dependent Role="shop_collection">
+              <PropertyRef Name="iddmc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_collection_sanpham">
+          <End Type="babymart_vnModel.shop_sanpham" Role="shop_sanpham" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.shop_collection" Role="shop_collection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_sanpham">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="shop_collection">
+              <PropertyRef Name="idsp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_danhmu_loai">
+          <End Type="babymart_vnModel.shop_loai" Role="shop_loai" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="babymart_vnModel.shop_danhmuc" Role="shop_danhmuc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_loai">
+              <PropertyRef Name="maloai" />
+            </Principal>
+            <Dependent Role="shop_danhmuc">
+              <PropertyRef Name="maloai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_danhmuc_con">
+          <End Type="babymart_vnModel.shop_danhmuc" Role="shop_danhmuc" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.shop_danhmuccon" Role="shop_danhmuccon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_danhmuc">
+              <PropertyRef Name="madanhmuc" />
+            </Principal>
+            <Dependent Role="shop_danhmuccon">
+              <PropertyRef Name="madanhmuc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_maloai_nhanhieu">
+          <End Type="babymart_vnModel.shop_danhmuccon" Role="shop_danhmuccon" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="babymart_vnModel.support_cauhoi" Role="support_cauhoi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_danhmuccon">
+              <PropertyRef Name="madanhmuccon" />
+            </Principal>
+            <Dependent Role="support_cauhoi">
+              <PropertyRef Name="ma_hieu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_image_sanpham">
+          <End Type="babymart_vnModel.shop_sanpham" Role="shop_sanpham" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.shop_image" Role="shop_image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_sanpham">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="shop_image">
+              <PropertyRef Name="RefId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_maloai_Silder">
+          <End Type="babymart_vnModel.shop_loai" Role="shop_loai" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="babymart_vnModel.support_silder" Role="support_silder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_loai">
+              <PropertyRef Name="maloai" />
+            </Principal>
+            <Dependent Role="support_silder">
+              <PropertyRef Name="maloai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_maloai_textlink223">
+          <End Type="babymart_vnModel.shop_loai" Role="shop_loai" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="babymart_vnModel.support_textlink" Role="support_textlink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_loai">
+              <PropertyRef Name="maloai" />
+            </Principal>
+            <Dependent Role="support_textlink">
+              <PropertyRef Name="maloai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Thuonghieu_Loai">
+          <End Type="babymart_vnModel.shop_loai" Role="shop_loai" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="babymart_vnModel.shop_thuonghieu" Role="shop_thuonghieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_loai">
+              <PropertyRef Name="maloai" />
+            </Principal>
+            <Dependent Role="shop_thuonghieu">
+              <PropertyRef Name="maloai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bangtin_conhang_sanpham">
+          <End Type="babymart_vnModel.shop_sanpham" Role="shop_sanpham" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.sys_bangtin_conhang" Role="sys_bangtin_conhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_sanpham">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_bangtin_conhang">
+              <PropertyRef Name="idsp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_maloai_sanpham">
+          <End Type="babymart_vnModel.shop_sanpham" Role="shop_sanpham" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="babymart_vnModel.support_cauhoi" Role="support_cauhoi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_sanpham">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="support_cauhoi">
+              <PropertyRef Name="ma_sp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sp_ma_phanloai_nhanhieu">
+          <End Type="babymart_vnModel.shop_thuonghieu" Role="shop_thuonghieu" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.shop_sanpham" Role="shop_sanpham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shop_thuonghieu">
+              <PropertyRef Name="mahieu" />
+            </Principal>
+            <Dependent Role="shop_sanpham">
+              <PropertyRef Name="mahieu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sys_tags_Ref_sys_tags_Summary">
+          <End Type="babymart_vnModel.sys_tags_Summary" Role="sys_tags_Summary" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.sys_tags_Ref" Role="sys_tags_Ref" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_tags_Summary">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="sys_tags_Ref">
+              <PropertyRef Name="RefTag" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bangtin_conhang_nhanbangtin">
+          <End Type="babymart_vnModel.sys_nhanbangtin" Role="sys_nhanbangtin" Multiplicity="0..1" />
+          <End Type="babymart_vnModel.sys_bangtin_conhang" Role="sys_bangtin_conhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_nhanbangtin">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_bangtin_conhang">
+              <PropertyRef Name="nguoinhanbangtin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="babymart_vnModelStoreContainer" CdmEntityContainer="babymart_vnEntities">
+          <EntitySetMapping Name="admins">
+            <EntityTypeMapping TypeName="babymart_vnModel.admin">
+              <MappingFragment StoreEntitySet="admin">
+                <ScalarProperty Name="Roles" ColumnName="Roles" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="admin_role">
+            <EntityTypeMapping TypeName="babymart_vnModel.admin_role">
+              <MappingFragment StoreEntitySet="admin_role">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="carts">
+            <EntityTypeMapping TypeName="babymart_vnModel.cart">
+              <MappingFragment StoreEntitySet="cart">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="CartId" ColumnName="CartId" />
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="donhangs">
+            <EntityTypeMapping TypeName="babymart_vnModel.donhang">
+              <MappingFragment StoreEntitySet="donhang">
+                <ScalarProperty Name="tinhtrang" ColumnName="tinhtrang" />
+                <ScalarProperty Name="thongtinxedo" ColumnName="thongtinxedo" />
+                <ScalarProperty Name="ngayhuy" ColumnName="ngayhuy" />
+                <ScalarProperty Name="dahuy" ColumnName="dahuy" />
+                <ScalarProperty Name="datru_diem" ColumnName="datru_diem" />
+                <ScalarProperty Name="ngaygiao" ColumnName="ngaygiao" />
+                <ScalarProperty Name="dagiao" ColumnName="dagiao" />
+                <ScalarProperty Name="typeconfim" ColumnName="typeconfim" />
+                <ScalarProperty Name="ptgh" ColumnName="ptgh" />
+                <ScalarProperty Name="pttt" ColumnName="pttt" />
+                <ScalarProperty Name="ngaydat" ColumnName="ngaydat" />
+                <ScalarProperty Name="idgiogiao" ColumnName="idgiogiao" />
+                <ScalarProperty Name="tongtien" ColumnName="tongtien" />
+                <ScalarProperty Name="ship" ColumnName="ship" />
+                <ScalarProperty Name="noidung" ColumnName="noidung" />
+                <ScalarProperty Name="ghichu" ColumnName="ghichu" />
+                <ScalarProperty Name="vanglai" ColumnName="vanglai" />
+                <ScalarProperty Name="diemsp" ColumnName="diemsp" />
+                <ScalarProperty Name="makh" ColumnName="makh" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="donhang_chuyenphat_tp_tinhtra">
+            <EntityTypeMapping TypeName="babymart_vnModel.donhang_chuyenphat_tp_tinhtra">
+              <MappingFragment StoreEntitySet="donhang_chuyenphat_tp_tinhtra">
+                <ScalarProperty Name="Tentinhtra" ColumnName="Tentinhtra" />
+                <ScalarProperty Name="IdTinhtra" ColumnName="IdTinhtra" />
+                <ScalarProperty Name="IpTp" ColumnName="IpTp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="donhang_ct">
+            <EntityTypeMapping TypeName="babymart_vnModel.donhang_ct">
+              <MappingFragment StoreEntitySet="donhang_ct">
+                <ScalarProperty Name="Dongia" ColumnName="Dongia" />
+                <ScalarProperty Name="Soluong" ColumnName="Soluong" />
+                <ScalarProperty Name="IdPro" ColumnName="IdPro" />
+                <ScalarProperty Name="Sodh" ColumnName="Sodh" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="donhang_gio_giaohang">
+            <EntityTypeMapping TypeName="babymart_vnModel.donhang_gio_giaohang">
+              <MappingFragment StoreEntitySet="donhang_gio_giaohang">
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="donhang_chuyenphat_tinh">
+            <EntityTypeMapping TypeName="babymart_vnModel.donhang_chuyenphat_tinh">
+              <MappingFragment StoreEntitySet="donhang-chuyenphat_tinh">
+                <ScalarProperty Name="ship" ColumnName="ship" />
+                <ScalarProperty Name="vungsau" ColumnName="vungsau" />
+                <ScalarProperty Name="tentinh_us" ColumnName="tentinh_us" />
+                <ScalarProperty Name="tentinh" ColumnName="tentinh" />
+                <ScalarProperty Name="idtp" ColumnName="idtp" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="donhang_chuyenphat_tp">
+            <EntityTypeMapping TypeName="babymart_vnModel.donhang_chuyenphat_tp">
+              <MappingFragment StoreEntitySet="donhang-chuyenphat_tp">
+                <ScalarProperty Name="uutien" ColumnName="uutien" />
+                <ScalarProperty Name="idtinhtra" ColumnName="idtinhtra" />
+                <ScalarProperty Name="thoigian" ColumnName="thoigian" />
+                <ScalarProperty Name="mavung" ColumnName="mavung" />
+                <ScalarProperty Name="tentp_us" ColumnName="tentp_us" />
+                <ScalarProperty Name="tentp" ColumnName="tentp" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="donhang_chuyenphat_vung">
+            <EntityTypeMapping TypeName="babymart_vnModel.donhang_chuyenphat_vung">
+              <MappingFragment StoreEntitySet="donhang-chuyenphat_vung">
+                <ScalarProperty Name="ship" ColumnName="ship" />
+                <ScalarProperty Name="mavung" ColumnName="mavung" />
+                <ScalarProperty Name="kilogram" ColumnName="kilogram" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="khachhangs">
+            <EntityTypeMapping TypeName="babymart_vnModel.khachhang">
+              <MappingFragment StoreEntitySet="khachhang">
+                <ScalarProperty Name="ngaydangky" ColumnName="ngaydangky" />
+                <ScalarProperty Name="konhanmail" ColumnName="konhanmail" />
+                <ScalarProperty Name="diem" ColumnName="diem" />
+                <ScalarProperty Name="matkhau" ColumnName="matkhau" />
+                <ScalarProperty Name="tendn" ColumnName="tendn" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="dienthoai" ColumnName="dienthoai" />
+                <ScalarProperty Name="duong" ColumnName="duong" />
+                <ScalarProperty Name="hoten" ColumnName="hoten" />
+                <ScalarProperty Name="idquan" ColumnName="idquan" />
+                <ScalarProperty Name="idtp" ColumnName="idtp" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="khachhang_lienhe">
+            <EntityTypeMapping TypeName="babymart_vnModel.khachhang_lienhe">
+              <MappingFragment StoreEntitySet="khachhang_lienhe">
+                <ScalarProperty Name="Contents" ColumnName="Contents" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="khachhang_vanglai">
+            <EntityTypeMapping TypeName="babymart_vnModel.khachhang_vanglai">
+              <MappingFragment StoreEntitySet="khachhang-vanglai">
+                <ScalarProperty Name="idtp" ColumnName="idtp" />
+                <ScalarProperty Name="idquan" ColumnName="idquan" />
+                <ScalarProperty Name="duong" ColumnName="duong" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="dienthoai" ColumnName="dienthoai" />
+                <ScalarProperty Name="hoten" ColumnName="hoten" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="module_detail">
+            <EntityTypeMapping TypeName="babymart_vnModel.module_detail">
+              <MappingFragment StoreEntitySet="module-detail">
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="keyword" ColumnName="keyword" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="contents_us" ColumnName="contents_us" />
+                <ScalarProperty Name="contents" ColumnName="contents" />
+                <ScalarProperty Name="extract_us" ColumnName="extract_us" />
+                <ScalarProperty Name="extract" ColumnName="extract" />
+                <ScalarProperty Name="menuid" ColumnName="menuid" />
+                <ScalarProperty Name="typlemodule" ColumnName="typlemodule" />
+                <ScalarProperty Name="groupid" ColumnName="groupid" />
+                <ScalarProperty Name="title_us" ColumnName="title_us" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="module_group">
+            <EntityTypeMapping TypeName="babymart_vnModel.module_group">
+              <MappingFragment StoreEntitySet="module-group">
+                <ScalarProperty Name="keyword" ColumnName="keyword" />
+                <ScalarProperty Name="des" ColumnName="des" />
+                <ScalarProperty Name="showhome" ColumnName="showhome" />
+                <ScalarProperty Name="idmenu" ColumnName="idmenu" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="title_us" ColumnName="title_us" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="module_menu">
+            <EntityTypeMapping TypeName="babymart_vnModel.module_menu">
+              <MappingFragment StoreEntitySet="module-menu">
+                <ScalarProperty Name="keyword" ColumnName="keyword" />
+                <ScalarProperty Name="des" ColumnName="des" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="typemodule" ColumnName="typemodule" />
+                <ScalarProperty Name="tenloai_us" ColumnName="tenloai_us" />
+                <ScalarProperty Name="tenloai" ColumnName="tenloai" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shop_danhmuc_group">
+            <EntityTypeMapping TypeName="babymart_vnModel.shop_danhmuc_group">
+              <MappingFragment StoreEntitySet="shop_danhmuc_group">
+                <ScalarProperty Name="noidung" ColumnName="noidung" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="sort" ColumnName="sort" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="background" ColumnName="background" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="name_us" ColumnName="name_us" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shop_page">
+            <EntityTypeMapping TypeName="babymart_vnModel.shop_page">
+              <MappingFragment StoreEntitySet="shop_page">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="keywords" ColumnName="keywords" />
+                <ScalarProperty Name="metatitle" ColumnName="metatitle" />
+                <ScalarProperty Name="sort" ColumnName="sort" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="showmenu" ColumnName="showmenu" />
+                <ScalarProperty Name="islinkout" ColumnName="islinkout" />
+                <ScalarProperty Name="ngayviet" ColumnName="ngayviet" />
+                <ScalarProperty Name="noidung_us" ColumnName="noidung_us" />
+                <ScalarProperty Name="noidung" ColumnName="noidung" />
+                <ScalarProperty Name="titlemenu" ColumnName="titlemenu" />
+                <ScalarProperty Name="hinhanh" ColumnName="hinhanh" />
+                <ScalarProperty Name="tieude_us" ColumnName="tieude_us" />
+                <ScalarProperty Name="tieude" ColumnName="tieude" />
+                <ScalarProperty Name="codetype" ColumnName="codetype" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shop_plan_saleoff">
+            <EntityTypeMapping TypeName="babymart_vnModel.shop_plan_saleoff">
+              <MappingFragment StoreEntitySet="shop_plan_saleoff">
+                <ScalarProperty Name="Visible" ColumnName="Visible" />
+                <ScalarProperty Name="OperatorValue" ColumnName="OperatorValue" />
+                <ScalarProperty Name="OperatorOption" ColumnName="OperatorOption" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shop_plan_type">
+            <EntityTypeMapping TypeName="babymart_vnModel.shop_plan_type">
+              <MappingFragment StoreEntitySet="shop_plan_type">
+                <ScalarProperty Name="Type_us" ColumnName="Type_us" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shop_showhome">
+            <EntityTypeMapping TypeName="babymart_vnModel.shop_showhome">
+              <MappingFragment StoreEntitySet="shop_showhome">
+                <ScalarProperty Name="get" ColumnName="get" />
+                <ScalarProperty Name="mota" ColumnName="mota" />
+                <ScalarProperty Name="tieude" ColumnName="tieude" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shop_bienthe">
+            <EntityTypeMapping TypeName="babymart_vnModel.shop_bienthe">
+              <MappingFragment StoreEntitySet="shop-bienthe">
+                <ScalarProperty Name="isdelete" ColumnName="isdelete" />
+                <ScalarProperty Name="giasosanh" ColumnName="giasosanh" />
+                <ScalarProperty Name="gia" ColumnName="gia" />
+                <ScalarProperty Name="title_us" ColumnName="title_us" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="idsp" ColumnName="idsp" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shop_collection">
+            <EntityTypeMapping TypeName="babymart_vnModel.shop_collection">
+              <MappingFragment StoreEntitySet="shop-collection">
+                <ScalarProperty Name="lable" ColumnName="lable" />
+                <ScalarProperty Name="idsp" ColumnName="idsp" />
+                <ScalarProperty Name="iddmc" ColumnName="iddmc" />
+                <ScalarProperty Name="iddm" ColumnName="iddm" />
+                <ScalarProperty Name="idloai" ColumnName="idloai" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shop_danhmuc">
+            <EntityTypeMapping TypeName="babymart_vnModel.shop_danhmuc">
+              <MappingFragment StoreEntitySet="shop-danhmuc">
+                <ScalarProperty Name="css" ColumnName="css" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="sort" ColumnName="sort" />
+                <ScalarProperty Name="background" ColumnName="background" />
+                <ScalarProperty Name="url_us" ColumnName="url_us" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="meta_title_us" ColumnName="meta_title_us" />
+                <ScalarProperty Name="meta_description_us" ColumnName="meta_description_us" />
+                <ScalarProperty Name="meta_keyword_us" ColumnName="meta_keyword_us" />
+                <ScalarProperty Name="meta_title" ColumnName="meta_title" />
+                <ScalarProperty Name="meta_description" ColumnName="meta_description" />
+                <ScalarProperty Name="meta_keyword" ColumnName="meta_keyword" />
+                <ScalarProperty Name="maloai" ColumnName="maloai" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="noidung_us" ColumnName="noidung_us" />
+                <ScalarProperty Name="noidung" ColumnName="noidung" />
+                <ScalarProperty Name="tendanhmuc_us" ColumnName="tendanhmuc_us" />
+                <ScalarProperty Name="tendanhmuc" ColumnName="tendanhmuc" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="groupId" ColumnName="groupId" />
+                <ScalarProperty Name="madanhmuc" ColumnName="madanhmuc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shop_danhmuccon">
+            <EntityTypeMapping TypeName="babymart_vnModel.shop_danhmuccon">
+              <MappingFragment StoreEntitySet="shop-danhmuccon">
+                <ScalarProperty Name="uutien" ColumnName="uutien" />
+                <ScalarProperty Name="ma_loai" ColumnName="ma_loai" />
+                <ScalarProperty Name="css" ColumnName="css" />
+                <ScalarProperty Name="sort" ColumnName="sort" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="url_us" ColumnName="url_us" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="metadescription_us" ColumnName="metadescription_us" />
+                <ScalarProperty Name="metakeywords_us" ColumnName="metakeywords_us" />
+                <ScalarProperty Name="metatitle_us" ColumnName="metatitle_us" />
+                <ScalarProperty Name="metadescription" ColumnName="metadescription" />
+                <ScalarProperty Name="metakeywords" ColumnName="metakeywords" />
+                <ScalarProperty Name="metatitle" ColumnName="metatitle" />
+                <ScalarProperty Name="hinhanh" ColumnName="hinhanh" />
+                <ScalarProperty Name="noidung_us" ColumnName="noidung_us" />
+                <ScalarProperty Name="noidung" ColumnName="noidung" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="madanhmuc" ColumnName="madanhmuc" />
+                <ScalarProperty Name="tendanhmuccon_us" ColumnName="tendanhmuccon_us" />
+                <ScalarProperty Name="tendanhmuccon" ColumnName="tendanhmuccon" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="grouplink_us" ColumnName="grouplink_us" />
+                <ScalarProperty Name="grouplink" ColumnName="grouplink" />
+                <ScalarProperty Name="madanhmuccon" ColumnName="madanhmuccon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shop_image">
+            <EntityTypeMapping TypeName="babymart_vnModel.shop_image">
+              <MappingFragment StoreEntitySet="shop-image">
+                <ScalarProperty Name="ImgPrimary" ColumnName="ImgPrimary" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="alt" ColumnName="alt" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="RefId" ColumnName="RefId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shop_loai">
+            <EntityTypeMapping TypeName="babymart_vnModel.shop_loai">
+              <MappingFragment StoreEntitySet="shop-loai">
+                <ScalarProperty Name="banner_top" ColumnName="banner-top" />
+                <ScalarProperty Name="km" ColumnName="km" />
+                <ScalarProperty Name="hinh" ColumnName="hinh" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="banner_top_con" ColumnName="banner-top-con" />
+                <ScalarProperty Name="metakeywords" ColumnName="metakeywords" />
+                <ScalarProperty Name="metadescription" ColumnName="metadescription" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="tenloai" ColumnName="tenloai" />
+                <ScalarProperty Name="maloai" ColumnName="maloai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shop_phanloai_dotuoi">
+            <EntityTypeMapping TypeName="babymart_vnModel.shop_phanloai_dotuoi">
+              <MappingFragment StoreEntitySet="shop-phanloai_dotuoi">
+                <ScalarProperty Name="grouptuoi" ColumnName="grouptuoi" />
+                <ScalarProperty Name="dotuoi" ColumnName="dotuoi" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shop_rightcol">
+            <EntityTypeMapping TypeName="babymart_vnModel.shop_rightcol">
+              <MappingFragment StoreEntitySet="shop-rightcol">
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="alt" ColumnName="alt" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shop_sanpham">
+            <EntityTypeMapping TypeName="babymart_vnModel.shop_sanpham">
+              <MappingFragment StoreEntitySet="shop-sanpham">
+                <ScalarProperty Name="showsptangkemvaomuckm" ColumnName="showsptangkemvaomuckm" />
+                <ScalarProperty Name="chieucaosd" ColumnName="chieucaosd" />
+                <ScalarProperty Name="chieurongsd" ColumnName="chieurongsd" />
+                <ScalarProperty Name="chieudaisd" ColumnName="chieudaisd" />
+                <ScalarProperty Name="showbanner" ColumnName="showbanner" />
+                <ScalarProperty Name="showhome" ColumnName="showhome" />
+                <ScalarProperty Name="showcm" ColumnName="showcm" />
+                <ScalarProperty Name="showkg" ColumnName="showkg" />
+                <ScalarProperty Name="chieucao" ColumnName="chieucao" />
+                <ScalarProperty Name="chieurong" ColumnName="chieurong" />
+                <ScalarProperty Name="chieudai" ColumnName="chieudai" />
+                <ScalarProperty Name="kg" ColumnName="kg" />
+                <ScalarProperty Name="timeend" ColumnName="timeend" />
+                <ScalarProperty Name="countsale" ColumnName="countsale" />
+                <ScalarProperty Name="gift" ColumnName="gift" />
+                <ScalarProperty Name="ischeckgift" ColumnName="ischeckgift" />
+                <ScalarProperty Name="ischecksaleoff" ColumnName="ischecksaleoff" />
+                <ScalarProperty Name="ischeckout" ColumnName="ischeckout" />
+                <ScalarProperty Name="douutien" ColumnName="douutien" />
+                <ScalarProperty Name="chitiet_us" ColumnName="chitiet_us" />
+                <ScalarProperty Name="chitiet" ColumnName="chitiet" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="spkeywords" ColumnName="spkeywords" />
+                <ScalarProperty Name="spkeywords_us" ColumnName="spkeywords_us" />
+                <ScalarProperty Name="spdescription_us" ColumnName="spdescription_us" />
+                <ScalarProperty Name="spdescription" ColumnName="spdescription" />
+                <ScalarProperty Name="sptitle_us" ColumnName="sptitle_us" />
+                <ScalarProperty Name="sptitle" ColumnName="sptitle" />
+                <ScalarProperty Name="spurl_us" ColumnName="spurl_us" />
+                <ScalarProperty Name="spurl" ColumnName="spurl" />
+                <ScalarProperty Name="thongtin_us" ColumnName="thongtin_us" />
+                <ScalarProperty Name="thongtin" ColumnName="thongtin" />
+                <ScalarProperty Name="typeshowhome" ColumnName="typeshowhome" />
+                <ScalarProperty Name="tensp_us" ColumnName="tensp_us" />
+                <ScalarProperty Name="tensp" ColumnName="tensp" />
+                <ScalarProperty Name="plantype" ColumnName="plantype" />
+                <ScalarProperty Name="mahieu" ColumnName="mahieu" />
+                <ScalarProperty Name="maloai" ColumnName="maloai" />
+                <ScalarProperty Name="masp" ColumnName="masp" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shop_thuonghieu">
+            <EntityTypeMapping TypeName="babymart_vnModel.shop_thuonghieu">
+              <MappingFragment StoreEntitySet="shop-thuonghieu">
+                <ScalarProperty Name="maloai" ColumnName="maloai" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="metadescription" ColumnName="metadescription" />
+                <ScalarProperty Name="metakeywords" ColumnName="metakeywords" />
+                <ScalarProperty Name="showhome" ColumnName="showhome" />
+                <ScalarProperty Name="sort_metro" ColumnName="sort_metro" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="hinh" ColumnName="hinh" />
+                <ScalarProperty Name="noidung_us" ColumnName="noidung_us" />
+                <ScalarProperty Name="noidung" ColumnName="noidung" />
+                <ScalarProperty Name="tenhieu_us" ColumnName="tenhieu_us" />
+                <ScalarProperty Name="tenhieu" ColumnName="tenhieu" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="mahieu" ColumnName="mahieu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="support_cauhoi">
+            <EntityTypeMapping TypeName="babymart_vnModel.support_cauhoi">
+              <MappingFragment StoreEntitySet="support-cauhoi">
+                <ScalarProperty Name="ma_sp" ColumnName="ma_sp" />
+                <ScalarProperty Name="ma_hieu" ColumnName="ma_hieu" />
+                <ScalarProperty Name="maloai" ColumnName="maloai" />
+                <ScalarProperty Name="nguon" ColumnName="nguon" />
+                <ScalarProperty Name="traloi" ColumnName="traloi" />
+                <ScalarProperty Name="cauhoi" ColumnName="cauhoi" />
+                <ScalarProperty Name="mach" ColumnName="mach" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="support_feedback">
+            <EntityTypeMapping TypeName="babymart_vnModel.support_feedback">
+              <MappingFragment StoreEntitySet="support-feedback">
+                <ScalarProperty Name="doc" ColumnName="doc" />
+                <ScalarProperty Name="ngay" ColumnName="ngay" />
+                <ScalarProperty Name="noidung" ColumnName="noidung" />
+                <ScalarProperty Name="sdt" ColumnName="sdt" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="ten" ColumnName="ten" />
+                <ScalarProperty Name="ma" ColumnName="ma" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="support_silder">
+            <EntityTypeMapping TypeName="babymart_vnModel.support_silder">
+              <MappingFragment StoreEntitySet="support-silder">
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="show" ColumnName="show" />
+                <ScalarProperty Name="noidung" ColumnName="noidung" />
+                <ScalarProperty Name="maloai" ColumnName="maloai" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="ma" ColumnName="ma" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="support_textlink">
+            <EntityTypeMapping TypeName="babymart_vnModel.support_textlink">
+              <MappingFragment StoreEntitySet="support-textlink">
+                <ScalarProperty Name="vetinh" ColumnName="vetinh" />
+                <ScalarProperty Name="maloai" ColumnName="maloai" />
+                <ScalarProperty Name="textlink" ColumnName="textlink" />
+                <ScalarProperty Name="ma" ColumnName="ma" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_Banner">
+            <EntityTypeMapping TypeName="babymart_vnModel.sys_Banner">
+              <MappingFragment StoreEntitySet="sys_Banner">
+                <ScalarProperty Name="Link_us" ColumnName="Link_us" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Hide" ColumnName="Hide" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Banner_us" ColumnName="Banner_us" />
+                <ScalarProperty Name="Banner" ColumnName="Banner" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_content">
+            <EntityTypeMapping TypeName="babymart_vnModel.sys_content">
+              <MappingFragment StoreEntitySet="sys_content">
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="Contents_us" ColumnName="Contents_us" />
+                <ScalarProperty Name="Contents" ColumnName="Contents" />
+                <ScalarProperty Name="Name_us" ColumnName="Name_us" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_mail">
+            <EntityTypeMapping TypeName="babymart_vnModel.sys_mail">
+              <MappingFragment StoreEntitySet="sys_mail">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="contents" ColumnName="contents" />
+                <ScalarProperty Name="titile" ColumnName="titile" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_tags_Ref">
+            <EntityTypeMapping TypeName="babymart_vnModel.sys_tags_Ref">
+              <MappingFragment StoreEntitySet="sys_tags_Ref">
+                <ScalarProperty Name="TypeCollection" ColumnName="TypeCollection" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="RefCollection" ColumnName="RefCollection" />
+                <ScalarProperty Name="RefTag" ColumnName="RefTag" />
+                <ScalarProperty Name="RefId" ColumnName="RefId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_tags_Summary">
+            <EntityTypeMapping TypeName="babymart_vnModel.sys_tags_Summary">
+              <MappingFragment StoreEntitySet="sys_tags_Summary">
+                <ScalarProperty Name="RefType" ColumnName="RefType" />
+                <ScalarProperty Name="Tags" ColumnName="Tags" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_account_admin">
+            <EntityTypeMapping TypeName="babymart_vnModel.sys_account_admin">
+              <MappingFragment StoreEntitySet="sys-account-admin">
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="tendn" ColumnName="tendn" />
+                <ScalarProperty Name="ma" ColumnName="ma" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_bangtin_conhang">
+            <EntityTypeMapping TypeName="babymart_vnModel.sys_bangtin_conhang">
+              <MappingFragment StoreEntitySet="sys-bangtin_conhang">
+                <ScalarProperty Name="idsp" ColumnName="idsp" />
+                <ScalarProperty Name="nguoinhanbangtin" ColumnName="nguoinhanbangtin" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="babymart_vnModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_file">
+            <EntityTypeMapping TypeName="babymart_vnModel.sys_file">
+              <MappingFragment StoreEntitySet="sys-file">
+                <ScalarProperty Name="sort" ColumnName="sort" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="Files_us" ColumnName="Files_us" />
+                <ScalarProperty Name="Files" ColumnName="Files" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_imagetype">
+            <EntityTypeMapping TypeName="babymart_vnModel.sys_imagetype">
+              <MappingFragment StoreEntitySet="sys-imagetype">
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="refid" ColumnName="refid" />
+                <ScalarProperty Name="idtype" ColumnName="idtype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_nhanbangtin">
+            <EntityTypeMapping TypeName="babymart_vnModel.sys_nhanbangtin">
+              <MappingFragment StoreEntitySet="sys-nhanbangtin">
+                <ScalarProperty Name="sdt" ColumnName="sdt" />
+                <ScalarProperty Name="diachi" ColumnName="diachi" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="hoten" ColumnName="hoten" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

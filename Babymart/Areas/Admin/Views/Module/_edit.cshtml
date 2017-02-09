@@ -1,0 +1,232 @@
+﻿<script id="ModuleEditTmpl" type="text/html">
+    <div class="row-fluid" data-bind="with:mModule">
+        <div class="span12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3><i class="icon-th-list"></i> <span data-bind="text:$parent.NameModule"></span></h3>
+                </div>
+                <div class="box-content nopadding">
+                    <form class='form-horizontal form-bordered'>
+                        <!--ko if: $parent.HasError() && $parent.Validator().errors().length > 0-->
+                        <div class="control-group error">
+                            <label for="textfield" class="control-label"><b>Lỗi</b></label>
+                            <div class="controls">
+                                <span data-bind="text: 'Có ' + $parent.Validator().errors().length + ' lỗi trên trang:'"></span>
+                                <ul data-bind="foreach: $parent.Validator().errors">
+                                    <li data-bind="text: $data"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--/ko-->
+
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Module</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <select class="select2-me input-xlarge" data-bind="options:$parent.ListModuel, optionsText: 'name',optionsCaption: 'Chọn Module',optionsValue: 'id',value:$parent.SelectTypeModule"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--ko if: $parent.SelectTypeModule()!= undefined -->
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Nhóm Menu</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <select class="select2-me input-xlarge" data-bind="options:$parent.ListMenu, optionsText: 'tenloai',optionsValue: 'id',optionsCaption: 'Chọn Menu',value:$parent.SelectMenu"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--ko if: $parent.SelectMenu()!= undefined -->
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Nhóm bài viết</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <select class="select2-me input-xlarge" data-bind="options:$parent.ListGroup,optionsValue: 'id', optionsText: 'title',optionsCaption: 'Chọn Nhóm',value:$parent.SelectGroup"></select>
+                                </div>
+                                <button data-bind="click:$parent.submitCollection" class="btn btn-primary"><i class="icon-save"></i></button>
+
+                            </div>
+                        </div>
+                        <!--/ko-->
+                        <!--/ko-->
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b></b></label>
+                            <div class="controls">
+                                <strong data-bind="text: $parent.NameCollection"></strong>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Tiều đề</b></label>
+                            <div class="controls">
+                                <input type="text" data-bind="value:$parent.tieude,valueUpdate: 'afterkeydown'" class="input-xxxlarge">
+                                <input type="text" data-bind="value:title_us" class="input-xxxlarge margin-top-10" placeholder="TA">
+                                <div style="margin-top:10px">
+                                    <input type="checkbox" name="autourl" id="autourl" class="css-checkbox" data-bind="checked:$parent.autourl,checkedValue:false">
+                                    <label for="autourl" class="css-label radGroup1 chk" style="font-size:15px">Tự động điền biểu mẫu</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Tags</b></label>
+                            <div class="controls">
+                                <input type="text" data-bind="value:$parent.TagAdd">
+                                <div style="margin-top:10px">
+                                    <b>Tags đã thêm:</b>
+                                    <!--ko if:ListTags().length >0-->
+                                    <!--ko foreach:ListTags()-->
+                                    <span data-bind="text:Tags" style="background-color:green;color:white; padding: 5px;cursor:pointer"></span>
+                                    <i data-bind="click:$parents[1].RemoveTag" style="
+                                                       color:red;
+                                                      margin-left: -4px;
+                                                     padding: 6px;
+                                                      cursor: pointer;
+                                                      background: green;
+                                                      border-left: 1px solid rgb(24, 8, 8);
+                                                      cursor:pointer;
+                                                    " class="icon-trash"></i>
+
+                                    <!--/ko-->
+                                    <!--/ko-->
+                                    <!--ko if:ListTags().length <=0-->
+                                    <span class="danger">Không có tags nào được thêm.</span>
+                                    <!--/ko-->
+                                </div>
+                                <div style="margin-top:10px">
+                                    <b>Tags gợi ý:</b>
+                                    <!--ko if:$parent.ListTags() && $parent.ListTags().length >0-->
+                                    <!--ko foreach:$parent.ListTags-->
+                                    <span data-bind="text:Tags,click:$parents[1].ClickAddTags" style="background: rgb(159, 171, 250); padding: 5px; cursor: pointer"></span>
+                                    <!--/ko-->
+                                    <!--/ko-->
+                                    <!--ko if:$parent.ListTags() && $parent.ListTags().length <=0-->
+                                    <span class="text-danger">Không có tags gợi ý nào.</span>
+                                    <!--/ko-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Tags cho sản phẩm</b></label>
+                            <div class="controls">
+                                <input type="text" data-bind="value:$parent.TagAddProdcut">
+                                <div style="margin-top:10px">
+                                    <b>Tags đã thêm:</b>
+                                    <!--ko if:ListTagsRefProduct() && ListTagsRefProduct().length >0-->
+                                    <!--ko foreach:ListTagsRefProduct()-->
+                                    <span data-bind="text:Tags" style="background-color:green;color:white;   padding: 5px;cursor:pointer"></span>
+                                    <i data-bind="click:$parents[1].RemoveTagProduct" style="
+                                                       color:red;
+                                                      margin-left: -4px;
+                                                     padding: 6px;
+                                                      cursor: pointer;
+                                                      background: green;
+                                                      border-left: 1px solid rgb(24, 8, 8);
+                                                      cursor:pointer;
+                                                    " class="icon-trash"></i>
+
+                                    <!--/ko-->
+                                    <!--/ko-->
+                                    <!--ko if:ListTagsRefProduct() && ListTagsRefProduct().length <=0-->
+                                    <span class="danger">Không có tags nào được thêm.</span>
+                                    <!--/ko-->
+                                </div>
+                                <div style="margin-top:10px">
+                                    <b>Tags gợi ý:</b>
+                                    <button data-bind="click:$parent.MoreTags">Xem</button>
+                                    <p></p>
+                                    <!--ko if:$parent.IsMoreTag()-->
+                                    <!--ko if:$parent.ListTagsProduct().length >0-->
+                                    <!--ko foreach:$parent.ListTagsProduct-->
+                                    <span data-bind="text:Tags,click:$parents[1].ClickAddTagsProduct" style="background: rgb(159, 171, 250); padding: 5px; cursor: pointer"></span>
+                                    <!--/ko-->
+                                    <!--/ko-->
+                                    <!--ko if:$parent.ListTagsProduct().length <=0-->
+                                    <span class="text-danger">Không có tags gợi ý nào.</span>
+                                    <!--/ko-->
+                                    <!--/ko-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Ẩn</b></label>
+                            <div class="controls">
+                                <div class="check-line">
+                                    <input type="checkbox" name="checshow" id="checshow" class="css-checkbox" data-bind="checked:$parent.hide,checkedValue:true">
+                                    <label for="checshow" class="css-label radGroup1 chk"><b>Ẩn</b></label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Hình ảnh</b></label>
+                            <div class="controls">
+                                <img onerror="CommonUtils.ErrorImage(this)" data-bind="attr: { src:'@(Common.urlModule())' + img() }" style="max-width:220px" />
+                                <br />
+                                <input type="text" data-bind="value:img">
+                                <br />
+                                <input id="fu-my-auto-upload" name="MyFile" type="file" class="custom-file-input" data-bind="event:{change:$parent.upload('#fu-my-auto-upload')},valueUpdate: 'afterkeydown'" style="line-height:20px">
+
+                            </div>
+                        </div>
+                        @*<div class="control-group">
+                                <label for="textfield" class="control-label"><b>Hình ảnh</b></label>
+                                <div class="controls">
+                                    <input type="text" data-bind="value:img,valueUpdate: 'afterkeydown'" class="input-xxxlarge">
+                                    <img data-bind="attr: { src:img() }" onerror="CommonUtils.ErrorImage(this)" style="width:220px" />
+
+                                </div>
+                            </div>*@
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Mô tả</b></label>
+                            <div class="controls">
+                                <textarea class="form-control" rows="10" data-bind="value:extract" style="width: 98%;"></textarea>
+                                <p>(TA :)</p>
+                                <textarea class="form-control margin-top-10" rows="10" data-bind="value:extract_us" style="width: 98%;"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Nội dung</b></label>
+                            <div class="controls">
+                                <!-- ko if:$parent.InitFinish() -->
+                                <textarea class="form-control" rows="10" data-bind="tinymce:contents"></textarea>
+                                <p>(TA :)</p>
+                                <textarea class="form-control" rows="10" data-bind="tinymce:contents_us"></textarea>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <h4 class="control-label">SEO</h4>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Description</b></label>
+                            <div class="controls">
+                                <textarea rows="5" data-bind="value:description" class="input-xxxlarge"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Key word</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:keyword">
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Url</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:url">
+
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <div class="form-actions actionsz">
+                                <button data-bind="click:$parent.submit" class="btn btn-primary"><i class="icon-save"></i></button>
+                                <button data-bind="visible:id(),click:$parent.remove" class="btn btn-danger"><i class="icon-trash"></i></button>
+                                <a class="btn" data-bind="attr:{href:$parent.linkback}"><i class="icon-arrow-left"> Hủy</i></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

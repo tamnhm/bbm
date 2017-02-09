@@ -1,0 +1,220 @@
+﻿<script id="CustomerListTmpl" type="text/html">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3>
+                        <i class="icon-table"></i>
+                    </h3>
+                </div>
+                <div class="box-content nopadding">
+                    <div class="paging_ko">
+                        <input type="button" id="btnExport" value="Xuất Excel danh sách khách hàng" class="btn btn-danger" style=" margin-left: 20px; margin-top: 20px; ">
+                        <div class="filter-ko">
+                            <strong>Tìm kiếm:  </strong>
+                            <input placeholder="Mã đơn hàng" type="text" data-bind="value: FreeSearch, valueUpdate: 'afterkeydown'" style="width: 100px;">
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                    <table class="table table-hover table-nomargin dataTable table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Mã Kh</th>
+                                <th>Tên tài khoản</th>
+                                <th>Email</th>
+                                <th>Họ Tên</th>
+                                <th>Điểm</th>
+                                <th>Đơn hàng</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: DataArray">
+                            <tr class="gradeX">
+                                <td data-bind="text:MaKH"></td>
+                                <td data-bind="text:tendn"></td>
+                                <td data-bind="text:email"></td>
+                                <td data-bind="text:hoten"></td>
+                                <td data-bind="text:diem"></td>
+                                <!--ko if:donhangs().length == 0-->
+                                <td data-bind="text:donhangs().length"></td>
+                                <!--/ko-->
+                                <!--ko if:donhangs().length > 0-->
+                                <td><a data-bind="click:$parent.modaldh"><span data-bind="text:donhangs().length +'(Xem chi tiết)'"></span></a></td>
+                                <!--/ko-->
+                                <td><span class="btn btn-green" data-bind="click:$parent.getCustomer"><i class="icon-pencil"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="paging_ko" style="padding:10px">
+                        <div class="Pager">
+                            Page <span data-bind="text: indexPage"></span> of <span data-bind="text:maxpage"></span> [<span data-bind="text:countRecord"></span> dòng]&nbsp;&nbsp;
+                            <a class="btn-paging" href="#" data-bind="click:previousPage">&lt;&lt;</a>
+                            <a class="btn-paging" href="#" data-bind="click: nextPage">&gt;&gt;</a>
+                            <div style="float:right">
+                                Hiển thị:
+                                <select data-bind="value: pageSize">
+                                    <option value="10">10</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">250</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-setting" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Đơn hàng</h3>
+        </div>
+        <div class="modal-body">
+            <div class="box box-bordered">
+                <h3> Tài khoản <span data-bind="text:tendh"></span></h3>
+                <table class="table table-hover table-nomargin dataTable table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Mã DH</th>
+                            <th>Ngày đặt</th>
+                            <th>Tình trạng giao hàng</th>
+                            <th>Tổng tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: donhang">
+                        <tr class="gradeX">
+                            <td data-bind="text:id"></td>
+                            <td data-bind="click:$parent.ctdhClick"><a data-bind="datelong:ngaydat"></a></td>
+                            <td>
+                                <!--ko if: dagiao()-->
+                                <span class="btn btn-primary">Đã giao</span>
+                                <!--ko if: ngaygiao()-->
+                                (<span data-bind="datelong:ngaygiao"></span>)
+                                <!--/ko-->
+                                <!--/ko-->
+                                <!--ko if: !dagiao()-->
+                                <span class="btn btn-danger">Chưa giao</span>
+                                <!--/ko-->
+                            </td>
+                            <td data-bind="textMoney:tongtien"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </div>
+    <div id="modal-setting-ctdh" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Đơn hàng</h3>
+        </div>
+        <div class="modal-body">
+            <div class="box box-bordered">
+                <h3>Đơn hàng <span data-bind="text:tenctdh"></span></h3>
+                <table class="table table-hover table-nomargin dataTable table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Mã sp</th>
+                            <th>Tên sản phẩm</th>
+                            <th></th>
+                            <th>Giá</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: Ctdh">
+                        <tr class="gradeX">
+                            <td data-bind="text:masp"></td>
+                            <td data-bind="text:fullten"></td>
+                            <td><img data-bind="attr:{src:'@Common.urlProduct()' + imgsp() }" style="width:100px" /></td>
+                            >><td data-bind="textMoney:gia"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </div>
+    <div id="modal-khachhang" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Khách hàng</h3>
+        </div>
+        <div class="modal-body">
+            <div class="box box-bordered">
+                <div class="form-horizontal form-bordered" data-bind="with:mCustomer">
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Tên đăng nhập</label>
+                        <div class="controls">
+                            <strong data-bind="text: tendn"></strong>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Mật khẩu</label>
+                        <div class="controls">
+                            <strong data-bind="text: matkhau"></strong>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Điểm tích lũy</label>
+                        <div class="controls">
+                            <strong data-bind="text: diem"></strong>
+                            <input type="text" class="input-xxxlarge" data-bind="value:diem">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Họ Tên</label>
+                        <div class="controls">
+                            <input type="text" class="input-xxxlarge" data-bind="value:hoten">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Địa chỉ</label>
+                        <div class="controls">
+                            <input type="text" class="input-xxxlarge" data-bind="value:duong">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Điện thoại</label>
+                        <div class="controls">
+                            <input type="text" class="input-xxxlarge" data-bind="value:dienthoai">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Email</label>
+                        <div class="controls">
+                            <input type="text" class="input-xxxlarge" data-bind="value:email">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Nhận EMail quảng cáo</label>
+                        <div class="controls">
+                            <b data-bind="text:konhanmail()?'Không':'Có'"></b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+            <button class="btn btn-warning" data-bind="click:ResetPass">Reset mật khẩu</button>
+            <button class="btn btn-primary" data-bind="click:UpdateKh">Cập nhật</button>
+        </div>
+
+    </div>
+</script>
+<script>
+    $(document).ready(function () {
+
+        $('#btnExport').click(function () {
+
+            window.location = '/Customers/ExportInventory';
+
+        });
+    });
+</script>

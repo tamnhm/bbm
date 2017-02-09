@@ -1,0 +1,44 @@
+﻿@{
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+@section SEOContent{
+    <title>Đặt hàng - Babymart.vn</title>
+}
+
+<h3 class="pageTitle">Hình thức đặt hàng</h3>
+<div id="choosepayment">
+    <div class="has-reg chung">
+        <h4>@(IsLangVN ? "Khách hàng thành viên" : "Customer is member")</h4>
+        <div>
+            <a href='/dang-nhap.html' class="choosepaymentbutton">@(IsLangVN ? "Đăng nhập" : "Login")</a>
+        </div>
+        <div class="choosepaymentnote">
+            <ul>
+                @if (IsLangVN)
+                {
+                    <li> Đăng ký hoàn toàn miễn phí <a href="/dang-ky.html" target="_blank" style="color: #f60;">( Click vào đây để đăng ký)</a></li>
+                    <li>Tích lũy điểm thành viên để nhận ưu đãi <a href="/bai-viet/uu-dai-thanh-vien.html" target="_blank" style="color: #f60;">(Xem chi tiết)</a></li>
+                    <li>Theo dõi lịch sử mua hàng</li>
+                    <li>Nhận các thông tin khuyến mãi từ website</li>
+                    <li>Thông tin giao hàng được lưu lại, dễ dàng cho các lần mua sau</li>
+                }
+                else
+                {
+                    <li> Registered is free <a href="/dang-ky.html" target="_blank" style="color: #f60;">( Click here)</a></li>
+                    <li>Members accumulate points to get deals<a href="/bai-viet/uu-dai-thanh-vien.html" target="_blank" style="color: #f60;">( Click here)</a></li>
+                    <li>History cart</li>
+                    <li>Receive information sale off by website </li>
+                    <li>Information order is save</li>
+
+                }
+            </ul>
+        </div>
+    </div>
+    <hr>
+    <div class="not-reg chung">
+        <h4>@(IsLangVN ? "Mua hàng không cần đăng ký thành viên" : "Order without registration")</h4>
+        <div>
+            <a href='/xac-nhan-2.html' class="choosepaymentbutton">@(IsLangVN ? "Thanh toán" : "Payment")</a>
+        </div>
+    </div>
+</div>

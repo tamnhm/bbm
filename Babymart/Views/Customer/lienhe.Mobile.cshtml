@@ -1,0 +1,115 @@
+﻿@model Babymart.Models.Module.ModelContact
+@{
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+@section SEOContent{
+    <title>@(IsLangVN ? "Liên hệ" : "Contact") - Babymart.vn</title>
+
+}
+@section scripts{
+
+    @Scripts.Render("~/bundles/jqueryval");
+    <script type="text/javascript">
+        function onLoginSuccess() {
+            $('#loading').hide();
+            $('#success').show();
+            setTimeout("window.location.href='/';", 1000);
+        }
+    </script>
+    <style>
+        div#loading {
+            display: none;
+            position: absolute;
+            z-index: 9999;
+            top: 25%;
+            left: 50%;
+        }
+
+        #success {
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 32, 30, 0.77);
+            top: 0px;
+            text-align: center;
+            padding-top: 20%;
+            color: white;
+            line-height: 50px;
+            left: 0px;
+        }
+    </style>
+
+}
+<div class="columns-container">
+    <div class="container" id="columns">
+        <!-- breadcrumb -->
+        <div class="breadcrumb clearfix">
+            <a class="home" href="@(IsLangVN?"/":"/en")" title="Return to Home">@(IsLangVN ? "Trang chủ" : "Home")</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span class="navigation_page">@(IsLangVN ? "Liên hệ" : "Contact")</span>
+        </div>
+        <!-- ./breadcrumb -->
+        <!-- page heading-->
+        <h2 class="page-heading">
+            <span class="page-heading-title2">@(IsLangVN ? "Liên hệ" : "Contact")</span>
+        </h2>
+        <!-- ../page heading-->
+        <div id="contact" class="page-content page-contact">
+            <div id="message-box-conact"></div>
+            <div class="row">
+                <div class="col-sm-6">
+                    @using (Ajax.BeginForm("SubmitLienhe", "Customer", new AjaxOptions { LoadingElementId = "loading", OnSuccess = "onLoginSuccess" }, new { @class = "frm-common" }))
+                    {
+                        @Html.ValidationSummary(true)
+                        <div class="contact-form-box">
+                            <div class="form-selector">
+                                <label>@(IsLangVN ? "Họ tên" : "Name:") <span class='text-danger'>*</span></label>
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control input-sm" })
+                            </div>
+                            <div class="form-selector">
+                                <label>@(IsLangVN ? "Số điên thoại" : "Phone:") <span class='text-danger'>*</span></label>
+                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control input-sm" })
+                            </div>
+                            <div class="form-selector">
+                                <label>Email:</label>
+                                @Html.TextBoxFor(model => model.Mail, new { @class = "form-control input-sm" })
+                            </div>
+                            <div class="form-selector">
+                                <label>@(IsLangVN ? "Nội dung" : "Content:") <span class='text-danger'>*</span></label>
+                                @Html.TextAreaFor(model => model.Contents, new { @class = "form-control input-sm", rows = "5" })
+                            </div>
+                            <div class="form-selector">
+                                @if (IsLangVN)
+                                {  <input type='submit' id="btn-send-contact" class="btn" value='Gửi' />}
+                                else
+                                { <input type='submit' id="btn-send-contact" class="btn" value='Send' /> }
+                            </div>
+                        </div>
+                        <div class="control-group error">
+                            <div class="controls">
+                                <ul>
+                                    <li>@Html.ValidationMessageFor(model => model.Name)</li>
+                                    <li>@Html.ValidationMessageFor(model => model.Phone)</li>
+                                    <li>@Html.ValidationMessageFor(model => model.Contents)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="col-xs-12 col-sm-6" id="contact_form_map">
+                    <div>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1959.6080052617208!2d106.62935048898731!3d10.79476118245831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0000000000000000%3A0xda54b1c054b82f4c!2sBabymart.vn!5e0!3m2!1svi!2s!4v1443669572096" width="100%" height="455" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="loading">
+        <img src="~/Content/img/load_s.gif" />
+    </div>
+    <div id="success">
+        <h3>@(IsLangVN ? "Chúng tôi sẽ nhanh chóng liên lạc với quý khách trong thời gian sớm nhất!" : "We will soon contact you...")</h3>
+        <span style="padding-left: 20px;">@(IsLangVN ? "Chúng tôi sẽ chuyển trang sau 5 giây ....." : "We will redirect after 5 second...")</span>
+    </div>
+</div>

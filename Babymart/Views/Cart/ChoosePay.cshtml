@@ -1,0 +1,31 @@
+﻿@{
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+@section SEOContent{
+    <title>Đặt hàng - Babymart.vn</title>
+}
+<div class="columns-container">
+    <div class="container" id="columns">
+        <div class="page-content text-center order">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="box-authentication">
+                        <h3>@(IsLangVN ? "Khách hàng thành viên" : "Customer is member")</h3>
+                        <a href="/dang-nhap.html" class="button"><i class="fa fa-lock"></i> @(IsLangVN ? "Đăng nhập" : "Login")</a>
+                        <p><span class="glyphicon glyphicon-hand-right"></span>@(IsLangVN ? "Đăng ký hoàn toàn miễn phí" : "Sign up for FREE") (<a href="/dang-ky.html">@(IsLangVN ? "Click vào đây để đăng ký" : "Click here")</a>)<p>
+                        <p><span class="glyphicon glyphicon-hand-right"></span>@(IsLangVN ? "Tích lũy điểm thành viên để nhận ưu đãi" : "Members accumulate points to get deals") (<a href="/bai-viet/uu-dai-thanh-vien.html">@(IsLangVN ? "Xem chi tiết" : "Click here")</a>)<p>
+                        <p><span class="glyphicon glyphicon-hand-right"></span>@(IsLangVN ? "Theo dõi lịch sử mua hàng" : "Check order history")<p>
+                        <p><span class="glyphicon glyphicon-hand-right"></span>@(IsLangVN ? "Nhận các thông tin khuyến mãi từ website" : "Receiving promotion information")</p>
+                        <p><span class="glyphicon glyphicon-hand-right"></span>@(IsLangVN ? "Thông tin giao hàng được lưu lại, dễ dàng cho các lần mua sau" : "Stored shipping information conveniently for next orders")</p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="box-authentication">
+                        <h3>@(IsLangVN ? "Mua hàng không cần đăng ký thành viên" : "Order without registration")</h3>
+                        <a href="/xac-nhan-2.html" class="button"><span class="glyphicon glyphicon-ok" style="padding:0"></span> @(IsLangVN ? "Thanh toán" : "Payment")</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

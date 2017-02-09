@@ -1,0 +1,80 @@
+﻿@model IList<Babymart.Models.module_group>
+@if (Model.Count > 0)
+{
+    <div class='breadcrumb'>
+        <ul>
+            <li><a href="/"> &rarr;</a></li>
+            <li><a href="/hoat-hinh.html">@(FBabymartvn.IsLangVN() ? "Hoạt hình" : "Cartoon") &rarr;</a></li>
+            <li><i>@(FBabymartvn.IsLangVNHasValue(Model.FirstOrDefault().module_menu.tenloai_us) ? Model.FirstOrDefault().module_menu.tenloai : Model.FirstOrDefault().module_menu.tenloai_us)</i></li>
+        </ul>
+    </div>
+
+    <div id='product-detail' class='clearfix'>
+        <div class='top-container clearfix'>
+            @foreach (var item in Model)
+            {
+                var article = item.module_detail.Where(p => p.hide == false && p.StoreId == FBabymartvn.GetStoreId()).OrderByDescending(p => p.id).Take(4);
+                if (article.Count() > 0)
+                {  <div class="section-box">
+                    <div class="section-header">
+                        <a href="@("/hoat-hinh/"+item.module_menu.url+"/"+item.url+".html")">
+                            <h2 class="section-title">
+                                <span class="name">
+                                    @if (FBabymartvn.GetHttpCookieLang() == null
+                                            || FBabymartvn.GetHttpCookieLang().Value == null
+                                            || FBabymartvn.GetHttpCookieLang().Value == "vn"
+                                            || String.IsNullOrEmpty(item.title_us))
+                                    {
+                                        @item.title
+                                    }
+                                    else
+                                    {
+                                        @item.title_us
+                                    }
+                                </span>
+                            </h2>
+                        </a>
+                    </div><div class="section-content grid-small">
+                        <div class="nag cf">
+
+                            @foreach (var obj in article)
+                            {
+
+                                <div class="item cf item-video">
+
+                                    <div class="thumb">
+                                        <a class="clip-link" title="@obj.title" href="@("/hoat-hinh/" + item.url + "/" + obj.id + "/" + obj.url + ".html")">
+                                            <span class="clip">
+                                                <img src="@(Common.urlModule()+obj.img)" alt="@item.title"><span class="vertical-align"></span>
+                                                >
+                                            </span>
+
+                                            <span class="overlay"></span>
+                                        </a>
+                                    </div>
+                                    <div class="data">
+                                        @if (FBabymartvn.GetHttpCookieLang() == null
+                                            || FBabymartvn.GetHttpCookieLang().Value == null
+                                            || FBabymartvn.GetHttpCookieLang().Value == "vn"
+                                            || String.IsNullOrEmpty(obj.title_us))
+                                        {
+                                            <h2 class="entry-title"><a href="@("/hoat-hinh/" + item.url + "/" + obj.id + "/" + obj.url + ".html")" rel="bookmark" title="@obj.title">@obj.title</a></h2>
+                                        }
+                                        else
+                                        {
+                                            <h2 class="entry-title"><a href="@("/hoat-hinh/" + item.url + "/" + obj.id + "/" + obj.url + ".html")" rel="bookmark" title="@obj.title_us">@obj.title_us</a></h2>
+                                        }
+                                    </div>
+                                </div><!-- end #post-2769 -->
+                            }
+                        </div>
+                    </div><!-- end .section-content -->
+                </div>
+                <div class='clearfix'></div>}
+
+            }
+        </div><!-- end block -->
+
+        <div class='clearfix'></div>
+    </div>
+}

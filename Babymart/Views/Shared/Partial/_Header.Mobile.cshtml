@@ -1,0 +1,38 @@
+﻿@{
+    var kh = Session["khachhang"] as Babymart.Models.Module.ModeCustomerPost;
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+@*<div class="headerOuterWrapper" style="background-image:url('https://babymart.vn/Images/hinhdulieu/upload/snow_vect.jpg')">*@ 
+<div class="headerOuterWrapper" >
+    <div class="phoneWrapper" style="background: #c92029 url('https://babymart.vn/Images/hinhdulieu/upload/header-newyear-2017-min.png') 0 top no-repeat;background-size: 100%;">
+        <i class="fa fa-phone"></i> @(IsLangVN ? "84.8.6672.0909 - 84.8.3812.3813 - 84.8.3813.0245 | Hotline: 0909.324.824" : "Hotline: 0918.644.643")
+    </div>
+    <div class="headerWrapper" style="background: #c92029;">
+        <a href="/gio-hang.html" class="hand-book-button"><i class="fa fa-shopping-cart"></i></a>
+        <a href="@(kh != null ? "/thong-tin-tai-khoan.html" : "/dang-nhap.html")" class="accountButton"></a>
+        @if (IsLangVN)
+        {<a href="/cam-nang.html" class="hand-book-button"><i class="fa fa-book"></i></a> }
+        <a href="/" class="lg vn"><div></div></a>
+        <a href="/en" class="lg us"><div></div></a>
+        <a href="#" class="mainMenuButton">Menu</a>
+    </div>
+    <div class="headerDecoration"></div>
+
+    <!-- main logo starts -->
+    @*<a href="@(IsLangVN?"/":"/en")" class="mainLogo">
+            <img src="~/Images/mobile/images/logo.png" />
+        </a>*@
+    @if (IsLangVN)
+    {
+        <a href="/" class="mainLogo">
+            <img src="~/Images/mobile/images/logo.png" style="margin-top: 30px;" />
+        </a>
+    }
+    else
+    {
+        <a href="/en" class="mainLogo">
+            <img src="~/Images/mobile/images/logo-en.png" />
+        </a>
+    }
+    <!-- main logo ends -->
+</div>

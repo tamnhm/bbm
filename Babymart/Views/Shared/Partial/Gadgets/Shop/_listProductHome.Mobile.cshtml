@@ -1,0 +1,50 @@
+﻿@model Babymart.Models.shop_sanpham
+@{
+    var bienthe = Model.shop_bienthe.Where(o => o.isdelete == false).ToList();
+    bool isone_bienthe = bienthe.Count == 1 ? true : false;
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+<div class="homeProductWrapper">
+    <a href="@((IsLangVN ? "/tin-tuc/" + Model.spurl : "/en/product/" + Model.spurl_us) + ".html")">
+        @if (Model.shop_image.Count > 0)
+        {
+            <img onerror="imgError(this)" src="@(Common.urlProduct() + Model.shop_image.FirstOrDefault().url)" alt="@Model.tensp" width='156' height='156' />
+        }
+        else
+        {
+            <img onerror="imgError(this)" src="" alt="sản phẩm" width='156' height='156' />
+        }
+    </a>
+    <div class="homeProductInfoWrapper">
+        <span class="homeProductTitle">
+            <a href="@((IsLangVN ? "/tin-tuc/" + Model.spurl : "/en/product/" + Model.spurl_us) + ".html")">
+                @(FBabymartvn.IsLangVNHasValue(Model.tensp_us) ? Model.tensp : Model.tensp_us)
+            </a>
+        </span>
+        @if (isone_bienthe == true)
+        {
+            if (Model.shop_bienthe.First().giasosanh > 0)
+            {
+                <span class="gia-goc">@string.Format("{0:0,0 đ}", Model.shop_bienthe.First().giasosanh)</span>
+            }
+            <a href="@((IsLangVN ? "/tin-tuc/" + Model.spurl : "/en/product/" + Model.spurl_us) + ".html")" class="homePurchaseButtonsaleoff">
+                @if (Model.ischeckout == false)
+                {
+                    <span>@string.Format("{0:0,0 đ}", Model.shop_bienthe.First().gia)</span>
+                }
+                else
+                {
+                    <span>@(IsLangVN ? "Tạm hết hàng" : "Sold out")</span>
+                }
+
+
+            </a>
+
+        }
+        else
+        {
+            <a href="@((IsLangVN ? "/tin-tuc/" + Model.spurl : "/en/product/" + Model.spurl_us) + ".html")" class="homePurchaseButtonsaleoff">@(IsLangVN ? "Xem chi tiết" : "Detail")</a>
+        }
+
+    </div>
+</div>

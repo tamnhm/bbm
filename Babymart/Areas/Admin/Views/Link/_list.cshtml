@@ -1,0 +1,344 @@
+﻿<script id="LinkListTmpl" type="text/html">
+    <div class="page-header">
+        <div class="pull-left">
+        </div>
+        <div class="pull-right">
+            <ul class="minitiles">
+                <li class='grey'>
+                    <a data-bind="click:addLink"><i class="icon-plus-sign"></i></a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="row-fluid list_link" data-bind="foreach:listlink">
+        <div class="box box-color box-bordered green">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-link"></i>
+                    <span data-bind="text:tendanhmuc"></span><span class="txt_hide" data-bind="visible:hide"> ( Ẩn )</span>
+                </h3>
+                <h3 class="icon-tooledit">
+
+                    <i class="icon-plus-sign" data-bind="click:$parent.linkaddLink"></i>
+                    <i class="icon-cog" data-bind="click:$parent.Setting"></i>
+                </h3>
+            </div>
+            <div class="box-content" data-bind="foreach:shop_danhmuccon">
+                <p><a data-bind="text:tendanhmuccon,click:$root.mvlist.detail_linkcon"></a> <span class="txt_hide" data-bind="visible:hide"> ( Ẩn )</span></p>
+            </div>
+        </div>
+    </div>
+    <div id="modal-setting" data-bind="with:mlink" style="width:90%;left:27%" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 data-bind="text:tendanhmuc()?'Danh mục chính - '+tendanhmuc():'Danh mục chính'"></h3>
+        </div>
+        <div class="modal-body">
+            <div class="box box-bordered">
+                <div class="form-horizontal form-bordered">
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Tiêu đề</label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:tendanhmuc,valueUpdate:'afterkeydown'" class="input-xlarge" style="float:left;width: 70%;">
+                            <input type="text" data-bind="value:tendanhmuc_us" class="input-xlarge margin-top-10" style="float:left;width: 70%;" placeholder="TA">
+
+                             <div class=" check-line" style="float:left;margin-left:10px">
+                                <input type="checkbox" name="checkautolink" id="checkautolink" class="css-checkbox" data-bind="checked:$parent.checkautolink,valueUpdate:'afterkeydown'" />
+                                <label for="checkautolink" class="css-label radGroup1 chk" style="font-size:13px">Auto</label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"></label>
+                        <div class="controls">
+                            <div class="check-line">
+                                <input type="checkbox" name="checshow1" id="checshow1" class="css-checkbox" data-bind="checked:hide" />
+                                <label for="checshow1" class="css-label radGroup1 chk" style="font-size:13px"><b>Ẩn</b></label>
+
+                            </div>
+                            <div class="check-line">
+                                <input type="text" class="input-small" placeholder="sắp xếp" data-bind="value:sort" />
+                            </div>
+                            <div class="check-line">
+                                <input type="text" data-bind="value:background" class="input-xlarge" placeholder="Background">
+                            </div>
+                            <div class="check-line">
+                                <input type="text" data-bind="value:icon" class="input-xlarge" placeholder="icon">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Css</label>
+                        <div class="controls">
+                            <textarea name="textarea" id="textarea" rows="5" class="input-block-level" data-bind="value:css"></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Url</label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:url" class="input-xlarge">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Url US</label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:url_us" class="input-xlarge">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Meta Title</label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:meta_title" class="input-xlarge">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Meta Title Us</label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:meta_title_us" class="input-xlarge">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Meta KeyWord</label>
+                        <div class="controls">
+                            <textarea name="textarea" id="textarea" rows="5" class="input-block-level" data-bind="value:meta_keyword"></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Meta KeyWord US</label>
+                        <div class="controls">
+                            <textarea name="textarea" id="textarea" rows="5" class="input-block-level" data-bind="value:meta_keyword_us"></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textarea" class="control-label">Meta Description</label>
+                        <div class="controls">
+                            <textarea name="textarea" id="textarea" rows="5" class="input-block-level" data-bind="value:meta_description"></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textarea" class="control-label">Meta Description US</label>
+                        <div class="controls">
+                            <textarea name="textarea" id="textarea" rows="5" class="input-block-level" data-bind="value:meta_description_us"></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <p>Nội dung :</p>
+                        <!-- ko if:$parent.InitFinish1() -->
+                        <textarea class="form-control" rows="10" data-bind="tinymce:noidung" style="height:400px"></textarea>
+                        <!-- /ko -->
+                    </div>
+                    <div class="control-group">
+                        <p>Nội dung (TA) :</p>
+                        <!-- ko if:$parent.InitFinish1() -->
+                        <textarea class="form-control" rows="10" data-bind="tinymce:noidung_us" style="height:400px"></textarea>
+                        <!-- /ko -->
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Tag cho Bài viết tư vấn</label>
+                        <div class="controls">
+                            <div style="margin-top:10px">
+                                <b>Tags đã thêm:</b>
+                                <!--ko if:ListTagsArticle() && ListTagsArticle().length >0-->
+                                <!--ko foreach:ListTagsArticle()-->
+                                <span data-bind="text:Tags" style="background-color:green;color:white;   padding: 5px;cursor:pointer"></span>
+                                <i data-bind="click:$parents[1].RemoveTag" style="
+                                                       color:red;
+                                                      margin-left: -4px;
+                                                     padding: 6px;
+                                                      cursor: pointer;
+                                                      background: green;
+                                                      border-left: 1px solid rgb(24, 8, 8);
+                                                      cursor:pointer;
+                                                    " class="icon-trash"></i>
+
+                                <!--/ko-->
+                                <!--/ko-->
+                                <!--ko if:ListTagsArticle() && ListTagsArticle().length <=0-->
+                                <span class="danger">Không có tags nào được thêm.</span>
+                                <!--/ko-->
+                            </div>
+                            <div style="margin-top:10px">
+                                <b>Tags gợi ý:</b>
+                                <!--ko if:$parent.TagArticle().length >0-->
+                                <!--ko foreach:$parent.TagArticle-->
+                                <span data-bind="text:Tags,click:$parents[1].ClickAddTagsArticle" style="background: rgb(159, 171, 250); padding: 5px; cursor: pointer"></span>
+                                <!--/ko-->
+                                <!--/ko-->
+                                <!--ko if:$parent.TagArticle().length <=0-->
+                                <span class="text-danger">Không có tags gợi ý nào.</span>
+                                <!--/ko-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-danger" data-bind="click:$parent.deleteLink">Xóa</button>
+            <button class="btn btn-primary" data-bind="click:$parent.SaveSetting">Save changes</button>
+        </div>
+        <div class="hide_delete modal-backdrop fade in" style="display:none"></div>
+    </div>
+    <div id="modal-setting-children" style="width:90%;left:27%" data-bind="with:mlinkcon" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 data-bind="text:tendanhmuccon()?tendanhmuccon:'Thêm link cho danh mục '+$parent.mlink().tendanhmuc()"></h3>
+        </div>
+        <div class="modal-body">
+            <div class="box box-bordered">
+                <div class="form-horizontal form-bordered">
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Tiêu đề</label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:tendanhmuccon,valueUpdate:'afterkeydown'" class="input-xlarge" style="float:left;width: 70%;">
+                            <input type="text" data-bind="value:tendanhmuccon_us" class="input-xlarge margin-top-10" style="float:left;width: 70%;" placeholder="TA">
+                            <div class=" check-line" style="float:left;margin-left:10px">
+                                <input type="checkbox" name="checkautolinkcon" id="checkautolinkcon" class="css-checkbox" data-bind="checked:$parent.checkautolinkcon,valueUpdate:'afterkeydown'" />
+                                <label for="checkautolinkcon" class="css-label radGroup1 chk" style="font-size:13px">Auto</label>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"></label>
+                        <div class="controls">
+                            <div class="check-line">
+                                <input type="checkbox" name="checshow" id="checshow" class="css-checkbox" data-bind="checked:hide">
+                                <label for="checshow" class="css-label radGroup1 chk" style="font-size:13px"><b>Ẩn</b></label>
+
+                            </div>
+                            <div class="check-line">
+                                <input type="text" class="input-small" placeholder="sắp xếp" data-bind="value:sort" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Group</label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:grouplink" class="input-xlarge">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Group_us</label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:grouplink_us" class="input-xlarge">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Css</label>
+                        <div class="controls">
+                            <textarea name="textarea" id="textarea" rows="5" class="input-block-level" data-bind="value:css"></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Url</label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:url" class="input-xlarge">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Url US</label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:url_us" class="input-xlarge">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Meta Title</label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:metatitle" class="input-xlarge">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Meta Title US</label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:metatitle_us" class="input-xlarge">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Meta KeyWord</label>
+                        <div class="controls">
+                            <textarea name="textarea" id="textarea" rows="5" class="input-block-level" data-bind="value:metakeywords"></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Meta KeyWord US</label>
+                        <div class="controls">
+                            <textarea name="textarea" id="textarea" rows="5" class="input-block-level" data-bind="value:metakeywords_us"></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textarea" class="control-label">Meta Description</label>
+                        <div class="controls">
+                            <textarea name="textarea" id="textarea" rows="5" class="input-block-level" data-bind="value:metadescription"></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textarea" class="control-label">Meta Description US</label>
+                        <div class="controls">
+                            <textarea name="textarea" id="textarea" rows="5" class="input-block-level" data-bind="value:metadescription_us"></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group" style="margin-top:20px">
+                        <p>Nội dung :</p>
+                        <!-- ko if:$parent.InitFinish() -->
+                        <textarea class="form-control" rows="10" data-bind="tinymce:noidung" style="height:400px"></textarea>
+                        <!-- /ko -->
+                    </div>
+                    <div class="control-group" style="margin-top:20px">
+                        <p>Nội dung (TA) :</p>
+                        <!-- ko if:$parent.InitFinish() -->
+                        <textarea class="form-control" rows="10" data-bind="tinymce:noidung_us" style="height:400px"></textarea>
+                        <!-- /ko -->
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Tag cho Bài viết tư vấn</label>
+                        <div class="controls">
+                            <div style="margin-top:10px">
+                                <b>Tags đã thêm:</b>
+                                <!--ko if:ListTagsArticle() && ListTagsArticle().length >0-->
+                                <!--ko foreach:ListTagsArticle()-->
+                                <span data-bind="text:Tags" style="background-color:green;color:white;   padding: 5px;cursor:pointer"></span>
+                                <i data-bind="click:$parents[1].RemoveTagFORLINKCON" style="
+                                                       color:red;
+                                                      margin-left: -4px;
+                                                     padding: 6px;
+                                                      cursor: pointer;
+                                                      background: green;
+                                                      border-left: 1px solid rgb(24, 8, 8);
+                                                      cursor:pointer;
+                                                    " class="icon-trash"></i>
+
+                                <!--/ko-->
+                                <!--/ko-->
+                                <!--ko if:ListTagsArticle() && ListTagsArticle().length <=0-->
+                                <span class="danger">Không có tags nào được thêm.</span>
+                                <!--/ko-->
+                            </div>
+                            <div style="margin-top:10px">
+                                <b>Tags gợi ý:</b>
+                                <!--ko if:$parent.TagArticle().length >0-->
+                                <!--ko foreach:$parent.TagArticle-->
+                                <span data-bind="text:Tags,click:$parents[1].ClickAddTagsArticleFORLINKCON" style="background: rgb(159, 171, 250); padding: 5px; cursor: pointer"></span>
+                                <!--/ko-->
+                                <!--/ko-->
+                                <!--ko if:$parent.TagArticle().length <=0-->
+                                <span class="text-danger">Không có tags gợi ý nào.</span>
+                                <!--/ko-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+            <button class="btn btn-danger" data-bind="click:$parent.delete_linkcon">Xóa</button>
+            <button class="btn btn-primary" data-bind="click:$parent.updateLinkcon">Lưu</button>
+        </div>
+        <div class="hide_delete modal-backdrop fade in" style="display:none"></div>
+    </div>
+</script>

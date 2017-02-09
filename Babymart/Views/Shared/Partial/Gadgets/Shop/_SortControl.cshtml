@@ -1,0 +1,28 @@
+﻿@{
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+<div class="subcategories">
+    @using (Ajax.BeginForm("AjaxSort", new AjaxOptions { UpdateTargetId = "productList" }))
+    { 
+    <ul>
+        <li class="current-categorie">
+            <a>Sắp xếp theo:</a>
+        </li>
+        <li>
+            <button type="submit" name="sort" value="NameProduct">@(IsLangVN ? "Tên sản phẩm" : "Name")</button>
+        </li>
+        <li>
+            <button type="submit" name="sort" value="NewProduct">@(IsLangVN ? "Sản phẩm mới" : "New")</button>
+        </li>
+        <li>
+            <button type="submit" name="sort" value="SaleProduct">@(IsLangVN ? "Khuyến mãi" : "Sale off")</button>
+        </li>
+        <li>
+            <button type="submit" name="sort" value="PriceProduct">@(IsLangVN ? "Giá tăng dần" : "Price")</button>
+        </li>
+        <li>
+            <button type="submit" name="sort" value="PriceDescProduct">@(IsLangVN ? "Giá giảm dần" : "Price Desc")</button>
+        </li>
+    </ul>
+    }
+</div>

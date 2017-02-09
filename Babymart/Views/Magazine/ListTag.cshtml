@@ -1,0 +1,74 @@
+﻿@model IList<Babymart.Models.module_detail>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Index";
+}
+@section SEOContent{
+
+        <title>@ViewBag.Tags - Babymart.vn</title>
+        <meta name="keywords" content="@Html.Raw(ViewBag.Tags)" />
+        <meta name="description" content="@Html.Raw(ViewBag.Tags)" />
+    }
+<div class="article">
+    <h1>Bài viết với Tags : @ViewBag.Tags</h1>
+    <div>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <article>
+                    <div class="content">
+                        <img src="@(Common.urlModule() + item.img)" class="thumb" alt="@item.title">
+                        <div class="ps">
+                            <h4 class="post-title">
+                                <a href="@("/cam-nang/bai-viet/" + item.id + "/" + item.url + ".html")" title="@item.title">
+                                    @if (FBabymartvn.GetHttpCookieLang() == null
+                                            || FBabymartvn.GetHttpCookieLang().Value == null
+                                            || FBabymartvn.GetHttpCookieLang().Value == "vn"
+                                            || String.IsNullOrEmpty(item.title_us))
+                                    {
+                                        @item.title
+                                    }
+                                    else
+                                    {
+                                        @item.title_us
+                                    }
+                                </a>
+                            </h4>
+                            <span>@String.Format("{0:dd/MM/yyyy}", item.createdate)</span>
+
+                            <p>
+                                @if (FBabymartvn.GetHttpCookieLang() == null
+                                            || FBabymartvn.GetHttpCookieLang().Value == null
+                                            || FBabymartvn.GetHttpCookieLang().Value == "vn"
+                                            || String.IsNullOrEmpty(item.extract_us))
+                                {
+                                   @Html.Raw(item.extract + "...")
+
+                                }
+                                else
+                                {
+                                   @Html.Raw(item.extract_us + "...")
+                                }                                
+                                <a href="@("/cam-nang/bai-viet/" + item.id + "/" + item.url + ".html")" title="@item.title">
+                                    xem thêm
+                                </a>
+                            </p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </article>
+            }
+        }
+        else
+        {
+            <article>
+                <div class="content">
+                   <h3 style="text-align:center;padding:20px">@(FBabymartvn.IsLangVN()?"Không tìm thấy bài viết nào":"Not found")</h3>
+                    <div class="clearfix"></div>
+                </div>
+            </article>
+        }
+    </div>
+
+</div>

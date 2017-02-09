@@ -1,0 +1,41 @@
+﻿@model Babymart.Models.donhang
+@using System.Text.RegularExpressions
+@{
+    Layout = null;
+    //string noidongdh = Model.noidung.Replace("<th style=\"text-align: center;\"></th>", "").Replace("Chúng tôi sẽ giao hàng trong vòng 2 ngày làm việc và sẽ gọi điện thoại đến bạn trước khi giao hàng.", "").Replace("Nếu cần bất cứ sự hỗ trợ nào, bạn vui lòng liên hệ:  0918.644.643", "").Replace("Website babymart.vn - Nơi bố mẹ gửi trọn niềm tin.<br>                    325 Trương Vĩnh Ký, P. Tân Thành, Q.Tân Phú - Tp. HCM<br>                    ĐT: 08.6672.0909 - 08.3812.3813, Đường dây nóng: 0918.644.643 - 0909.324.824<br>                    Email: babymart.vn@babymart.vn - Website : <a href=\"babymart.vn\" target=\"_blank\">babymart.vn</a><br>                </div>        </div>    </div>", "").Replace("colspan=\"3\"", "colspan=\"2\"").Replace("<table style=\"width:100%\">", "<table style=\"width:70%\">").Replace("( <span data-bind=\"text: giogiaocuthe\">giao hang buoi sang hoac sau 4h chieu</span> )","").Replace("Không cần xác nhận (Babymart.vn sẽ gọi điện thoại cho bạn trước khi giao hàng, bạn vui lòng giữ điện thoại)", "").Replace("Bạn vui lòng giữ máy điện thoại trong thời gian hẹn giao hàng để chúng tôi tiện liên lạc. Xin cám ơn!", "").Replace("Ghi chú :", "").Replace("Ghi chú :", "").Replace("---","").Replace("<tr> <td style=\"width: 200px; \"><b>Xác nhận đơn hàng : </b></td> <td> <label> <!-- ko if:typeconfim() == 1 --><!--/ko--> <!-- ko if:typeconfim() == 3 --> <!--/ko--> </label> </td> </tr>","").Replace("Xác nhận đơn hàng :","").Replace("<table>", "<table style=\"width:70%\">").Replace("<div style=\"line-height: 1.5;\"><div><span style=\"font-family: Arial; color: #000000;\"> <strong>Chào bạn Huynh le nhat phuong !</strong></span></div><div><span style=\"font-family: Arial; color: #000000;\"><strong> Cảm ơn bạn đ&atilde; đặt h&agrave;ng tại website&nbsp;<a href=\"https://babymart.vn\" target=\"_blank\">Babymart.vn</a></strong></span></div><div><span style=\"font-family: Arial;  color: #000000;\"><strong>Dưới đ&acirc;y l&agrave; th&ocirc;ng tin đơn h&agrave;ng của bạn.</strong></span></div></div><br/><br/>", "");
+    string noidongdh = Model.noidung.Replace("<p>                    Chúng tôi sẽ giao hàng trong vòng 2 ngày làm việc và sẽ gọi điện thoại đến bạn trước khi giao hàng.                </p>                <p>                    Nếu cần bất cứ sự hỗ trợ nào, bạn vui lòng liên hệ:  0918.644.643                </p>                <!--/ko-->                <!--ko if:mCustomer().selectPayment() == 2--><!--/ko-->            </div>                <div style=\"text-align:center;margin-top:20px\">                    Website babymart.vn - Nơi bố mẹ gửi trọn niềm tin.<br>                    325 Trương Vĩnh Ký, P. Tân Thành, Q.Tân Phú - Tp. HCM<br>                    ĐT: 08.6672.0909 - 08.3812.3813, Đường dây nóng: 0918.644.643 - 0909.324.824<br>                    Email: babymart.vn@babymart.vn - Website : <a href=\"babymart.vn\" target=\"_blank\">babymart.vn</a><br>                </div>", "").Replace("colspan=\"3\"", "colspan=\"2\"").Replace("<th style=\"text-align: center;\"></th>", "").Replace("<table style=\"width:100%\">", "<table style=\"width:70%\">").Replace("<div style=\"line-height: 1.5;\"><div><span style=\"font-family: Arial; color: #000000;\"> <strong>Chào bạn Huynh le nhat phuong !</strong></span></div><div><span style=\"font-family: Arial; color: #000000;\"><strong> Cảm ơn bạn đ&atilde; đặt h&agrave;ng tại website&nbsp;<a href=\"https://babymart.vn\" target=\"_blank\">Babymart.vn</a></strong></span></div><div><span style=\"font-family: Arial;  color: #000000;\"><strong>Dưới đ&acirc;y l&agrave; th&ocirc;ng tin đơn h&agrave;ng của bạn.</strong></span></div></div><br/><br/>", "").Replace("<table>", "<table style=\"width:70%\">").Replace("</span> đ", "</span>").Replace("</span>đ", "</span>").Replace("style=\"font-weight: bold\"", "").Replace("<tr style=\"height: 30px;font-weight: bold;", "<tr style=\"height: 30px;").Replace("<thead style=\"background: #65b051;color: #ff890f;\">", "<thead>");
+    string[] s = Regex.Split(noidongdh, "<td");
+    string kq = "";
+    foreach (string item in s)
+    {
+        if (!item.Contains("img"))
+        {
+
+            kq = kq + item + "<td";
+
+        }
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Indonhang</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, td, th {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+    @Html.Raw(kq);
+
+</body>
+</html>

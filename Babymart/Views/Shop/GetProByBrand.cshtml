@@ -1,0 +1,91 @@
+﻿@model IList<Babymart.Models.shop_collection>
+@{
+    var iddm = Model.FirstOrDefault().iddm;
+    var count = Model.Count;
+    var IsLangVN = FBabymartvn.IsLangVN();
+    var decriptiontv = @Html.Raw(Model.FirstOrDefault().shop_sanpham.shop_thuonghieu.metadescription);
+    var decriptionta = @Html.Raw(Model.FirstOrDefault().shop_sanpham.shop_thuonghieu.noidung_us);
+}
+@section SEOContent{
+    @if (Model.Count > 0)
+    {
+        if (Model.FirstOrDefault().shop_sanpham != null)
+        {
+            if (Model.FirstOrDefault().shop_sanpham.shop_thuonghieu != null)
+            {
+                <title>@Html.Raw(Model.FirstOrDefault().shop_sanpham.shop_thuonghieu.tenhieu)</title>
+                <meta name="keywords" content="@Html.Raw(Model.FirstOrDefault().shop_sanpham.shop_thuonghieu.metakeywords)" />
+                <meta name="description" content="@(IsLangVN ? decriptiontv : decriptionta)" />
+            }
+        }
+    }
+<link rel="stylesheet" type="text/css" href="~/Content/forntpage/css/danhmuc.css" />
+<style>
+    div#loading {
+        display: none;
+        position: absolute;
+        z-index: 9999;
+        top: 25%;
+        left: 50%;
+    }
+
+    .right-column {
+        width: 25%;
+    }
+</style>
+
+}
+@section scripts{
+    <script src="@Url.Content("~/Scripts/sys/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        function onLoginSuccess() {
+            $('#loading').hide();
+        }
+    </script>
+    
+}
+@if (Model.Count > 0)
+{
+<div class="columns-container">
+    <div class="container" id="columns"> 
+        <div class="breadcrumb clearfix">
+            <a class="home" href="@(IsLangVN?"/":"/en")" title=" return to home">@(IsLangVN ? "Trang chủ" : "Home")</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span class="navigation_page">@(FBabymartvn.IsLangVNHasValue(Model.FirstOrDefault().shop_sanpham.shop_thuonghieu.tenhieu_us) ? Model.FirstOrDefault().shop_sanpham.shop_thuonghieu.tenhieu : Model.FirstOrDefault().shop_sanpham.shop_thuonghieu.tenhieu_us)</span>
+        </div>  
+        <div class="row"> 
+            <div class="column col-xs-12 col-sm-3 col-sm-push-9" id="left_column">  
+                @{Html.RenderAction("GadgetsProduct", "Common");} 
+            </div> 
+            <div class="center_column col-xs-12 col-sm-9 col-sm-pull-3" id="center_column"> 
+                @if (!String.IsNullOrEmpty(Model.FirstOrDefault().shop_sanpham.shop_thuonghieu.noidung) && Model.FirstOrDefault().shop_sanpham.shop_thuonghieu.noidung.Length > 10)
+                {
+                <div class="cat-short-desc text-justify">  
+                	<h1 class="title-category">@(FBabymartvn.IsLangVNHasValue(Model.FirstOrDefault().shop_sanpham.shop_thuonghieu.tenhieu_us) ? Model.FirstOrDefault().shop_sanpham.shop_thuonghieu.tenhieu : Model.FirstOrDefault().shop_sanpham.shop_thuonghieu.tenhieu_us)</h1> 
+                </div>                      
+                }
+                @{ Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_SortControl.cshtml"); } 
+                <div id="view-product-list" class="view-product-list">
+                    <h3 class="page-heading">
+                        <span class="page-heading-title">@(FBabymartvn.IsLangVNHasValue(Model.FirstOrDefault().shop_sanpham.shop_thuonghieu.tenhieu_us) ? Model.FirstOrDefault().shop_sanpham.shop_thuonghieu.tenhieu : Model.FirstOrDefault().shop_sanpham.shop_thuonghieu.tenhieu_us)</span>
+                    </h3>  
+                    <ul class="display-product-option">
+                        <li class="view-as-grid selected">
+                            <span>grid</span>
+                        </li>
+                        <li class="view-as-list">
+                            <span>list</span>
+                        </li>
+                    </ul> 
+                    <ul id="productList" class="row product-list grid">
+                        @{ Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProduct.cshtml"); }
+                    </ul>  
+                </div>
+            </div> 
+        </div> 
+    </div>
+</div> 
+<div id="loading">
+    <img src="~/Content/img/load_s.gif" />
+</div>
+}

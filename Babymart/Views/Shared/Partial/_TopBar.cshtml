@@ -1,0 +1,37 @@
+﻿@{
+    var action = FBabymartvn.ActionNameCurrent();
+    Layout = null;
+    var IsLangVN = FBabymartvn.IsLangVN();
+
+}
+<div id="main-menu" class="col-sm-9 main-menu">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#">MENU</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul id="promotion-news" class="nav navbar-nav">
+                    <li><a href="@(IsLangVN?"/":"/en")" title='Trang chủ'>@(IsLangVN ? "Trang chủ" : "Home")</a></li>
+                    <li><a href="/bai-viet/shop-me-va-be-do-so-sinh.html">@(IsLangVN ? "Giới thiệu" : "About us")</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@(IsLangVN ? "Hỗ trợ" : "Support")</a>
+                        <ul class="dropdown-menu container-fluid"> 
+                            @{Html.RenderAction("Support_Partial", "Common"); } 
+                        </ul>
+                    </li>
+                    <li><a href="/lien-he.html">@(IsLangVN ? "Liên hệ" : "Contact")</a></li>                    
+                    @if (IsLangVN)
+                    {
+                        <li><a href="/tuyen-dung.html">Tin tuyển dụng</a></li>
+                    }
+                    else
+                    { }
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+</div>

@@ -1,0 +1,297 @@
+﻿@model Babymart.ViewModels.ShoppingCartViewModel
+@{
+    ViewBag.Title = "Shopping Cart";
+    var urllocation = System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocation"];
+    List<SelectListItem> listItems = new List<SelectListItem>();
+
+    for (int i = 1; i < 20; i++)
+    {
+        listItems.Add(new SelectListItem
+        {
+            Text = i.ToString(),
+            Value = i.ToString()
+        });
+    }
+    int ix = 0;
+    var IsLangVN = FBabymartvn.IsLangVN();
+    var isHasProductSaleOff = false;
+    foreach (var item in Model.CartItemModel)
+    {
+        if (item.shop_bienthe.giasosanh2 > 0 && item.shop_bienthe.ischecksaleoff == true
+            && this.Session["khachhang"] == null)
+        {
+            isHasProductSaleOff = true;
+            break;
+        }
+    }
+}
+@section SEOContent{
+    <title>Giỏ hàng - Babymart.vn</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    <style>
+        #lean_overlay {
+            position: fixed;
+            z-index: 10000;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: #000;
+            display: none;
+        }
+
+        #signup {
+            width: calc(100% - 58px);
+            padding-bottom: 2px;
+            margin: auto;
+            font-size: 62.5%;
+            font-family: "Lucida Sans Unicode","Lucida Grande","Lucida Sans",sans-serif;
+            background: #FFF;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            box-shadow: 0 0 4px rgba(0,0,0,0.7);
+            -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7);
+            -moz-box-shadow: 0 0 4px rgba(0,0,0,0.7);
+        }
+
+        #signup-header {
+            background: url(../Content/forntpage/images/ui/hd-bg.png);
+            padding: 18px 18px 14px;
+            border-bottom: 1px solid #CCC;
+            border-top-left-radius: 5px;
+            -moz-border-radius-topleft: 5px;
+            -webkit-border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            -moz-border-radius-topright: 5px;
+            -webkit-border-top-right-radius: 5px;
+        }
+
+            #signup-header h2 {
+                color: #444;
+                font-size: 2em;
+                font-weight: 700;
+                margin: 0;
+                padding: 0;
+                text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+            }
+
+            #signup-header p {
+                color: #444;
+                font-size: 1.3em;
+                margin: 0;
+                text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+                text-shadow: none;
+            }
+
+        #signup-ct .popup-content {
+            padding: 20px;
+            color: #222;
+            font-size: 10pt;
+            line-height: 20px;
+            border-bottom: 1px solid #E4E4E4;
+            text-align: justify;
+        }
+        #signup-ct .popup-content li {
+            padding:0
+        }
+        #signup-ct .popup-content a {
+            display:inline
+        } 
+    </style>
+
+}
+@section scripts{
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <script>
+        function DetelePro(id) {
+            $('.dialog-confirm-' + id).html("Bạn có chắc xóa sản phẩm này ra khỏi giỏ hàng không ?");
+            $('.dialog-confirm-' + id).dialog({
+                resizable: false,
+                modal: true,
+                title: "Xóa sản phẩm khỏi giỏ hàng",
+                height: 250,
+                width: 400,
+                buttons: {
+                    "Yes": function () {
+                        $(this).dialog('close');
+                        var recordToDelete = $(this).attr("data-id");
+                        if (recordToDelete != '') {
+                            $.post("/Cart/RemoveFromCart", { "id": recordToDelete },
+                                function (data) {
+                                    debugger
+                                    RemoveItemCart(data);
+                                });
+                        }
+                    },
+                    "No": function () {
+                        $(this).dialog('close');
+                    }
+                }
+            });
+        }
+        function change(recordToUpdate, countToUpdate) {
+            $.post("/Cart/UpdateCartCount", { "id": recordToUpdate, "cartCount": countToUpdate },
+             function (data) {
+                 if (data.ItemCount == 0) {
+                     $('#row-' + data.DeleteId).fadeOut('slow');
+                 }
+                 if (data.ItemCount != -1) {
+                     $('#cart-total').text(data.CartTotals);
+                     $('#cart-status').text(data.CartCount);
+                     $('#sum-' + data.DeleteId).text(data.Price);
+                 }
+             });
+
+        };
+        function formatNumber(t) { return t.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") } function RemoveItemCart(t) { var o = t.CountPro - 1; $("#row-bar-" + t.DeleteId).fadeOut("slow"), $("#row-" + t.DeleteId).fadeOut("slow"), $("#total-price").text(formatNumber(t.CartTotal) + " đ"), $("#cart-total").text(formatNumber(t.CartTotal) + " đ"), $("#cart-status").text(t.CountPro - 1), $(".cart-total-bar").text(t.CountPro - 1), $("#cart-status").text(o), 0 == o && ($("table.cart").fadeOut("slow"), $("#emptycart").fadeIn("slow"), $("#bar_cart").fadeOut("slow"), $("#xacnhandh").fadeOut("slow")) } function imgError(t) { return t.onerror = "", t.src = "/Content/img/imgerror.png", !0 } $(function () { $(".RemoveLinkBar").click(function () { var t = $(this).attr("data-id"); void 0 != t && $.post("/Cart/RemoveFromCart", { id: t }, function (t) { RemoveItemCart(t) }) }), $(".RemoveLinkBar_Plan").click(function () { $("#bb_loading").css("display", "block"), $.post("/Plan/CancelPlan", function () { window.location.reload(!0), $("#bb_loading").css("display", "none") }) }), $("body").append('<div id="tooltip"></div>'); var t = $("#tooltip"), o = t.outerWidth(); $("a.tooltip").mousemove(function (n) { var a = n.clientX + 15, e = n.clientY, r = $(window).width() - a, i = $(window).height() - e, l = t.outerHeight(); o > r && (a -= o + 30), l > i && (e -= l), t.html($(this).next().html()).css({ left: a, top: e, display: "block" }) }).on("mouseout mouseleave", function () { t.stop().hide() }), $(".language_vn").click(function () { $.post("/Common/GetHttpCookieLang", { lang: "vn" }, function () { location.reload() }) }), $(".language_us").click(function () { $.post("/Common/GetHttpCookieLang", { lang: "us" }, function () { location.reload() }) }) });
+
+    </script> 
+    <script src="~/Scripts/mobile/js/leanModal.js"></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $('a[rel*=leanModal]').leanModal({ top: 200, closeButton: ".modal_close" });
+            @if (isHasProductSaleOff == true)
+            {
+                @Html.Raw("$('#showleanModal').click();");
+            }
+        });
+    </script>  
+}
+@{
+    var count = 0;
+    foreach (var item in Model.CartItemModel)
+    {
+        count += item.Count;
+    }
+} 
+<a href="#signup" rel="leanModal" id="showleanModal" style="display:none"></a>
+<div id='shopping-card' class='clearfix layout-content-common'>
+    <div class='list'>
+        <h4 class='title'>@(IsLangVN ? "Giỏ Hàng của tôi ( có" : "My cart ( has")<span> <i id="cart-status">@count</i> @(IsLangVN ? "sản phẩm )" : "product)")</span></h4>
+        <form>
+            @if (Model.CartItemModel.Count > 0)
+            {
+                <table class="cart">
+                    <tr>
+                       
+                        <th>@(IsLangVN ? "Tên sản phẩm" : "Product Name")</th>
+                        <th>@(IsLangVN ? "Giá" : "Price")</th>
+                        <th>@(IsLangVN ? "Số lượng" : "Quantity")</th>
+                        <th>@(IsLangVN ? "Thành tiền" : "Total")</th>
+                        <th></th> 
+                    </tr>
+                    @foreach (var item in Model.CartItemModel)
+                    {
+                        <tr id="row-@item.RecordId" class="row">
+                            <td>
+                                @if (item.shop_bienthe.imgsp != null)
+                                {
+                                    <img onerror="imgError(this)" style=" margin: auto; " src='@(urllocation + item.shop_bienthe.imgsp)' alt='' width='80' height='80' />
+                                }
+                                else
+                                {
+                                    <img onerror="imgError(this)" style=" margin: auto; " src="" width='80' height='80' />
+                                }
+                                <a href="@((IsLangVN ? "/tin-tuc/" + item.shop_bienthe.spurl : "/en/product/" + item.shop_bienthe.spurl_us) + ".html")">
+                                    @(FBabymartvn.IsLangVNHasValue(item.shop_bienthe.tensp_us) ? item.shop_bienthe.tensp : item.shop_bienthe.tensp_us)
+                                    <p>@(item.shop_bienthe.title != null && item.shop_bienthe.title != "default" ? "(" + item.shop_bienthe.title + ")" : "")</p>
+                                </a>
+                            </td>
+                            <td class='price'>
+                                <p class="sale-off" style=" float: none; margin-bottom: 0; padding-bottom: 0; ">
+                                    @string.Format("{0:0,0 đ}", item.shop_bienthe.gia)
+                                </p>
+                                @if (item.shop_bienthe.giasosanh > 0)
+{
+    <p class="gia-goc-chi-tiet" style=" float: none; margin-bottom: 0; padding-bottom: 0; ">@string.Format("{0:0,0 đ}", item.shop_bienthe.giasosanh)</p>
+}
+                            </td>
+                            <td class="so-luong">
+                                @*@Html.DropDownListFor(model => model.CartItems[ix].Count, listItems, item.Count.ToString(), new { onchange = "change(" + item.RecordId + ",this.value)" })*@
+                                @Html.TextBoxFor(model => model.CartItems[ix].Count, item.Count.ToString(), new { onchange = "if(this.value==0) {change(" + item.RecordId + ",1);this.value=1;} else change(" + item.RecordId + ",this.value);", Value = item.Count, type = "number", min = "1", max = "99", maxlength = "2", oninput = "if(value.length>2)value=value.slice(0,2)", @class = "form-control input-sm" })
+                            </td>
+                            <td class='price' id="sum-@item.RecordId">
+                                @string.Format("{0:0,0 đ}", item.Count * item.shop_bienthe.gia)
+                            </td>
+                            <td class='delete'>
+                                <a class="btnOpenDialog" onclick="DetelePro(@item.RecordId)">&nbsp;</a>
+                                <div class="dialog-confirm-@item.RecordId" data-id="@item.RecordId"></div>
+                            </td>
+                        </tr>
+                                ix++;
+
+                    }
+                    <tr>
+                        <td colspan='6'>
+                            @(IsLangVN ? "Tổng tiền" : "Total"): <b id="cart-total">@string.Format("{0:0,0 đ}", Model.CartTotal)</b>
+                        </td>
+                    </tr>
+                </table>
+
+                <div id="emptycart" style="display:none;text-align: center;padding: 30px;">
+                    <h3 style="border: none;">
+                        @(IsLangVN?"Bạn chưa có sản phẩm nào trong giỏ hàng !":"Empty cart")
+                    </h3>
+                </div>
+            }
+            else
+            {
+                <div id="emptycart" style="text-align: center;padding: 30px;">
+                    <h3 style="border: none;">
+                        @(IsLangVN?"Bạn chưa có sản phẩm nào trong giỏ hàng !":"Empty cart")
+                    </h3>
+                </div>
+            }
+
+        </form>
+
+        <div class='controller clearfix' id="xacnhandh">
+            <div class='left clearfix' style=" line-height: 36px; float: left; width:50%;">
+                <a href='/' class='order button'> &larr;@(IsLangVN ? "Tiếp tục mua hàng" : "Buy more") </a>
+                <span>@(IsLangVN ? "Hỗ trợ mua hàng: 08.6672.0909 | 08.3812.3813" : "Customer Care: 0918.644.643") </span>
+            </div>
+            <div class='right clearfix' @(Model.CartItemModel.Count > 0 ? "" : "style=display:none")>
+                @if (Session["khachhang"] == null)
+                {
+                    <a href='/dat-hang.html' class='order button'>@(IsLangVN ? "Thanh toán" : "Payment")</a>
+                }
+                else
+                {
+                    <a href='/xac-nhan-2.html' class='order button'>@(IsLangVN ? "Thanh toán" : "Payment")</a>
+                }
+            </div>
+        </div>
+    </div><!-- end list -->
+</div>
+<div id="signup" style="display: none; position: fixed; opacity: 1; z-index: 11000; top: 30%;">
+    <div id="signup-ct">
+        <div id="signup-header">
+            <h2>@(IsLangVN ? "Bạn hãy đăng nhập để mua sản phẩm với giá khuyến mãi" : "Please login to buy this promotional product")</h2>
+            <a class="modal_close" href="#"></a>
+        </div>
+        <form action="">
+            <div class="popup-content">
+                @if (IsLangVN)
+                {
+                    <ul>
+                        <li class="text-left"> Bạn chưa là thành viên của <b>Babymart.vn?</b> – <a href="/dang-ky.html">Đăng ký</a></li>
+                        <li class="text-left">Bạn là thành viên của <b>Babymart.vn?</b> – <a href="/dang-nhap.html">Đăng nhập</a></li>
+                        <li class="text-left">Mua hàng với giá ban đầu. - <a class="modal_close" href="#">Bỏ qua thông báo này</a></li>
+                    </ul>
+                }
+                else
+                {
+                    <ul>
+                        <li class="text-left"> If you don't have an account, please take a moment to create one – <a href="/dang-ky.html">Register</a></li>
+                        <li class="text-left">Returning customers – <a href="/dang-nhap.html">Please login to your account</a></li>
+                        <li class="text-left">Buy its original price. - <a class="modal_close" href=" #">Ignore this notice</a></li>
+                    </ul>
+                }
+            </div>
+            @*<a class="modal_close buttonpopup" href="#"> @(IsLangVN ? "Bỏ qua" : "Close")</a>
+                <a class="buttonpopup" href="/dang-ky.html">@(IsLangVN ? "Đăng ký" : "Register")</a>
+                <a class="buttonpopup" href="/dang-nhap.html">@(IsLangVN ? "Đăng nhập" : "Login")</a>*@
+        </form>
+    </div>
+</div>

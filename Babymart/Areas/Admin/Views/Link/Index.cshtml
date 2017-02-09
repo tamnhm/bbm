@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@section stylesheet{
+}
+@section script{
+    <script type="text/javascript" src="~/Scripts/me/tiny_mce/tinymce.min.js"> </script>
+    <script type="text/javascript" src="https://tinymce.cachefly.net/4.0/jquery.tinymce.min.js"> </script>
+}
+@section scripts_ko{
+    @Scripts.Render("~/module/link")
+    <script>
+        $(document).ready(function () {
+            var link = new Link.mvlink();
+            (link.Start())
+            $("#modal-setting-children").on("hide", function () {
+                link.mvlist.InitFinish(false);
+            });
+            $("#modal-setting").on("hide", function () {
+                link.mvlist.InitFinish1(false);
+            });
+        });
+        $(document).on('focusin', function (e) {
+            if ($(event.target).closest(".mce-window").length) {
+                e.stopImmediatePropagation();
+            }
+        });
+    </script>
+}
+
+
+@section templates {
+    @Html.Partial("_list")
+
+}
+<div data-bind="template: { name: 'LinkListTmpl',data:mvlist}"></div>

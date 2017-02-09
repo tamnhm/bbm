@@ -1,0 +1,25 @@
+﻿@helper RootUrl()
+{
+    @("https://babymart.vn/")
+}
+@helper urlModule()
+{
+    @System.Web.Configuration.WebConfigurationManager.AppSettings["UrlModule"];
+}
+@helper urlProduct()
+{
+    @System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocation"];
+}
+@helper UrllocationDetail()
+{
+    @System.Web.Configuration.WebConfigurationManager.AppSettings["UrllocationDetail"];
+}
+@helper urllocationnhanhieu()
+{
+    @System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocationnhanhieu"];
+}
+@helper urllocationUpload()
+{
+    @System.Web.Configuration.WebConfigurationManager.AppSettings["UrlUpload"];
+}
+

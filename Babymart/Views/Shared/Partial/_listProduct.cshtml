@@ -1,0 +1,134 @@
+﻿@model IList<Babymart.Models.shop_collection>
+@{  var count = Model.Count;
+  var controller = ViewContext.Controller.ValueProvider.GetValue("controller").RawValue;
+  var action = ViewContext.Controller.ValueProvider.GetValue("action").RawValue;
+    // var model = Model.OrderBy(o => o.shop_sanpham.tensp).ToList();
+  var listArticle = (List<Babymart.Models.Module.ModelModuleDetail>)ViewData["ListArticleTags"];
+  var GetHttpCookieLang = FBabymartvn.GetHttpCookieLang();
+}
+<div id="productList" style="width: 75%;
+float: left;">
+    <div class="block-product">
+        <ul class="product-list clearfix">
+            @foreach (var item in Model)
+            {
+                var bienthe = item.shop_sanpham.shop_bienthe;
+                bool isone = bienthe.Count == 1 ? true : false;
+                <li class="product-item">
+                    <div style="position: absolute;z-index: 1000;right:0px">
+                        @if (isone)
+                        {
+                            if (bienthe.First().giasosanh > 0)
+                            {  <span class="label-sale-off">- @(100 - (bienthe.First().gia * 100) / bienthe.First().giasosanh)%</span>
+                            }
+                        }
+                        else
+                        {
+                            foreach (var i in bienthe)
+                            {
+                                if (i.giasosanh > 0)
+                                {
+                                    <span class="label-sale-off">Sale off</span>
+                                    break;
+                                }
+                            }
+                        }
+                        @if (item.shop_sanpham.ischeckout == true)
+                        {
+                            <span class="label-sale-off" style="font-size:11px;font-weight:100">Hết hàng</span>
+                        }
+                    </div>
+                    <div class="product-image">
+                        <a class="tooltip" href="@("/tin-tuc/" + item.shop_sanpham.spurl + ".html")">
+                            @if (item.shop_sanpham.shop_image.Count > 0)
+                            {
+                                <img onerror="imgError(this)" src="@(Common.urlProduct() + item.shop_sanpham.shop_image.FirstOrDefault().url)" alt="@item.shop_sanpham.tensp" width='156' height='156' />
+                            }
+                            else
+                            {
+                                <img src="" alt="sản phẩm" width='156' height='156' onerror="imgError(this)" />
+
+                            }
+                        </a>
+                        <div class="info">
+                            <h3>
+                                @item.shop_sanpham.tensp
+                            </h3>
+                            @Html.Raw(item.shop_sanpham.thongtin)
+                        </div>
+                    </div>
+                    @if (GetHttpCookieLang == null
+                                            || GetHttpCookieLang.Value == null
+                                            || GetHttpCookieLang.Value == "vn"
+                                            || String.IsNullOrEmpty(item.shop_sanpham.tensp_us))
+                    {
+                        <h3 class="product-name"><a href="@("/tin-tuc/" + item.shop_sanpham.spurl + ".html")">@item.shop_sanpham.tensp</a></h3>
+                    }
+                    else
+                    {
+                        <h3 class="product-name"><a href="@("/tin-tuc/" + item.shop_sanpham.spurl + ".html")">@item.shop_sanpham.tensp_us</a></h3>
+                    }
+                    <div class="card clearfix">
+                        @if (isone)
+                        {
+                            <a href="@("/tin-tuc/" + item.shop_sanpham.spurl + ".html")" class="price">
+                                
+                                @if (bienthe.First().giasosanh > 0)
+                                {
+                                    <span class='save-off'>@string.Format("{0:0,0 đ}", bienthe.First().giasosanh)</span>
+                                }
+                                <br />
+                                <span>@string.Format("{0:0,0 đ}", bienthe.First().gia)</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@("/tin-tuc/" + item.shop_sanpham.spurl + ".html")" class="price" 
+                               style="@(action.ToString().Equals("DeatialProduct") || action.ToString().Equals("deatialproduct") ? "width: 180px;font-size: 15px;line-height: 1.5;text-align: center;" : "width: 201px;font-size: 15px;line-height: 1.5;text-align: center;")" >
+                                <span> Xem giá chi tiết</span>
+                            </a>
+                        }
+                        @if (item.shop_sanpham.ischeckout == false)
+                        {
+                            if (bienthe.Count <= 1)
+                            {
+                                if (bienthe.First().giasosanh > 0)
+                                {
+                                    <a href="@("/gio-hang.html/" + item.shop_sanpham.shop_bienthe.FirstOrDefault().id + "/1")" class="card-icon"></a>
+                                }
+                                else
+                                {
+                                    <a href="@("/gio-hang.html/" + item.shop_sanpham.shop_bienthe.FirstOrDefault().id + "/1")" class="card-icon"></a>
+
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (bienthe.First().giasosanh > 0)
+                            {
+                                <a href="@("/tin-tuc/" + item.shop_sanpham.spurl + ".html")" class="card-icon"></a>
+                            }
+                            else
+                            {
+                                <a href="@("/tin-tuc/" + item.shop_sanpham.spurl + ".html")" class="card-icon"></a>
+                            }
+
+                        }
+                    </div>
+                </li>
+            }
+        </ul><!-- end list - product-->
+    </div>
+    <div class="clearfix"></div>
+    @if (listArticle != null)
+    {
+        <div style="width:98%">
+            @{Html.RenderPartial("~/Views/Shared/Partial/_Goctuvan.cshtml", listArticle); }
+        </div>
+    }
+</div>
+@if (action.ToString() != "DeatialProduct")
+{
+    Html.RenderAction("RightColumn", "Common");
+}

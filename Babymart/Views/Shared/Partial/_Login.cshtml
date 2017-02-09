@@ -1,0 +1,63 @@
+﻿@model Babymart.Models.khachhang
+@{
+    var IsLangVN = FBabymartvn.IsLangVN();    
+}
+<div class="page-content">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="box-authentication">
+                <h3>@(IsLangVN ? "Đăng ký tài khoản" : "Register account")</h3>
+                <p><span class="glyphicon glyphicon-hand-right"></span>@(IsLangVN ? "Đăng ký hoàn toàn miễn phí" : "Sign up for FREE")</p>
+                <p><span class="glyphicon glyphicon-hand-right"></span>@(IsLangVN ? "Tích lũy điểm thành viên để nhận ưu đãi" : "Members accumulate points to get deals") (<a href="../bai-viet/uu-dai-thanh-vien.html">@(IsLangVN ? "Xem chi tiết" : "Click here")</a>)</p>
+                <p><span class="glyphicon glyphicon-hand-right"></span>@(IsLangVN ? "Theo dõi lịch sử mua hàng" : "Check order history")</p>
+                <p><span class="glyphicon glyphicon-hand-right"></span>@(IsLangVN ? "Nhận các thông tin khuyến mãi từ website" : "Receiving promotion information")</p>
+                <p><span class="glyphicon glyphicon-hand-right"></span>@(IsLangVN ? "Thông tin giao hàng được lưu lại, dễ dàng cho các lần mua sau" : "Stored shipping information conveniently for next orders")</p>
+                <button onclick="window.location='dang-ky.html';" class="button"><i class="fa fa-user"></i>@(IsLangVN ? " Đăng ký ngay" : " Register")</button>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="box-authentication login">
+                <h3>@(IsLangVN ? "Đăng nhập" : "Login")</h3>
+                @using (Html.BeginForm("Login", "Customer", FormMethod.Post, new { @class = "frm-common" }))
+                {
+                    <label for="account">@(IsLangVN ? "Tên đăng nhập" : "User name")</label>
+                    @Html.TextBoxFor(model => model.tendn, new {@class="form-control" })
+                    <label for="password_login">@(IsLangVN ? "Mật khẩu" : "Password")</label>
+                    @Html.PasswordFor(p => p.matkhau, new { @class = "form-control" })
+                    <button type='submit' name='submit' class="button"><i class="fa fa-lock"></i> @(IsLangVN ? "Đăng nhập" : "Login")</button>
+                }
+                @*<a class="btn btn-block btn-social btn-facebook" href="Customer/Loginfacebook" style="color:#fff;margin-top:10px"><i class=" fa fa-facebook"></i>@(IsLangVN ? "Đăng nhập bằng Facebook" : "Sign in with Facebook")</a>*@  
+            </div>
+        </div>
+        <div class="col-sm-4">
+            @using (Html.BeginForm("ForgetPassword", "Customer", FormMethod.Post, new { @class = "frm-common" }))
+            {
+            <div class="box-authentication">
+                <h3>@(IsLangVN ? "Quên mật khẩu" : "Forget password")</h3>
+                    <p><span class="glyphicon glyphicon-hand-right"></span>@(IsLangVN ? "Quý khách vui lòng nhập email đã đăng ký để lấy mật khẩu mới." : "Please enter your registered email to get your new password.")<p>
+                    <label for="email">@(IsLangVN ? "Email đăng ký" : "Email") <span class='text-danger'>*</span></label>
+                    @Html.TextBox("Email", null, new { @class = "form-control", type = "email" }) 
+                    <button class="button" type='submit' name='submit'><span class="glyphicon glyphicon-refresh" style="padding:0"></span> @(IsLangVN ? "Lấy mật khẩu mới" : "Send new password")</button>  
+            </div>
+            }
+            @if (ViewBag.message != null)
+            {
+                <div style="color:red;margin: 0 auto;width: 300px;">
+                    <h3 style="text-align: center;">@(IsLangVN ? "Thông báo" : "Notify")</h3>
+                    <p style="text-align:center">
+                        @Html.Raw(ViewBag.message)
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
+</div> 
+@if (ViewBag.Erro != null)
+{
+    <div style="color:red;margin: 0 auto;width: 300px;">
+        <p style="text-align: center;">@(IsLangVN ? "Có lỗi xảy ra" : "Has Error")</p>
+        <ul>
+            <li>@ViewBag.Erro</li>
+        </ul>
+    </div>
+}

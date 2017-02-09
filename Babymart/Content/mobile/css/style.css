@@ -1,0 +1,2545 @@
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*
+Template Name: shopey
+Author: Cosmin Cotor
+Author ThemeForest URL: http://themeforest.net/user/cosmincotor
+Author Website: http://pixek.com/
+Version: 1.0.0
+License: Commercial
+*/
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+#key-foot a{display: initial;}
+.khungtrungthu{width:800px;line-height:22px;font-size:15px;font-family:Arial,Helvetica,sans-serif;margin:auto}.bannertrungthu{height:147px;background:url(http://img04.deviantart.net/bbe1/i/2012/088/e/7/dem_hoi_trang_ram_2_by_lamquangvinh-d4ub5ar.jpg) 0 -213px;}.quotetrungthu{width:645px;height:147px;margin:auto;background:url(http://babi.vn/marketing/Campaign/Trung-Thu/LandingPage/images/quote-bg.jpg) no-repeat}.textquote{padding:40px 100px;text-align:justify}.theletrungthu{background:url(http://babi.vn/marketing/Campaign/Trung-Thu/LandingPage/images/the-le-title.jpg) left center no-repeat;width:303px;height:41px;margin:0 auto}.longden{width:380px}.thu{float:left}.traicay{float:right}.footertrungthu{background:url(http://i468.photobucket.com/albums/rr45/nhoxkia1991/babymart/product-title_zpsweddyl0s.jpg) -34px center;height:59px;margin-top:30px;text-align:center;text-transform:uppercase;font-size:11pt;font-weight:700;color:#fff;line-height:52px}.end{border-style:ridge;border-width:1px;margin:30px 0}.slogantrungthu{text-align:center;text-transform:uppercase;font-size:18pt;font-weight:700;color:#C00;margin-top:20px}@media screen and (max-width: 600px){.khungtrungthu{width:100%}.bannertrungthu{height:147px;background:url(http://img04.deviantart.net/bbe1/i/2012/088/e/7/dem_hoi_trang_ram_2_by_lamquangvinh-d4ub5ar.jpg) center -213px}.quotetrungthu{width:100%;height:auto;margin:auto;background:none}.textquote{padding:20px 10px;text-align:justify}.theletrungthu{background:url(http://babi.vn/marketing/Campaign/Trung-Thu/LandingPage/images/the-le-title.jpg) left center no-repeat;width:303px;height:41px;margin:0 auto}.longden{width:100%;height:auto}.thu{float:left}.traicay{float:right}.footertrungthu{background:none;margin-top:10px;color:red;text-shadow:2px 2px 3px #222}}
+
+.icon-menu{height:20px;width:20px;float:left;margin:4px}
+.antoan{background:url(/content/forntpage/images/ui/icon-menu.png) 0 0}
+.bengu{background:url(/content/forntpage/images/ui/icon-menu.png) -20px 0}
+.bimta{background:url(/content/forntpage/images/ui/icon-menu.png) -40px 0}
+.binhsua{background:url(/content/forntpage/images/ui/icon-menu.png) -60px 0}
+.dinhduongbome{background:url(/content/forntpage/images/ui/icon-menu.png) -80px 0}
+.dososinh{background:url(/content/forntpage/images/ui/icon-menu.png) 0 -20px}
+.giaydep{background:url(/content/forntpage/images/ui/icon-menu.png) -20px -20px}
+.dochoi{background:url(/content/forntpage/images/ui/icon-menu.png) -40px -20px}
+.behoc{background:url(/content/forntpage/images/ui/icon-menu.png) -60px -20px}
+.quanao{background:url(/content/forntpage/images/ui/icon-menu.png) -80px -20px}
+.chome{background:url(/content/forntpage/images/ui/icon-menu.png) 0 -40px}
+.xechobe{background:url(/content/forntpage/images/ui/icon-menu.png) -20px -40px}
+.betam{background:url(/content/forntpage/images/ui/icon-menu.png) -40px -40px}
+.anuong{background:url(/content/forntpage/images/ui/icon-menu.png) -60px -40px} 
+.vn {
+    background: url(/content/forntpage/images/ui/icon-menu.png) 0 -130px;
+}
+.us {
+    background: url(/content/forntpage/images/ui/icon-menu.png) -40px -130px; 
+} 
+.lg {
+    height: 25px;
+    width: 38px;
+    float: left;
+    margin-right: 5px; 
+    margin-top: 15px;
+}.type-1
+{
+    float: right;
+}
+.type-1 .round
+{
+    background:url(/content/forntpage/images/ui/icon-menu.png) -88px -44px;
+    width:12px;
+    height:20px;
+    float:left;
+    margin-top: 4px;
+}
+.type-1 a
+{
+    background: #F5851F;
+    font-weight: bold;
+    border-radius: 3px;
+    height: 24px;
+    color: white;
+    padding: 5px;
+    font-size: 11pt;
+    width: 100px;
+    line-height: 24px;
+    text-align: center;
+    text-decoration: none;
+}
+#dososinh
+{
+	width:100%;
+	font-size:10pt;
+}
+#dososinh div
+{
+	float:left; 
+}
+#dososinh .title
+{
+	width:100%;
+	text-align:center;
+	background: #f9f9f9;
+	font-weight:bold;
+	padding:3px 0;
+}
+#dososinh .content
+{
+	width:100%;
+	text-align:center;
+	padding:5px 0;
+	border-bottom: 1px dashed #c3c3c3;
+}
+#dososinh .stt
+{
+	width:5%;
+    min-height: 30px;
+}
+#dososinh .san-pham
+{
+	width:40%
+}
+#dososinh .san-pham img
+{
+	display:initial;
+}
+#dososinh .san-pham .ten-sp
+{
+	width:100%;
+}
+#dososinh .san-pham .button-sp
+{
+	width:100%;
+}
+#dososinh .san-pham select
+{   
+  width: 90%;
+  border: 1px solid #9D9D9D;
+  padding: 0;
+  height: 20px;
+  margin-bottom:0;
+}
+#dososinh .san-pham button
+{
+  width: 50%;
+  min-height: 25px;
+  float: left;
+  font-size: 11px;
+  color: white;
+  padding: 5px 0;
+  background: #61B849;
+  border: 1px solid #FFFFFF;
+}
+#dososinh .don-gia
+{
+	width:18%;
+	min-height:30px;
+}
+#dososinh .so-luong
+{
+	width:13%;
+	min-height:30px;
+}
+#dososinh .so-luong input
+{
+	border: 1px solid #999;
+    width: 50%;
+    padding:5px 0;
+	background:#fff;
+    margin: auto;
+	color:#222;
+    text-align: center; 
+}
+#dososinh .thanh-tien
+{
+	width:18%;
+	min-height:30px;
+}
+#dososinh .xoa
+{
+	width:5%;
+	min-height:30px;
+}
+#dososinh .xoa button
+{
+	width: 100%;
+    border-radius: 50px;
+    background: #444;
+    color: white;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding: 3px 0;
+}
+#dososinh .tong-tien
+{
+  width: 100%;
+  text-align: right;
+  font-weight: bold;
+}
+#dososinh .qua-tang
+{
+  width: 100%;
+  text-align: left;
+  font-weight: bold; 
+}
+#dososinh .ten-qua
+{
+	  line-height: 40px;
+  font-weight: bold;
+}
+#dososinh .content .order
+{
+  width: 96px;
+  text-align: center;
+  text-decoration: none;
+
+  float:right;
+  height: 36px;
+  line-height: 36px;
+  background-color: #333;
+  color: #FFFFF2;
+  border-radius: 6px;
+}
+#wrapper-footer .div-footer
+{
+    margin-top:15px;
+}
+#wrapper-footer .fb-footer
+{
+    height:0;
+}
+.validationMessage
+{
+    color:red;
+}
+.left 
+{
+    float:left;
+}
+.controls b
+{
+    padding-left:5px;
+    color:#E22E2E;
+}
+.controller .right
+{
+    float:right;
+}
+.btnOpenDialog
+{
+    background: #333 url(/images/mobile/images/common/shoppingCartRemoveProductButtonBg.png) center center no-repeat;
+  color: #fff;
+  display: block;
+  border-radius: 3px;
+  padding-left: 12px;
+  padding-right: 12px;
+  text-align: center;
+  height: 24px;
+  max-width:50px;
+    margin: auto;
+  line-height: 24px;
+}
+.so-luong select
+{
+    width: 60px;
+  border: 1px solid #F0F0F0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  height: 25px;
+}
+.cart th
+{
+    height:50px;
+}
+.order
+{ 
+  width: 96px;
+  text-align: center; 
+  text-decoration: none;
+  height: 36px;
+  line-height: 36px; 
+  background-color: #333;
+  color: #FFFFF2; 
+  border-radius: 6px;
+}
+
+.checkout-container header {
+  border: none; 
+  font-size: 17px;
+} 
+.checkout-container .success {
+    text-align: center;
+  color: #fff;
+  text-decoration: none;
+  height: 36px;
+  line-height: 36px;
+  background-color: #333;
+  border-radius: 6px;
+  font-weight: normal;
+}
+.like-fb
+{
+	  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #d6d6d6;
+}
+
+#topcontrol
+{
+	position: fixed;
+  bottom: 5px;
+  right: 0px;
+  opacity: 1;
+  cursor: pointer;
+  width: 33px;
+}
+#topcontrol img
+{
+	width: 100%;
+    height:100%;
+} 
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Customized Framework CSS Rules Start                                                               */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+body {
+	background-color: #E8FFE2;
+	font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+p > a {
+	color: #61B849 ;
+}
+a {
+	color: #61B849 ;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-weight: normal;
+}
+input[type="text"], input[type="password"] {
+	background-color: #f3f3f3;
+	border-color: #f0f0f0;
+	transition: background-color 0.3s;
+	-webkit-transition: background-color 0.3s;
+	-moz-transition: background-color 0.3s;
+	color: #999;
+	font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+textarea {
+	background-color: #f3f3f3;
+	border-color: #f0f0f0;
+	transition: background-color 0.3s;
+	-webkit-transition: background-color 0.3s;
+	-moz-transition: background-color 0.3s;
+	color: #999;
+	font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+input:focus, textarea:focus {
+	background-color: #f6f6f6;
+	transition: background-color 0.3s;
+	-webkit-transition: background-color 0.3s;
+	-moz-transition: background-color 0.3s;
+}
+input[type="submit"] {
+	font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+table {
+	background-color: transparent;
+	border-left: 1px solid #f0f0f0;
+	border-top: 1px solid #f0f0f0;
+}
+thead {
+}
+th {
+	border-bottom: 1px solid #f0f0f0;
+	border-right: 1px solid #f0f0f0;
+	color: #333;
+	background-color: #f0f0f0;
+}
+tr {
+	line-height: 18px;
+}
+td {
+	border-right: 1px solid #f0f0f0;
+	border-bottom: 1px solid #f0f0f0;
+	color: #999;
+	background-color: transparent;
+}
+tr:hover > td {
+	background-color: #f6f6f6;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Customized Framework CSS Rules End                                                                 */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Structure CSS Rules Start                                                                          */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.websiteWrapper {
+}
+.pageWrapper {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.pageContentWrapper {
+	background-color: #fff;
+	padding-left: 24px;
+	padding-right: 24px;
+	margin-left: 5px;
+	margin-right: 5px; 
+	padding-bottom: 20px;
+}
+.pageWrapper > *:last-child, .pageContentWrapper > *:last-child {
+	margin-bottom: 0px;
+}
+.pageTitle {
+	border-bottom: 3px solid #f0f0f0;
+	padding-bottom: 22px;
+	margin-top: 2px;
+	margin-bottom: 23px;
+}
+.blockTitle {
+	margin-bottom: 22px;
+}
+::-webkit-input-placeholder {
+color:#999;
+}
+:-moz-placeholder {
+ color:#999;
+}
+::-moz-placeholder {
+ color:#999;
+}
+:-ms-input-placeholder {
+ color:#999;
+}
+.formFieldWrapper {
+	margin-bottom: 23px;
+}
+.formFieldWrapper label, .formTextareaWrapper label {
+	margin-bottom: 13px;
+	width: 100%;
+	box-sizing: border-box;
+	height: 18px;
+	line-height: 18px;
+}
+input.fieldWithIcon {
+	background-position: right center;
+	background-repeat: no-repeat;
+	padding-right: 40px;
+}
+.textareaWithIcon {
+	background-position: right 9px;
+	background-repeat: no-repeat;
+	padding-right: 40px;
+}
+.shopSearchFieldIcon {
+	background-image: url(/images/mobile/images/common/shopSearchFieldBg.png);
+}
+.userFieldIcon {
+	background-image: url(/images/mobile/images/common/userFieldBg.png);
+}
+.passwordFieldIcon {
+	background-image: url(/images/mobile/images/common/passwordFieldBg.png);
+}
+.emailFieldIcon {
+	background-image: url(/images/mobile/images/common/emailFieldBg.png);
+}
+.phoneFieldIcon {
+	background-image: url(/images/mobile/images/common/phoneFieldBg.png);
+}
+.addressFieldIcon {
+	background-image: url(/images/mobile/images/common/addressFieldBg.png);
+}
+.websiteFieldIcon {
+	background-image: url(/images/mobile/images/common/websiteFieldBg.png);
+}
+.messageFieldIcon {
+	background-image: url(/images/mobile/images/common/messageFieldBg.png);
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Structure CSS Rules End                                                                            */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Customized Elements CSS Rules Start                                                                */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.buttonWrapper {
+	border-radius: 3px;
+}
+.buttonDefault {
+	background-color: #E4755A;
+}
+.highlightDefault {
+	background-color: #E4755A;
+}
+.alertBox {
+	border-radius: 3px;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Customized Elements CSS Rules Start                                                                */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Header CSS Rules Start                                                                             */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.headerOuterWrapper {
+	z-index: 1000;
+	margin-left: 5px;
+	margin-right: 5px;
+	background-color: #fff;
+}
+.headerWrapper {
+	padding-left: 24px;
+	padding-right: 24px;
+	z-index: 9990;
+	height: 54px;
+	background-color: #61B849;
+}
+.accountButton {
+	float: left;
+	height: 18px;
+	width: 18px;
+	margin-right: 24px;
+	background: url(/images/mobile/images/common/accountButtonBg.png) 0 0 no-repeat;
+	margin-top: 18px;
+}
+.shoppingCartButton {
+	float: left;
+	height: 18px;
+	width: 20px;
+	margin-right: 24px;
+	background: url(/images/mobile/images/common/cartButtonBg.png) 0 0 no-repeat;
+	margin-top: 18px;
+}
+.mainMenuButton {
+	height: 18px;
+  width: 47px;
+  float: right;
+  margin-top: 18px;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+.mainMenuButton:hover {
+	text-decoration: none;
+}
+.mainMenuOuterWrapper {
+	display: none;
+	margin-left: 5px;
+	margin-right: 5px;
+	z-index: 9999;
+	background-color: #61b849;
+}
+.mainMenuBottomDecoration {
+	margin-right: 24px;
+	margin-left: 24px;
+	height: 3px;
+	background-color: rgba(0,0,0,0.12);
+}
+.mainMenuWrapper {
+	padding-left: 24px;
+	padding-right: 24px;
+	margin: 0px;
+	position: relative;
+	padding-top: 24px;
+	padding-bottom: 12px;
+}
+.mainMenuWrapper > li {
+	line-height: 36px;
+	height: 36px;
+	margin-bottom: 12px;
+	list-style: none;
+	background-color: #fff;
+	border-radius: 6px;
+	padding-left: 12px;
+}
+.mainMenuWrapper > li:last-child {
+	margin-bottom: 12px;
+}
+.mainMenuWrapper > li > a {
+	color: #666;
+}
+.mainMenuWrapper > li > a:hover {
+	text-decoration: none;
+}
+.mainMenuWrapper > li:hover > a {
+}
+.mainMenuWrapper > li.currentPage {
+	background-color: #333;
+}
+.mainMenuWrapper > li.currentPage > a {
+	color: #fff;
+}
+.shoppingCartWrapper {
+	background-color: #61b849;
+	margin-left: 5px;
+	margin-right: 5px;
+	display: none;
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: 24px;
+}
+.shoppingCartProductWrapper {
+	margin-bottom: 24px;
+	min-height: 60px;
+}
+.shoppingCartProductImageWrapper {
+	margin-right: 15px;
+	width: 60px;
+	height: 60px;
+	float: left;
+	border-radius: 6px;
+}
+.shoppingCartProductImage {
+	height: 60px;
+	width: 60px;
+}
+.shoppingCartProductInfoWrapper {
+}
+.shoppingCartProductButtonsWrapper {
+	margin-top: 4px;
+}
+input.shoppingCartProductNumber {
+	color: #999;
+	border: 1px solid rgba(0,0,0,0.12);
+	display: block;
+	float: left;
+	border-radius: 3px;
+	padding: 0px;
+	height: 22px;
+	line-height: 22px;
+	width: 22px;
+	margin: 0px;
+	text-align: center;
+}
+.shoppingCartProductPrice {
+	color: #fff;
+	background-color: rgba(0,0,0,0.12);
+	display: block;
+	float: left;
+	border-radius: 3px;
+	padding-left: 12px;
+	padding-right: 12px;
+	height: 24px;
+	line-height: 24px;
+	margin-left: 12px;
+}
+.shoppingCartRemoveProductButton {
+	background: #333 url(/images/mobile/images/common/shoppingCartRemoveProductButtonBg.png) center center no-repeat;
+	color: #fff;
+	display: block;
+	border-radius: 3px;
+	padding-left: 12px;
+	padding-right: 12px;
+	text-align: center;
+	float: right;
+	height: 24px;
+	line-height: 24px;
+}
+.shoppingCartProductTitle {
+	color: #fff;
+	text-decoration: none; 
+}
+.shoppingCartInfoWrapper {
+	color: #fff;
+	margin-bottom: 16px;
+	border-top: 3px solid rgba(0,0,0,0.12);
+	padding-top: 17px;
+}
+.shoppingCartProductsNumber {
+	float: left;
+	display: block;
+	height: 24px;
+	line-height: 24px;
+}
+.shoppingCartProductsTotal {
+	float: right;
+	display: block;
+	height: 24px;
+	line-height: 24px;
+}
+.shoppingCartButtonsWrapper { 
+	padding-bottom: 24px;
+	padding-top: 24px;
+	border-top: 3px solid rgba(0,0,0,0.12);
+	border-bottom: 3px solid rgba(0,0,0,0.12);
+}
+a.shoppingCartCheckoutButton {
+	float: right;
+	width: 96px;
+	text-align: center;
+	color: #fff;
+	text-decoration: none;
+	height: 36px;
+	line-height: 36px;
+	background-color: #333;
+	border-radius: 6px;
+	font-weight: normal;
+}
+.shoppingCartEmptyButton {
+	float: left;
+	width: 96px;
+	text-align: center;
+	color: #333;
+	text-decoration: none;
+	height: 36px;
+	line-height: 36px;
+	background-color: #fff;
+	border-radius: 6px;
+}
+.headerDecoration {
+	height: 6px;
+	background-color: #fff;
+	background:url(/images/mobile/images/skins/default/headerFooterDecoBg.png) center 0px repeat-x;
+}
+.mainLogo {
+	width: 130px;
+  height: 94px;
+  margin: 10px auto;
+}
+.mainLogo > img {
+	width: 130px; 
+}
+.shopSearchFormWrapper {
+	margin-bottom: 36px;
+}
+.shopSearchForm {
+}
+input.shopSearchField {
+	background-color: #f3f3f3;
+	color: #333;
+	width: 100%;
+	box-sizing: border-box;
+	height: 36px;
+}
+input.shopSearchField:focus {
+	background-color: #f6f6f6;
+}
+.headerBreak {
+	border-top: 3px solid #f0f0f0;
+	height: 0px;
+	width: 100%;
+	clear: both;
+	margin-bottom: 36px;
+}
+.headerBreakTextBottom {
+	margin-bottom: 23px;
+}
+.headerBreakTitleBottom {
+	margin-bottom: 23px;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Header CSS Rules End                                                                               */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Slider CSS Rules Start                                                                             */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.sliderOuterWrapper {
+	overflow: visible;
+	margin-bottom: 36px;
+}
+.sliderWrapper {
+	overflow: hidden;
+}
+.nivoSlider {
+	position: relative;
+	overflow: hidden;
+	background: #fff url(/images/mobile/images/common/loading.gif) no-repeat 50% 50%;
+	background-color: #fff;
+}
+.nivo-main-image {
+	display: block !important;
+	position: relative !important;
+	width: 100% !important;
+}
+.nivoSlider a.nivo-imageLink {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	z-index: 6;
+	display: none;
+}
+.nivo-slice {
+	display: block;
+	position: absolute;
+	z-index: 5;
+	height: 100%;
+	top: 0;
+}
+.nivo-box {
+	display: block;
+	position: absolute;
+	z-index: 5;
+	overflow: hidden;
+}
+.nivo-box img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+.nivoSlider img {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: none;
+	width: 100%;
+	height: auto;
+	max-width: none;
+}
+.nivoSlider a {
+	border: 0;
+}
+.nivo-controlNav {
+	display: none;
+}
+.nivo-directionNav {
+	display: none;
+}
+.nivo-directionNav a {
+}
+.mainSlider:hover .nivo-directionNav a {
+}
+a.nivo-nextNav {
+}
+a.nivo-nextNav:hover {
+}
+a.nivo-prevNav {
+}
+a.nivo-prevNav:hover {
+}
+.sliderControl {
+	position: absolute;
+  top: 50%;
+  margin-top: -16px;
+  height: 30px;
+  width: 30px;
+	background: #61B849  ;
+	z-index: 9999;
+}
+.sliderControl img{
+	  margin: 7px auto;
+}
+.previousSlideButton {
+	left: -24px;
+	background-position: 0px 0px;
+}
+.nextSlideButton {
+	right: -24px;
+	background-position: -48px 0px;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Slider CSS Rules End                                                                               */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Home Page CSS Rules Start                                                                          */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.homePageWrapper {
+}
+.sectionTitle {
+	margin-bottom: 22px;
+}
+.sectionTitleLink {
+	float: right;
+	font-size: 10px;
+	color: #61B849 ;
+}
+.homeProductsWrapper {
+	padding-left: 20px;
+	box-sizing: border-box;
+}
+.homeProductWrapper {
+	margin-left: 20px;
+	width: 50%;
+    float: left; 
+    margin-bottom: 27px;
+}
+.homeProductWrapper:nth-child(odd) {
+	margin-left: -20px;
+}
+.homeProductWrapper img {
+	width: 100%;
+	height: 100%;
+    margin:auto;
+}
+.homeProductInfoWrapper {
+	padding-left: 12px;
+	padding-right: 12px;
+	background-color: #f9f9f9;
+	padding-bottom: 12px;
+	padding-top: 8px;
+}
+.homeProductTitle {
+	display: block;
+	margin-bottom: 7px;
+    height:55px;
+	text-align: center;
+    transition:all 0.5s ease;
+    -moz-transition:all 0.5s ease;
+    -webkit-transition:all 0.5s ease;
+}
+.homePurchaseButton {
+	  background-color: #61B849;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 3px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  text-decoration: none;
+}
+.homePurchaseButtonsaleoff {
+	  background-color: #F5851F;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 3px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  text-decoration: none;
+}
+.gia-goc-chi-tiet
+{
+    color: #8C8C8C;
+    font-size: 10px;
+    text-decoration: line-through;
+    font-weight: normal;
+    float: right;
+}
+.gia-goc
+{
+	color: #8C8C8C;
+    font-size: 10px;
+    text-decoration: line-through;
+    font-weight: normal;
+    position: absolute;
+    top: 55px;
+    right: 12px;
+}
+.sale-off
+{
+	  color: #F5851F;
+  font-size: 15px; 
+  font-weight: bold;
+  float: right;
+  
+  padding-bottom: 5px;
+}
+.sale
+{
+	  color: #222;
+  font-size: 15px; 
+  font-weight: bold;
+  float: right;
+  
+  padding-bottom: 5px;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Home Page CSS Rules End                                                                            */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Register Page CSS Rules Start                                                                      */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.registerPageWrapper {
+}
+.registerFormWrapper {
+	margin-bottom: 36px;
+}
+.registerForm {
+}
+.registerForm input[type="text"], .registerForm input[type="password"] {
+	margin-bottom: 0px;
+}
+input.registerFirstNameField, input.registerLastNameField, input.registerUserNameField {
+	width: 100%;
+	box-sizing: border-box;
+	height: 36px;
+}
+input.registerPasswordField {
+	width: 100%;
+	box-sizing: border-box;
+	height: 36px;
+}
+input.registerEmailField {
+	width: 100%;
+	box-sizing: border-box;
+	height: 36px;
+}
+input.registerPhoneField {
+	width: 100%;
+	box-sizing: border-box;
+	height: 36px;
+}
+input.registerAddressField, input.registerCountryField, input.registerCityField, input.registerZipField {
+	width: 100%;
+	box-sizing: border-box;
+	height: 36px;
+}
+.registerButtonsWrapper {
+	height: 36px;
+	padding-top: 4px;
+}
+input.registerButton {
+	height: 36px;
+	float: right;
+	padding-left: 12px;
+	padding-right: 12px;
+	line-height: 36px;
+	background-color: #333;
+	border-radius: 6px;
+}
+.registerLoginButton {
+	float: left;
+	margin-right: 12px;
+	padding-right: 12px;
+	border-right: 1px dotted #e9e9e9;
+	height: 36px;
+	line-height: 36px;
+	border-radius: 6px;
+}
+.registerRecoverButton {
+	float: left;
+	height: 36px;
+	line-height: 36px;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Register Page CSS Rules End                                                                        */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Login Page CSS Rules Start                                                                         */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.loginPageWrapper {
+}
+.loginFormWrapper {
+	margin-bottom: 36px;
+}
+.loginForm {
+}
+input.loginNameField {
+	width: 100%;
+	box-sizing: border-box;
+	height: 36px;
+	margin-bottom: 0px;
+}
+input.loginPasswordField {
+	width: 100%;
+	box-sizing: border-box;
+	height: 36px;
+	margin-bottom: 0px;
+}
+.loginButtonsWrapper {
+	height: 36px;
+	padding-top: 4px;
+}
+input.loginButton {
+	height: 36px;
+	background-color: #333;
+	text-decoration: none;
+	line-height: 36px;
+	float: right;
+	margin: 0px;
+	padding-left: 12px;
+	padding-right: 12px;
+	border-radius: 6px;
+}
+.loginRegisterButton {
+	float: left;
+	margin-right: 12px;
+	padding-right: 12px;
+	border-right: 1px dotted #e9e9e9;
+	height: 36px;
+	line-height: 36px;
+	border-radius: 6px;
+}
+.loginRecoverButton {
+	float: left;
+	height: 36px;
+	line-height: 36px;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Login Page CSS Rules End                                                                           */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Recover Page CSS Rules Start                                                                       */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.recoverPageWrapper {
+}
+.recoverFormWrapper {
+	margin-bottom: 36px;
+}
+.recoverForm {
+}
+input.recoverUserNameField {
+	width: 100%;
+	height: 36px;
+	box-sizing: border-box;
+	margin-bottom: 0px;
+}
+input.recoverEmailField {
+	width: 100%;
+	height: 36px;
+	box-sizing: border-box;
+	margin-bottom: 0px;
+}
+.recoverButtonsWrapper {
+	height: 36px;
+	padding-top: 4px;
+}
+input.recoverButton {
+	padding-left: 12px;
+	padding-right: 12px;
+	float: right;
+	height: 36px;
+	background-color: #333;
+	border-radius: 6px;
+}
+.recoverLoginButton {
+	float: left;
+	margin-right: 12px;
+	padding-right: 12px;
+	border-right: 1px dotted #e9e9e9;
+	height: 36px;
+	line-height: 36px;
+	border-radius: 6px;
+}
+.recoverRegisterButton {
+	float: left;
+	height: 36px;
+	line-height: 36px;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Recover Page CSS Rules End                                                                         */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Advanced Search Page CSS Rules Start                                                               */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.advancedSearchPageWrapper {
+}
+.advancedSearchFormWrapper {
+	overflow: visible;
+}
+.advancedSearchForm, .advancedSearchForm > fieldset {
+	overflow: visible;
+}
+.advancedSearchForm label {
+	margin-bottom: 13px;
+}
+.advancedSearchForm .drop-downWrapper {
+	margin-bottom: 23px;
+}
+input.advancedSearchTermsField {
+	color: #333;
+	width: 100%;
+	box-sizing: border-box;
+	height: 36px;
+	margin-bottom: 0px;
+}
+.advancedSearchButtonsWrapper {
+	padding-top: 4px;
+}
+input.advancedSearchButton {
+	padding-left: 12px;
+	padding-right: 12px;
+	float: right;
+	height: 36px;
+	background-color: #333;
+	border-radius: 6px;
+	clear: both;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Advanced Search Page CSS Rules End                                                                 */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Single Product Page CSS Rules Start                                                                */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.singleProductPageWrapper {
+}
+.singleProductPageWrapper .pageTitle {
+	margin-bottom: 27px;
+}
+.singleProductGalleryWrapper {
+}
+.singleProductGallery {
+	border: 3px solid #f0f0f0;
+	margin-bottom: 27px;
+}
+.singleProductGalleryItem {
+	z-index: 10;
+	width: 100%;
+	height: auto;
+	position: absolute;
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+.currentSingleProductGalleryItem {
+	z-index: 90;
+	opacity: 1;
+	transition: opacity 0.3s;
+}
+.singleProductGalleryMenu {
+	list-style: none;
+    vertical-align: baseline;
+    letter-spacing: 12px;
+    padding: 0px;
+    margin-bottom: 10px;
+    text-align: center;
+    height: auto;
+}
+.singleProductGalleryMenu > li {
+	padding: 0px;
+	display: inline-block;
+	border: 3px solid #f0f0f0;
+	height: 48px;
+	width: 60px;
+	box-sizing: border-box;
+	transition: border-color 0.3s;
+	margin-bottom: 0px;
+}
+.singleProductGalleryMenu > li > a {
+	height: 42px;
+	width: 54px;
+}
+.singleProductGalleryMenu > li > a > img {
+	width: 100%;
+	height: auto;
+}
+li.currentSingleProductGalleryMenuItem {
+	border-color: #e4755a;
+	transition: border-color 0.3s;
+}
+.noidung a{
+	display:inherit;
+}
+.singleProductPurchaseButton, .singleProductPurchaseButton:hover {
+	width: 100%;
+	height: 36px;
+	line-height: 36px;
+	color: #fff;
+	text-align: center;
+	background-color: #61B849;
+	border-radius: 6px;
+	margin-bottom: 27px;
+	font-weight: bold;
+	text-decoration: none;
+}
+.singleProductPurchaseButtonSaleoff, .singleProductPurchaseButtonSaleoff:hover {
+	width: 100%;
+	height: 36px;
+	line-height: 36px;
+	color: #fff;
+	text-align: center;
+	background-color: #F5851F;
+	border-radius: 6px;
+	margin-bottom: 27px;
+	font-weight: bold;
+	text-decoration: none;
+}
+.productReviewWrapper > .quoteAvatar {
+	width: 36px;
+	height: 36px;
+}
+.productReviewWrapper > .quoteAvatar img {
+	width: 36px;
+	height: 36px;
+}
+.productReviewForm input[type="text"], .productReviewForm textarea {
+	margin-bottom: 0px;
+	width: 100%;
+	box-sizing: border-box;
+	height: 36px;
+}
+.productReviewForm textarea {
+	height: 168px;
+	margin-bottom: 27px;
+	clear: both;
+}
+input.produtReviewSubmitButton {
+	height: 36px;
+	line-height: 36px;
+	float: right;
+	border-radius: 6px;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Single Product Page CSS Rules End                                                                  */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Checkout Page CSS Rules Start                                                                      */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.checkoutPageWrapper {
+}
+.checkoutPageWrapper .pageTitle {
+	margin-bottom: 27px;
+}
+.checkoutTitleSteps {
+	float: right;
+	font-size: 10px;
+	color: #666;
+}
+.checkoutProductWrapper {
+	margin-bottom: 24px;
+	min-height: 60px;
+}
+.checkoutProductImageWrapper {
+	margin-right: 24px;
+	width: 60px;
+	height: 60px;
+	float: left;
+}
+.checkoutProductImage {
+	height: 60px;
+	width: 60px;
+}
+.checkoutProductInfoWrapper {
+}
+.checkoutProductButtonsWrapper {
+	margin-top: 4px;
+}
+input.checkoutProductNumber {
+	display: block;
+	float: left;
+	padding: 0px;
+	height: 22px;
+	line-height: 22px;
+	width: 22px;
+	margin: 0px;
+	text-align: center;
+}
+.checkoutProductPrice {
+	background-color: #f9f9f9;
+	display: block;
+	float: left;
+	padding-left: 12px;
+	padding-right: 12px;
+	height: 24px;
+	line-height: 24px;
+	margin-left: 12px;
+}
+.checkoutRemoveProductButton {
+	background: #333 url(/images/mobile/images/common/checkoutRemoveProductButtonBg.png) center center no-repeat;
+	color: #fff;
+	display: block;
+	border-radius: 3px;
+	padding-left: 12px;
+	padding-right: 12px;
+	text-align: center;
+	float: right;
+	height: 24px;
+	line-height: 24px;
+}
+.checkoutProductTitle {
+	color: #333;
+	text-decoration: none;
+	margin-top: 5px;
+}
+.checkoutInfoWrapper {
+	margin-bottom: 16px;
+	border-top: 3px solid #f0f0f0;
+	padding-top: 17px;
+}
+.checkoutProductsNumber {
+	float: left;
+	display: block;
+	height: 24px;
+	line-height: 24px;
+}
+.checkoutProductsTotal {
+	float: right;
+	display: block;
+	height: 24px;
+	line-height: 24px;
+}
+.checkoutButtonsWrapper {
+	height: 36px;
+	padding-top: 24px;
+	border-top: 3px solid #f0f0f0;
+}
+input.checkoutCheckoutButton {
+	float: right;
+	width: 96px;
+	text-align: center;
+	color: #fff;
+	text-decoration: none;
+	height: 36px;
+	line-height: 36px;
+	background-color: #333;
+	border-radius: 6px;
+	font-weight: normal;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Checkout Page CSS Rules End                                                                        */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Filterable Portfolio One CSS Rules Start                                                           */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.portfolioOneFilterablePageWrapper {
+}
+.portfolioMenuWrapper {
+	list-style: none;
+	padding-top: 23px;
+	padding-bottom: 18px;
+	background-color: #fff;
+	margin-bottom: 36px;
+	border-top: 3px solid #f0f0f0;
+	border-bottom: 3px solid #f0f0f0;
+}
+.portfolioMenuWrapper li {
+	float: left;
+	padding-left: 0px;
+	padding-right: 15px;
+	background: url(/images/mobile/images/common/portfolioFilterableMenuDecoBg.png) right center no-repeat;
+	margin-right: 9px;
+	margin-bottom: 4px;
+}
+.portfolioMenuWrapper > li:last-child {
+	background: none;
+	margin-right: 0px;
+}
+.portfolioMenuWrapper li a {
+	color: #999;
+}
+.portfolioMenuWrapper li a:hover {
+	text-decoration: none;
+}
+.portfolioMenuWrapper .currentPortfolioFilter {
+	color: #e4755a;
+}
+.portfolioOneFilterableWrapper {
+	padding-left: 24px;
+	padding-right: 24px;
+	margin-left: 24px;
+	margin-right: 24px;
+	background-color: #fff;
+}
+.portfolioOneFilterableWrapper .portfolioFilterableItemWrapper {
+	margin-bottom: 36px;
+	background-color: #fff;
+}
+.portfolioOneFilterableWrapper .portfolioFilterableItemImageWrapper {
+}
+.portfolioOneFilterableWrapper .portfolioFilterableItemImageWrapper img {
+	width: 100%;
+	height: auto;
+}
+.portfolioOneFilterableWrapper .portfolioFilterableItemInfoWrapper {
+	background-color: #f9f9f9;
+	padding-top: 21px;
+	padding-left: 12px;
+	padding-right: 12px;
+	padding-bottom: 22px;
+}
+.portfolioOneFilterableWrapper .portfolioFilterableItemInfoWrapper > *:last-child {
+	margin-bottom: 0px;
+}
+.portfolioOneFilterableWrapper .portfolioFilterableItemTitle {
+	margin-bottom: 16px;
+	height: 18px;
+	padding-bottom: 0px;
+}
+.portfolioFilterableItemButtonsWrapper {
+	height: 36px;
+	line-height: 36px;
+	background-color: #f6f6f6;
+}
+.portfolioFilterableExpandButton {
+	height: 36px;
+	line-height: 36px;
+	float: left;
+	padding-left: 40px;
+	color: #666;
+	background: #f0f0f0 url(/images/mobile/images/skins/default/portfolioExpandButtonBg.png) left center no-repeat;
+	padding-right: 12px;
+}
+.portfolioFilterableDetailsButton {
+	height: 36px;
+	line-height: 36px;
+	float: right;
+	padding-right: 40px;
+	color: #666;
+	background: #f0f0f0 url(/images/mobile/images/skins/default/portfolioDetailsButtonBg.png) right center no-repeat;
+	padding-left: 12px;
+}
+.portfolioFilterableExpandButton:hover, .portfolioFilterableDetailsButton:hover {
+	text-decoration: none;
+}
+.filteredPortfolioItem {
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Filterable Portfolio One CSS Rules End                                                             */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Filterable Portfolio Two CSS Rules Start                                                           */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.portfolioTwoFilterablePageWrapper {
+}
+.portfolioTwoFilterableWrapper {
+	margin-left: 24px;
+	margin-right: 24px;
+	padding-left: 24px;
+	padding-right: 24px;
+	background-color: #fff;
+}
+.portfolioTwoFilterableWrapper .portfolioFilterableItemWrapper {
+	float: left;
+	margin-right: 36px;
+	margin-bottom: 36px;
+	background-color: #fff;
+}
+.portfolioTwoFilterableWrapper .portfolioFilterableItemImageWrapper {
+}
+.portfolioTwoFilterableWrapper .portfolioFilterableItemImageWrapper img {
+	width: 100%;
+	height: auto;
+}
+.portfolioTwoFilterableWrapper .portfolioFilterableItemInfoWrapper {
+	background-color: #f9f9f9;
+	padding-top: 0px;
+	padding-left: 12px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	height: 36px;
+}
+.portfolioTwoFilterableWrapper .portfolioFilterableItemInfoWrapper > *:last-child {
+	margin-bottom: 0px;
+}
+.portfolioTwoFilterableWrapper .portfolioFilterableItemTitle {
+	font-size: 12px;
+	margin-bottom: 0px;
+	height: 36px;
+	line-height: 36px;
+	padding-bottom: 0px;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Filterable Portfolio Two CSS Rules End                                                             */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// One Column Portfolio CSS Rules Start                                                               */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.portfolioOnePageWrapper {
+}
+.portfolioOneWrapper {
+	padding-left: 24px;
+	padding-right: 24px;
+	margin-left: 24px;
+	margin-right: 24px;
+	background-color: #fff;
+}
+.portfolioOneItemWrapper {
+	margin-bottom: 36px;
+	background-color: #fff;
+}
+.portfolioOneItemImageWrapper {
+}
+.portfolioOneItemImageWrapper:hover {
+}
+.portfolioOneItemImageWrapper img {
+	width: 100%;
+	height: auto;
+}
+.portfolioOneItemInfoWrapper {
+	background-color: #f9f9f9;
+	padding-top: 21px;
+	padding-left: 12px;
+	padding-right: 12px;
+	padding-bottom: 22px;
+}
+.portfolioOneItemInfoWrapper > *:last-child {
+	margin-bottom: 0px;
+}
+.portfolioOneItemTitle {
+	margin-bottom: 16px;
+	height: 18px;
+	padding-bottom: 0px;
+}
+.portfolioOneHoverDeco {
+}
+.portfolioOneItemButtonsWrapper {
+	height: 36px;
+	line-height: 36px;
+	background-color: #f6f6f6;
+}
+.portfolioOneExpandButton {
+	height: 36px;
+	line-height: 36px;
+	float: left;
+	padding-left: 40px;
+	color: #666;
+	background: #e9e9e9 url(/images/mobile/images/skins/default/portfolioExpandButtonBg.png) left center no-repeat;
+	padding-right: 12px;
+}
+.portfolioOneDetailsButton {
+	height: 36px;
+	line-height: 36px;
+	float: right;
+	padding-right: 40px;
+	color: #666;
+	background: #e9e9e9 url(/images/mobile/images/skins/default/portfolioDetailsButtonBg.png) right center no-repeat;
+	padding-left: 12px;
+}
+.portfolioOneExpandButton:hover, .portfolioOneDetailsButton:hover {
+	text-decoration: none;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// One Column Portfolio CSS Rules End                                                                 */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Two Columns Portfolio CSS Rules Start                                                              */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.portfolioTwoPageWrapper {
+}
+.portfolioTwoWrapper {
+	margin-left: 24px;
+	margin-right: 24px;
+	background-color: #fff;
+	padding-left: 24px;
+	padding-right: 24px;
+}
+.portfolioTwoItemWrapper {
+	float: left;
+	margin-right: 36px;
+	margin-bottom: 36px;
+	background-color: #fff;
+}
+.portfolioTwoItemImageWrapper {
+}
+.portfolioTwoItemImageWrapper:hover {
+}
+.portfolioTwoItemImageWrapper img {
+	width: 100%;
+	height: auto;
+}
+.portfolioTwoItemInfoWrapper {
+	background-color: #f9f9f9;
+	padding-top: 0px;
+	padding-left: 12px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	height: 36px;
+}
+.portfolioTwoItemTitle {
+	font-size: 12px;
+	margin-bottom: 0px;
+	height: 36px;
+	line-height: 36px;
+	padding-bottom: 0px;
+}
+.portfolioTwoHoverDeco {
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Two Columns Portfolio CSS Rules End                                                                */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Single Project Page CSS Rules Start                                                                */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.singleProjectPageWrapper {
+	padding-bottom: 3px;
+	margin-bottom: 33px;
+}
+.pageWrapper .singleProjectContentWrapper {
+	box-shadow: none;
+	margin-bottom: 0px;
+}
+.singleProjectImageWrapper {
+	border: 3px solid #f0f0f0;
+	margin-bottom: 23px;
+}
+.singleProjectImage {
+	width: 100%;
+	height: auto;
+}
+.singleProjectItemButtonsWrapper {
+	height: 36px;
+	line-height: 36px;
+	background-color: #f6f6f6;
+	margin-bottom: 36px;
+}
+.singleProjectExpandButton {
+	height: 36px;
+	line-height: 36px;
+	float: left;
+	padding-left: 40px;
+	color: #666;
+	background: #f0f0f0 url(/images/mobile/images/skins/default/portfolioExpandButtonBg.png) left center no-repeat;
+	padding-right: 12px;
+}
+.singleProjectDetailsButton {
+	height: 36px;
+	line-height: 36px;
+	float: right;
+	padding-right: 40px;
+	color: #666;
+	background: #f0f0f0 url(/images/mobile/images/skins/default/portfolioDetailsButtonBg.png) right center no-repeat;
+	padding-left: 12px;
+}
+.singleProjectExpandButton:hover, .singleProjectDetailsButton:hover {
+	text-decoration: none;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Single Project Page CSS Rules End                                                                  */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Blog Page CSS Rules Start                                                                          */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.blogPageWrapper {
+	margin-bottom: 0px;
+}
+.blogPostsWrapper {
+	margin-left: 24px;
+	margin-right: 24px;
+	background-color: #fff;
+}
+.blogTitleWrapper {
+	margin-left: 24px;
+	margin-right: 24px;
+	margin-bottom: 4px;
+}
+.smallPostWrapper {
+	margin-bottom: 36px;
+	margin-left: 24px;
+	margin-right: 24px;
+	padding-bottom: 36px;
+	border-bottom: 3px solid #f0f0f0;
+}
+.postThumbnailWrapper {
+}
+.postThumbnailWrapper img {
+	width: 100%;
+	height: auto;
+}
+.postThumbnailWrapper:hover {
+}
+.postExcerptWrapper {
+	background-color: #fff;
+	padding-top: 23px;
+	padding-bottom: 22px;
+}
+.noThumbnailPost .postExcerptWrapper {
+	padding-top: 0px;
+}
+.postExcerptWrapper > *:last-child {
+	margin-bottom: 0px;
+}
+.smallPostTitle {
+	margin-bottom: 19px;
+	height: 18px;
+	padding-bottom: 0px;
+}
+.smallPostInfoWrapper {
+	height: 36px;
+	line-height: 36px;
+	background-color: #f6f6f6;
+	padding-left: 12px;
+	color: #666;
+}
+.postInfo {
+	margin-right: 18px;
+}
+.postInfoNoMargin {
+	margin-right: 0px;
+}
+.smallPostMoreButton {
+	height: 36px;
+	line-height: 36px;
+	float: right;
+	padding-right: 40px;
+	color: #666;
+	background: #f0f0f0 url(/images/mobile/images/skins/default/smallPostReadMoreButtonBg.png) right center no-repeat;
+	padding-left: 12px;
+}
+.smallPostMoreButton:hover {
+	text-decoration: none;
+}
+.smallPostQuote {
+	padding-left: 28px;
+	background: url(/images/mobile/images/common/quoteBg.png) 0 0 no-repeat;
+	font-style: italic;
+}
+.smallPostQuoteAuthor {
+	font-style: normal;
+	color: #999;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Blog Page CSS Rules End                                                                            */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Blog Post CSS Rules Start                                                                          */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.singlePostPageWrapper {
+}
+.singlePostContentWrapper {
+	background-color: #fff;
+	padding-top: 0px;
+	padding-left: 24px;
+	padding-right: 24px;
+	margin-left: 24px;
+	margin-right: 24px;
+	padding-bottom: 0px;
+}
+.singlePostContentWrapper > *:last-child {
+	margin-bottom: 0px;
+}
+.singlePostInfoWrapper {
+	height: 36px;
+	line-height: 36px;
+	background-color: #f0f0f0;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-left: 12px;
+	margin-bottom: 36px;
+}
+.commentsSectionWrapper {
+	background-color: #fff;
+	margin-left: 24px;
+	margin-right: 24px;
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: 32px;
+}
+.commentsTitle {
+	padding-top: 0px;
+	margin-bottom: 22px;
+}
+.commentsSectionWrapper > .commentsWrapper {
+	margin-bottom: 23px;
+}
+.commentsSectionWrapper > .commentsWrapper > .commentWrapper {
+	padding-bottom: 21px;
+	border-bottom: 1px solid #f0f0f0;
+}
+.commentsWrapper > .commentWrapper {
+	margin-bottom: 27px;
+}
+.commentsWrapper > .commentWrapper:last-child {
+	margin-bottom: 0px;
+}
+.commentAvatar {
+	float: left;
+	border: 3px solid #f0f0f0;
+}
+.commentAvatar > img {
+	width: 100%;
+	height: 100%;
+}
+.commentWrapper > .commentAvatar {
+	width: 36px;
+	height: 36px;
+}
+a.commentAvatar:hover {
+}
+.commentInfoWrapper {
+	float: left;
+	margin-left: 12px;
+	margin-bottom: 0px;
+	margin-top: 11px;
+	padding-bottom: 0px;
+}
+.comment {
+	margin-left: 54px;
+	clear: both;
+	border-top: 1px solid #f0f0f0;
+	padding-top: 23px;
+	top: -1px;
+}
+.comment > *:last-child {
+	margin-bottom: 0px;
+}
+.commentsFormWrapper {
+	margin-bottom: 36px;
+}
+.commentsForm {
+}
+.commentsFormTitle {
+	margin-bottom: 18px;
+}
+.commentsForm .formFieldWrapper {
+	margin-bottom: 23px;
+}
+.commentsForm .formTextareaWrapper {
+	margin-bottom: 27px;
+}
+.commentsForm label {
+	margin-bottom: 13px;
+	width: 100%;
+}
+.commentsForm .formFieldWrapper input[type="text"], .commentsForm .formTextareaWrapper textarea {
+	margin-bottom: 0px;
+}
+.commentsForm .formFieldWrapper input[type="text"] {
+	width: 100%;
+	box-sizing: border-box;
+	height: 36px;
+}
+.commentCommentTextarea {
+	width: 100%;
+	box-sizing: border-box;
+	height: 168px;
+}
+input.commentSubmitButton, input.commentSubmitButton:hover {
+	height: 36px;
+	line-height: 36px;
+	background-color: #333;
+	padding-left: 12px;
+	padding-right: 12px;
+	float: right;
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Blog Post CSS Rules End                                                                            */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// 404 Page CSS Rules Start                                                                           */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.errorPageWrapper {
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// 404 Page CSS Rules End                                                                             */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Contact Page CSS Rules End                                                                         */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.contactPageWrapper {
+}
+.pageWrapper .contactFormWrapper {
+}
+.contactForm {
+	margin-bottom: 0px;
+}
+.contactTitle {
+	margin-bottom: 18px;
+	padding-top: 0px;
+}
+.contactForm .formFieldWrapper {
+	margin-bottom: 23px;
+}
+.contactForm .formTextareaWrapper {
+	margin-bottom: 36px;
+}
+.contactForm label {
+	margin-bottom: 13px;
+	width: 100%;
+	box-sizing: border-box;
+	height: 18px;
+	line-height: 18px;
+}
+.contactForm .formFieldWrapper input[type="text"], .contactForm .formTextareaWrapper textarea {
+	margin-bottom: 0px;
+	box-sizing: border-box;
+	background-color: #f3f3f3;
+	border: 1px solid #f0f0f0;
+	color: #999;
+}
+.contactForm .formFieldWrapper input[type="text"]:focus, .contactForm .formTextareaWrapper textarea:focus {
+	background-color: #f6f6f6;
+}
+.contactForm .formFieldWrapper input[type="text"] {
+	width: 100%;
+	height: 36px;
+}
+.contactTextarea {
+	width: 100%;
+	max-width: 100%;
+	height: 168px;
+	box-sizing: border-box;
+}
+input.contactSubmitButton, input.contactSubmitButton:hover {
+	height: 36px;
+	line-height: 36px;
+	background-color: #333;
+	padding-left: 12px;
+	padding-right: 12px;
+	float: right;
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+}
+.formValidationError {
+	display: none;
+	height: 36px;
+	line-height: 36px;
+	margin-left: 0px;
+	color: #cc0000;
+	float: left;
+}
+input.fieldHasError, textarea.fieldHasError {
+}
+.formSuccessMessageWrapper {
+	display: none;
+	margin-bottom: 0px;
+}
+.formSuccessMessageWrapper > h4 {
+	background: url(/images/mobile/images/common/formSuccessMessageIconBg.png) 0 center no-repeat;
+	padding-left: 28px;
+}
+.formSuccessMessageWrapper > p:last-child {
+	margin-bottom: 0px;
+}
+.socialIconsWrapper {
+	text-align: center;
+	vertical-align: baseline;
+	margin-bottom: 27px;
+	letter-spacing: 12px;
+}
+.socialIconsWrapper > .socialIcon {
+	display: inline-block;
+	vertical-align: bottom;
+	width: 36px;
+	height: 36px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-color: #f3f3f3;
+}
+.contactMapWrapper {
+	margin-bottom: 36px;
+}
+.contactMap {
+	display: block;
+	overflow: hidden;
+	height: 168px;
+	width: 100%;
+	margin: 0px;
+	border: none;
+	padding: 0px;
+	box-sizing: border-box;
+}
+.mapTitle {
+	margin-bottom: 22px;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Contact Page CSS Rules End                                                                         */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Page Numbers CSS Rules End                                                                         */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.pageNumbersOuterWrapper {
+	margin-left: 24px;
+	margin-right: 24px;
+	padding-left: 24px;
+	padding-right: 24px;
+	background-color: #fff;
+}
+.pageNumbersWrapper {
+	margin-top: 0px;
+	clear: both;
+	margin-bottom: 33px;
+	padding-bottom: 0px;
+	padding-top: 36px;
+	border-top: 3px solid #f0f0f0;
+}
+.blogPageWrapper .pageNumbersWrapper {
+	padding-top: 0px;
+	border-top: none;
+}
+.pageNumber {
+	height: 24px;
+	line-height: 24px;
+	width: 24px;
+	float: left;
+	margin-right: 12px;
+	background-color: #f0f0f0;
+	color: #999;
+	text-align: center;
+	border-radius: 3px;
+}
+.pageNumber:hover {
+	text-decoration: none;
+	background-color: #f6f6f6;
+}
+.currentPageNumber {
+	background-color: #333;
+	color: #fff;
+	font-weight: bold;
+}
+.currentPageNumber:hover {
+	background-color: #333;
+	color: #fff;
+}
+.postLinksWrapper {
+	height: 36px;
+	line-height: 36px;
+	clear: both;
+	background-color: #fff;
+	border-top: 3px solid #f0f0f0;
+	border-bottom: 3px solid #f0f0f0;
+}
+.postLink {
+}
+.postLink:hover {
+	text-decoration: none;
+}
+.previousPost {
+	float: left;
+	display: inline-block;
+	height: 36px;
+	line-height: 36px;
+}
+.nextPost {
+	float: right;
+	display: inline-block;
+	height: 36px;
+	line-height: 36px;
+	text-align: right;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Page Numbers CSS Rules End                                                                         */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Footer CSS Rules Start                                                                             */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.footerDecoration {
+	height: 6px;
+	background:#fff url(/images/mobile/images/skins/default/headerFooterDecoBg.png) center 0px repeat-x;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.footerWrapper {
+	padding-left: 24px;
+	padding-right: 24px;
+	background-color: #61B849;
+	height: autoj;
+	overflow: visible;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.footerWrapper ul
+{
+	  padding-top: 5px;
+	  margin-bottom: 10px;
+}
+.footerWrapper li
+{
+	  width: 100%; 
+	  padding-left: 0;
+	  margin-bottom: 0;
+	  display: list-item;
+	  position: relative;
+	  border-bottom: 1px solid #d6d6d6;
+	  padding-top: 5px;
+	  padding-bottom: 5px;
+}
+.footerWrapper li
+{
+	  background:
+}
+.footerWrapper a {
+	color: #fff; 
+}
+.footerWrapper > .copyright { 
+	color: #fff; 
+  padding-bottom: 10px;
+  text-align:center;
+}
+.footerLinksWrapper {
+	float: right;
+	display: block;
+	margin-top: 18px;
+}
+.footerLinksWrapper > .footerLink {
+	float: left;
+	margin-left: 12px;
+	padding-right: 9px;
+	margin-top: 0px;
+	border-right: 1px solid rgba(255,255,255,0.12);
+}
+.footerLinksWrapper > .footerLink:last-child {
+	padding-right: 0px;
+	border: none;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Footer CSS Rules End                                                                               */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Drop-down CSS Rules Start                                                                          */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.drop-downWrapper {
+	width: 100%;
+	height: 36px;
+	overflow: visible;
+	margin-bottom: 27px;
+}
+.drop-downText {
+	box-sizing: border-box;
+	padding-left: 12px;
+	padding-right: 12px;
+	height: 36px;
+	line-height: 36px;
+	border: 1px solid #f0f0f0;
+	background: #f3f3f3 url(/images/mobile/images/common/drop-downTextBg.png) right 0px no-repeat;
+	color: #999;
+	display: block;
+	overflow: hidden;
+	cursor: pointer;
+	transition: border-color 0.3s, background-color 0.3s;
+}
+.drop-downItemsWrapper {
+	display: none;
+	width: 100%;
+	border-left: 1px solid #e9e9e9;
+	border-right: 1px solid #e9e9e9;
+	box-sizing: border-box;
+	max-height: 73px;
+	overflow-y: auto;
+	border-bottom: 1px solid #e9e9e9;
+}
+.drop-downItem {
+	height: 24px;
+	line-height: 24px;
+	border-bottom: 1px solid #e9e9e9;
+	display: block;
+	width: 100%;
+	padding-left: 12px;
+	padding-right: 12px;
+	background-color: #fff;
+	box-sizing: border-box;
+}
+.drop-downItem:last-child {
+	border: none;
+}
+.drop-downActive {
+	z-index: 999;
+}
+.drop-downActive > .drop-downText {
+	background-position: right -34px;
+	background-color: #f6f6f6;
+	border-color: #e9e9e9;
+	transition: border-color 0.3s, background-color 0.3s;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Drop-down CSS Rules End                                                                            */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+ 
+#thanhtoan label
+{ 
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-weight:bold;
+}
+#thanhtoan input
+{
+	background-color: #fff;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border linear .2s,box-shadow linear .2s;
+    -moz-transition: border linear .2s,box-shadow linear .2s;
+    -o-transition: border linear .2s,box-shadow linear .2s;
+    transition: border linear .2s,box-shadow linear .2s;
+    height: 30px;
+    padding: 4px 6px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #555;
+    vertical-align: middle;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    width: 100%;
+}
+#thanhtoan select
+{
+	width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  height:30px;
+  line-height:30px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  padding: 4px 6px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #555;
+  vertical-align: middle;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+#thanhtoan textarea
+{
+	  background-color: #fff;
+      border: 1px solid #ccc;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+      -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+      box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+      -webkit-transition: border linear .2s,box-shadow linear .2s;
+      -moz-transition: border linear .2s,box-shadow linear .2s;
+      -o-transition: border linear .2s,box-shadow linear .2s;
+      transition: border linear .2s,box-shadow linear .2s;
+      width:93%;	
+}
+#thanhtoan input.shoppingCartCheckoutButton {
+  float: right;
+  width: 96px;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+  height: 36px;
+  line-height: 27px;
+  background-color: #333;
+  border-radius: 6px;
+  font-weight: normal;
+  margin-bottom: 0px;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Reset CSS Rules Start                                                                              */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.noPadding {
+	padding: 0px;
+}
+.noMargin {
+	margin: 0px;
+}
+.noBackground {
+	background: none;
+}
+
+#search_title
+{
+	padding-bottom:30px;
+	font-weight: bold;
+  font-size: 1.1em;
+  margin-top: 10px;
+}
+#search_title .quantity {
+  color: #30ab30;
+}
+.bienthe td
+{
+	height:20px;
+}
+.bienthe select
+{
+	margin-bottom: 0; 
+	background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 0px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  color: #555; 
+  width:70%;
+  font-size: 14px;
+  height: 20px; 
+  padding: 0px 10px;
+  transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+}
+.shoppingCartProductNumber {
+	color: #999;
+	border: 1px solid rgba(0,0,0,0.12);
+	display: block;
+	float: left;
+	border-radius: 3px;
+	padding: 0px;
+	height: 22px;
+	line-height: 22px;
+	width: 22px;
+	margin: 0px;
+	text-align: center;
+}
+.shoppingCartInfoWrapper table
+{
+	margin-bottom: 0px;
+	border:none;
+}
+.shoppingCartInfoWrapper td
+{
+	font-weight:bold;
+	border:none;
+	color:#222;	
+}
+.shoppingCartInfoWrapper .paymentcartlable
+{
+	width:68%;
+	text-align:right;
+	padding: 5px 0;
+}
+.shoppingCartInfoWrapper .paymentcartvalue
+{
+	width:32%;
+}
+.black_overlay{
+	display: none;
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	z-index:9999;
+	-moz-opacity: 0.8;
+	opacity:.80;
+	filter: alpha(opacity=80);
+}
+
+.white_content {
+	  display: none; 
+	  position: fixed;
+	  top: 6%;
+	  width: 87%;
+	  height: 80%;
+	  padding: 16px;
+	  border: 5px solid #65B051;
+	  background-color: white;
+	  z-index: 10000;
+	  overflow: auto;
+}
+#light h4
+{
+	text-align: center;
+    border-bottom: 1px solid #E7E7E7;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+#light .order-cart
+{
+	height:78%; 
+    border-bottom: 1px solid #E7E7E7;
+	overflow-y: auto;
+}
+#light .shoppingCartCheckoutButton {
+  float: right;
+  width: 96px;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+  height: 36px;
+  line-height: 27px;
+  background-color: #333;
+  border-radius: 6px;
+  font-weight: normal;
+  margin: 10px 0 10px 0;
+}
+@media screen and (min-width: 710px) 
+{
+	#choosepayment .chung
+	{
+		float: left;
+		width: 49%; 
+	} 
+	#choosepayment .not-reg
+	{  
+		margin-left:10px;
+	}
+}
+	#choosepayment .choosepaymentnote a
+	{
+		display:inline;
+	} 
+	#choosepayment ul
+	{
+		margin-bottom: 10px;
+		margin-top: 10px;
+	}
+	#choosepayment li
+	{
+		  margin-bottom: 5px;
+	}
+	
+	#choosepayment h4
+	{
+		margin-bottom:5px;
+		font-weight:bold;
+		text-align:center;
+	}
+	#choosepayment .choosepaymentbutton
+	{
+		  background-color: #61B849;
+		  line-height: 36px;
+		  font-size:10pt;
+		  color:white;
+		  font-weight:bold;
+		  height: 36px; 
+		  text-align:center;
+		  border-radius: 6px;
+		  -o-border-radius: 6px;
+		  -moz-border-radius: 6px;
+		  -webkit-border-radius: 6px;
+		  -ms-border-radius: 6px;
+	}
+.gio-hang .shoppingCartEmptyButton
+{
+	background-color: #333;
+	  color: #FFFFF2;
+}
+
+.gio-hang .shoppingCartInfoWrapper
+{
+	color:#333;
+}
+
+.gio-hang .shoppingCartProductPrice
+{
+	color:#333;
+}
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// Reset CSS Rules End                                                                                */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/

@@ -1,0 +1,347 @@
+﻿<script id="ProductListTmpl" type="text/html">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3>
+                        <i class="icon-table"></i>
+
+                    </h3>
+                </div>
+                <div class="box-content nopadding">
+                    <div class='form-horizontal form-bordered' style="margin: 0 auto;width: 50%;border: 2px solid rgb(150, 150, 150);">
+                        <ul class="tabs tabs-inline tabs-top">
+                            <li class='active'>
+                                <a href="#first11" data-toggle='tab'><i class="icon-filter"></i> Lọc sản phẩm</a>
+                            </li>
+                            <li>
+                                <a href="#second22" data-toggle='tab'><i class=" icon-search"></i> Tìm kiếm</a>
+                            </li>
+                            <li>
+                                <a href="#tab_other" data-toggle='tab'><i class="icon-search"></i>Tùy chỉnh</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content padding tab-content-inline tab-content-bottom">
+                            <div class="tab-pane active" id="first11">
+                                <div class="control-group">
+                                    <h4 class="control-label">Lọc sản phẩm</h4>
+                                </div>
+                                <div class="control-group">
+                                    <label for="textfield" class="control-label"><b>Danh mục</b></label>
+                                    <div class="controls">
+                                        <div class="input-append">
+                                            <select class="select2-me input-xlarge" data-bind="options:ArrayDanhmuc,optionsValue: 'madanhmuc', optionsText: 'tendanhmuc',value:selecteddanhmuc,optionsCaption: 'Chọn danh mục'"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group" data-bind="visible:hidedanhmuccon">
+                                    <label for="textfield" class="control-label"><b>Danh mục con</b></label>
+                                    <div class="controls">
+                                        <div class="input-append">
+                                            <select class="select2-me input-xlarge" data-bind="options:ArrayDanhmuccon, optionsText: 'tendanhmuccon',optionsValue: 'madanhmuccon',value:selecteddanhmuccon,optionsCaption: 'Chọn tất cả' "></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="textfield" class="control-label"><b>Thương hiệu</b></label>
+                                    <div class="controls">
+                                        <div class="input-append">
+                                            <select class="select2-me input-xlarge" data-bind="options:ArrayBrand, optionsText: 'tenhieu',optionsValue: 'mahieu',value:selectedBrand,optionsCaption: 'Chọn tất cả' "></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="textfield" class="control-label"></label>
+                                    <div class="controls">
+                                        <div class="input-append" style="width: 85%;">
+                                            <button data-bind="click:search" class="btn btn-primary" style="width:100%"><i class="icon-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="second22">
+                                <div class="control-group">
+                                    <label for="textfield" class="control-label"><b>Tìm kiếm</b></label>
+                                    <div class="controls">
+                                        <div class="input-append">
+                                            <input type="text" data-bind="value:txt_search" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="textfield" class="control-label"></label>
+                                    <div class="controls">
+                                        <div class="input-append" style="width: 85%;">
+                                            <button data-bind="click:search_query" class="btn btn-primary" style="width:100%"><i class="icon-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab_other">
+                                <div class="control-group">
+                                    <label for="textfield" class="control-label"><b>Giảm giá cho thành viên</b></label>
+                                    <div class="controls">
+                                        <div class="input-append">
+                                            <button data-bind="click:UpdateAllSaleOffForMember" class="btn btn-primary" style="width:100%">Giảm giá cho thành viên</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="textfield" class="control-label"><b>Giảm giá cho tất cả</b></label>
+                                    <div class="controls">
+                                        <div class="input-append">
+                                            <button data-bind="click:UpdateAllSaleOffNotForMember" class="btn btn-primary" style="width:100%">Giảm giá tất cả</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-title"></div>
+
+                    <div data-bind="visible:datatable">
+                        <div class="paging_ko">
+                            <ul class="minitiles" style="margin:20px">
+                                <li class='green'>
+                                    <a data-bind="attr: { href: linkadd }"><i class="icon-plus-sign"></i></a>
+                                </li>
+                            </ul>
+                            <div class="filter-ko">
+                                <div data-bind="foreach: filter.filters">
+                                    <div data-bind="if: Type == 'select'"></div>
+                                    <div data-bind="if: Type == 'text'">
+                                        <strong>Tìm kiếm:  </strong><input placeholder="Mã sản phẩm" type="text" data-bind="value: Value, valueUpdate: 'afterkeydown'" style="width: 100px;">
+                                    </div>
+                                </div>
+                                <b>Sắp xếp:</b>
+                                <select data-bind="options: sorter.sortOptions, optionsText: 'Name', value: sorter.currentSortOption"><option value="">ID</option><option value="">masp</option></select>
+                                Theo:
+                                <select data-bind="options: sorter.sortDirections, optionsText: 'Name', value: sorter.currentSortDirection"><option value="">Asc</option><option value="">Desc</option></select>
+                            </div>
+                            <div style="clear: both;"></div>
+
+                            <div class="Pager">Page <span data-bind="text: pager.currentPageIndex() + 1">1</span> of <span data-bind="text: pager.maxPageIndex() + 1">1</span> [<span data-bind="text: pager.recordCount">5</span> Record(s)]&nbsp;&nbsp;<select data-bind="options: pager.pageSizeOptions, value: pager.currentPageSize, event: { change: pager.onPageSizeChange }"><option value="1">1</option><option value="5">5</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="250">250</option><option value="500">500</option></select><div><a class="btn-paging" href="#" data-bind="click: pager.moveFirst, enable: pager.currentPageIndex() > 0">&lt;&lt;</a><a class="btn-paging" href="#" data-bind="click: pager.movePrevious, enable: pager.currentPageIndex() > 0">&lt;</a><a class="btn-paging" href="#" data-bind="click: pager.moveNext, enable: pager.currentPageIndex() < pager.maxPageIndex()">&gt;</a><a class="btn-paging" href="#" data-bind="click: pager.moveLast, enable: pager.currentPageIndex() < pager.maxPageIndex()">&gt;&gt;</a></div><br></div>
+
+                            <div class="NoRecords"><span data-bind="visible: pager.recordCount() == 0" style="display: none;">No records found.</span></div>
+                        </div>
+                        <table class="table table-hover table-nomargin dataTable table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Mã</th>
+                                    <th>Hình</th>
+                                    <th>Tên Sp</th>
+                                    <th>Thương hiệu</th>
+                                    <th>Giá</th>
+                                    <th>Tags</th>
+                                    <th>Trạng thái</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: pager.currentPageRecords">
+                                <tr class="gradeX">
+                                    <td data-bind="text:id"></td>
+                                    <td data-bind="text:masp"></td>
+                                    <td>
+                                        <img data-bind="attr: { src:urllocation+img()}" style="width:120px" onerror="imgerror(this)" />
+                                    </td>
+                                    <td><strong data-bind="text:tensp"></strong></td>
+                                    <td><strong data-bind="text:tenhieu"></strong></td>
+                                    <td>
+                                        <!--ko if: shop_bienthe().length > 0-->
+                                        <!--ko foreach:shop_bienthe() -->
+                                        <div style="line-height: 1;background: rgb(244, 244, 224);padding: 2px;border-radius: 5px;">
+                                            <!-- ko if: isdelete()==0-->
+                                            <p><b data-bind="text:title"></b>-</p>
+                                            <p class="sale" data-bind="text:gia"></p>
+                                            <p class="saleoff" data-bind="text:giasosanh()>0?giasosanh():''"></p>
+                                            <!--/ko-->
+                                        </div>
+                                        <!--/ko-->
+                                        <!--/ko-->
+                                    </td>
+                                    <td>
+                                        <!--ko if: Tag().length > 0-->
+                                        <!--ko foreach: Tag()-->
+                                        <span data-bind="text:$data" style="background: rgb(0, 65, 152);padding: 4px;font-weight: bold;color: white;"></span>
+                                        <!--/ko-->
+                                        <!--/ko-->
+                                    </td>
+                                    <td>
+                                        <p data-bind="visible:showhome()"><span class="btn btn-green">Nổi bật</span></p>
+                                        <p data-bind="visible:hide()"><span class="btn btn-lightgrey"><i class="glyphicon-eye_close"> Ẩn</i></span></p>
+                                        <p data-bind="visible:ischeckout"><span class="btn btn-warning"><i class="glyphicon-eye_close"> Hết hàng</i></span></p>
+                                        <!--ko if:ischecksaleoff()-->
+                                        <p> <span class="btn  btn-danger"><i class="icon-money"> Khuyến mãi</i><i data-bind="visible:ischeckgift"> (quà)</i></span></p>
+                                        <!--/ko-->
+                                    </td>
+                                    <td>
+
+                                        <p>
+                                            <button class="btn  btn-green" data-bind="click:$parent.noibat">Nổi bật</button>
+                                        </p>
+                                        <p>
+
+                                            <button class=" btn btn-success" title="Sale off" data-bind="click:$parent.saleoff"><i class="icon-money"> Sale</i></button>
+                                        </p><p>
+                                            <button class=" btn btn-warning"><i data-bind="click:$parent.setshow,attr:{class:hide()?'glyphicon-eye_open':'glyphicon-eye_close'},text:hide()?' Hiện':' Ẩn'"></i></button>
+                                        </p>
+                                        <p>
+                                            <button class=" btn btn-warning"><i data-bind="click:$parent.setout,text:ischeckout()?' Còn hàng':' Hết hàng'" class="icon-warning-sign"></i></button>
+                                        </p>
+
+                                        <p>
+                                            <a class="btn  btn-primary" data-bind="attr: { href: GetLinkPageDetail }"><i class="icon-pencil"></i> Hiệu chỉnh</a>
+                                        </p>
+                                        <p>
+                                            <button class="btn  btn-danger" data-bind="click:$parent.remove"><i class="icon-trash"></i> Xóa</button>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="paging_ko">
+
+                            <div class="Pager">Page <span data-bind="text: pager.currentPageIndex() + 1">1</span> of <span data-bind="text: pager.maxPageIndex() + 1">1</span> [<span data-bind="text: pager.recordCount">5</span> Record(s)]&nbsp;&nbsp;<select data-bind="options: pager.pageSizeOptions, value: pager.currentPageSize, event: { change: pager.onPageSizeChange }"><option value="1">1</option><option value="5">5</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="250">250</option><option value="500">500</option></select><div><a class="btn-paging" href="#" data-bind="click: pager.moveFirst, enable: pager.currentPageIndex() > 0">&lt;&lt;</a><a class="btn-paging" href="#" data-bind="click: pager.movePrevious, enable: pager.currentPageIndex() > 0">&lt;</a><a class="btn-paging" href="#" data-bind="click: pager.moveNext, enable: pager.currentPageIndex() < pager.maxPageIndex()">&gt;</a><a class="btn-paging" href="#" data-bind="click: pager.moveLast, enable: pager.currentPageIndex() < pager.maxPageIndex()">&gt;&gt;</a></div><br></div>
+
+                            <div class="NoRecords"><span data-bind="visible: pager.recordCount() == 0" style="display: none;">No records found.</span></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--btn  Add-->
+    <ul class="minitiles" style="margin:20px">
+        <li class='green'>
+            <a data-bind="attr: { href: linkadd }"><i class="icon-plus-sign"></i></a>
+        </li>
+    </ul>
+
+
+
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3>
+                        <i class="icon-cog"></i> Đồng bộ dữ liệu
+                    </h3>
+                </div>
+                <div class="box-content nopadding">
+                    <ul style="list-style:none;padding:10px;padding-bottom:30px">
+                        <li style="float:left;margin:10px">
+                            <a data-bind="click:ResetSaleoff" class="btn btn-danger" title="Reset khuyến mãi"><i class="icon-money"></i> Xóa các khuyến mãi</a>
+                        </li>
+                        <li style="float:left;margin:10px">
+                            <a data-bind="click:ResetProduct_Banner" class="btn btn-danger" title="Reset khuyến mãi">Xóa các Banner sản phẩm</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-saleoff" data-bind="with:mProdcut" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Khuyến mãi sản phẩm <span data-bind="text:tensp"></span></h3>
+        </div>
+        <div class="modal-body">
+            <div class="form-horizontal form-bordered">
+                <!--ko if: $parent.HasError() && $parent.Validator().errors().length > 0-->
+                <div class="control-group error">
+                    <label for="textfield" class="control-label"><b>Lỗi</b></label>
+                    <div class="controls">
+                        <span data-bind="text: 'Có ' + $parent.Validator().errors().length + ' lỗi trên trang:'"></span>
+                        <ul data-bind="foreach: $parent.Validator().errors">
+                            <li data-bind="text: $data"></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!--/ko-->
+                <!--ko foreach:shop_bienthe-->
+                <div class="control-group" style="position:relative">
+                    <div class="control-label" style="margin-right: 20px;">
+                        <!--ko if:$root.mvlist.IsOneBienthe() -->
+                        <p><b>Biến thể</b></p>
+                        <label class="input-medium"><b data-bind="text:title"></b></label>
+                        <!--/ko-->
+                        <!--ko if:!$root.mvlist.IsOneBienthe() -->
+                        <p><b>Biến thể</b></p>
+                        <input type="text" data-bind="value:title" class="input-medium">
+                        <!--/ko-->
+                    </div>
+                    <div class="control-label">
+                        <p><b>Giá</b> </p>
+                        <input type="text" data-bind="value:gia" class="input-small">
+                    </div>
+                    <div class="control-label">
+                        <p><b>Giá giảm</b></p>
+                        <input type="text" data-bind="value:giasosanh" class="input-small">
+                    </div>
+                    <!--ko if:!$root.mvlist.IsOneBienthe() -->
+                    <div style="position:absolute;right:0px"><button class="btn  btn-danger" data-bind="click:$root.mvlist.removeBienthe"><i class="icon-trash"></i></button></div>
+                    <!--/ko-->
+                </div>
+                <!--/ko-->
+                <!--ko foreach:$parent.Bienthe-->
+                <div class="control-group" style="position:relative">
+                    <div class="control-label" style="margin-right: 20px;">
+                        <p><b>Biến thể</b></p>
+                        <input type="text" data-bind="value:title" class="input-medium">
+                    </div>
+                    <div class="control-label">
+                        <p><b>Giá</b> </p>
+                        <input type="text" data-bind="value:gia" class="input-small">
+                    </div>
+                    <div class="control-label">
+                        <p><b>Giá giảm</b></p>
+                        <input type="text" data-bind="value:giasosanh" class="input-small">
+                    </div>
+                    <div style="position:absolute;right:0px"><button class="btn  btn-danger" data-bind="click:$root.mvlist.removeBienthe"><i class="icon-trash"></i></button></div>
+                </div>
+                <!--/ko-->
+                <div class="control-group">
+                    <div class="control-label">
+                        <span class="btn btn-primary" data-bind="click:$parent.Addbienthe">Thêm biến thể</span>
+                    </div>
+                    <div class="controls">
+                        <input type="checkbox" name="checkboxG5" id="checkboxG5" class="css-checkbox" data-bind="checked:ischecksaleoff,checkedValue:true">
+                        <label for="checkboxG5" class="css-label radGroup1 chk">Chương trình giảm giá sản phẩm</label>
+                    </div>
+                </div>
+
+
+                <div class="control-group" data-bind="visible:ischecksaleoff">
+                    <label for="textfield" class="control-label"><b>Ngày kết thúc</b></label>
+                    <div class="controls">
+                        <input type="text" class="input-medium datepick" data-date-format="yyyy-mm-dd" data-bind="datepicker:timeend" />
+                    </div>
+                </div>
+                <div class="control-group" data-bind="visible:ischecksaleoff">
+                    <label for="textfield" class="control-label">
+                        <b>Quà tặng</b>
+                    </label>
+                    <div class="controls">
+                        <div class="input-append input-prepend">
+                            <input type="checkbox" name="ischeckgift" id="ischeckgift" class="css-checkbox" data-bind="checked:ischeckgift,checkedValue:true">
+                            <label for="ischeckgift" class="css-label radGroup1 chk">Kèm quà tặng</label>
+                            <br />
+                            <textarea data-bind="value:gift,visible:ischeckgift"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-primary" data-bind="click:$parent.setsaleoff">Save changes</button>
+        </div>
+    </div>
+    <!-- // Modal END -->
+
+</script>

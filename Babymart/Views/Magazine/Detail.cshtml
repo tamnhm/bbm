@@ -1,0 +1,304 @@
+﻿@model Babymart.Models.module_detail
+@{
+    var articalTags = new List<Babymart.Models.module_detail>();
+    var articalother = new List<Babymart.Models.module_detail>();
+    if (Model != null)
+    {
+        ViewBag.Title = "Detail";
+        if (ViewData["ArticlesRelated"] != null)
+        {
+            articalother = ((List<Babymart.Models.module_detail>)ViewData["ArticlesRelated"]).OrderByDescending(o => o.createdate).ToList();
+        }
+        if (ViewData["ArticlesTags"] != null)
+        {
+            articalTags = ((List<Babymart.Models.module_detail>)ViewData["ArticlesTags"]).OrderByDescending(o => o.createdate).ToList();
+        }
+
+    }
+    var spTags = (List<Babymart.Models.ModelProduct>)ViewData["ListProduct"];
+    var action = FBabymartvn.ActionNameCurrent();
+}
+@section SEOContent{
+    @if (Model != null)
+    {
+        <title>@Html.Raw(Model.title)</title>
+        <meta name="keywords" content="@Html.Raw(Model.keyword)" />
+        <meta name="description" content="@Html.Raw(Model.description)" />
+    }
+}
+@section scripts{
+    <div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    <script type='text/javascript' src='//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js' data-shr-siteid='ceb96f6b971835b99b16c20b3089ca1d' data-cfasync='false' async='async'></script>
+    <script>
+        $('.entry-detail .content-text a').addClass("bold");
+    </script>
+}
+@if (Model != null)
+{
+    <div class="columns-container">
+        <div class="container" id="columns">
+            <!-- breadcrumb -->
+            <div class="breadcrumb clearfix">
+                <a class="home" href="/" title="Return to Home">Trang chủ</a>
+                <span class="navigation-pipe">&nbsp;</span>
+                <a class="home" href="/cam-nang.html">Cẩm nang</a>
+                <span class="navigation-pipe">&nbsp;</span>
+                <a class="home" href="@("/cam-nang/" + (Model.module_menu.url == "default" ? "-" : Model.module_menu.url) + "/" + Model.module_group.url + ".html")" title="Blog">@(FBabymartvn.IsLangVNHasValue(Model.module_group.title_us) ? Model.module_group.title : Model.module_group.title_us)</a>
+                <span class="navigation-pipe">&nbsp;</span>
+                <span>@(FBabymartvn.IsLangVNHasValue(Model.title_us) ? Model.title : Model.title_us)</span>
+            </div>
+            <!-- ./breadcrumb -->
+            <!-- row -->
+            <div class="row">
+                <!-- Left colunm -->
+                <div class="column col-xs-12 col-sm-3 col-sm-push-9" id="left_column">
+                    <!-- Blog category -->
+                    @if (ViewBag.typemodule != null)
+                {
+                    Html.RenderAction("MenuModule", "Common", new { idtype = ViewBag.typemodule });
+                }
+                    <!-- ./blog category  -->
+                    <!-- Popular Posts -->
+                    @{Html.RenderAction("GadgetsMagazine2", "Common");}
+                </div>
+                <!-- ./left colunm -->
+                <!-- Center colunm-->
+                <div class="center_column col-xs-12 col-sm-9 col-sm-pull-3" id="center_column">
+                    <h1 class="page-heading">
+                        <span class="page-heading-title2">@Model.title</span>
+                    </h1>
+                    <article class="entry-detail">
+                        <div class="entry-meta-data">
+                            <span class="author">
+                                <i class="fa fa-user"></i>
+                                đăng bởi: Admin
+                            </span>
+                            <span class="date"><i class="fa fa-calendar"></i> @String.Format("{0:dd/MM/yyyy}", Model.createdate)</span>
+                        </div>
+                        <div class="content-text clearfix">
+                            @Html.Raw(Model.contents)
+                        </div>
+                        <div class="form-share text-right">
+                            <div class="share-fb">
+                                    <div class="fb-like" data-href="@Request.Url.AbsoluteUri" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                                </div>
+                        </div>
+                    </article>
+                    <div class="clearfix"></div>
+                    <div class="single-box">
+                        <h2>Bình luận</h2>
+                        <div class="fb-comments" data-href="@Request.Url.AbsoluteUri" data-colorscheme="light"
+                             data-numposts="5" data-width="800"></div>
+                    </div>
+                    <div class="row">
+                        <!-- Related Posts -->
+                        @if (articalother != null && articalother.Count() > 0)
+                        {
+                            if (articalTags != null && articalTags.Count() > 1)
+                            {
+                                <div class="single-box col-sm-6 pull-left">
+                                    <h2>Bài viết khác</h2>
+                                    <ul>
+                                        @foreach (var item in articalother)
+                                        {
+                                            <li>
+                                                <span class="glyphicon glyphicon-hand-right"></span>
+                                                <a class="clip-link" title="@item.title" href="@("/cam-nang/bai-viet/" + item.id + "/" + item.url + ".html")">
+                                                    <span> @item.title </span>
+                                                    @if (item.createdate != null)
+                                                    {
+                                                        <span>(@String.Format("{0:dd/MM/yyyy}", item.createdate))</span>
+                                                    }
+                                                </a>
+                                            </li>
+                                        }
+                                        <li>
+                                            <a href="@("/cam-nang/" + (Model.module_menu.url == "default" ? "-" : Model.module_menu.url) + "/" + Model.module_group.url + ".html")">Xem thêm...</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="single-box col-sm-12 pull-left">
+                                    <h2>Bài viết khác</h2>
+                                    <ul>
+                                        @foreach (var item in articalother)
+                                        {
+                                            <li>
+                                                <span class="glyphicon glyphicon-hand-right"></span>
+                                                <a class="clip-link" title="@item.title" href="@("/cam-nang/bai-viet/" + item.id + "/" + item.url + ".html")">
+                                                    <span> @item.title </span>
+                                                    @if (item.createdate != null)
+                                                    {
+                                                        <span>(@String.Format("{0:dd/MM/yyyy}", item.createdate))</span>
+                                                    }
+                                                </a>
+                                            </li>
+                                        }
+                                        <li>
+                                            <a href="@("/cam-nang/" + (Model.module_menu.url == "default" ? "-" : Model.module_menu.url) + "/" + Model.module_group.url + ".html")">Xem thêm...</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+                        }
+                        @if (articalTags != null && articalTags.Count() > 1)
+                        {
+                            <div class="single-box col-sm-6 pull-right">
+                                <h2>Bài liên quan</h2>
+                                <ul>
+                                    @foreach (var item in articalTags)
+                                    {
+                                        if (item.id != Model.id)
+                                        {
+                                            <li>
+                                                <span class="glyphicon glyphicon-hand-right"></span>
+                                                <a class="clip-link" title="@item.title" href="@("/cam-nang/bai-viet/" + item.id + "/" + item.url + ".html")">
+                                                    <span> @item.title </span>
+                                                    <span>(@String.Format("{0:dd/MM/yyyy}", item.createdate))</span>
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                    @if (ViewBag.Tags != null)
+                                    {
+                                        <li>
+                                            <a href="@("/cam-nang/" + (Model.module_menu.url == "default" ? "-" : Model.module_menu.url) + "/" + Model.module_group.url + ".html")">Xem thêm.</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                    <div class="clearfix"></div>
+                    @if (spTags != null && spTags.Count > 0)
+                {
+                        <div class="page-product-box handbook-product ">
+                            <h3 class="heading">Sản phẩm</h3>
+                            <div class="product-featured clearfix">
+                                <div class="row">
+                                    <div class="col-sm-12 col-right-tab">
+                                        <div class="product-featured-tab-content ">
+                                            <div class="tab-container">
+                                                <div class="tab-panel active" id="tab-14">
+                                                    <div class="box-full clearfix">
+                                                        <ul class="product-list">
+                                                            @foreach (var item in spTags)
+                                                            {
+                                                                var bienthe = item.shop_bienthe.Where(o => o.isdelete == false).ToList();
+                                                                bool isone = bienthe.Count == 1 ? true : false;
+                                                                if (item.hide == false || item.ischeckout == false)
+                                                                {
+                                                                    <li itemscope="" itemtype="http://schema.org/Product">
+                                                                        <div class="left-block">
+                                                                            <a href="@("/tin-tuc/" + item.spurl + ".html")">
+                                                                                @if (item.shop_image.Count > 0)
+                                                                                {
+                                                                                    <img itemprop="image" onerror="imgError(this)" src="@(Common.urlProduct() + item.shop_image.FirstOrDefault().url)" alt="@item.tensp" />
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <img itemprop="image" onerror="imgError(this)" src="" alt="sản phẩm" width='208' height='208' />
+
+                                                                                }
+                                                                            </a>
+                                                                            <div class="add-to-cart">
+                                                                                @if (item.ischeckout == false)
+                                                                                {
+                                                                                    if (bienthe.Count <= 1)
+                                                                                    {
+                                                                                        if (bienthe.First().giasosanh > 0)
+                                                                                        {
+                                                                                            <a href="@("/gio-hang.html/" + item.shop_bienthe.FirstOrDefault().id + "/1")">Thêm vào giỏ hàng</a>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <a href="@("/gio-hang.html/" + item.shop_bienthe.FirstOrDefault().id + "/1")">Thêm vào giỏ hàng</a>
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if (bienthe.First().giasosanh > 0)
+                                                                                    {
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                    }
+                                                                                }
+                                                                            </div>
+                                                                            <div class="label-promo">
+                                                                                @if (isone)
+                                                                                {
+                                                                                    if (bienthe.First().giasosanh > 0)
+                                                                                    {
+                                                                                        <span>-@(100 - (bienthe.First().gia * 100) / bienthe.First().giasosanh)%</span>
+                                                                                    }
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    foreach (var i in bienthe)
+                                                                                    {
+                                                                                        if (i.giasosanh > 0)
+                                                                                        {
+                                                                                            <span class="sold-out">Sale off</span>
+                                                                                            break;
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                                @if (item.ischeckout == true)
+                                                                                {
+                                                                                    <span class="sold-out-2">Tạm hết hàng</span>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="right-block">
+                                                                            <h3 itemprop="name" class="product-name"><a itemprop="url" href="@("/tin-tuc/" + item.spurl + ".html")">@(FBabymartvn.IsLangVNHasValue(item.tensp_us) ? item.tensp : item.tensp_us)</a> - <span>@item.masp</span></h3>
+
+                                                                            <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer" class="content_price">
+                                                                                @if (isone)
+                                                                                {
+                                                                                    <span class="price product-price"> @string.Format("{0:0,0 đ}", bienthe.First().gia) </span>
+                                                                                    if (bienthe.First().giasosanh > 0)
+                                                                                    {
+                                                                                        <span class="price old-price">@string.Format("{0:0,0 đ}", bienthe.First().giasosanh)</span>
+                                                                                    }
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <span class="price product-price">Xem giá chi tiết</span>
+                                                                                }
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <!-- ./Related Posts -->
+                </div>
+                <!-- ./ Center colunm -->
+            </div>
+            <!-- ./row-->
+        </div>
+    </div>
+                        }

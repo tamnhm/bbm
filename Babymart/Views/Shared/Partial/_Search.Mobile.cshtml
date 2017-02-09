@@ -1,0 +1,10 @@
+﻿@{    var IsLangVN = FBabymartvn.IsLangVN();
+}
+<div class="shopSearchFormWrapper">
+    @using (Html.BeginForm("SearchPost", "Shop", FormMethod.Post, new { @id = "searchForm" }))
+    {
+        <fieldset>
+            <input type="text" value="" id="qsearch" class="shopSearchField fieldWithIcon shopSearchFieldIcon" name="search" placeholder="@(IsLangVN ? "Mẹ tìm gì cho bé..." : "What are you looking for...")" />
+        </fieldset>
+    }
+</div>

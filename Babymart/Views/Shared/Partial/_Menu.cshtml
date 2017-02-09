@@ -1,0 +1,102 @@
+﻿@model IList<Babymart.Models.shop_danhmuc>
+@{
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+<h4 class="title">
+    <span class="btn-open-mobile pull-right home-page">
+        <i class="fa fa-bars"></i>
+        <span class="title-menu">@(IsLangVN ? "DANH MỤC SẢN PHẨM" : "PRODUCT CATEGORY")</span>
+    </span>
+</h4>
+<div class="vertical-menu-content is-home">
+    <ul class="vertical-menu-list">
+        <li data-color="#EC2B7D">
+            <a href="@(IsLangVN ? "/goi-do-so-sinh.html" : "/en/new-baby-checklist.html")">
+                <div class="icon-menu dososinh"></div>
+                @(IsLangVN ? "Đồ dùng cho mẹ chuẩn bị sinh" : "New Baby Checklist")
+            </a>
+        </li>
+        @foreach (var item in Model)
+        {
+            <li data-color="@(item.background)">
+                @{
+            var obj = item.shop_danhmuccon.Where(o => o.hide == false).OrderByDescending(o => o.sort).ThenBy(n => n.tendanhmuccon).ToList();
+            var groupDm = IsLangVN ? obj.OrderBy(o => o.grouplink).GroupBy(o => o.grouplink).ToList() : obj.OrderBy(o => o.grouplink_us).GroupBy(o => o.grouplink_us).ToList();
+                }
+                @if (obj.Count > 0)
+                {
+                    <a class="parent" href="@((IsLangVN ? "/danh-muc/" + item.url : "/en/category/" + item.url_us) + ".html")">
+                        @if (!String.IsNullOrEmpty(item.icon))
+                        {
+                            <div class="@item.icon"></div>
+                        }
+                        @(FBabymartvn.IsLangVNHasValue(item.tendanhmuc_us) ? item.tendanhmuc : item.tendanhmuc_us)
+                    </a>
+                }
+                else
+                {
+                    <a href="@((IsLangVN ? "/danh-muc/" + item.url : "/en/category/" + item.url_us) + ".html")">
+                        @if (!String.IsNullOrEmpty(item.icon))
+                        {
+                            <div class="@item.icon"></div>
+                        }
+                        @(FBabymartvn.IsLangVNHasValue(item.tendanhmuc_us) ? item.tendanhmuc : item.tendanhmuc_us)
+                    </a>
+                }
+                @if (obj.Count > 0)
+                {
+                    if (groupDm.Count > 1)
+                    {
+                        <div class="vertical-dropdown-menu" @(!String.IsNullOrEmpty(item.css) ? Html.Raw(item.css.ToString()) : null)>
+                            <div class="vertical-groups col-sm-12">
+                                @foreach (var itemgroup in groupDm)
+                                {
+                                    if (itemgroup.Key != null && !itemgroup.Key.Contains("---"))
+                                    {
+                                        var objdm = IsLangVN ? obj.Where(o => o.grouplink.Equals(itemgroup.Key)).ToList() : obj.Where(o => o.grouplink_us.Equals(itemgroup.Key)).ToList();
+                                        <div class="mega-group col-sm-6 col-md-6 col-lg-4">
+                                            <h4 class="mega-group-header"><span>@itemgroup.Key</span></h4>
+                                            <ul class="group-link-default">
+                                                @foreach (var itemObjdm in objdm)
+                                                {
+                                                    <li>
+                                                        <a href="@((IsLangVN ? "/chuyen-muc/" + itemObjdm.url : "/en/group/" + itemObjdm.url_us) + ".html")">
+                                                            <i class="fa fa-caret-right"></i>
+                                                            @(FBabymartvn.IsLangVNHasValue(itemObjdm.tendanhmuccon_us) ? itemObjdm.tendanhmuccon : itemObjdm.tendanhmuccon_us)
+                                                        </a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="vertical-dropdown-menu" @(!String.IsNullOrEmpty(item.css) ? Html.Raw(item.css.ToString()) : null)>
+                            <div class="vertical-groups col-sm-12">
+                                <div class="mega-group col-sm-6 col-md-6 col-lg-4">
+                                    <h4 class="mega-group-header"><span>@(FBabymartvn.IsLangVNHasValue(item.tendanhmuc_us) ? item.tendanhmuc : item.tendanhmuc_us)</span></h4>
+                                    <ul class="group-link-default">
+                                        @foreach (var item2 in obj)
+                                        {
+                                            <li>
+                                                <a href="@((IsLangVN ? "/chuyen-muc/" + item2.url : "/en/group/" + item2.url_us) + ".html")">
+                                                    <i class="fa fa-caret-right"></i>
+                                                    @(FBabymartvn.IsLangVNHasValue(item2.tendanhmuccon_us) ? item2.tendanhmuccon : item2.tendanhmuccon_us)
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </li>
+        }
+    </ul>
+</div>
+

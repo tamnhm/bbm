@@ -1,0 +1,22 @@
+﻿@model IList<Babymart.Models.shop_page>
+@{
+    Layout = null;
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+<ul class="support">
+    <li><a href="/bai-viet/shop-me-va-be-do-so-sinh.html">@(IsLangVN ? "Giới thiệu" : "About us")<i class="fa fa-angle-right"></i></a></li>
+    @foreach (var item in Model.Where(o=>o.showmenu==true && o.codetype.Contains("HH")))
+    {
+        <li><a href="@("/bai-viet/"+item.url+".html")">@(FBabymartvn.IsLangVNHasValue(item.tieude_us) ? item.tieude : item.tieude_us)<i class="fa fa-angle-right"></i></a></li>
+    }
+</ul>
+@if (Model.Where(o =>o.codetype.Contains("TD")).Count() > 0 && IsLangVN == true)
+{ 
+<ul class="support">
+    <li><h3>Tin tuyển dụng</h3></li>
+    @foreach (var item in Model.Where(o => o.codetype.Contains("TD")))
+    {
+        <li><a href="@("/bai-viet/"+item.url+".html")">@(FBabymartvn.IsLangVNHasValue(item.tieude_us) ? item.tieude : item.tieude_us)<i class="fa fa-angle-right"></i></a></li>
+    }
+</ul>
+}

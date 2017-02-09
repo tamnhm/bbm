@@ -1,0 +1,86 @@
+﻿<script id="BrandListTmpl" type="text/html">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3>
+                        <i class="icon-table"></i>
+                        Thương Hiệu
+                    </h3>
+                </div>
+                <div class="box-content nopadding">
+                    <div class="paging_ko">
+                        <ul class="minitiles" style="margin:20px">
+                            <li class='green'>
+                                <a data-bind="attr: { href: linkadd }"><i class="icon-plus-sign"></i></a>
+                            </li>
+                        </ul>
+                        <div class="filter-ko">
+                            <div data-bind="foreach: filter.filters">
+                                <div data-bind="if: Type == 'text'">
+                                    <strong>Tìm kiếm:  </strong><input placeholder="Tên thương hiệu" type="text" data-bind="value: Value, valueUpdate: 'afterkeydown'" style="width: 100px;">
+                                </div>
+                            </div>
+                            <b>Sắp xếp:</b>
+                            <select data-bind="options: sorter.sortOptions, optionsText: 'Name', value: sorter.currentSortOption"><option value="">mahieu</option><option value="">tenhieu</option></select>
+                            Theo:
+                            <select data-bind="options: sorter.sortDirections, optionsText: 'Name', value: sorter.currentSortDirection"><option value="">Asc</option><option value="">Desc</option></select>
+                        </div>
+                        <div style="clear: both;"></div>
+
+                        <div class="Pager">Page <span data-bind="text: pager.currentPageIndex() + 1">1</span> of <span data-bind="text: pager.maxPageIndex() + 1">1</span> [<span data-bind="text: pager.recordCount">5</span> Record(s)]&nbsp;&nbsp;<select data-bind="options: pager.pageSizeOptions, value: pager.currentPageSize, event: { change: pager.onPageSizeChange }"><option value="1">1</option><option value="5">5</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="250">250</option><option value="500">500</option></select><div><a class="btn-paging" href="#" data-bind="click: pager.moveFirst, enable: pager.currentPageIndex() > 0">&lt;&lt;</a><a class="btn-paging" href="#" data-bind="click: pager.movePrevious, enable: pager.currentPageIndex() > 0">&lt;</a><a class="btn-paging" href="#" data-bind="click: pager.moveNext, enable: pager.currentPageIndex() < pager.maxPageIndex()">&gt;</a><a class="btn-paging" href="#" data-bind="click: pager.moveLast, enable: pager.currentPageIndex() < pager.maxPageIndex()">&gt;&gt;</a></div><br></div>
+
+                        <div class="NoRecords"><span data-bind="visible: pager.recordCount() == 0" style="display: none;">No records found.</span></div>
+                    </div>
+                    <table class="table table-hover table-nomargin dataTable table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Thương hiệu</th>
+                                <th>Hình</th>
+
+
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: pager.currentPageRecords">
+                            <tr class="gradeX">
+                                <td data-bind="text:mahieu"></td>
+                                <td>
+                                    <span data-bind="text:tenhieu"></span>
+                                    <span class="btn  btn-danger" data-bind="visible:hide">Ẩn</span>
+                                    <span class="btn  btn-warning" data-bind="visible:showhome">Home (<i data-bind="text:sort_metro"></i>)</span>
+                                </td>
+                                <td>
+                                    <img onerror="CommonUtils.ErrorImage(this)"  data-bind="attr: { src:'@(Common.urllocationnhanhieu())' + hinh() }" style="max-width:220px" />
+                                </td>
+                                <td>
+                                    <p>
+                                        <button class="btn  btn-danger" data-bind="click:$parent.remove"><i class="icon-trash"></i> Xóa</button>
+                                    </p>
+                                    <p>
+                                        <button class=" btn btn-warning"><i data-bind="click:$parent.setshow,attr:{class:!hide()?'glyphicon-eye_close':'glyphicon-eye_open'},text:!hide()?' Ẩn':' Hiện'"></i></button>
+                                    </p>
+                                    <p>
+                                        <a class="btn  btn-primary" data-bind="click:$parent.showhomemodal"><i class="icon-pencil"></i>Show Home</a>
+                                    </p>
+                                    <p>
+                                        <a class="btn  btn-primary" data-bind="attr: { href: GetLinkPageDetail }"><i class="icon-pencil"></i> Hiệu chỉnh</a>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="paging_ko">
+
+                        <div class="Pager">Page <span data-bind="text: pager.currentPageIndex() + 1">1</span> of <span data-bind="text: pager.maxPageIndex() + 1">1</span> [<span data-bind="text: pager.recordCount">5</span> Record(s)]&nbsp;&nbsp;<select data-bind="options: pager.pageSizeOptions, value: pager.currentPageSize, event: { change: pager.onPageSizeChange }"><option value="1">1</option><option value="5">5</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="250">250</option><option value="500">500</option></select><div><a class="btn-paging" href="#" data-bind="click: pager.moveFirst, enable: pager.currentPageIndex() > 0">&lt;&lt;</a><a class="btn-paging" href="#" data-bind="click: pager.movePrevious, enable: pager.currentPageIndex() > 0">&lt;</a><a class="btn-paging" href="#" data-bind="click: pager.moveNext, enable: pager.currentPageIndex() < pager.maxPageIndex()">&gt;</a><a class="btn-paging" href="#" data-bind="click: pager.moveLast, enable: pager.currentPageIndex() < pager.maxPageIndex()">&gt;&gt;</a></div><br></div>
+
+                        <div class="NoRecords"><span data-bind="visible: pager.recordCount() == 0" style="display: none;">No records found.</span></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</script>

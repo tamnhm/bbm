@@ -1,0 +1,77 @@
+﻿@model IList<Babymart.Models.shop_page>
+@{
+    ViewBag.Title = "Indextd";
+    var IsLangVN = FBabymartvn.IsLangVN();
+} 
+@section SEOContent{
+    <title>Tin tuyển dụng - babymart.vn</title>
+}
+<div class="columns-container">
+    <div class="container" id="columns">
+        <!-- breadcrumb -->
+        <div class="breadcrumb clearfix">
+            <a class="home" href="/" title="Return to Home">Trang chủ</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span class="navigation_page">Tin tuyển dụng</span>
+        </div>
+        <!-- ./breadcrumb -->
+        <!-- row -->
+        <h2 class="page-heading" style="margin-bottom:20px">
+            <span class="page-heading-title2">Tin tuyển dụng</span>
+        </h2>
+        @if(Model.Count > 0)
+        { 
+        <div class="row blog-cate"> 
+            <div class="center_column col-xs-12" id="center_column"> 
+                <div class="blog-list">
+                    <ul class="blog-posts">
+                        @foreach (var item in Model)
+                        {
+                            <li class="post-item">
+                                <article class="entry">
+                                    <div class="row"> 
+                                        <div class="col-sm-3 handbook-pic">
+                                            <div class="entry-thumb image-hover2">
+                                                <a href="@("/bai-viet/" + item.url + ".html")">
+                                                    <img src="@("https://babymart.vn"+ item.hinhanh)" alt="@item.tieude">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="entry-ci">
+                                                <h3 class="entry-title"><a href="@("/bai-viet/" + item.url + ".html")" style="color: #61B849">@item.tieude</a></h3>
+                                                <div class="entry-meta-data">
+                                                    <span class="author">
+                                                        <i class="fa fa-user"></i>
+                                                        đăng bởi: Admin
+                                                    </span>
+                                                    <span class="date"><i class="fa fa-calendar"></i> @String.Format("{0:dd/MM/yyyy}", item.ngayviet)</span>
+                                                </div>
+                                                <div class="entry-excerpt">
+                                                    @Html.Raw(item.noidung_us + "...") <a href="@("/bai-viet/" + item.url + ".html")" title="@item.tieude">Xem thêm</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </li>
+                        }
+                    </ul> 
+                </div>
+            </div>
+            <!-- ./ Center colunm -->
+        </div>
+        }
+        else
+        {
+            <div class="row blog-cate">
+                <div class="center_column col-xs-12" id="center_column">
+                    <div class="blog-list">
+                        <h2 class="text-center">Hiện tại chưa có thông tin tuyển dụng.</h2>
+                    </div>
+                </div>
+            </div>
+        }
+        <!-- ./row-->
+    </div>
+</div>

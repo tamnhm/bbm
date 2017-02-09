@@ -1,0 +1,8 @@
+﻿@{
+    ViewBag.Title = "ProductNotSaleoff";
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+
+<div class='clearfix layout-content-common' style="text-align:center">
+   
+<h2>@(IsLangVN ? "Không có sản phẩm khuyến mãi." : "No product sale off")</h2></div>

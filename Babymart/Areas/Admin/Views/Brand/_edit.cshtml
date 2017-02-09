@@ -1,0 +1,142 @@
+﻿<script id="BrandEditTmpl" type="text/html">
+
+    <div class="row-fluid" data-bind="with:mBrand">
+        <div class="span12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3><i class="icon-th-list"></i><span data-bind="text:tenhieu"></span></h3>
+                </div>
+                <div class="box-content nopadding">
+                    <div class='form-horizontal form-bordered'>
+                        <div class="control-group">
+                            <div class="form-actions actionsz">
+                                <button data-bind="click:$parent.submit" class="btn btn-primary"><i class="icon-save"></i></button>
+                                <a class="btn" data-bind="attr:{href:$parent.linkback}"><i class="icon-arrow-left"> Hủy</i></a>
+                            </div>
+                        </div>
+                        <!--ko if: $parent.HasError() && $parent.Validator().errors().length > 0-->
+                        <div class="control-group error">
+                            <label for="textfield" class="control-label"><b>Lỗi</b></label>
+                            <div class="controls">
+                                <span data-bind="text: 'Có ' + $parent.Validator().errors().length + ' lỗi trên trang:'"></span>
+                                <ul data-bind="foreach: $parent.Validator().errors">
+                                    <li data-bind="text: $data"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--/ko-->
+
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Thương hiệu</b></label>
+                            <div class="controls">
+                                <input type="text" data-bind="value:tenhieu,valueUpdate: 'afterkeydown'" class="input-xxxlarge">
+                                <input type="text" data-bind="value:tenhieu_us" class="input-xxxlarge margin-top-10" placeholder="TA">
+
+                                <div class="check-line" style="margin-top:10px">
+                                    <input type="checkbox" name="checkautolinkcon" id="checkautolinkcon" class="css-checkbox" data-bind="checked:$parent.checkautolink,valueUpdate:'afterkeydown'" />
+                                    <label for="checkautolinkcon" class="css-label radGroup1 chk" style="font-size:13px">Auto</label>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"></label>
+                            <div class="controls">
+                                <div class="check-line">
+                                    <input type="checkbox" name="checshow" id="checshow" class="css-checkbox" data-bind="checked:hide,checkedValue:true">
+                                    <label for="checshow" class="css-label radGroup1 chk" style="width:100%"><b>Ẩn thương hiệu</b></label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"></label>
+                            <div class="controls">
+                                <div class="check-line">
+                                    <input type="checkbox" name="checshow" id="checshow" class="css-checkbox" data-bind="checked:showhome,checkedValue:true">
+                                    <label for="checshow" class="css-label radGroup1 chk" style="width:100%"><b>Ngoài trang chủ</b></label>
+                                    <input type="text" data-bind="value: sort_metro" class="input-sm" placeholder="Độ ưu tiên"> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Hình ảnh</b></label>
+                            <div class="controls">
+                                <img onerror="CommonUtils.ErrorImage(this)" data-bind="attr: { src:'@(Common.urllocationnhanhieu())' + hinh() }" style="max-width:220px" />
+                                 <br />
+                                <input type="text" data-bind="value:hinh">
+                                <br />
+                                <input id="fu-my-auto-upload" name="MyFile" type="file" class="custom-file-input" data-bind="event:{change:$parent.upload('#fu-my-auto-upload')},valueUpdate: 'afterkeydown'" style="line-height:20px">
+
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <h4 class="control-label">SEO</h4>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Title</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:title">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Description</b></label>
+                            <div class="controls">
+
+                                <textarea rows="5" data-bind="value:metadescription" class="input-xxxlarge"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Key word</b></label>
+                            @*<div class="controls">
+                                    <div class="span12"><input type="text" name="textfield" id="textfield" class="tagsinput"  data-bind="value:spkeywords"></div>
+                                </div>*@
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:metakeywords">
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Url</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:url">
+
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <h4 class="control-label">Thông tin</h4>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Thông tin</b></label>
+                            <div class="controls">
+                                <!-- ko if: $parent.InitFinish() -->
+                                <textarea class="form-control" rows="10" data-bind="tinymce:noidung"></textarea>
+                                <!--/ko-->
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <h4 class="control-label">Thông tin (TA)</h4>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Decription TA</b></label>
+                            <div class="controls">
+                                <!-- ko if: $parent.InitFinish() -->
+                                <textarea class="form-control" rows="10" data-bind="tinymce:noidung_us"></textarea>
+                                <!--/ko-->
+                            </div>
+                        </div>
+                        <div class="form-actions actionsz">
+                            <button data-bind="click:$parent.submit" class="btn btn-primary"><i class="icon-save"></i></button>
+                            <a class="btn" data-bind="attr:{href:$parent.linkback}"><i class="icon-arrow-left"> Hủy</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</script>

@@ -1,0 +1,70 @@
+﻿@functions {
+
+    public static List<Babymart.Models.sys_content> ListContents(string Type)
+    {
+        var db = new Babymart.Models.babymart_vnEntities();
+        return db.sys_content.Where(o => o.Type.Equals(Type) && o.hide == false).ToList();
+    }
+    public static Babymart.Models.sys_content GetContents(string Type, string Name)
+    {
+        var db = new Babymart.Models.babymart_vnEntities();
+        var content = db.sys_content.Where(o => o.Type.Equals(Type) && o.Name.Equals(Name) && o.hide == false).FirstOrDefault();
+        return content;
+    }
+    public static int GetStoreId()
+    {
+        return Babymart.Infractstructure.UtilsBB.GetStoreId();
+    }
+    public static bool GetAdminStratorRole(int role)
+    {
+        return Babymart.Infractstructure.UtilsBB.GetAdminStratorRole(role);
+    }
+    public static HttpCookie GetHttpCookieLang()
+    {
+        return Babymart.Infractstructure.UtilsBB.GetHttpCookieLang();
+    }
+    public static string ActionNameCurrent()
+    {
+        var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+        if (routeValues.ContainsKey("action"))
+            return (string)routeValues["action"];
+        return string.Empty;
+    }
+    public static string ControllerNameCurrent()
+    {
+        var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+        if (routeValues.ContainsKey("controller"))
+            return (string)routeValues["controller"];
+        return string.Empty;
+    }
+    public static bool IsLangVN()
+    {
+        var lang = GetHttpCookieLang();
+        if (lang == null
+            || (lang.Value != null
+           && lang.Value == "vn"))
+        {
+            return true;
+        }
+        return false;
+    }
+    public static bool IsLangVNHasValue(string value)
+    {
+        if (GetHttpCookieLang() == null
+            || GetHttpCookieLang().Value == null
+            || GetHttpCookieLang().Value == "vn"
+            || string.IsNullOrEmpty(value))
+        {
+            return true;
+        }
+        return false;
+    }
+    public static bool IsMobileDevice()
+    {
+        if (HttpContext.Current.Request.Browser.IsMobileDevice)
+            return true;
+        return
+            false;
+    }
+
+}

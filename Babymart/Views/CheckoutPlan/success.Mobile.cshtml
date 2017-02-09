@@ -1,0 +1,84 @@
+﻿@{
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+<div class="container">
+    <div class="row">
+
+        <!--  ==========  -->
+        <!--  = Main content =  -->
+        <!--  ==========  -->
+        <section class="span12">
+
+            <div class="checkout-container" style="margin-top:2%">
+                <header style="text-align: center;">
+                    <h2>
+                        @*@(IsLangVN ? "Đặt hàng thành công" : "Order succeed")*@
+                        @if (ViewBag.Code == "1")
+                        {
+                            @(IsLangVN ? Html.Raw(ViewBag.Message) : "Order succeed")
+                        }
+                        else
+                        {
+                            @(IsLangVN ? Html.Raw(ViewBag.Message) : "Order fail")
+                        }
+                    </h2>
+                </header>
+                <div class="row">
+                    <div class="span10 offset1">
+
+                        <!--  ==========  -->
+                        <!--  = Header =  -->
+                        <!--  ==========  -->
+                        @if (ViewBag.Code == "1")
+                        {
+                            <h3 style="text-align: center; margin: 0 auto; line-height: 25px;">
+                                @if (ViewBag.Madh != null)
+                                {
+                                    @(IsLangVN ? "Đơn hàng số" : "Order") <strong>@ViewBag.Madh</strong> @(IsLangVN ? "đặt hàng thành công. Đơn hàng tại TP.HCM sẽ được giao đến bạn trong 1-2 ngày làm việc." : "succeed. Order in HCMC will be delivered within 1-2 business days.")
+                                }
+                                else
+                                {
+                                    @(IsLangVN ? "Đơn hàng thanh toán trực tuyến" : "The order Online Payment") @(IsLangVN ? " đặt hàng thành công" : " succeed")
+                                }
+                                @(IsLangVN ? "và đã được gửi đến địa chỉ email của bạn. Đơn hàng tại TP.HCM sẽ được giao đến bạn trong 1-2 ngày làm việc. Xin cám ơn!" : "and send to your mail, thank! ")
+                                @if (ViewBag.DiemKh != null)
+                                {   <br />
+                                <span style="text-align: center;font-size: 20px;font-weight: bold">@(IsLangVN ? "Số điểm tích lũy của bạn hiện tại là" : "Your accumulated points") @ViewBag.DiemKh </span>
+                                }
+                            </h3>
+                            <div style="font-size: 17px; line-height: 25px; color: blue; font-weight: bold; text-align: center; margin-top: 20px;">@(IsLangVN ? "Trong trường hợp bạn không nhận được email xác nhận đơn hàng (có thể do lỗi mạng), bạn vui lòng liên hệ số đt 01214.61.3056 để babymart.vn kiểm tra và xác nhận lại" : "")</div>
+                            <div style="text-align: center; padding-top: 20px; font-size: 15px; line-height: 25px;">@(IsLangVN ? "Bạn vui lòng giữ máy điện thoại trong thời gian hẹn giao hàng để chúng tôi tiện liên lạc. Xin cám ơn!" : "Please keep your mobile phone ready during delivery for easy contact. Thank you!")</div>
+                        }
+                        @if (this.Session["ModelSessionCart"] != null)
+                        {
+                            <h4 style="text-align: center;color: red;">
+                                @(IsLangVN ? "Bạn vẫn còn sản phẩm trong giỏ hàng. Bạn muốn xem và tiếp tục mua hay hủy giỏ hàng ?" : "You have cart .Do you can review and continue order or cancel?")
+                            </h4>
+                            <div style="text-align:center;padding-top: 20px;">
+                                <a href="/gio-hang.html" class="btn-2">@(IsLangVN ? "Xem giỏ hàng" : "Review cart") </a>
+                                <a href="/huy-gio-hang.html" class="btn-2">@(IsLangVN ? "Hủy  giỏ hàng" : "Cancel cart")</a>
+                            </div>
+                        }
+                        <div style="width:80%;margin: auto;margin-top: 20px;">
+                            @if (ViewBag.Code == "0")
+                            {
+                                <a href="@(IsLangVN ? "/xac-nhan-2.html" : "/en")" class="shoppingCartCheckoutButton left clearfix" style="float:left">@(IsLangVN ? "Thanh toán lại" : "Order again")</a>
+
+                                <a href="@(IsLangVN ? "/" : "/en")" class="shoppingCartCheckoutButton right clearfix" style="float:right">@(IsLangVN ? "Trang chủ" : "Home")</a>
+
+                            }
+                            else
+                            {
+
+                                <a href="@(IsLangVN ? "/" : "/en")" class="shoppingCartCheckoutButton left clearfix" style="float:left">@(IsLangVN ? "Trang chủ" : "Home")</a>
+
+
+                                <a href="@(IsLangVN ? "/cam-nang.html" : "/lien-he.html")" class="shoppingCartCheckoutButton right clearfix" style="float:right">@(IsLangVN ? "Cẩm nang" : "Contact")</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> <!-- /main content -->
+    </div>
+</div>

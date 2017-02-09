@@ -1,0 +1,82 @@
+﻿@model IList<Babymart.Models.donhang_ct>
+@{
+    var IsLangVN = FBabymartvn.IsLangVN();
+    var urllocation = System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocation"];
+}
+@section SEOContent{
+    <title>@(IsLangVN ? "Lịch sử mua hàng - Babymart.vn" : "History Order - Babymart.vn")</title>
+}
+<div class="columns-container">
+    <div class="container" id="columns">
+        <!-- breadcrumb -->
+        <div class="breadcrumb clearfix">
+            <a class="home" href="@(IsLangVN ? "/" : "/en")" title="Return to Home">@(IsLangVN ? "Trang chủ" : "Home")</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <a class="home" href="#">@(IsLangVN ? "Lịch sử mua hàng" : "History Order")</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span class="navigation_page">@(IsLangVN ? "Đơn hàng số " + Model.FirstOrDefault().Sodh : "Order " + Model.FirstOrDefault().Sodh)</span>
+        </div>
+        <!-- ./breadcrumb -->
+        <!-- page heading-->
+        <h2 class="page-heading">
+            <span class="page-heading-title2">@(IsLangVN ? "Lịch sử mua hàng" : "History Order") / @(IsLangVN ? "Đơn hàng số " + Model.FirstOrDefault().Sodh : "Order " + Model.FirstOrDefault().Sodh)</span>
+        </h2>
+        <!-- ../page heading-->
+        <div class="page-content page-order">
+            <div class="order-detail-content">
+                <table class="table table-bordered table-responsive cart_summary">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th class="cart_product action">@(IsLangVN ? "Hình" : "Image")</th>
+                            <th class="action">@(IsLangVN ? "Tên sản phẩm" : "Product Name")</th>
+                            <th class="action">@(IsLangVN ? "Đơn giá" : "Price")</th>
+                            <th class="action">@(IsLangVN ? "Số lượng" : "Quantity")</th>
+                            <th class="action">@(IsLangVN ? "Thành tiền" : "Total")</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td></td>
+                            <td class="cart_product">
+                                <a href="#">
+                                    @if (item.shop_bienthe.shop_sanpham.shop_image != null && item.shop_bienthe.shop_sanpham.shop_image.Count > 0)
+                                {
+                                    <img onerror="imgError(this)" src='@(urllocation + item.shop_bienthe.shop_sanpham.shop_image.FirstOrDefault().url)' alt='@(FBabymartvn.IsLangVNHasValue(item.shop_bienthe.shop_sanpham.tensp_us) ? item.shop_bienthe.shop_sanpham.tensp : item.shop_bienthe.shop_sanpham.tensp_us)' />
+                                }
+                                else
+                                {
+                                        <img onerror="imgError(this)" src=""/>
+                                    }
+                                </a>
+                            </td>
+                            <td class="cart_description">
+                                <p class="product-name"><a href="#">@(FBabymartvn.IsLangVNHasValue(item.shop_bienthe.shop_sanpham.tensp_us) ? item.shop_bienthe.shop_sanpham.tensp : item.shop_bienthe.shop_sanpham.tensp_us)</a></p>
+                                <small class="cart_ref">@(IsLangVN ? "Mã SP" : "ID"): @item.shop_bienthe.shop_sanpham.masp</small><br>
+                                <small>@(item.shop_bienthe.title != null && item.shop_bienthe.title != "default" ? (IsLangVN ? "Đặc điểm: " : "Status: ") + item.shop_bienthe.title : "")</small><br>
+                            </td>
+                            <td class="price"><div>@string.Format("{0:0,0 đ}", item.shop_bienthe.gia)</div></td>
+                            <td class="qty">
+                                <p>@item.Soluong</p>
+                            </td>
+                            <td class="price" id="sum-@item.Soluong">
+                                <span>@string.Format("{0:0,0 đ}", item.Soluong * item.shop_bienthe.gia)</span>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                    <tfoot>
+
+                        <tr>
+                            <td colspan="5"><strong>@(IsLangVN ? "Tổng tiền" : "Total Sum")</strong></td>
+                            <td colspan="2"><strong id="cart-total">@string.Format("{0:0,0 đ}", Model.FirstOrDefault().donhang.tongtien)</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

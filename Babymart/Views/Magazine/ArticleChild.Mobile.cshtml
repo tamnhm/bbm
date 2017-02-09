@@ -1,0 +1,85 @@
+﻿@model PagedList.IPagedList<Babymart.Models.module_detail>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "ArticleChild.Mobile";
+}
+@section SEOContent{
+
+    <title>@Html.Raw(Model.FirstOrDefault().module_group.title)</title>
+    <meta name="keywords" content="@Html.Raw(Model.FirstOrDefault().module_group.keyword)" />
+    <meta name="description" content="@Html.Raw(Model.FirstOrDefault().module_group.des)" />
+}
+<div class="columns-container">
+    <div class="container" id="columns">
+        <!-- breadcrumb -->
+        <div class="breadcrumb clearfix">
+            <a class="home" href="#" title="Return to Home">Trang chủ</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <a class="home" href="/cam-nang.html">Cẩm nang</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span class="navigation_page">@(Model.FirstOrDefault() != null ? Model.FirstOrDefault().module_group.title : "")</span>
+        </div>
+        <!-- ./breadcrumb -->
+        <!-- row -->
+        <div class="row blog-cate">
+            <!-- Left colunm -->
+            <div class="column col-xs-12 col-sm-3 col-sm-push-9" id="left_column"> 
+                @if (ViewBag.typemodule != null)
+                {
+                    Html.RenderAction("MenuModule", "Common", new { idtype = ViewBag.typemodule });
+                } 
+            </div>
+            <!-- ./left colunm -->
+            <!-- Center colunm-->
+            <div class="center_column col-xs-12 col-sm-9 col-sm-pull-3" id="center_column">
+                <div class="blog-list">
+                    <h2 class="sectionTitle">
+                        <span class="page-heading-title2">@(Model.FirstOrDefault() != null ? Model.FirstOrDefault().module_group.title : "")</span>
+                    </h2>
+                    <ul class="blog-posts">
+                        @foreach (var item in Model)
+                        {
+                            <li class="post-item">
+                                <article class="entry">
+                                    <div class="row">
+                                        <div class="col-sm-3 handbook-pic">
+                                            <div class="entry-thumb image-hover2">
+                                                <a href="@("/cam-nang/bai-viet/" + item.id + "/" + item.url + ".html")">
+                                                    <img src="@(Common.urlModule() + item.img)" alt="@item.title">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="entry-ci">
+                                                <h3 class="entry-title"><a href="@("/cam-nang/bai-viet/" + item.id + "/" + item.url + ".html")" title="@item.title">@item.title</a></h3>
+                                                <div class="entry-meta-data">
+                                                    <span class="author">
+                                                        <i class="fa fa-user"></i>
+                                                        đăng bởi: Admin
+                                                    </span>
+                                                    <span class="date"><i class="fa fa-calendar"></i> @String.Format("{0:dd/MM/yyyy}", item.createdate)</span>
+                                                </div>
+                                                <div class="entry-excerpt">
+                                                    @Html.Raw(item.extract + "...")<a href="@("/cam-nang/bai-viet/" + item.id + "/" + item.url + ".html")" title="@item.title"> Xem thêm</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </li>
+                        }
+                    </ul>
+                    <div style="text-align:center">
+                        @Html.PagedListPager(Model, page => Url.Action("ArticleChild",
+                                            new { page, urlgroup = ViewBag.Currentgroup, urlmenu = ViewBag.Currentmenu }))
+                    </div>
+                </div>
+            </div>
+            <!-- ./ Center colunm -->
+        </div>
+        <!-- ./row-->
+    </div>
+
+
+</div>

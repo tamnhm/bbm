@@ -1,0 +1,33 @@
+﻿@{
+    var IsLangVN = FBabymartvn.IsLangVN();
+    var kh = Session["khachhang"] as Babymart.Models.Module.ModeCustomerPost;
+}
+@if (kh != null)
+{
+    <div id="user-info-top" class="user-info pull-right">
+        <div class="dropdown">
+            <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span><i class="fa fa-user"></i> @kh.hoten</span></a>
+            <ul class="dropdown-menu mega_dropdown" role="menu">
+                <li><a href='thong-tin-tai-khoan.html'>@(IsLangVN ? "Thông tin tài khoản" : "Accounts")</a></li>
+                <li>
+                    @Html.ActionLink((IsLangVN ? "Đăng xuất" : "Logout"), "Logout", "Customer", new { returnUrl = Request.RawUrl }, null)
+
+                </li>
+            </ul>
+        </div>
+    </div>
+}
+else
+{
+    <div id="user-info-top" class="user-info pull-right">
+        <div class="dropdown">
+            <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                <span>@(IsLangVN ? "Đăng nhập | Đăng ký" : "Login|Register")</span>
+            </a>
+            <ul class="dropdown-menu mega_dropdown" role="menu">
+                <li><a href='/dang-nhap.html'>@(IsLangVN ? "Đăng nhập" : "Login")</a></li>
+                <li><a href='/dang-ky.html'>@(IsLangVN ? "Đăng ký" : "Register")</a></li>
+            </ul>
+        </div>
+    </div>
+}

@@ -1,0 +1,10 @@
+﻿@model IList<Babymart.Models.shop_sanpham>
+@{
+   
+}
+<ul class="product-list clearfix vien-doc">
+    @foreach (var item in Model)
+    {
+        Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.cshtml", item);
+    }
+</ul>

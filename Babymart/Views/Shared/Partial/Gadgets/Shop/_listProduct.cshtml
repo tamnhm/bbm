@@ -1,0 +1,212 @@
+﻿@model IList<Babymart.Models.shop_collection>
+@{  var IsLangVN = FBabymartvn.IsLangVN();
+    var count = Model.Count;
+    var action = FBabymartvn.ActionNameCurrent();
+    var listArticle = (List<Babymart.Models.Module.ModelModuleDetail>)ViewData["ListArticleTags"];
+} 
+@foreach (var item in Model)
+{
+    var bienthe = item.shop_sanpham.shop_bienthe.Where(o => o.isdelete == false).ToList();
+    bool isone = bienthe.Count == 1 ? true : false;
+    <li itemscope="" itemtype="http://schema.org/Product" class="col-sx-12 col-sm-4">
+        <div class="product-container">
+            <div class="left-block">
+                <a href="@((IsLangVN ? "/tin-tuc/" + item.shop_sanpham.spurl : "/en/product/" + item.shop_sanpham.spurl_us) + ".html")">
+                    @if (item.shop_sanpham.shop_image.Count > 0)
+                    {
+                        <img class="img-responsive" itemprop="image" onerror="imgError(this)" src="@(Common.urlProduct() + item.shop_sanpham.shop_image.FirstOrDefault().url)" alt="@(FBabymartvn.IsLangVNHasValue(item.shop_sanpham.tensp_us) ? item.shop_sanpham.tensp : item.shop_sanpham.tensp_us)" width='212' height='212' />
+                    }
+                    else
+                    {
+                        <img class="img-responsive" itemprop="image" src="" alt="sản phẩm" width='212' height='212' onerror="imgError(this)" />
+
+                    }
+                </a>
+                @if (item.shop_sanpham.ischeckout == false)
+                {
+                    if (bienthe.Count <= 1)
+                    {
+                        <div class="add-to-cart">
+                            @if (bienthe.First().giasosanh > 0)
+                            {
+                            <a href="@("/gio-hang.html/" + item.shop_sanpham.shop_bienthe.FirstOrDefault().id + "/1")">@(IsLangVN ? "Thêm vào giỏ hàng" : "Add to cart")</a>
+                            }
+                            else
+                            {
+                            <a href="@("/gio-hang.html/" + item.shop_sanpham.shop_bienthe.FirstOrDefault().id + "/1")">@(IsLangVN ? "Thêm vào giỏ hàng" : "Add to cart")</a>
+                            } 
+                        </div>
+                    }
+                }
+                else
+                {
+                    if (bienthe.First().giasosanh > 0)
+                    {
+                    }
+                    else
+                    {
+                    }
+
+                } 
+                <div class="label-promo">
+                    @if (isone)
+                    {
+                        if (bienthe.First().giasosanh > 0)
+                        {
+                            <span>-@(100 - (bienthe.First().gia * 100) / bienthe.First().giasosanh)%</span>
+                        }
+                    }
+                    else
+                    {
+                        foreach (var i in bienthe)
+                        {
+                            if (i.giasosanh > 0)
+                            {
+                                <span class="sold-out">Sale off</span>
+                                break;
+                            }
+                        }
+                    }
+                    @if (item.shop_sanpham.ischeckout == true)
+                    {
+                        <span class="sold-out-2">@(IsLangVN ? "Tạm hết hàng" : "Sold out")</span>
+                    }
+                </div>
+            </div>
+            <div class="right-block">
+                <h3 itemprop="name" class="product-name"><a href="@((IsLangVN ? "/tin-tuc/" + item.shop_sanpham.spurl : "/en/product/" + item.shop_sanpham.spurl_us) + ".html")">@(FBabymartvn.IsLangVNHasValue(item.shop_sanpham.tensp_us) ? item.shop_sanpham.tensp : item.shop_sanpham.tensp_us) - @item.shop_sanpham.masp</a></h3>
+                <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer" class="content_price"> 
+                    @if (isone)
+                    {
+                        <span itemprop="price" class="price product-price"> @string.Format("{0:0,0 đ}", bienthe.First().gia) </span>
+                        if (bienthe.First().giasosanh > 0)
+                        {
+                            <span class="price old-price">@string.Format("{0:0,0 đ}", bienthe.First().giasosanh)</span>
+                        }
+                    }
+                    else
+                    {
+                        <span itemprop="price" class="price product-price">@(IsLangVN ? "Xem giá chi tiết" : "Detail")</span>
+                    }
+                </div>
+                <div class="info-orther">
+                    <p>Mã SP: @item.shop_sanpham.masp</p>
+                    <p class="availability">@(IsLangVN ? "Tình trạng:" : "Status:")
+                    <span>
+                        @if (item.shop_sanpham.ischeckout == true)
+                        {
+                           @(IsLangVN ? "Tạm hết hàng" : "Sold Out")
+                        }
+                        else
+                        {
+                            @(IsLangVN ? "Còn hàng" : "In Stock")
+                        }
+                    </span>
+                    </p>
+                    <div class="product-desc"> 
+                        @(IsLangVN ? @item.shop_sanpham.spdescription : "")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    
+    
+    @*<li itemscope="" itemtype="http://schema.org/Product" class="product-item">
+        <div style="position: absolute;z-index: 1000;right:0px">
+            @if (isone)
+            {
+                if (bienthe.First().giasosanh > 0)
+                {
+                    <span class="label-sale-off">- @(100 - (bienthe.First().gia * 100) / bienthe.First().giasosanh)%</span>
+                }
+            }
+            else
+            {
+                foreach (var i in bienthe)
+                {
+                    if (i.giasosanh > 0)
+                    {
+                        <span class="label-sale-off">Sale off</span>
+                        break;
+                    }
+                }
+            }
+            @if (item.shop_sanpham.ischeckout == true)
+            {
+                <span class="label-sale-off" style="font-size:11px;font-weight:100">@(IsLangVN ? "Tạm hết hàng:" : "Sold Out :")</span>
+            }
+        </div>
+        <div class="product-image">
+            <a class="tooltip" href="@((IsLangVN ? "/tin-tuc/" + item.shop_sanpham.spurl : "/en/product/" + item.shop_sanpham.spurl_us) + ".html")">
+                @if (item.shop_sanpham.shop_image.Count > 0)
+                {
+                    <img itemprop="image" onerror="imgError(this)" src="@(Common.urlProduct() + item.shop_sanpham.shop_image.FirstOrDefault().url)" alt="@item.shop_sanpham.tensp" width='156' height='156' />
+                }
+                else
+                {
+                    <img itemprop="image" src="" alt="sản phẩm" width='156' height='156' onerror="imgError(this)" />
+
+                }
+            </a>
+            <div class="info" itemprop="description">
+                <h3>
+                    @(FBabymartvn.IsLangVNHasValue(item.shop_sanpham.tensp_us) ? item.shop_sanpham.tensp : item.shop_sanpham.tensp_us)
+                </h3>
+                - Mã số: @item.shop_sanpham.masp
+                @Html.Raw(FBabymartvn.IsLangVNHasValue(item.shop_sanpham.thongtin_us) ? item.shop_sanpham.thongtin : item.shop_sanpham.thongtin_us)
+            </div>
+        </div>
+
+        <h3 itemprop="name" class="product-name"><a itemprop="url" href="@((IsLangVN ? "/tin-tuc/" + item.shop_sanpham.spurl : "/en/product/" + item.shop_sanpham.spurl_us) + ".html")"> @(FBabymartvn.IsLangVNHasValue(item.shop_sanpham.tensp_us) ? item.shop_sanpham.tensp : item.shop_sanpham.tensp_us)</a></h3>
+        <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer" class="card clearfix">
+            @if (isone)
+            {
+                <a href="@((IsLangVN ? "/tin-tuc/" + item.shop_sanpham.spurl : "/en/product/" + item.shop_sanpham.spurl_us) + ".html")" class="price">
+
+                    @if (bienthe.First().giasosanh > 0)
+                    {
+                        <span class='save-off'>@string.Format("{0:0,0 đ}", bienthe.First().giasosanh)</span>
+                    }
+                    <br />
+                    <span itemprop="price">@string.Format("{0:0,0}", bienthe.First().gia)</span>
+                    <span itemprop="priceCurrency"> đ</span>
+                </a>
+            }
+            else
+            {
+                <a href="@((IsLangVN ? "/tin-tuc/" + item.shop_sanpham.spurl : "/en/product/" + item.shop_sanpham.spurl_us) + ".html")" class="price"
+                    style="@(action.ToString().Equals("DeatialProduct") || action.ToString().Equals("deatialproduct") ? "width: 180px;font-size: 15px;line-height: 1.5;text-align: center;" : "width: 201px;font-size: 15px;line-height: 1.5;text-align: center;")">
+                    <span itemprop="price"> @(IsLangVN ? "Xem giá chi tiết" : "Detail")</span>
+                </a>
+            }
+            @if (item.shop_sanpham.ischeckout == false)
+            {
+                if (bienthe.Count <= 1)
+                {
+                    if (bienthe.First().giasosanh > 0)
+                    {
+                        <a href="@("/gio-hang.html/" + item.shop_sanpham.shop_bienthe.FirstOrDefault().id + "/1")" class="card-icon"></a>
+                    }
+                    else
+                    {
+                        <a href="@("/gio-hang.html/" + item.shop_sanpham.shop_bienthe.FirstOrDefault().id + "/1")" class="card-icon"></a>
+
+                    }
+                }
+            }
+            else
+            {
+                if (bienthe.First().giasosanh > 0)
+                {
+                    <a href="@((IsLangVN ? "/tin-tuc/" + item.shop_sanpham.spurl : "/en/product/" + item.shop_sanpham.spurl_us) + ".html")" class="card-icon"></a>
+                }
+                else
+                {
+                    <a href="@((IsLangVN ? "/tin-tuc/" + item.shop_sanpham.spurl : "/en/product/" + item.shop_sanpham.spurl_us) + ".html")" class="card-icon"></a>
+                }
+
+            }
+        </div>
+    </li>*@
+}

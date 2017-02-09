@@ -1,0 +1,301 @@
+﻿@{
+    ViewBag.Title = "Index";
+    var IsLangVN = FBabymartvn.IsLangVN();
+    var goidoSS = Json.Encode((Babymart.Models.Module.PlanCartModel)Session["PlanCart"]);
+    var articalTags = new List<Babymart.Models.Module.ModelModuleDetail>();
+    if (ViewData["ArticlesTags"] != null)
+    {
+        articalTags = ((List<Babymart.Models.Module.ModelModuleDetail>)ViewData["ArticlesTags"]);
+    }
+}
+@section scripts{
+    <script src="/Scripts/me/flat/bootstrap.min.js"></script>
+    <script src="/Scripts/me/flat/plugins/bootbox/jquery.bootbox.js"></script>
+
+    @Scripts.Render("~/bundles/commonjs_ko")
+    <script src="~/Scripts/module/Plan/m.plan.js" type="text/javascript"></script>
+    <script src="~/Scripts/module/Plan/mv.plan.js" type="text/javascript"></script>
+    <script>
+        var goidoSS = @Html.Raw(goidoSS + ';')
+        var IsLangVN = @Html.Raw("'"+IsLangVN.ToString() + "'")=='True'?true:false;
+        $(document).ready(function () {
+            (new Plan.mvPlan().Start())
+        });
+        function validate(evt) {
+            var theEvent = evt || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+            var regex = /[0-9]|\./;
+            if (!regex.test(key)) {
+                theEvent.returnValue = false;
+                if (theEvent.preventDefault) theEvent.preventDefault();
+            }
+        }
+        function runScript(e) {
+            if (e.keyCode == 13) {
+                var tb = document.getElementById("giabb");
+                eval(tb.value);
+                return false;
+            }
+        }
+
+    </script>
+
+    <!-- Facebook Conversion Code for Gói đồ sơ sinh -->
+    <script>
+        (function () {
+            var _fbq = window._fbq || (window._fbq = []);
+            if (!_fbq.loaded) {
+                var fbds = document.createElement('script');
+                fbds.async = true;
+                fbds.src = '//connect.facebook.net/en_US/fbds.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(fbds, s);
+                _fbq.loaded = true;
+            }
+        })();
+        window._fbq = window._fbq || [];
+        window._fbq.push(['track', '6021359663735', { 'value': '1.00', 'currency': 'VND' }]);
+    </script>
+    <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6021359663735&amp;cd[value]=1.00&amp;cd[currency]=VND&amp;noscript=1" /></noscript>
+}
+@section SEOContent{
+
+    @foreach (var item in (List<Babymart.Models.sys_content>)FBabymartvn.ListContents("SoSinh"))
+    {
+        if (!item.Name.Equals("H1"))
+        {
+            if (item.Name.Equals("title"))
+            {
+                <title>@(IsLangVN ? item.Contents : item.Contents_us)</title>
+            }
+            else
+            {
+                <meta name="@item.Name" content="@(IsLangVN ? item.Contents : item.Contents_us)" />
+            }
+        }
+    }  
+    <link href="~/Content/mystyle.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/Content/me/custom/checkbox.css" />
+    <style>
+        .btnAddCart {
+            -webkit-border-radius: 16 !important;
+            padding: 7px !important;
+            font-size: 12px !important;
+            -moz-border-radius: 16 !important;
+            border-radius: 16px !important;
+            -webkit-box-shadow: 0px 2px 2px #666666 !important;
+            -moz-box-shadow: 0px 2px 2px #666666 !important;
+            box-shadow: 0px 2px 2px #666666 !important;
+            font-family: Arial !important;
+            color: #31650A !important;
+            text-decoration: none !important;
+            cursor: pointer !important;
+            width: 90px !important;
+            line-height: 1.6 !important;
+            font-weight: bold !important;
+            background-color: #F1840C;
+        }
+    </style>
+
+}
+<div class="columns-container">
+    <div class="container" id="columns">
+        <!-- breadcrumb -->
+        <div class="breadcrumb clearfix">
+            <a class="home" href="#" title="Return to Home">Trang chủ</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span class="navigation_page">@(IsLangVN ? "Đồ dùng cho mẹ chuẩn bị sinh" : "New Baby Checklist")</span>
+        </div>
+        <!-- ./breadcrumb -->
+        <!-- page heading-->
+        <h2 class="page-heading">
+            <span class="page-heading-title2">@Html.Raw(IsLangVN ? (FBabymartvn.GetContents("SoSinhInfo", "Titile").Contents) : (FBabymartvn.GetContents("SoSinhInfo", "Titile").Contents_us))</span>
+        </h2>
+        <div class="cat-short-desc text-justify">
+            @Html.Raw(IsLangVN ? (FBabymartvn.GetContents("SoSinhInfo", "Info").Contents) : (FBabymartvn.GetContents("SoSinhInfo", "Info").Contents_us))
+        </div>
+        <table class="table table-hover checklist">
+            <thead>
+                <tr> 
+                    <th>@(IsLangVN ? "Stt" : "No")</th>
+                    <th style="width: 180px; ">@(IsLangVN ? "Vật dụng" : "Type")</th>
+                    <th>@(IsLangVN ? "Tên sản phẩm" : "Product name")</th>
+                    <th>@(IsLangVN ? "Giá" : "Price")</th>
+                    <th>@(IsLangVN ? "Số lượng" : "Quatiy")</th>
+                    <th>@(IsLangVN ? "Thành tiền" : "Total")</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--ko foreach:ListCart-->
+                <tr>
+                    <td><strong data-bind="text:$index()+1"></strong></td>
+                    <td>
+                        <select style="width:110px" data-bind="options:$parent.ListplanType, optionsText: 'Type',optionsValue: 'Id',optionsCaption: '@(IsLangVN ? "Chọn loại" : "Choose type")',value:typePlan"></select> 
+                    </td>
+                    <td>
+                        <!--ko if:hinhanh -->
+                        <img data-bind="attr:{src:('@Common.urlProduct()' + hinhanh())}" class="img-responsive" alt="hình sản phẩm" />
+                        <!--/ko-->
+                        <!--ko if:tensp -->
+                        <div>
+                            <a data-bind="attr:{href: IsLangVN?'/tin-tuc/'+spurl()+'.html':'/en/product/'+spurl_us()+'.html',target:'_blank'},text:tensp"></a>
+                        </div>
+                        <div> 
+                            <button class="addmore" data-bind="click:$parent.loadingProduct">@(IsLangVN ? "Chọn sản phẩm khác" : "Choose another one")</button> 
+                            <button class="addmore" data-bind="click:$parent.AddTypePlan">@(IsLangVN ? "Thêm sản phẩm" : "Choose more")</button> 
+                        </div>
+                        <!--/ko-->
+                        <!--ko if:!tensp() && !hinhanh() -->
+                        <div>
+                            <!--ko if:!IsAddNew()-->
+                            <button class="addmore" data-bind="click:$parent.loadingProduct">@(IsLangVN ? "Chọn sản phẩm" : "Choose")</button>
+                            <!--/ko-->
+                            <!--ko if:IsAddNew()-->
+                            <button class="addmore newlist" data-bind="click:$parent.loadingProduct">@(IsLangVN ? "Chọn sản phẩm" : "Choose")</button>
+                            <!--/ko-->
+                        </div>
+                        <!--/ko-->
+                    </td>
+                    <td>
+                        <!--ko if:gia-->
+                        <span data-bind="textMoney:gia"></span> đ
+                        <!--/ko--> 
+                    </td>
+                    <td>
+                        <!--ko if:gia--> 
+                        <input type="number" class="form-control input-sm input-medium" id="giabb" data-bind="value:Count"  onkeyup="this.value=this.value.replace(/[^\d]/,'0')" onkeypress="return runScript(event)">
+                        <!--/ko-->
+                    </td>
+                    <td>
+                        <!--ko if:gia-->
+                        <span data-bind="textMoney:sum"></span> đ
+                        <!--/ko-->
+                    </td>
+                    <td class="delete">
+                        <a class="btnOpenDialog" data-bind="click:$parent.removeCart"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
+                <!--/ko-->
+                <tr>
+                    <td colspan="7" class="text-right">@(IsLangVN ? "Tổng tiền hàng:" : "Order Total:") <span data-bind="textMoney:Total"></span> đ</td>
+                </tr>
+                <!--ko if:khuyenmai()>0-->
+                <tr>
+                    <td colspan="7" class="text-right">@(IsLangVN ? "Hỗ trợ mẹ: " : "Pregnancy assistance:") <span data-bind="textMoney:(khuyenmai() * Total())/100"></span> đ</td>
+                </tr>
+                <!--/ko-->
+                <tr>
+                    <td colspan="7" class="text-right">@(IsLangVN ? "Tổng thanh toán:" : "Total of payment:") <span data-bind="textMoney:TotalSum"></span> đ</td>
+                </tr>
+                <!--ko if:gift().length>0-->
+                <!--ko foreach:gift-->
+                <tr>
+                    <td colspan="7" class="">
+                        <strong>@(IsLangVN ? "Quà tặng" : "Gift"):</strong>
+                        <a data-bind="attr:{href: IsLangVN?'/tin-tuc/'+url()+'.html':'/en/product/'+url_us()+'.html',target:'_blank'}">
+                            <img data-bind="attr:{src:('@Common.urlProduct()' + img())}" width="80" class="img-thumbnail" />
+                            <span data-bind="text:IsLangVN?tensp():tensp_us()"></span>
+                        </a>
+                    </td>
+                </tr>
+                <!--/ko-->
+                <!--/ko-->
+            </tbody>
+        </table>
+        @if (this.Session["PlanCart"] != null)
+        {
+        <div class="cart_navigation cheli-bot">
+            <a class="prev-btn" data-bind="click:CancelPlan">@(IsLangVN ? "Hủy đơn hàng" : "Cancel")</a> 
+            <a class="prev-btn" data-bind="click:pushTypePlan">@(IsLangVN ? "Thêm sản phẩm" : "More")</a>
+            <a class="next-btn" data-bind="click:addCartSubmit">@(IsLangVN ? "Thanh toán" : "Payment")</a>
+        </div>
+        }
+        else
+        { 
+        <div class="cart_navigation cheli-bot">
+            <a class="prev-btn" data-bind="click:CancelPlan">@(IsLangVN ? "Hủy đơn hàng" : "Cancel")</a>  
+            <a class="next-btn" data-bind="click:addCartSubmit">@(IsLangVN ? "Thanh toán" : "Payment")</a>
+        </div>
+        }
+        <div class="clearfix"></div>
+        <div>
+            @if (IsLangVN)
+            {
+                Html.Raw(FBabymartvn.GetContents("SoSinhInfo", "Content").Contents);
+            }
+            else
+            {
+                Html.Raw(FBabymartvn.GetContents("SoSinhInfo", "Content").Contents_us);
+            }
+
+        </div>
+        @if (IsLangVN)
+        {
+            Html.RenderPartial("~/Views/Shared/Partial/_Goctuvan.cshtml", articalTags);
+        }
+    </div>
+</div>
+<div id="modal-product" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="myModalLabel" class="modal-title" data-bind="text:namePlan" style="display:initial"></h4>
+                <span style="color:#ff0000">@(IsLangVN ? "( Click vào sản phẩm để chọn )" : "( Click on the product to order )")</span>
+            </div>
+            <div class="modal-body" style="min-height: 300px;position: relative; max-height: 400px; padding: 15px; overflow-y: auto">
+                <div class="product-featured clearfix">
+                    <div class="row">
+                        <div class="col-sm-12 col-right-tab">
+                            <div class="product-featured-tab-content">
+                                <div class="tab-container">
+                                    <div class="tab-panel active" id="tab-14">
+                                        <div class="box-full clearfix">
+                                            <ul class="product-list">
+                                                <!--ko foreach:ListProduct-->
+                                                <li>
+                                                    <div class="left-block">
+                                                        <a data-bind="click:$parent.addCart" class="product-image">
+                                                            <img data-bind="attr:{src:('@Common.urlProduct()' + imgsp())}" class="img-responsive" alt="product">
+                                                        </a>
+                                                    </div>
+                                                    <div class="right-block">
+                                                        <h3 class="product-name" data-bind="click:$parent.addCart" style="font-size:13px"><a><span data-bind="text:fullname()"></span></a></h3>
+                                                        <div class="content_price" data-bind="click:$parent.addCart">
+                                                            <!--ko if:giasosanh() && giasosanh()>0-->
+                                                            <span class="price product-price"><span data-bind="textMoney:giasosanh()"></span> đ</span>
+                                                            <!--/ko-->
+                                                            <!--ko if:giasosanh()<=0-->
+                                                            <span class="price product-price"><span data-bind="textMoney:gia()"></span> đ</span>                     <!--/ko-->
+                                                        </div>
+                                                        <a class="price" data-bind="attr:{href: IsLangVN?'/tin-tuc/'+spurl()+'.html':'/en/product/'+spurl_us()+'.html',target:'_blank'}" href="" style="float: right; padding-left: 9px; color: #61B849;font-weight:bold; border-left: 1px solid #D6D6D6" target="_blank">@(IsLangVN ? "Xem chi tiết" : "See Detail")</a>
+                                                    </div>
+                                                </li>
+                                                <!--/ko-->
+                                            </ul>
+                                            <!-- end list - product-->
+                                            <!--ko if:loading()-->
+                                            <div style="position: absolute;top: 50%;left: 50%;">
+                                                <img src="~/Images/Sys/baby-loading.gif" />
+                                            </div>
+                                            <!--/ko-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">@(IsLangVN ? "Đóng" : "Close")</button> 
+            </div>
+        </div>
+    </div>
+</div> 
+<div data-bind="visible:waitloader" style="width: 100%; background: rgba(0, 0, 0, 0.35); z-index: 999999999; position: fixed; height: 100%; top: 0px; left: 0px;">
+    <img src="~/Images/Sys/baby-loading.gif" style="width: 100px;margin-top: 25%;margin-left: 45%;" />
+</div>
+

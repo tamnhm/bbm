@@ -1,0 +1,50 @@
+﻿@model IList<Babymart.Models.module_group>
+@{
+    ViewBag.Title = "Index";
+}
+@foreach (var item in Model)
+{
+    var article = item.module_detail.Where(p => p.hide == false && p.StoreId == FBabymartvn.GetStoreId()).OrderByDescending(p => p.id).Take(4).ToList();
+    <div class="article">
+        <h2 class="title"><a href="@(item.title == "default" ? "/cam-nang/" + item.module_menu.url + ".html" : "/cam-nang/" + item.module_menu.url + "/" + item.url + ".html")"><span>@(item.title == "default" ? item.module_menu.tenloai : item.title)</span></a></h2>
+        <div>
+            @foreach (var item2 in article)
+            {
+
+                <article>
+                    <div class="content">
+                        <img src="@(Common.urlModule() + item2.img)" class="thumb" alt="@item2.title">
+                        <div class="ps">
+                            <h4 class="post-title">
+                                <a href="@("/cam-nang/bai-viet/" + item2.id + "/" + item2.url + ".html")" title="@item2.title">
+                                    @if (FBabymartvn.GetHttpCookieLang() == null
+                                            || FBabymartvn.GetHttpCookieLang().Value == null
+                                            || FBabymartvn.GetHttpCookieLang().Value == "vn"
+                                            || String.IsNullOrEmpty(item2.title_us))
+                                    {
+                                        @item2.title
+
+                                    }
+                                    else
+                                    {
+                                        @item2.title_us
+                                    }
+                                </a>
+                            </h4>
+                            <span>@String.Format("{0:dd/MM/yyyy}", item2.createdate)</span>
+
+                            <p>@Html.Raw(item2.extract + "...")
+                                <a href="@("/cam-nang/bai-viet/" + item2.id + "/" + item2.url + ".html")" title="@item.title">
+                                    @(FBabymartvn.IsLangVN() ? "xem thêm" : "more")
+                                </a></p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </article>
+
+            }
+        </div>
+        <div class="more">@(FBabymartvn.IsLangVN()?"Xem các bài viết khác":"Artical other")<div></div></div>
+    </div>
+}
+

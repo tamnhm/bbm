@@ -1,0 +1,1402 @@
+﻿@{
+    var urllocation = System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocation"];
+    var khachhangJS = Json.Encode((Babymart.Models.Module.ModeCustomerPost)Session["khachhang"]);
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+@section SEOContent{
+    <title>Đặt hàng - Bước 2 - Babymart.vn</title>
+    <link rel="stylesheet" href="/Content/me/css/bootstrap.min.mobile.css" />
+    <link href="/Content/me/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <style>
+        .error {
+            float: right;
+        }
+    </style>
+}
+@section scripts{
+    @Scripts.Render("~/bundles/commonjs_ko")
+    @Scripts.Render("~/module/checkout_plan")
+    <script src="/Scripts/me/flat/bootstrap.min.mobile.js"></script>
+    <script src="/Scripts/me/flat/plugins/bootbox/jquery.bootbox.js"></script>
+
+    <script>
+        var isEnLag = '@(IsLangVN)';
+        var urllocation = "@urllocation";
+        var sessionKhachhang = @Html.Raw(khachhangJS+';')
+        $(document).ready(function () {
+            (new Checkoutplan.mvCheckout().Start());
+        });
+
+    </script>
+
+}
+<h3 class="pageTitle">Thanh toán</h3>
+<div id="thanhtoan">
+    <div class="control-group">
+        <label class="control-label" for="lastName">@(IsLangVN ? "Họ Tên : " : "Name : ")<span class="red-clr bold">*</span></label>
+        <div class="controls">
+            <input type="text" id="lastName" class="span4" data-bind="value:mCustomer().hoten">
+        </div>
+    </div>
+    <!--ko if: IssessionKhachhang()-->
+    <div class="control-group">
+        <label class="control-label left" for="lastName">@(IsLangVN ? "Điểm tích lũy : " : "Accumulation Point : ") </label>
+        <div class="controls">
+            <b data-bind="text: mCustomer().diem"></b>
+        </div>
+    </div>
+    <!--/ko-->
+    <div class="control-group">
+        <label class="control-label" for="telephone">@(IsLangVN ? "Số điện thoại : " : "Phone : ")<span class="red-clr bold">*</span></label>
+        <div class="controls">
+            <input type="tel" id="telephone" class="span4" data-bind="value:mCustomer().dienthoai">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="email">Email<span class="red-clr bold">*</span></label>
+        <div class="controls">
+            <input type="email" id="email" class="span4" data-bind="value:mCustomer().email">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="addr1">@(IsLangVN ? "Địa chỉ : " : "Address : ")<span class="red-clr bold">*</span></label>
+        <div class="controls">
+            <input type="text" id="addr1" class="span4" data-bind="value:mCustomer().duong">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="country">@(IsLangVN ? "Tỉnh / Thành : " : "City : ")<span class="red-clr bold">*</span></label>
+        <div class="controls">
+            <select data-bind="options: Thanhpho, optionsCaption: isEnLag=='True'?'Chọn thành phố':'Choose city', optionsText: 'tentp', optionsValue: 'id', value: mCustomer().idtp , valueAllowUnset: true"></select>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="quan">@(IsLangVN ? "Quận / Huyện : " : "Quận / Huyện : ")<span class="red-clr bold">*</span></label>
+        <div class="controls">
+
+            <select data-bind="options: Quan,optionsText: 'tentinh', optionsValue:'id',value:  mCustomer().idquan, optionsCaption: isEnLag=='True'?'Chọn quận huyện':'Choose district'"></select>
+            <img src="/Images/Sys/baby-loading.gif" data-bind="visible:loadfullQuan" style="width: 40px">
+        </div>
+    </div>
+    <!--ko if: VisibleTp-->
+    <!--ko if: mCheckout().TotalSum() < 150000-->
+    <div class="control-group">
+
+        <div class="controls">
+
+            <!--ko if: mCustomer().idquan()==127 && mCheckout().TotalSum() < 150000-->
+            <div id="donhang<150ktanphu">
+                @if (IsLangVN)
+                {
+                    <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận Tân Phú</div>
+                                </td>
+                                <td>
+                                    <div align="center">10.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
+                }
+                else
+                {
+                    <p>For orders up to 150,000VND, Shippping rate per Address:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Tan Phu</div>
+                                </td>
+                                <td>
+                                    <div align="center">10.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) For orders over 150,000VND Free Ship.</p>
+                }
+            </div>
+            <!--/ko-->
+            <!--ko if: mCustomer().idquan()==128 && mCheckout().TotalSum() < 150000-->
+            <div id="donhang<150ktanbinh">
+                @if (IsLangVN)
+                {
+                    <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận Tân Bình</div>
+                                </td>
+                                <td>
+                                    <div align="center">15.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
+                }
+                else
+                {
+                    <p>For orders up to 150,000VND, Shippping rate per Address:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Tan Binh</div>
+                                </td>
+                                <td>
+                                    <div align="center">15.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) For orders over 150,000VND Free Ship.</p>
+                }
+            </div>
+            <!--/ko-->
+            <!--ko if: (mCustomer().idquan()==125 || mCustomer().idquan()==126 || mCustomer().idquan()==129 || mCustomer().idquan()==130 || mCustomer().idquan()==131 || mCustomer().idquan()==132)  && mCheckout().TotalSum() < 150000-->
+            <div id="donhang<150k11,12">
+                @if (IsLangVN)
+                {
+                    <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 11, 12, Gò Vấp, Bình Thạnh, Phú Nhuận, Bình Tân</div>
+                                </td>
+                                <td>
+                                    <div align="center">20.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
+                }
+                else
+                {
+                    <p>For orders up to 150,000VND, Shippping rate per Address:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>11 , 12, Go Vap, Binh Thanh, Phu Nhuan, Binh Tan</div>
+                                </td>
+                                <td>
+                                    <div align="center">20.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) For orders over 150,000VND Free Ship.</p>
+                }
+            </div>
+            <!--/ko-->
+            <!--ko if: (mCustomer().idquan()==115 || mCustomer().idquan()==117 || mCustomer().idquan()==118 || mCustomer().idquan()==119 || mCustomer().idquan()==120 || mCustomer().idquan()==124)  && mCheckout().TotalSum() < 150000-->
+            <div id="donhang<150k1,3">
+                @if (IsLangVN)
+                {
+                    <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 1, 3, 4, 5, 6, 10</div>
+                                </td>
+                                <td>
+                                    <div align="center">25.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
+                }
+                else
+                {
+                    <p>For orders up to 150,000VND, Shippping rate per Address:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>1, 3, 4, 5, 6, 10</div>
+                                </td>
+                                <td>
+                                    <div align="center">25.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) For orders over 150,000VND Free Ship.</p>
+                }
+            </div>
+            <!--/ko-->
+            <!--ko if: (mCustomer().idquan()==116 || mCustomer().idquan()==121 || mCustomer().idquan()==122) && mCheckout().TotalSum() < 150000-->
+            <div id="donhang<150k2,7,8">
+                @if (IsLangVN)
+                {
+                    <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 2, 7, 8</div>
+                                </td>
+                                <td>
+                                    <div align="center">30.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
+                }
+                else
+                {
+                    <p>For orders up to 150,000VND, Shippping rate per Address:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>2, 7, 8</div>
+                                </td>
+                                <td>
+                                    <div align="center">30.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) For orders over 150,000VND Free Ship.</p>
+                }
+            </div>
+            <!--/ko-->
+            <!--ko if: (mCustomer().idquan()==123 || mCustomer().idquan()==133) && mCheckout().TotalSum() < 150000-->
+            <div id="donhang<150k9,thuduc">
+                @if (IsLangVN)
+                {
+                    <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 9, Thủ Đức</div>
+                                </td>
+                                <td>
+                                    <div align="center">40.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
+                }
+                else
+                {
+                    <p>For orders up to 150,000VND, Shippping rate per Address:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>9, Thu Duc</div>
+                                </td>
+                                <td>
+                                    <div align="center">40.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) For orders over 150,000VND Free Ship.</p>
+                }
+            </div>
+            <!--/ko-->
+            <!--/ko-->
+        </div>
+    </div>
+    <!--/ko-->
+    <div class="control-group">
+        <label class="control-label" for="quan">@(IsLangVN ? "Hình thức thanh toán : " : "Payment : ")<span class="red-clr bold">*</span></label>
+        <div class="controls">
+            <select style="font-style:italic;" data-bind="options: ListpaymentCity, optionsCaption: isEnLag=='True'?'Chọn phương thức thanh toán':'Choose payment', optionsText: 'lable', optionsValue:'value', value: mCustomer().selectPayment"></select>
+            <p class="text-warning">
+                @if (IsLangVN)
+                {
+                    <span>Xem chi tiết <a href="/bai-viet/thong-tin-chuyen-khoan.html" target="_blank">Hình thức thanh toán</a></span>
+                }
+                else
+                {
+                    <span>Detail of <a href="/bai-viet/thong-tin-chuyen-khoan.html" target="_blank">Payment methods</a></span>
+                }
+            </p>
+            <!--ko if: mCustomer().selectPayment() == 4 -->
+            <!--ko template: { name:  'PaymentNganLuong' } -->
+            <!--/ko-->
+            <!--/ko-->
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="gio">@(IsLangVN ? "Thời gian giao hàng : " : "Receiving time  : ")<span class="red-clr bold">*</span></label>
+        <div class="controls">
+            <select style="font-style:italic;" data-bind="options: giogiao,optionsCaption:isEnLag=='True'?'Chọn thời gian':'Choose Time',optionsText: 'gio', optionsValue:'value',value: mCustomer().selectGio"></select>
+            <p class="text-warning">@(IsLangVN ? "Giờ hành chính: từ 8h - 17h từ thứ 2 đến thứ 7." : "Business hours from Monday to Saturday (8:00AM - 5:00PM)")</p>
+        </div>
+    </div>
+    <!--ko if: mCustomer().selectGio() != 4 -->
+    <div class="control-group">
+        <label class="control-label" for="gio">@(IsLangVN ? "Thời gian cụ thể (Nếu có): " : "Specific time (If any): ")</label>
+        <div class="controls">
+            <input data-bind="value:giogiaocuthe" type="text" class="time" />
+        </div>
+    </div>
+    <!--/ko-->
+    <!--/ko-->
+    <!--ko if: !VisibleTp()-->
+    <div class="control-group">
+        <label class="control-label" for="quan">@(IsLangVN ? "Phương thức giao hàng : " : "Shipping information : ")<span class="red-clr bold">*</span></label>
+        <div class="controls">
+            <div>
+                <select style="float:left" data-bind="options: ListTypeShip,optionsText: 'lable',value: selectTypeShip"></select>
+                <!--ko if: thoigiangiaohang() && selectTypeShip().value == 1 -->
+                <b style="float:left;padding-left:10px;color:red">@(IsLangVN ? "Thời gian nhận hàng:" : "Goods receiving time :") <span data-bind="text:thoigiangiaohang()"></span>@(IsLangVN ? " giờ" : " hours")</b>
+                <!--/ko-->
+            </div>
+            <!--ko if: IsShipxedo() == false -->
+            <p class="text-warning" style="clear:both">@(IsLangVN ? "Bạn vui lòng kham khảo thông tin" : "Please refer information") <a href="/Content/checkout/Ship.pdf" target="_blank">@(IsLangVN ? "bảng giá chuyển phát nhanh" : "table price shipping")</a></p>
+            <!--/ko-->
+        </div>
+    </div>
+    <!--ko if: selectTypeShip().value != 2 -->
+    <div class="control-group">
+        <label class="control-label" for="quan">@(IsLangVN ? "Phương thức thanh toán : " : "Payment information : ")<span class="red-clr bold">*</span></label>
+        <div class="controls">
+            <select data-bind="options: ListpaymentNotCity,optionsText: 'lable', optionsValue:'value',value: mCustomer().selectPayment"></select>
+            <p class="text-warning">
+                @if (IsLangVN)
+                {
+                    <span>Xem chi tiết <a href="/bai-viet/thong-tin-chuyen-khoan.html" target="_blank">Hình thức thanh toán</a></span>
+                }
+                else
+                {
+                    <span>Detail of <a href="/bai-viet/thong-tin-chuyen-khoan.html" target="_blank">Payment methods</a></span>
+                }
+            </p>
+            <!--ko if: mCustomer().selectPayment() == 3-->
+            <div class="text-warning">
+                <p style="font-weight:bold">
+                    Bạn vui lòng thanh toán thêm phí bưu điện thu hộ với biểu phí sau:
+                </p>
+                <table class="thuho">
+                    <thead>
+                        <tr>
+                            <td style="font-weight:bold">Tổng tiền hàng</td>
+                            <td style="font-weight:bold">Phí bưu điện thu hộ</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Dưới 300.000 đ
+                            </td>
+                            <td>25.000 đ</td>
+                        </tr>
+                        <tr>
+                            <td>Từ 300.000 đ đến 600.000 đ</td>
+                            <td>35.000 đ</td>
+                        </tr>
+                        <tr>
+                            <td>Từ 600.000 đ đến 1.000.000 đ</td>
+                            <td>40.000 đ</td>
+                        </tr>
+                        <tr>
+                            <td>Từ 1.000.000 đ đến 5.000.000 đ</td>
+                            <td>
+                                Mỗi triệu tiếp: cộng thêm 20.000 đ
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p style="padding-top:10px;font-size:13px">(<i style="color:red">*</i>) Để không mất phí bưu điện thu hộ, bạn nên chọn phương thức "chuyển khoản" hoặc "thanh toán trực tuyến".</p>
+            </div>
+
+            <!--/ko-->
+            <!--ko if: mCustomer().selectPayment() == 4 -->
+            <!--ko template: { name:  'PaymentNganLuong' } -->
+            <!--/ko-->
+            <!--/ko-->
+        </div>
+    </div>
+    <!--/ko-->
+    <!--ko if: selectTypeShip().value == 2 -->
+    <div class="control-group">
+        <label class="control-label" for="quan">@(IsLangVN ? "Phương thức thanh toán : " : "Payment information : ")<span class="red-clr bold">*</span></label>
+        <div class="controls">
+            <select data-bind="options: ListpaymentNotBus,optionsText: 'lable', optionsValue:'value',value: mCustomer().selectPayment"></select>
+            <p class="text-warning">@(IsLangVN ? "Bạn vui lòng tham khảo thông tin chuyển khoản" : "Please refer to money transfer information") <a href="/bai-viet/thong-tin-chuyen-khoan.html" target="_blank"> @(IsLangVN ? "tại đây" : "here")</a></p>
+            <!--ko if: mCustomer().selectPayment() == 4 -->
+            <!--ko template: { name:  'PaymentNganLuong' } -->
+            <!--/ko-->
+            <!--/ko-->
+        </div>
+    </div>
+    <!--/ko-->
+    <!--ko if: IsShipxedo-->
+    <div class="control-group">
+        <label class="control-label" for="quan"> @(IsLangVN ? "Thông tin xe khách : " : "Information of the Delivery Van service : ")</label>
+        <div class="controls">
+            <textarea data-bind="value:Infxedo"></textarea>
+        </div>
+    </div>
+    <!--/ko-->
+    <!--/ko-->
+    <div class="control-group">
+        <label class="control-label" for="quan">@(IsLangVN ? "Thông tin thêm : " : "Additional information : ")</label>
+        <div class="controls">
+            <textarea data-bind="value:NoteCheckout"></textarea>
+        </div>
+    </div>
+    <div class="textBreakBottom"></div>
+    <div class="gio-hang">
+        <!--ko if:mCheckout().PlanModel() && mCheckout().PlanModel().length>0-->
+        <!--ko foreach:mCheckout().PlanModel()-->
+        <div class="shoppingCartProductWrapper">
+            <a href="#" class="shoppingCartProductImageWrapper">
+                <img onerror="imgError(this)" data-bind="attr:{src:(urllocation + hinhanh())}" alt="" class="shoppingCartProductImage" />
+            </a>
+            <div class="shoppingCartProductInfoWrapper">
+                <a href="#" class="shoppingCartProductTitle1">
+                    <span data-bind="text:tensp()"></span>
+                </a>
+                <div class="shoppingCartProductButtonsWrapper">
+                    <div id="shoppingCartProductNumber-2" class="shoppingCartProductNumber"><strong><span data-bind="text:Count"></span></strong></div>
+                    <span class="shoppingCartProductPrice">
+                        <span data-bind="textMoney:gia"></span> đ
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--/ko-->
+        <div class="shoppingCartInfoWrapper">
+            <table>
+                <tbody>
+                    <!--ko if:mCheckout().Percent()>0-->
+                    <tr>
+                        <td class="paymentcartlable">@(IsLangVN ? "Hỗ trợ mẹ : " : "Pregnancy assistance :")</td>
+                        <td><span class="size-16 align-right" data-bind="textMoney:(mCheckout().Percent() * mCheckout().ToTal())/100"></span> đ</td>
+                    </tr>
+                    <!--/ko-->
+                    <!--ko if: IssessionKhachhang()-->
+                    <tr>
+                        <td class="paymentcartlable">@(IsLangVN ? "Điểm sản phẩm : " : "Product points : ")</td>
+                        <td class="paymentcartlable"><div style="text-align:center;"><span data-bind="text:mCustomer().diemsp()"></span> @(IsLangVN ? "điểm" : "points")</div></td>
+                    </tr>
+                    <!--/ko-->
+                    <tr>
+                        <td class="paymentcartlable">@(IsLangVN ? "Tổng trọng lượng : " : "Total weight : ")</td>
+                        <td class="paymentcartvalue"><div style="text-align:center;"><span data-bind="text:mCheckout().KgTotal()"></span> kg</div></td>
+                    </tr>
+                    <tr>
+                        <td class="paymentcartlable">@(IsLangVN ? "Tổng tiền hàng : " : "Order Total : ")</td>
+                        <td class="paymentcartvalue"><div style="text-align:center;"><span data-bind="textMoney:mCheckout().ToTal()"></span> đ</div></td>
+                    </tr>
+                    <!--ko if: !IsShipxedo()-->
+                    <tr>
+                        <td class="paymentcartlable">
+                            <!--ko if:mCustomer().selectGio()!=3 || mCheckout().TotalSum() < 150000-->
+                            @(IsLangVN ? "Phí giao hàng: " : "Shipping fee: ")
+                            <!--/ko-->
+                            <!--ko if:mCustomer().selectGio()==3 && mCheckout().TotalSum() >= 150000-->
+                            @(IsLangVN ? "Phí ngoài giờ: " : "Overtime fee: ")
+                            <!--/ko-->
+                        </td>
+
+                        <td class="paymentcartlable"><div style="text-align:center;"><span data-bind="textMoney:shipvalue"></span> đ</div></td>
+                    </tr>
+                    <!--/ko-->
+                    <!--ko if:mCustomer().selectPayment()==3 && selectTypeShip().value == 1 && phithuho()>0 -->
+                    <tr>
+                        <td class="paymentcartlable">@(IsLangVN ? "Phí thu hộ : " : "COD fee : ")</td>
+
+                        <td class="paymentcartlable"><div style="text-align:center;"><span data-bind="textMoney:phithuho"></span> đ</div></td>
+                    </tr>
+                    <!--/ko-->
+                    <tr>
+                        <td class="paymentcartlable">@(IsLangVN ? "Tổng thanh toán : " : "Total of payment : ")</td>
+                        <td class="paymentcartlable"><div style="text-align:center; color: rgb(225, 46, 46);"><span data-bind="textMoney:totalcartmoney"></span>đ</div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--/ko-->
+    </div>
+    <!--ko if:mCheckout().Gift() && mCheckout().Gift().length>0-->
+    <div>
+        <p><b>@(IsLangVN ? "Quà tặng" : "Gift")</b></p>
+        <!--ko foreach:mCheckout().Gift()-->
+        <div>
+            <img data-bind="attr:{src:('@Common.urlProduct()' + img())}" style="width:100px" />
+            <p><a data-bind="attr:{href:url()},text:tensp"></a></p>
+        </div>
+        <!--/ko-->
+    </div>
+    <!--/ko-->
+    <div class="shoppingCartButtonsWrapper">
+        <!--ko if: HasError()-->
+        <!--ko if: Validator().errors().length > 0  -->
+        <div class="control-group error">
+            <label for="textfield" class="control-label"><b>@(IsLangVN ? "Lỗi" : "Error")</b></label>
+            <div class="controls">
+                <ul data-bind="foreach: Validator().errors">
+                    <li data-bind="text: $data" style="color:red"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <!--/ko-->
+        <!--/ko-->
+        <!--<a class="shoppingCartCheckoutButton " data-bind="click:SubmitCartLink">Đặt hàng</a> -->
+        <input type="button" class="shoppingCartCheckoutButton btn btn-primary" data-toggle="modal" data-bind="click:SubmitCartLink" value="@(IsLangVN ? "Xác nhận" : "Confirm")">
+    </div>
+</div>
+
+<div data-bind="visible:Isloadercart" style="position:fixed;top:30%;left:40%">
+    <img src="~/Images/Sys/baby-loading.gif" style="width: 100px;margin-left: 40%;" />
+</div>
+<div data-bind="visible:waitloader" style="width: 100%; background: rgba(0, 0, 0, 0.35); z-index: 999999999; position: fixed; height: 100%; top: 0px; left: 0px;">
+    <h1 data-bind="text:messenger" style="color: white;margin-top: 25%;margin-left: 25%;"></h1>
+</div>
+<div id="modal_choosepbuy" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 id="myModalLabel">@(IsLangVN ? "Thông báo" : "Notify")</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal form-bordered">
+                    <div style="text-align: center;">
+                        <p style="font-weight:bold">
+                            @(IsLangVN ? "Đơn hàng bạn dưới 150,000VNĐ, bạn có muốn chọn thêm sản phẩm để được giao hàng miễn phí." : "Your payment total has not reached 150,000VND, would you like to continue shopping for free shippping?")
+                        </p>
+
+                        <button class="btn btn-default" data-dismiss="modal" aria-hidden="true" style=" margin-right 20px">@(IsLangVN ? "Không, cám ơn!" : "No, thank")</button>
+                        <button class="btn btn-primary" data-bind="click:redirectHome">@(IsLangVN ? "Mua Thêm" : "Continue shopping")</button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <ul style="text-align: left;line-height: 1.7;">
+                    <li>
+                        @(IsLangVN ? "Với giá trị hóa đơn trên 150,000VNĐ, bạn sẽ được giao hàng miễn phí." : "For orders over 150,000VND Free Ship")
+                    </li>
+                    <li>
+                        @(IsLangVN ? "Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng thanh toán phí giao hàng với biểu phí theo khu vực như sau:" : "For orders up to 150,000 VND, Shippping rate per Address")
+                    </li>
+                </ul>
+                <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="100%" style="width: 100.0%; border-collapse: collapse; mso-padding-alt: 0in 0in 0in 0in;">
+                    <tbody>
+                        <tr>
+                            <td width="50%" valign="bottom" style="width: 4.7in; border: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt;">
+                                <p align="center" style="margin: 0in; margin-bottom: .0001pt; text-align: center; line-height: 15.0pt; vertical-align: baseline;"><span style="font-size: 11pt;"><span class="apple-converted-space"><b><span lang="EN-AU" style="font-family: Arial, sans-serif; border: 1pt none windowtext; padding: 0in;">@(IsLangVN ? "Khu vực" : "Arae")</span></b></span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></span></p>
+                            </td>
+                            <td width="50%" valign="bottom" style="width: 1.45in; border: solid windowtext 1.0pt; border-left: none; padding: 0in 5.4pt 0in 5.4pt;">
+                                <p align="center" style="margin: 0in; margin-bottom: .0001pt; text-align: center; line-height: 15.0pt; vertical-align: baseline;"><span style="font-size: 11pt;"><span class="apple-converted-space"><b><span lang="EN-AU" style="font-family: Arial, sans-serif; border: 1pt none windowtext; padding: 0in;">@(IsLangVN ? "Mức phí (VND)" : "Price (VNĐ)")</span></b></span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="451" valign="bottom" style="width: 4.7in; border: solid windowtext 1.0pt; border-top: none; padding: 0in 5.4pt 0in 5.4pt;">
+                                <p style="margin: 0in; margin-bottom: .0001pt; text-align: justify; line-height: 15.0pt; vertical-align: baseline;"><span style="font-size: 11pt;"><span class="apple-converted-space"><span lang="EN-AU" style="font-family: Arial, sans-serif; border: 1pt none windowtext; padding: 0in;">@(IsLangVN ? "Quận Tân Phú" : "Tan Phu district")</span></span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></span></p>
+                            </td>
+                            <td width="139" valign="bottom" style="width: 1.45in; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt;">
+                                <p align="center" style="margin: 0in; margin-bottom: .0001pt; text-align: center; line-height: 15.0pt; vertical-align: baseline;"><span style="font-size: 11pt;"><span class="apple-converted-space"><span lang="EN-AU" style="font-family: Arial, sans-serif; border: 1pt none windowtext; padding: 0in;">@(IsLangVN ? "Miễn phí" : "Free")</span></span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="451" valign="bottom" style="width: 4.7in; border: solid windowtext 1.0pt; border-top: none; padding: 0in 5.4pt 0in 5.4pt;">
+                                <p style="margin: 0in; margin-bottom: .0001pt; text-align: justify; line-height: 15.0pt; vertical-align: baseline;"><span style="font-size: 11pt;"><span class="apple-converted-space"><span lang="EN-AU" style="font-family: Arial, sans-serif; border: 1pt none windowtext; padding: 0in;">@(IsLangVN ? "Quận Tân Bình" : "Tan Binh district")</span></span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></span></p>
+                            </td>
+                            <td width="139" valign="bottom" style="width: 1.45in; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt;">
+                                <p align="center" style="margin: 0in; margin-bottom: .0001pt; text-align: center; line-height: 15.0pt; vertical-align: baseline;"><span style="font-size: 11pt;"><span class="apple-converted-space"><span lang="EN-AU" style="font-family: Arial, sans-serif; border: 1pt none windowtext; padding: 0in;">15.000</span></span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="451" valign="bottom" style="width: 4.7in; border: solid windowtext 1.0pt; border-top: none; padding: 0in 5.4pt 0in 5.4pt;">
+                                <p style="margin: 0in; margin-bottom: .0001pt; text-align: justify; line-height: 15.0pt; vertical-align: baseline;"><span style="font-size: 11pt;"><span class="apple-converted-space"><span lang="EN-AU" style="font-family: Arial, sans-serif; border: 1pt none windowtext; padding: 0in;">@(IsLangVN ? "Quận 11, 12, Gò Vấp, Bình Thạnh, Phú Nhuận, Bình Tân" : " 11, 12, Go Vap, Binh Thanh, Phu Nhuan, Binh Tan district")</span></span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></span></p>
+                            </td>
+                            <td width="139" valign="bottom" style="width: 1.45in; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt;">
+                                <p align="center" style="margin: 0in; margin-bottom: .0001pt; text-align: center; line-height: 15.0pt; vertical-align: baseline;"><span style="font-size: 11pt;"><span class="apple-converted-space"><span lang="EN-AU" style="font-family: Arial, sans-serif; border: 1pt none windowtext; padding: 0in;">20.000</span></span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="451" valign="bottom" style="width: 4.7in; border: solid windowtext 1.0pt; border-top: none; padding: 0in 5.4pt 0in 5.4pt;">
+                                <p style="margin: 0in; margin-bottom: .0001pt; text-align: justify; line-height: 15.0pt; vertical-align: baseline;"><span style="font-size: 11pt;"><span class="apple-converted-space"><span lang="EN-AU" style="font-family: Arial, sans-serif; border: 1pt none windowtext; padding: 0in;">@(IsLangVN ? "Quận 1,3,4,5,6,10" : "1,3,4,5,6,10 district")</span></span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></span></p>
+                            </td>
+                            <td width="139" valign="bottom" style="width: 1.45in; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt;">
+                                <p align="center" style="margin: 0in; margin-bottom: .0001pt; text-align: center; line-height: 15.0pt; vertical-align: baseline;"><span style="font-size: 11pt;"><span class="apple-converted-space"><span lang="EN-AU" style="font-family: Arial, sans-serif; border: 1pt none windowtext; padding: 0in;">25.000</span></span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="451" valign="bottom" style="width: 4.7in; border: solid windowtext 1.0pt; border-top: none; padding: 0in 5.4pt 0in 5.4pt;">
+                                <p style="margin: 0in; margin-bottom: .0001pt; text-align: justify; line-height: 15.0pt; vertical-align: baseline;"><span style="font-size: 11pt;"><span class="apple-converted-space"><span lang="EN-AU" style="font-family: Arial, sans-serif; border: 1pt none windowtext; padding: 0in;">@(IsLangVN ? "Quận 2, 7, 8" : "2, 7, 8 district")</span></span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></span></p>
+                            </td>
+                            <td width="139" valign="bottom" style="width: 1.45in; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt;">
+                                <p align="center" style="margin: 0in; margin-bottom: .0001pt; text-align: center; line-height: 15.0pt; vertical-align: baseline;"><span style="font-size: 11pt;"><span class="apple-converted-space"><span lang="EN-AU" style="font-family: Arial, sans-serif; border: 1pt none windowtext; padding: 0in;">30.000</span></span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="451" valign="bottom" style="width: 4.7in; border: solid windowtext 1.0pt; border-top: none; padding: 0in 5.4pt 0in 5.4pt;">
+                                <p style="margin: 0in; margin-bottom: .0001pt; text-align: justify; line-height: 15.0pt; vertical-align: baseline;"><span style="font-size: 11pt;"><span class="apple-converted-space"><span lang="EN-AU" style="font-family: Arial, sans-serif; border: 1pt none windowtext; padding: 0in;">@(IsLangVN ? "Quận 9, Thủ Đức" : " 9, Thu Duc district")</span></span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></span></p>
+                            </td>
+                            <td width="139" valign="bottom" style="width: 1.45in; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt;">
+                                <p align="center" style="margin: 0in; margin-bottom: .0001pt; text-align: center; line-height: 15.0pt; vertical-align: baseline;"><span style="font-size: 11pt;"><span class="apple-converted-space"><span lang="EN-AU" style="font-family: Arial, sans-serif; border: 1pt none windowtext; padding: 0in;">40.000</span></span><span style="font-family: Arial, sans-serif;"><o:p></o:p></span></span></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal_selectPayment_thuho" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">@(IsLangVN ? "Thông báo" : "Notify")</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal form-bordered">
+                    <div>
+                        <p style="font-weight:bold">
+                            @(IsLangVN ? "Nếu chọn phương thức thanh toán bằng tiền mặt, bạn vui lòng thanh toán thêm phí thu hộ với biểu phí sau:" : "With Cash payment method, Please refer to COD fee ")
+                        </p>
+                        <table class="thuho">
+                            <thead>
+                                <tr>
+                                    <td style="font-weight:bold">@(IsLangVN ? "Tổng tiền hàng" : "Order Total")</td>
+                                    <td style="font-weight:bold">@(IsLangVN ? "Phí thu hộ" : "COD fee")</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @(IsLangVN ? "Dưới 300.000 đ" : "Under 300.000 đ")
+                                    </td>
+                                    <td>25.000 đ</td>
+                                </tr>
+                                <tr>
+                                    <td>@(IsLangVN ? "Từ 300.000 đ đến 600.000 đ" : "From 300.000 đ to 600.000 đ")</td>
+                                    <td>35.000 đ</td>
+                                </tr>
+                                <tr>
+                                    <td>@(IsLangVN ? "Từ 600.000 đ đến 1.000.000 đ" : "From 600.000 đ to 1.000.000 đ")</td>
+                                    <td>40.000 đ</td>
+                                </tr>
+                                <tr>
+                                    <td>@(IsLangVN ? "Từ 1.000.000 đ đến 5.000.000 đ" : "From 1.000.000 đ to 5.000.000 đ")</td>
+                                    <td>
+                                        @(IsLangVN ? "Mỗi triệu tiếp: cộng thêm 20.000 đ" : " + 20.000 VND for the next every million")
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p style="padding-top:10px;font-size:13px">(<i style="color:red">*</i>) @(IsLangVN ? "Để không mất phí thu hộ, bạn nên chọn phương thức thanh toán chuyển khoản hoặc \"thanh toán trực tuyến\" để tiết kiệm phí thu hộ." : "In order to save COD, you may select the Bank transfer method or Online Payment.")</p>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div style="text-align:center">
+                    <button class="btn " data-dismiss="modal" aria-hidden="true" style=" margin-right 20px">@(IsLangVN ? "Đóng" : "Close")</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal_confimcall" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 id="myModalLabel">@(IsLangVN ? "Thông báo" : "Notify")</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal form-bordered">
+                    <div style="text-align: center;">
+                        <div style="font-weight:bold">
+                            @if (IsLangVN)
+                            {
+                                <h4 class="text-left" style="font-size:17px; ">Sau khi đặt hàng thành công, email xác nhận đơn hàng sẽ được gửi đến bạn. Bạn có cần chúng tôi gọi điện thoại trước khi giao hàng ?</h4>
+                                <label class="text-left" style="font-weight:bold">
+                                    <input type="radio" name="sex" data-bind="checkedValue:1,checked:typeconfim" />
+                                    Có
+                                </label>
+                                <label class="text-left" style="font-weight:bold">
+                                    <input type="radio" name="sex" data-bind="checkedValue:3,checked:typeconfim" />
+                                    Không cần, cứ giao theo thời gian tôi đã chọn.
+                                </label>
+                            }
+                            else
+                            {
+                                <h4 class="text-left" style="font-size:17px; ">Beside an confirmation email to be sent to you, which further confirmation method do you want:</h4>
+                                <label class="text-left" style="font-weight:bold">
+                                    <input type="radio" name="sex" data-bind="checkedValue:1,checked:typeconfim" />
+                                    By phone
+                                </label>
+                                <label class="text-left" style="font-weight:bold">
+                                    <input type="radio" name="sex" data-bind="checkedValue:3,checked:typeconfim" />
+                                    Just by email, then deliver goods by the chosen timing.
+                                </label>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bind="click:SubmitCart">@(IsLangVN ? "Xác nhận" : "Confirm")</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal_showRegister" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 id="myModalLabel">@(IsLangVN ? "Thông báo" : "Notify")</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal form-bordered">
+                    <div style="text-align: center;">
+                        <div style="font-weight:bold">
+                            @if (IsLangVN)
+                            {
+                                <h4 class="text-left">Bạn hãy đăng nhập để mua sản phẩm với giá khuyến mãi</h4>
+                                <ul>
+                                    <li class="text-left"> Bạn chưa là thành viên của <b>Babymart.vn?</b> – <a href="/dang-ky.html" target="_blank">Đăng ký</a></li>
+                                    <li class="text-left">Bạn là thành viên của <b>Babymart.vn?</b> – <a href="/dang-nhap.html" target="_blank">Đăng nhập</a></li>
+                                    <li class="text-left">Mua hàng với giá ban đầu <i>(Không đăng ký thành viên)</i></li>
+                                </ul>
+                            }
+                            else
+                            {
+
+                                <h4 class="text-left">Please login to buy this promotional product</h4>
+                                <ul>
+                                    <li class="text-left"> If you don't have an account, please take a moment to create one – <a href="/dang-ky.html" target="_blank">Register</a></li>
+                                    <li class="text-left">Returning customers – <a href="/dang-nhap.html" target="_blank">Please login to your account</a></li>
+                                    <li class="text-left">Buy its original price <i>(Not Register)</i></li>
+                                </ul>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn  btn-primary" data-dismiss="modal" aria-hidden="true">@(IsLangVN ? " Đóng" : "Close")</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                <h4 id="myModalLabel">
+                    @(IsLangVN ? " Xác nhận Đơn hàng" : "Order confirmation")
+                </h4>
+            </div>
+            <div class="modal-body" id="contentemail">
+                <div class="form-horizontal form-bordered form-kh">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td style="width: 200px;"><b>@(IsLangVN ? "Họ Tên : " : "Name : ")</b></td>
+                                <td><label data-bind="text:mCustomer().hoten"></label></td>
+                            </tr>
+                            <!--ko if:  IssessionKhachhang()-->
+                            <tr>
+                                <td style="width: 200px;"><b>@(IsLangVN ? "Điểm tích lũy : " : "Accumulated points : ")</b> </td>
+                                <td>
+                                    <label data-bind="text:sumdiem()"></label>
+                                </td>
+                            </tr>
+                            <!--/ko-->
+                            <tr>
+                                <td style="width: 200px;"><b>@(IsLangVN ? "Số điện thoại : " : "Phone : ")</b></td>
+                                <td><label data-bind="text:mCustomer().dienthoai"></label></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 200px;"><b>Email :</b></td>
+                                <td><label data-bind="text:mCustomer().email"></label></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 200px;"><b>@(IsLangVN ? "Địa chỉ : " : "Address : ")</b></td>
+                                <td><label data-bind="text:diachi"></label></td>
+                            </tr>
+                            <!--ko if: VisibleTp-->
+                            <tr>
+                                <td style="width: 200px;"><b>@(IsLangVN ? "Hình thức thanh toán :" : "Payment : ")</b></td>
+                                <td>
+                                    <label>
+                                        <span data-bind="text:namePttt"></span>
+                                        <!--ko if: mCustomer().SelectedNLpayBankType() == 'ATM_ONLINE'-->
+                                        (<span data-bind="text:mCustomer().SelectedBankOnline"></span>)
+                                        <!--/ko-->
+                                        <!--ko if: mCustomer().SelectedNLpayBankType() == 'VISA'-->
+                                        (<span>VISA</span>)
+                                        <!--/ko-->
+                                    </label>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 200px"><b>@(IsLangVN ? "Thời gian giao hàng : " : "Shipping time : ")</b></td>
+                                <td>
+                                    <label>
+                                        <span data-bind="text: nametimeship"></span>
+                                        ( <span data-bind="text: giogiaocuthe"></span> )
+                                    </label>
+
+                                </td>
+                            </tr>
+                            <!--/ko-->
+                            <!--ko if: !VisibleTp()-->
+                            <tr>
+                                <td style="width: 200px;"><b>@(IsLangVN ? "Phương thức giao hàng : " : "Shipping information : ")</b></td>
+                                <td><label data-bind="text:namePtgh"></label></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 200px;"><b>@(IsLangVN ? "Phương thức thanh toán : " : "Payment information : ")</b></td>
+                                <td>
+                                    <label>
+                                        <span data-bind="text:namePttt"></span>
+                                        <!--ko if: mCustomer().SelectedNLpayBankType() == 'ATM_ONLINE'-->
+                                        (<span data-bind="text:mCustomer().SelectedBankOnline"></span>)
+                                        <!--/ko-->
+                                        <!--ko if: mCustomer().SelectedNLpayBankType() == 'VISA'-->
+                                        (<span>VISA</span>)
+                                        <!--/ko-->
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <!--ko if: IsShipxedo-->
+                            <tr>
+                                <td style="width: 200px;"><b>@(IsLangVN ? "Thông tin xe khách : " : "Information of the Delivery Van service : ")</b></td>
+                                <td><label data-bind="text:Infxedo"></label></td>
+                            </tr>
+                            <!--/ko-->
+                            <!--/ko-->
+                            <!-- ko if:typeconfim && VisibleTp()-->
+                            <tr>
+                                <td style="width: 200px;"><b>@(IsLangVN ? "Gọi điện thoại trước khi giao hàng : " : "Please select the way of order confirmation from babymart.vn")</b></td>
+                                <td>
+                                    <label>
+                                        <!-- ko if:typeconfim() == 1 -->
+                                        @(IsLangVN ? "Có" : "By phone before delivering goods")
+                                        <!--/ko-->
+                                        <!-- ko if:typeconfim() == 3 -->
+                                        @(IsLangVN ? "Không cần, cứ giao theo thời gian tôi đã chọn" : "Just by email, then deliver goods by the chosen timing.")
+                                        <!--/ko-->
+                                    </label>
+                                </td>
+                            </tr>
+                            <!--/ko-->
+                            <tr>
+                                <td style="width: 200px;vertical-align:top"><b>@(IsLangVN ? "Ghi chú : " : "Note : ")</b></td>
+                                <td>
+                                    <label data-bind="text:NoteCheckout()?NoteCheckout:'---'"></label>
+                                    <div style="padding:8px 0">@(IsLangVN ? "Bạn vui lòng giữ máy điện thoại trong thời gian hẹn giao hàng để chúng tôi tiện liên lạc. Xin cám ơn!" : "Please keep your mobile phone ready during delivery for easy contact. Thank you!")</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table style="width:100%">
+                        <thead style="background: #65b051;color: #ff890f;">
+                            <tr style="height: 50px;">
+                                <th style="text-align: center;"></th>
+                                <th style="text-align: center;width:80px">@(IsLangVN ? "Mã" : "Id")</th>
+                                <th style="text-align: center;"></th>
+                                <th style="text-align: center;">@(IsLangVN ? "Tên sản phẩm" : "Product Name")</th>
+                                <th><div style="text-align: center;">@(IsLangVN ? "Số lượng" : "Quantity")</div></th>
+                                <th><div style="text-align: center;">@(IsLangVN ? "Giá" : "Price")</div></th>
+                                <th><div style="text-align: center;">@(IsLangVN ? "Thành tiền" : "Total")</div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--ko if:mCheckout().PlanModel() && mCheckout().PlanModel().length>0-->
+                            <!--ko foreach:mCheckout().PlanModel()-->
+                            <tr style="border-bottom: 1px solid #65b051;background: #F0F7EE;">
+                                <td><b data-bind="text:$index()+1"></b></td>
+                                <td style="text-align: center;width:80px"><span data-bind="text:masp"></span></td>
+                                <td style="text-align: center;">
+                                    <img data-bind="attr:{src:(urllocation + hinhanh())}" alt="" width="124" height="124" />
+                                </td>
+                                <td style="text-align: center;">
+                                    <span data-bind="text:tensp()"></span>
+                                </td>
+                                <td style="text-align: center;">
+                                    <strong><span data-bind="text:Count"></span></strong>
+                                </td>
+                                <td style="text-align: center;">
+                                    <span data-bind="textMoney:gia"></span> đ
+                                </td>
+                                <td style="text-align: center;">
+                                    <span data-bind="textMoney:(gia() * Count())"></span> đ
+                                </td>
+                            </tr>
+                            <!--/ko-->
+                            <!--/ko-->
+                        </tbody>
+                        <tfoot>
+                            <!--ko if:  mCustomer().diemsp()>0 && IssessionKhachhang()-->
+                            <tr style="height: 30px;font-weight: bold;font-size: 12px;border-bottom: 1px solid #65b051;background: #F0F7EE;">
+                                <td colspan="4"></td>
+                                <td colspan="2">@(IsLangVN ? "Điểm sản phẩm : " : "Product points : ")</td>
+                                <td style="color: rgb(225, 46, 46);"><span data-bind="text:mCustomer().diemsp"></span> @(IsLangVN ? "điểm" : "") </td>
+
+                            </tr>
+                            <!--/ko-->
+                            <!--ko if:mCheckout().Percent()>0-->
+                            <tr style="height: 30px;font-weight: bold;font-size: 12px;border-bottom: 1px solid #65b051;background: #F0F7EE;">
+                                <td colspan="4"></td>
+                                <td colspan="2">@(IsLangVN ? "Hỗ trợ mẹ : " : "Pregnancy assistance :")</td>
+                                <td style="color: rgb(225, 46, 46);"><span class="size-16 align-right" data-bind="textMoney:(mCheckout().Percent() * mCheckout().ToTal())/100"></span> đ</td>
+                            </tr>
+                            <!--/ko-->
+                            <tr style="height: 30px;font-weight: bold;font-size: 12px;border-bottom: 1px solid #65b051;background: #F0F7EE;">
+                                <td colspan="4"></td>
+                                <td colspan="2">@(IsLangVN ? "Tổng trọng lượng : " : "Total weight : ")</td>
+                                <td><span data-bind="text:mCheckout().KgTotal()"></span> kg</td>
+
+                            </tr>
+                            <tr style="height: 30px;font-weight: bold;font-size: 12px;border-bottom: 1px solid #65b051;background: #F0F7EE;">
+                                <td colspan="4"></td>
+                                <td colspan="2">@(IsLangVN ? "Tổng tiền hàng : " : "Order Total : ")</td>
+                                <td><span data-bind="textMoney:mCheckout().ToTal()"></span> đ</td>
+
+                            </tr>
+                            <!--ko if: !IsShipxedo()-->
+                            <tr style="height: 30px;font-weight: bold;font-size: 12px;border-bottom: 1px solid #65b051;background: #F0F7EE;">
+                                <td colspan="4"></td>
+                                <td colspan="2">
+                                    <!--ko if:mCustomer().selectGio()!=3 || mCheckout().TotalSum() < 150000-->
+                                    @(IsLangVN ? "Phí giao hàng: " : "Shipping fee: ")
+                                    <!--/ko-->
+                                    <!--ko if:mCustomer().selectGio()==3 && mCheckout().TotalSum() >= 150000-->
+                                    @(IsLangVN ? "Phí ngoài giờ: " : "Overtime fee: ")
+                                    <!--/ko-->
+                                </td>
+
+                                <td><span data-bind="textMoney:shipvalue"></span> đ</td>
+
+                            </tr>
+                            <!--/ko-->
+                            <!--ko if:mCustomer().selectPayment()==3 && selectTypeShip().value == 1 && phithuho()>0 -->
+                            <tr style="height: 30px;font-weight: bold;font-size: 12px;border-bottom: 1px solid #65b051;background: #F0F7EE;">
+                                <td colspan="4"></td>
+                                <td colspan="2">@(IsLangVN ? "Phí thu hộ : " : "COD fee : ")</td>
+                                <td><span data-bind="textMoney:phithuho"></span> đ</td>
+                            </tr>
+                            <!--/ko-->
+                            <tr style="height: 30px;font-weight: bold;font-size: 12px;border-bottom: 1px solid #65b051;background: #F0F7EE;">
+                                <td colspan="4"></td>
+                                <td colspan="2">@(IsLangVN ? "Tổng thanh toán : " : "Total of payment : ")</td>
+                                <td><div style="color: rgb(225, 46, 46);"><span data-bind="textMoney:totalcartmoney()"></span>đ</div></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div style="line-height:1;margin-top: 10px;">
+                        <!--ko if: IsShipxedo()-->
+                        <p><b>@(IsLangVN ? "Chúng tôi sẽ liên lạc với bạn để trao đổi thông tin xe khách" : "We'll call you for information of Van delivery service.")</b></p>
+                        <!--/ko-->
+                        <!--ko if:mCustomer().selectPayment() != 2-->
+                        <p>
+                            @(IsLangVN ? "Chúng tôi sẽ giao hàng trong vòng 1-2 ngày làm việc làm việc và sẽ gọi điện thoại đến bạn trước khi giao hàng." : "Orders are shipped within 1-2 business days, you will be notified before shipping")
+                        </p>
+                        <p>
+                            @(IsLangVN ? "Nếu cần bất cứ sự hỗ trợ nào, bạn vui lòng liên hệ:  0918.644.643" : "In case of need, please call 0918.644.643")
+                        </p>
+                        <!--/ko-->
+                        <!--ko if:mCustomer().selectPayment() == 2-->
+                        <p>
+                            @(IsLangVN ? "Chúng tôi sẽ giao hàng trong vòng 1-2 ngày làm việc sau khi nhận chuyển khoản và sẽ gọi điện thoại đến bạn trước khi giao hàng." : "The goods will be delivered after we receive the transfers and we shall call you before delivery  ")
+                        </p>
+                        <p>
+                            @(IsLangVN ? "Nếu cần bất cứ sự hỗ trợ nào, bạn vui lòng liên hệ:  0918.644.643" : "In case of need, please call 0918.644.643")
+                        </p>
+                        <div style="text-align:center;margin-top: 30px;">
+                            <b>@(IsLangVN ? "Thông tin ngân hàng" : "Bank transfer information")</b>
+                            <table style="width:100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div style="border: 1px solid #65B051;text-align: center;line-height:1;padding:5px">
+                                                <img src="@(Common.RootUrl()+"Images/hinhdulieu/other/bank/ocenbank.png")" width="160" height="100">
+                                                <p>@(IsLangVN ? "Chi nhánh" : "Branch"): <b>@(IsLangVN ? "Phú Mỹ Hưng" : "Phu My hung")</b></p>
+                                                <p>@(IsLangVN ? "Số TK" : "Account number"): <b>75275244904100011</b></p>
+                                                <p>@(IsLangVN ? "Chủ Tài Khoản" : "Name"): <b>@(IsLangVN ? "Trương Thanh Ân" : "Truong Thanh An")</b></p>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div style="border: 1px solid #65B051;text-align: center;line-height:1;padding:5px">
+                                                <img src="@(Common.RootUrl() + "Images/hinhdulieu/other/bank/vietcombank.jpg")" width="160" height="100">
+                                                <p>@(IsLangVN ? "Chi nhánh" : "Branch"): <b> @(IsLangVN ? "Bình Tây" : "Binh Tay")</b></p>
+                                                <p>@(IsLangVN ? "Số TK" : "Account number"): <b>0251001030107</b> </p>
+                                                <p>@(IsLangVN ? "Chủ Tài Khoản" : "Name"): <b>@(IsLangVN ? "Trương Thanh Ân" : "Truong Thanh An")</b></p>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div style="border: 1px solid #65B051;text-align: center;line-height:1;padding:5px">
+                                                <img src="@(Common.RootUrl() + "Images/hinhdulieu/other/bank/acb.jpg")" width="160" height="100">
+                                                <p>@(IsLangVN ? "Chi nhánh" : "Branch"): <b>@(IsLangVN ? "Lê Ngô Cát" : "Le Ngo Cat")</b></p>
+                                                <p>@(IsLangVN ? "Số TK" : "Account number") : <b>18395629</b></p>
+                                                <p>@(IsLangVN ? "Chủ Tài Khoản" : "Name"):<b>@(IsLangVN ? "Trương Thanh Ân" : "Truong Thanh An")</b></p>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div style="border: 1px solid #65B051;text-align: center;line-height:1;padding:5px">
+                                                <img src="@(Common.RootUrl() + "Images/hinhdulieu/other/bank/agribank.png")" width="160" height="100">
+                                                <p>@(IsLangVN ? "Chi nhánh" : "Branch"): <b>@(IsLangVN ? "Tân Phú" : "Tan Phu")</b></p>
+                                                <p>@(IsLangVN ? "Số TK" : "Account number"): <b> 6460205458424</b></p>
+                                                <p>@(IsLangVN ? "Chủ Tài Khoản" : "Name"): <b>@(IsLangVN ? "Hồ Thị Thanh Xuân" : "Ho Thi Thanh Xuan")</b></p>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--/ko-->
+                    </div>
+                    @if (IsLangVN)
+                    {
+                        <div style="text-align:center;margin-top:20px">
+                            Website Babymart.vn - Nơi bố mẹ gửi trọn niềm tin.<br />
+                            325 Trương Vĩnh Ký, P. Tân Thành, Q.Tân Phú - Tp. HCM<br />
+                            ĐT: 08.6672.0909 - 08.3812.3813, Đường dây nóng: 0918.644.643 - 0909.324.824<br />
+                            Email: babymart.vn@babymart.vn - Website : <a href="babymart.vn" target="_blank">babymart.vn</a><br />
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="text-align: center;"><b>Babymart.vn Trading and Services Co., Ltd</b><strong>&nbsp;</strong><br>Registered in Ho Chi Minh City, <strong>No.</strong> 0313023936<br><b>Showroom: </b>325 Truong Vinh Ky St, Tan Thanh ward, Tan Phu Dist, Ho Chi Minh City</div>
+                        <div style="text-align: center;"><b>Tel: </b>(84) 8.6672.0909 - (84) 8.3812.3813,<b> Email: </b>babymart.vn@babymart.vn</div>
+                    }
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<div id="modal_selectngoaigiohanhchanh" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">@(IsLangVN ? "Thông báo" : "Notify")</h3>
+            </div>
+            <div class="modal-body">
+                @if (IsLangVN)
+                {
+                    <p>Nếu yêu cầu giao hàng ngoài giờ hành chính, bạn vui lòng hỗ trợ phí ngoài giờ với biểu phí theo khu vực như sau:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận Tân Phú</div>
+                                </td>
+                                <td>
+                                    <div align="center">Miễn phí</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận Tân Bình</div>
+                                </td>
+                                <td>
+                                    <div align="center">15.000</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 11, 12, Gò Vấp, Bình Thạnh, Phú Nhuận, Bình Tân</div>
+                                </td>
+                                <td>
+                                    <div align="center">20.000</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 1, 3, 4, 5, 6, 10</div>
+                                </td>
+                                <td>
+                                    <div align="center">25.000</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 2, 7, 8</div>
+                                </td>
+                                <td>
+                                    <div align="center">30.000</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 9, Thủ Đức</div>
+                                </td>
+                                <td>
+                                    <div align="center">40.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>(*) Để không mất phí ngoài giờ, bạn nên chọn thời gian giao hàng trong giờ hành chánh.</p>
+                }
+                else
+                {
+                    <p>With overtime delivery, please refer to overtime fee as below:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Tan Phu</div>
+                                </td>
+                                <td>
+                                    <div align="center">Free</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Tan Binh</div>
+                                </td>
+                                <td>
+                                    <div align="center">15.000</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>11 , 12, Go Vap, Binh Thanh, Phu Nhuan, Binh Tan</div>
+                                </td>
+                                <td>
+                                    <div align="center">20.000</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>1, 3, 4, 5, 6, 10</div>
+                                </td>
+                                <td>
+                                    <div align="center">25.000</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>2, 7, 8</div>
+                                </td>
+                                <td>
+                                    <div align="center">30.000</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>9, Thu Duc</div>
+                                </td>
+                                <td>
+                                    <div align="center">40.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>(*) In order to save overtime fee, you should select the office hours for delivery.</p>
+                }
+            </div>
+            <div class="modal-footer">
+                <button class="btn  btn-primary" data-dismiss="modal" aria-hidden="true">@(IsLangVN ? " Đóng" : "Close")</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="PaymentNganLuong">
+    <ul class="list-content">
+        <li>@(IsLangVN ? "Chọn hình thức thanh toán trực tuyến." : "Choose online payment method")</li>
+        <li data-bind="foreach: NLpayBankType">
+            <label>
+                <input type="radio" name="optionsGroup" data-bind="checkedValue: $data.code, checked: $root.mCustomer().SelectedNLpayBankType" />
+                <span data-bind="text: $data.name"></span>
+            </label>
+        </li>
+    </ul>
+    <div class="list-content">
+        <!--ko if:mCustomer().SelectedNLpayBankType() == 'NL'-->
+        <div class="boxContent">
+            <p>
+                Thanh toán trực tuyến AN TOÀN và ĐƯỢC BẢO VỆ, sử dụng thẻ ngân hàng trong và ngoài nước hoặc nhiều hình thức tiện lợi khác.
+                Được bảo hộ & cấp phép bởi NGÂN HÀNG NHÀ NƯỚC, ví điện tử duy nhất được cộng đồng ƯA THÍCH NHẤT 2 năm liên tiếp, Bộ Thông tin Truyền thông trao giải thưởng Sao Khuê
+                <br />Giao dịch. Đăng ký ví NgânLượng.vn miễn phí <a href="https://www.nganluong.vn/?portal=nganluong&amp;page=user_register" target="_blank">tại đây</a>
+            </p>
+        </div>
+        <!--/ko-->
+        <!--ko if:mCustomer().SelectedNLpayBankType() =='ATM_ONLINE'-->
+        <div class="boxContent">
+            <p>
+                <i>
+                    <span style="color:#ff5a00;font-weight:bold;text-decoration:underline;">Lưu ý</span>: Bạn cần đăng ký Internet-Banking hoặc dịch vụ thanh toán trực tuyến tại ngân hàng trước khi thực hiện.
+                </i>
+            </p>
+            <ul class="cardList clearfix">
+                <!--ko foreach:ATM_ONLINE-->
+                <li class="bank-online-methods ">
+                    <label>
+                        <i data-bind="attr:{'class':$data.code,'title':$data.name}"></i>
+                        <input type="radio" name="bankcode" data-bind="checkedValue: $data.code, checked: $root.mCustomer().SelectedBankOnline" />
+                    </label>
+                </li>
+                <!--/ko-->
+            </ul>
+        </div>
+        <!--/ko-->
+        <!--ko if:mCustomer().SelectedNLpayBankType() == ''-->
+        <!--/ko-->
+    </div>
+</script>

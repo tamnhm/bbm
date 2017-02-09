@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Sản phẩm";
+
+}
+@section stylesheet{
+
+    <!-- Datepicker -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/datepicker/datepicker.css">
+
+
+}
+@section script{
+    <script type="text/javascript" src="~/Scripts/me/tiny_mce/tinymce.min.js"> </script>
+    <script type="text/javascript" src="https://tinymce.cachefly.net/4.0/jquery.tinymce.min.js"> </script>
+    <script src="~/Scripts/me/custom/bootstrap-datetimepicker.js"></script>
+    <script src="/Scripts/me/file-upload/jquery.fileupload.js"></script>
+    <script src="/Scripts/me/file-upload/jquery.fileupload-ui.js"></script>
+    <script src="/Scripts/me/file-upload/jquery.iframe-transport.js"></script>
+
+
+}
+@section scripts_ko{
+
+    @Scripts.Render("~/module/product")
+    <script>
+        var urllocation = @Html.Raw("'"+System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocation"]+"';")
+        var UrllocationDetail = @Html.Raw("'" + System.Web.Configuration.WebConfigurationManager.AppSettings["UrllocationDetail"] + "';")
+        var planType = @Html.Raw(Babymart.Infractstructure.BHNEnumHelper.ToJson(typeof(Babymart.Models.Module.Enum.PlanType)) + ";")
+         $(document).ready(function () {
+             (new Products.mvProduct().Start())
+
+         });
+
+    </script>
+}
+
+
+@section templates {
+    @Html.Partial("_list")
+    @Html.Partial("_edit")
+}
+<!-- ko if:ShowType() === 'List'-->
+<div data-bind="template: { name: 'ProductListTmpl',data:mvlist}"></div>
+<!-- /ko -->
+<!-- ko if:ShowType() === 'Edit' -->
+<div data-bind="template: { name: 'ProductEditTmpl',data:mvedit}"></div>
+<!-- /ko -->

@@ -1,0 +1,146 @@
+﻿@section stylesheet{
+}
+@section scripts_ko{
+
+    @Scripts.Render("~/module/banner")
+    <script>
+        $(document).ready(function () {
+            (new Banner.mvBanner().Start())
+        });
+    </script>
+
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                Banner
+            </div>
+            <div class="box-content nopadding">
+                <div class='form-horizontal form-bordered' style="margin: 0 auto;width: 50%;border: 2px solid rgb(150, 150, 150);">
+                    <div class="control-group">
+                        <h4 class="control-label"><i class="icon-search"></i></h4>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"><b>Type</b></label>
+                        <div class="controls">
+                            <div class="input-append">
+                                <select class="input-xlarge" data-bind="options:ListType, optionsText: 'name', optionsValue: 'value',value:SelectType"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label"></label>
+                        <div class="controls">
+                            <div class="input-append" style="width: 100%;">
+                                <button data-bind="click:LoadData" class="btn btn-primary" style="width:75%"><i class="icon-search"></i></button>
+                                <button class="btn btn  btn-success" data-bind="click:AddFile" style="width: 20%;margin-left: 10px;">
+                                    <i class="icon-plus-sign"> </i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ko if:BannerList().length>0-->
+                <table class="table table-hover table-nomargin  table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>File</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach:BannerList">
+                        <tr class="gradeX">
+                            <td data-bind="text:Id"></td>
+                            <td>
+                                <img data-bind="attr: { src:Banner()}" style="width:120px" onerror="imgerror(this)" />
+                                <img data-bind="attr: { src:Banner_us()}" style="width:120px" onerror="imgerror(this)" />
+                                <!--ko if:Type()==1-->
+                                <span class="btn btn-warning" style="float:right">Banner Home</span>
+                                <!--/ko-->
+                                <!--ko if:Type()==2-->
+                                <span class="btn btn-warning" style="float:right">Banner Left</span>
+                                <!--/ko-->
+                                <span class="btn btn-danger" style="float:right" data-bind="visible:Hide()==true">Ẩn</span>
+
+                            </td>
+                            <td>
+                                <p>
+                                    <a class="btn  btn-primary" data-bind="click:$parent.EditFile"><i class="icon-pencil"></i></a>
+                                </p>
+                                <p>
+                                    <button class="btn  btn-danger" data-bind="click:$parent.RemoveFile"><i class="icon-trash"></i> Xóa</button>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!--/ko-->
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-file-edit" data-bind="with: BannerFile" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Banner</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal form-bordered">
+            <div class="control-group">
+                <label for="textfield" class="control-label"></label>
+                <div class="controls">
+                    <img data-bind="attr: { src:Banner()}" style="width:120px" onerror="imgerror(this)" />
+                    <img data-bind="attr: { src:Banner_us()}" style="width:120px" onerror="imgerror(this)" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="textfield" class="control-label">Type</label>
+                <div class="controls">
+                    <select class="input-xlarge" data-bind="options:$parent.ListType, optionsText: 'name', optionsValue: 'value',value:Type"></select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="textfield" class="control-label">Banner</label>
+                <div class="controls">
+                    <input type="text" data-bind="value:Banner" class="input-xxxlarge">
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="textfield" class="control-label">Banner For EN</label>
+                <div class="controls">
+                    <input type="text" data-bind="value:Banner_us" class="input-xxxlarge">
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="textfield" class="control-label">Link</label>
+                <div class="controls">
+                    <input type="text" data-bind="value:Link" class="input-xxxlarge">
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="textfield" class="control-label">Link For EN</label>
+                <div class="controls">
+                    <input type="text" data-bind="value:Link_us" class="input-xxxlarge">
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="textfield" class="control-label"><b>Ẩn</b></label>
+                <div class="controls">
+                    <div class="check-line">
+                        <input type="checkbox" name="checshow" id="checshow" class="css-checkbox" data-bind="checked:Hide,checkedValue:true">
+                        <label for="checshow" class="css-label radGroup1 chk"><b>Ẩn</b></label>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary" data-bind="click:$parent.SubmitEditFile">Save changes</button>
+    </div>
+</div>

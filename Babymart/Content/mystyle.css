@@ -1,0 +1,160 @@
+﻿.btn-small {
+    padding: 1px 10px;
+}
+
+.sale {
+    color: rgb(30, 166, 1);
+}
+
+.saleoff {
+    text-decoration: line-through;
+    color: rgb(255, 60, 5);
+}
+
+input.input-xxxlarge, textarea.input-xxxlarge {
+    width: 98%;
+}
+
+.error {
+    background-color: rgba(255, 153, 212, 0.58) !important;
+}
+
+    .error lable {
+        font-size: 15px;
+        text-align: right;
+    }
+
+    .error .controls, .validationMessage {
+        color: red;
+    }
+
+.paging_ko .Pager {
+    text-align: center;
+}
+
+.paging_ko select {
+    width: 90px;
+}
+
+.btn-paging {
+    display: inline-block;
+    padding: 0px 9px;
+    margin-right: 4px;
+    border-radius: 3px;
+    border: solid 1px #c0c0c0;
+    background: #e9e9e9;
+    box-shadow: inset 0px 1px 0px rgba(255,255,255, .8), 0px 1px 3px rgba(0,0,0, .1);
+    font-size: .875em;
+    font-weight: bold;
+    text-decoration: none;
+    color: #717171;
+    text-shadow: 0px 1px 0px rgba(255,255,255, 1);
+}
+
+.filter-ko {
+    float: right;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.list_link .box p {
+    float: left;
+    width: 20%;
+    cursor: pointer;
+}
+
+.icon-tooledit {
+    float: right !important;
+}
+
+    .icon-tooledit i {
+        cursor: pointer;
+    }
+
+.txt_hide {
+    color: rgb(241, 174, 65);
+}
+
+.pageloading {
+    background-color: rgba(246, 246, 246, 0.57);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    z-index: 99999;
+}
+
+    .pageloading .icon {
+        background: url(me/img/me/meoemo.gif) no-repeat;
+        position: fixed;
+        top: 20%;
+        left: 50%;
+        z-index: 99999999999999;
+        width: 500px;
+        height: 500px;
+    }
+
+.backlink {
+    cursor: pointer;
+}
+
+    .backlink a {
+        color: white;
+    }
+
+        .backlink a:hover {
+            text-decoration: none;
+        }
+
+.actionsz {
+    float: right;
+}
+
+    .actionsz i {
+        font-size: 30px !important;
+    }
+
+    .actionsz .btn {
+        padding: 15px;
+    }
+
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.custom-file-input::before {
+    content: 'Select some files';
+    display: inline-block;
+    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+}
+
+.custom-file-input:hover::before {
+    border-color: black;
+}
+
+.custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.imgproduct {
+    float: left;
+    margin: 5px;
+    position: relative;
+}
+
+    .imgproduct p {
+        width: 100%;
+        text-align: right;
+        position: absolute;
+        bottom: -10px;
+    }

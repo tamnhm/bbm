@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Views/Shared/_Checkout.cshtml";
+}
+@if (FBabymartvn.IsLangVN())
+{
+    <div style="text-align: center; width: 80%; margin: 0 auto; padding-top: 20px; line-height: 40px;font-size:25px">
+        <h3>Lỗi Thanh Toán</h3>
+        <p> Chân thành xin lỗi quý khách, giỏ hàng hiện tại của bạn đã hết thời gian đặt hàng.</p>
+        <p> Xin vui lòng quay lại <a href="@(FBabymartvn.IsLangVN()?"/":"/en")">Trang mua sắm </a>để đặt lại hàng .</p>
+        <p> Chúng tôi xin lỗi quý khách về bất tiện này !</p>
+    </div>
+}
+else
+{
+    <div style="text-align: center; width: 80%; margin: 0 auto; padding-top: 20px; line-height: 40px;font-size:25px">
+        <h3>Payment error</h3>
+        <p> Really sorry, your current shopping cart timed out orders</p>
+        <p> Please re-place the order with us</p>
+        <p> We are sorry for this inconvenience !</p>
+    </div>
+}

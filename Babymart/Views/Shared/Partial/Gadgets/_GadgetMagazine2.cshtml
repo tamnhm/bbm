@@ -1,0 +1,54 @@
+﻿@model IList<Babymart.Models.Module.ModelModuleDetail>
+@{
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+
+<div id="newpost" class="block left-module">
+    <p class="title_block">Bài viết cẩm nang mới</p>
+    @if (Model != null && Model.Count > 0 && IsLangVN)
+    {
+        <div class="block_content">
+            <div class="layered">
+                <div class="layered-content">
+                    <ul class="blog-list-sidebar clearfix text-center">
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <li>
+                                    <div class="post-thumb">
+                                        <a href="@("/cam-nang/bai-viet/"+ item.id + "/" + item.url + ".html")" title="@item.title"><img src="@(Common.urlModule() + item.img)" alt="@(FBabymartvn.IsLangVNHasValue(item.title_us) ? item.title : item.title_us)"></a>
+                                    </div>
+                                    <div class="post-info">
+                                        <h5 class="entry_title"><a href="@("/cam-nang/bai-viet/"+ item.id + "/" + item.url + ".html")" title="@item.title">@(FBabymartvn.IsLangVNHasValue(item.title_us) ? item.title : item.title_us)</a></h5>
+                                        <div class="post-meta">
+                                            <span class="date"><i class="fa fa-calendar"></i> @String.Format("{0:dd/MM/yyyy}", item.createdate)</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div id="findus" class="block left-module"> 
+    <div class="findus block_content">
+        <div class="layered layered-filter-price">
+            <div class="layered-content filter-brand">
+                <div class="fb-page" data-href="https://www.facebook.com/babymartvietnam/?fref=ts" data-width="258" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/babymartvietnam/?fref=ts"><a href="https://www.facebook.com/babymartvietnam/?fref=ts">Babymart VN</a></blockquote></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div id="fb-root"></div>
+<script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.5&appId=500280200120390";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>*@ 

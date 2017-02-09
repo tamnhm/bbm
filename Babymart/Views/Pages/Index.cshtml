@@ -1,0 +1,62 @@
+﻿@model Babymart.Models.shop_page
+@{
+    ViewBag.Title = "Index";
+    var IsLangVN = FBabymartvn.IsLangVN(); 
+}
+@section SEOContent{
+    @if (Model != null)
+    {
+
+        <title>@Html.Raw(String.IsNullOrEmpty(Model.metatitle) ? "Babymart.vn" : Model.metatitle)</title>
+        <meta name="keywords" content="@Html.Raw(Model.keywords)" />
+        <meta name="description" content="@Html.Raw(Model.description)" />
+
+    }
+}
+@if (Model != null)
+{
+    <div class="columns-container">
+        <div class="container" id="columns">  
+            <div class="breadcrumb clearfix">
+                <a class="home" href="@(IsLangVN?"/":"/en")" title="Return to Home">@(IsLangVN ? "Trang chủ" : "Home")</a>
+                <span class="navigation-pipe">&nbsp;</span>
+                <span class="navigation_page">@(IsLangVN ? Model.tieude : Model.tieude_us)</span>
+            </div>
+
+            <div class="row">
+                <div class="left_collumn col-xs-3" > 
+                        @{Html.RenderAction("Support_Partial1", "Common"); }  
+
+                </div>
+                <div class="center_column col-xs-9">
+                    <h1 class="page-heading">
+                        @if (FBabymartvn.GetHttpCookieLang() == null
+                                                    || FBabymartvn.GetHttpCookieLang().Value == null
+                                                    || FBabymartvn.GetHttpCookieLang().Value == "vn"
+                                                    || String.IsNullOrEmpty(Model.tieude_us))
+                        {
+                            <span class="page-heading-title2">@Model.tieude</span>
+                        }
+                        else
+                        {
+                            <span class="page-heading-title2">@Model.tieude_us</span>
+                        } 
+                    </h1>
+                    <div class="content-text clearfix">
+                        @if (FBabymartvn.GetHttpCookieLang() == null
+                                                || FBabymartvn.GetHttpCookieLang().Value == null
+                                                || FBabymartvn.GetHttpCookieLang().Value == "vn"
+                                                || String.IsNullOrEmpty(Model.noidung_us))
+                        {
+                            @Html.Raw(Model.noidung)
+                        }
+                        else
+                        {
+                            @Html.Raw(Model.noidung_us)
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

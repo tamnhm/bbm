@@ -1,0 +1,165 @@
+﻿@{
+    Layout = "~/Views/Shared/_Checkout.cshtml";
+    var IsLangVN = FBabymartvn.IsLangVN();
+    var urllocation = System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocation"];
+    var khachhangJS = Json.Encode((Babymart.Models.Module.ModeCustomerPost)Session["khachhang"]);
+}
+@section SEOContent{
+    <title>Đặt hàng - Babymart.vn</title>
+
+}
+@section scripts{
+    @Scripts.Render("~/module/checkout_plan")
+    <script>
+        var urllocation = "@urllocation";
+        $(document).ready(function () {
+            (new Checkoutplan.mvCheckoutPlan_step1().Start());
+        });
+
+    </script>
+    <!-- Facebook Conversion Code for Thanh toán gói đồ sơ sinh -->
+    <script>
+        (function () {
+            var _fbq = window._fbq || (window._fbq = []);
+            if (!_fbq.loaded) {
+                var fbds = document.createElement('script');
+                fbds.async = true;
+                fbds.src = '//connect.facebook.net/en_US/fbds.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(fbds, s);
+                _fbq.loaded = true;
+            }
+        })();
+        window._fbq = window._fbq || [];
+        window._fbq.push(['track', '6021383554335', { 'value': '1.00', 'currency': 'VND' }]);
+    </script>
+    <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6021383554335&amp;cd[value]=1.00&amp;cd[currency]=VND&amp;noscript=1" /></noscript>
+}
+<header>
+    <div class="row">
+        <div class="span2">
+            @if (IsLangVN)
+            {
+                <img id="logo" alt="babymart.vn" src="/Content/forntpage/images/ui/logo-cart.png">
+            }
+            else
+            {
+                <img id="logo" alt="babymart.vn" src="/Content/forntpage/images/ui/logo-cart-en.png">
+            }
+        </div>
+        <div class="span6">
+            <div class="center-align">
+                <h2>
+                    <span class="light">
+                        @(IsLangVN ? " Gói sản phẩm cho mẹ đi sinh" : "New Baby Checklist")
+                    </span>
+                </h2>
+            </div>
+        </div>
+
+    </div>
+</header>
+<div class="checkout-steps">
+    <div class="clearfix">
+        <div class="step active">
+            <div class="step-badge">1</div>
+            @(IsLangVN ? "Giỏ hàng" : "Cart")
+        </div>
+        <div class="step">
+            <div class="step-badge">2</div>
+            @(IsLangVN ? "Thông tin đặt hàng" : "Order information")
+        </div>
+
+        <div class="step">
+            <div class="step-badge">3</div>
+            @(IsLangVN ? "Đặt hàng thành công" : "Order succeed")
+        </div>
+    </div>
+</div>
+<div data-bind="visible:Isloadercart">
+    <img src="~/Images/Sys/baby-loading.gif" style="width: 100px;margin-left: 40%;" />
+</div>
+<table data-bind="visible:!Isloadercart()" class="table table-items">
+    <thead>
+        @*<tr>
+                <th></th>
+                <th>Mã sp</th>
+                <th colspan="2">Sản phẩm</th>
+                <th><div class="align-center">Số lượng</div></th>
+                <th><div class="align-center">Giá</div></th>
+                <th><div class="align-right">Thành tiền</div></th>
+            </tr>*@
+        <tr>
+            <th></th>
+            <th>@(IsLangVN ? "Mã" : "Id")</th>
+            <th colspan="2"><div class="align-center">@(IsLangVN ? "Tên sản phẩm" : "Product Name")</div></th>
+            <th><div class="align-center">@(IsLangVN ? "Số lượng" : "Quantity")</div></th>
+            <th><div class="align-center">@(IsLangVN ? "Giá" : "Price")</div></th>
+            <th><div class="align-center">@(IsLangVN ? "Thành tiền" : "Total")</div></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <!--ko if: mCheckout().PlanModel() && mCheckout().PlanModel().length >0-->
+        <!--ko foreach:mCheckout().PlanModel()-->
+        <tr>
+            <td><b data-bind="text:$index()+1"></b></td>
+            <td><b data-bind="text:masp"></b></td>
+            <td class="image"><img onerror="imgError(this)" data-bind="attr:{src:(urllocation + hinhanh())}" alt="" width="124" height="124" /></td>
+            <td class="desc">
+                <span data-bind="text:tensp()"></span>
+            </td>
+            <td class="qty">
+                <strong><span data-bind="text:Count"></span></strong>
+            </td>
+            <td class="price">
+                <span data-bind="textMoney:gia"></span> đ
+            </td>
+            <td class="price">
+                <span data-bind="textMoney:(gia() * Count())"></span> đ
+            </td>
+        </tr>
+        <!--/ko-->
+        <!--/ko-->
+        <tr>
+            <td colspan="5" rowspan="2"></td>
+        </tr>
+        <tr>
+            <td class="stronger">@(IsLangVN ? "Tổng cộng" : "Total")</td>
+            <td class="stronger" style="text-align: right;"><span class="size-16 align-right" data-bind="textMoney:mCheckout().ToTal()"></span> đ</td>
+        </tr>
+
+        <!--ko if:mCheckout().Percent()>0-->
+        <tr>
+            <td colspan="5" rowspan="2"></td>
+        </tr>
+        <tr>
+            <td class="stronger" style="text-align: right;">@(IsLangVN ? "Hỗ trợ mẹ" : "Mum assistance") :</td>
+            <td class="stronger" style="text-align: right;"><span class="size-16 align-right" data-bind="textMoney:(mCheckout().Percent() * mCheckout().ToTal())/100"></span> đ</td>
+        </tr>
+        <!--/ko-->
+        <tr>
+            <td colspan="5" rowspan="2"></td>
+        </tr>
+        <tr>
+            <td class="stronger" style="text-align: right;">@(IsLangVN ? "Thành tiền" : "Total of payment") : </td>
+            <td class="stronger" style="text-align: right;"><span class="size-16 align-right" data-bind="textMoney:mCheckout().TotalSum()"></span> đ</td>
+        </tr>
+    </tbody>
+</table>
+<!--ko if:mCheckout().Gift() && mCheckout().Gift().length>0-->
+<div>
+    <p><b>@(IsLangVN ? "Quà tặng" : "Gift") </b></p>
+    <!--ko foreach:mCheckout().Gift()-->
+    <div style="width:100px;float:left;text-align:center">
+        <img data-bind="attr:{src:('@Common.urlProduct()' + img())}" style="width:100px" />
+        <p><a data-bind="attr:{href:url()},text:tensp"></a></p>
+    </div>
+    <!--/ko-->
+</div>
+<!--/ko-->
+<div style="clear:both"></div>
+<p class="right-align left_arrow" style="margin-top:10px">
+    <a href="@(IsLangVN ? "/goi-do-so-sinh.html" : "/en/new-baby-checklist.html")" class="button higher bold" style="float:left">@(IsLangVN ? "Mua thêm" : "Buy more")</a>
+    <a href="/xac-nhan-2-do-so-sinh.html" class="button higher bold" style="float:right">@(IsLangVN ? "Xác nhận" : "Submit")</a>
+</p>

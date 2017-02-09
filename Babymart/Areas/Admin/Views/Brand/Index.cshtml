@@ -1,0 +1,124 @@
+﻿
+@section stylesheet{
+    <!-- dataTables -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/datatable/TableTools.css">
+    <!-- chosen
+        <!-- chosen -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/chosen/chosen.css">
+    <!--From-->
+    <!-- PageGuide -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/pageguide/pageguide.css">
+    <!-- Fullcalendar -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/fullcalendar/fullcalendar.css">
+    <link rel="stylesheet" href="/Content/me/css/plugins/fullcalendar/fullcalendar.print.css" media="print">
+    <!-- Tagsinput -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/tagsinput/jquery.tagsinput.css">
+
+    <!-- multi select -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/multiselect/multi-select.css">
+    <!-- timepicker -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- colorpicker -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/colorpicker/colorpicker.css">
+    <!-- Datepicker -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/datepicker/datepicker.css">
+    <!-- Daterangepicker -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/daterangepicker/daterangepicker.css">
+    <!-- Plupload -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/plupload/jquery.plupload.queue.css">
+    <!-- select2 -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/select2/select2.css">
+    <!-- icheck -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/icheck/all.css">
+    <link rel="stylesheet" href="/Content/me/css/plugins/chosen/chosen.css">
+
+
+}
+@section script{
+    <script src="/Scripts/me/file-upload/jquery.fileupload.js"></script>
+    <script src="/Scripts/me/file-upload/jquery.fileupload-ui.js"></script>
+    <script src="/Scripts/me/file-upload/jquery.iframe-transport.js"></script>
+    <!-- jQuery UI -->
+    <script src="/Scripts/me/flat/plugins/jquery-ui/jquery.ui.core.min.js"></script>
+    <script src="/Scripts/me/flat/plugins/jquery-ui/jquery.ui.widget.min.js"></script>
+    <script src="/Scripts/me/flat/plugins/jquery-ui/jquery.ui.mouse.min.js"></script>
+    <script src="/Scripts/me/flat/plugins/jquery-ui/jquery.ui.draggable.min.js"></script>
+    <script src="/Scripts/me/flat/plugins/jquery-ui/jquery.ui.resizable.min.js"></script>
+    <script src="/Scripts/me/flat/plugins/jquery-ui/jquery.ui.sortable.min.js"></script>
+
+
+
+   
+    <script src="/Scripts/me/flat/plugins/chosen/chosen.jquery.min.js"></script>
+    <!-- jQuery UI -->
+
+    <script src="/Scripts/me/flat/plugins/jquery-ui/jquery.ui.spinner.js"></script>
+    <script src="/Scripts/me/flat/plugins/jquery-ui/jquery.ui.slider.js"></script>
+    <!---->
+    <!-- Masked inputs -->
+    <script src="/Scripts/me/flat/plugins/maskedinput/jquery.maskedinput.min.js"></script>
+    <!-- TagsInput -->
+    <script src="/Scripts/me/flat/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+    <!-- Datepicker -->
+    <script src="/Scripts/me/flat/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <!-- Daterangepicker -->
+    <script src="/Scripts/me/flat/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/Scripts/me/flat/plugins/daterangepicker/moment.min.js"></script>
+    <!-- Timepicker -->
+    <script src="/Scripts/me/flat/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- Colorpicker -->
+    <script src="/Scripts/me/flat/plugins/colorpicker/bootstrap-colorpicker.js"></script>
+    <!-- Chosen -->
+    <script src="/Scripts/me/flat/plugins/chosen/chosen.jquery.min.js"></script>
+    <!-- MultiSelect -->
+    <script src="/Scripts/me/flat/plugins/multiselect/jquery.multi-select.js"></script>
+
+    <!-- PLUpload -->
+    <script src="/Scripts/me/flat/plugins/plupload/plupload.full.js"></script>
+    <script src="/Scripts/me/flat/plugins/plupload/jquery.plupload.queue.js"></script>
+    <!-- Custom file upload -->
+    @*<script src="/Scripts/me/flat/plugins/fileupload/bootstrap-fileupload.min.js"></script>*@
+
+
+    <!-- icheck -->
+    <script src="/Scripts/me/flat/plugins/icheck/jquery.icheck.min.js"></script>
+    <!-- complexify -->
+    <script src="/Scripts/me/flat/plugins/complexify/jquery.complexify-banlist.min.js"></script>
+    <script src="/Scripts/me/flat/plugins/complexify/jquery.complexify.min.js"></script>
+    <!-- Mockjax -->
+    <script src="/Scripts/me/flat/plugins/mockjax/jquery.mockjax.js"></script>
+
+    <script type="text/javascript" src="https://tinymce.cachefly.net/4.0/tinymce.min.js"> </script>
+    <script type="text/javascript" src="https://tinymce.cachefly.net/4.0/jquery.tinymce.min.js"> </script>
+
+
+
+}
+
+@section scripts_ko{
+    @Scripts.Render("~/module/brand")
+    <script>
+        $(document).ready(function () {
+            (new Brand.mvBrand().Start());
+        });
+    </script>
+}
+
+
+
+
+@section templates {
+    @Html.Partial("_list")
+    @Html.Partial("_edit")
+
+}
+
+<!-- ko if:ShowType() === 'List'-->
+<div data-bind="template: { name: 'BrandListTmpl',data:mvlist}"></div>
+<!-- /ko -->
+<!-- ko if:ShowType() === 'Edit' -->
+<div data-bind="template: { name: 'BrandEditTmpl',data:mvedit}"></div>
+<!-- /ko -->
+<!-- ko if:ShowType() === 'New' -->
+<div data-bind="template: { name: 'BrandEditTmpl',data:mvedit}"></div>
+<!-- /ko -->

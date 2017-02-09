@@ -1,0 +1,76 @@
+﻿@section stylesheet{
+
+    <!-- Datepicker -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/datepicker/datepicker.css">
+}
+@section script{
+    <script type="text/javascript" src="~/Scripts/me/tiny_mce/tinymce.min.js"> </script>
+    <script type="text/javascript" src="https://tinymce.cachefly.net/4.0/jquery.tinymce.min.js"> </script>
+    <script src="~/Scripts/me/custom/bootstrap-datetimepicker.js"></script>
+    <script src="/Scripts/me/file-upload/jquery.fileupload.js"></script>
+    <script src="/Scripts/me/file-upload/jquery.fileupload-ui.js"></script>
+    <script src="/Scripts/me/file-upload/jquery.iframe-transport.js"></script>
+}
+@section scripts_ko{
+
+    @Scripts.Render("~/module/file")
+    <script>
+        $(document).ready(function () {
+            (new File.mvFile().Start())
+        });
+
+    </script>
+
+}
+
+
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-content nopadding">
+              
+                <div class="box-title">Files</div>
+               
+                    <div class="modal-body">
+                        <form class="form-horizontal form-bordered">
+                            <div class="control-group">
+                                <label for="textfield" class="control-label">Upload File</label>
+                                <div class="controls">
+                                    <input id="fu-my-auto-upload" name="MyFile" type="file" class="custom-file-input control-label " data-bind="event:{change:uploadFile('#fu-my-auto-upload')},valueUpdate: 'afterkeydown'" style="line-height: 20px; width: 120px">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div style="clear: both;"></div>
+                    <table class="table table-hover table-nomargin  table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>File</th>
+                                <th>Url</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach:Files">
+                            <tr class="gradeX">
+                                <td data-bind="text:Id"></td>
+                                <td>
+                                    <img data-bind="attr: { src:'@Common.urllocationUpload()' + Files()}" style="width:120px" onerror="imgerror(this)" />
+                                </td>
+                                <td>
+                                    <input type="text" class="input-xxxlarge" data-bind="value: '@Common.urllocationUpload()' + Files()" />
+                                </td>
+                                <td>
+                                    <p>
+                                        <button class="btn  btn-danger" data-bind="click:$parent.RemoveFile"><i class="icon-trash"></i> Xóa</button>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+             
+            </div>
+        </div>
+    </div>
+</div>

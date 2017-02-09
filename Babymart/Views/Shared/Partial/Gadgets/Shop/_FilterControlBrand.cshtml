@@ -1,0 +1,46 @@
+﻿@model IList<Babymart.Models.shop_collection>
+@{
+    var IsLangVN = FBabymartvn.IsLangVN();
+    var banrd = (List<Babymart.Models.shop_thuonghieu>)ViewData["thuonghieu"];
+}
+@if (banrd.Count > 1)
+{  
+    <div class="block left-module">
+        <p class="title_block">@(IsLangVN ? "LỌC THEO THƯƠNG HIỆU:" : "Filter by Brand:")</p>
+        @using (Ajax.BeginForm("AjaxFilter", new AjaxOptions { UpdateTargetId = "productList", LoadingElementId = "loading", OnSuccess = "onLoginSuccess" }))
+        {
+        <div class="block_content"> 
+            <div class="layered layered-filter-price"> 
+                <div class="layered-content filter-brand">
+                    <ul class="check-box-list">
+                        @foreach (var item in banrd)
+                        {  
+                        <li>
+                            <input type="checkbox" id="@item.mahieu" name="filter" value="@item.mahieu" onchange="" />
+                            <label for="@item.mahieu">
+                                <span class="button"></span>
+                                @(FBabymartvn.IsLangVNHasValue(item.tenhieu_us) ? item.tenhieu : item.tenhieu_us )
+                                <span class='count'>(@Model.Where(p => p.shop_sanpham.mahieu == item.mahieu).Count())</span>
+                            </label>   
+                        </li>
+                        }
+
+                        @if (IsLangVN)
+                        {
+                        <li class="text-right">
+                            <button type="submit" class="btn btn-success btn_fillter">Lọc</button>
+                        </li>
+                        }
+                        else
+                        {
+                        <li class="text-right">
+                            <button type="submit" class="btn btn-success btn_fillter">Filter</button>
+                        </li>
+                        }
+                    </ul>
+                </div> 
+            </div> 
+        </div>
+        }
+    </div>
+}

@@ -1,0 +1,372 @@
+﻿@{
+    var urllocation = System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocation"];
+    var urllocationnhanhieu = System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocationnhanhieu"];
+    var spkhuyenmai = (List<Babymart.Models.shop_sanpham>)ViewData["Spgiamgia1"];
+    var spbimta = (List<Babymart.Models.shop_sanpham>)ViewData["Spbimta1"];
+    var spbinhsua = (List<Babymart.Models.shop_sanpham>)ViewData["Spbinhsua1"];
+    var spbekhoe = (List<Babymart.Models.shop_sanpham>)ViewData["Spbekhoe1"];
+    var spanuong = (List<Babymart.Models.shop_sanpham>)ViewData["Spanuong1"];
+    var spbengu = (List<Babymart.Models.shop_sanpham>)ViewData["Spbengu1"];
+    var spvuichoi = (List<Babymart.Models.shop_sanpham>)ViewData["Spvuichoi1"];
+    var spdinhduong = (List<Babymart.Models.shop_sanpham>)ViewData["Spdinhduong1"];
+    var spchome = (List<Babymart.Models.shop_sanpham>)ViewData["Spchome1"];
+    var spquanao = (List<Babymart.Models.shop_sanpham>)ViewData["Spquanao1"];
+    var spvesinh = (List<Babymart.Models.shop_sanpham>)ViewData["Spvesinh1"];
+    var spxe = (List<Babymart.Models.shop_sanpham>)ViewData["Spxe1"];
+    var bimta = (Babymart.Models.shop_danhmuc)ViewData["bimta"];
+    var binhsua = (Babymart.Models.shop_danhmuc)ViewData["binhsua"];
+    var bekhoe = (Babymart.Models.shop_danhmuc)ViewData["bekhoe"];
+    var anuong = (Babymart.Models.shop_danhmuc)ViewData["anuong"];
+    var bengu = (Babymart.Models.shop_danhmuc)ViewData["bengu"];
+    var vuichoi = (Babymart.Models.shop_danhmuc)ViewData["vuichoi"];
+    var dinhduong = (Babymart.Models.shop_danhmuc)ViewData["dinhduong"];
+    var chome = (Babymart.Models.shop_danhmuc)ViewData["chome"];
+    var quanao = (Babymart.Models.shop_danhmuc)ViewData["quanao"];
+    var vesinh = (Babymart.Models.shop_danhmuc)ViewData["vesinh"];
+    var xe = (Babymart.Models.shop_danhmuc)ViewData["xe"];
+    //var spnoibat = (List<Babymart.Models.shop_sanpham>)ViewData["Spnoibat"];
+    //var spmoi = (List<Babymart.Models.shop_sanpham>)ViewData["Spmoi"];
+    //var spbanchay = (List<Babymart.Models.shop_sanpham>)ViewData["Spbanchay"];
+    //var spbanner = (List<Babymart.Models.shop_sanpham>)ViewData["Spbanner"];
+    var banner = (List<Babymart.Models.sys_Banner>)ViewData["Banner"];
+    //var thuonghieu = (List<Babymart.Models.shop_thuonghieu>)ViewData["Thuongthieu"];
+    var articalTags = new List<Babymart.Models.Module.ModelModuleDetail>();
+    if (ViewData["ArticlesTags"] != null)
+    {
+        articalTags = ((List<Babymart.Models.Module.ModelModuleDetail>)ViewData["ArticlesTags"]);
+    }
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+@section SEOContent{
+    @foreach (var item in (List<Babymart.Models.sys_content>)FBabymartvn.ListContents("Home"))
+    {
+        if (!item.Name.Equals("H1"))
+        {
+            if (item.Name.Equals("title"))
+            {
+                <title>@(IsLangVN ? item.Contents : item.Contents_us)</title>
+            }
+
+            else
+            {
+                <meta name="@item.Name" content="@(IsLangVN ? item.Contents : item.Contents_us)" />
+            }
+        }
+    }
+    <link rel="stylesheet" type="text/css" href="~/Content/forntpage/css/owl.carousel.css" />
+
+}
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/forntpage/owl.carousel.min.js"></script>
+    <script>
+        $(".owl-carousel").owlCarousel({
+            loop: true,
+            margin: 10,
+            responsiveClass:true,
+            responsive:{
+                0:{
+                    items:1,
+                    nav:true
+                },
+                500:{
+                    items:2,
+                    nav:false
+                },
+                700:{
+                    items:3,
+                    nav:true,
+                }
+            }
+        });
+    </script>
+}
+
+<!-- shop search form wrapper ends -->
+<!-- InstanceBeginEditable name="EditRegion1" -->
+@if (banner.Count > 0)
+{
+    <div class="sliderOuterWrapper">
+        <div class="sliderWrapper">
+            <div class="mainSlider" id="mainSlider">
+                @*@foreach (var obj in banner)
+                    {
+                        if (Path.GetExtension(obj.Banner).ToLower() == ".swf")
+                        {
+                            <a href='@(IsLangVN? obj.Link:obj.Link_us)' target="_blank"><object width="645" height="209" data="@(FBabymartvn.IsLangVNHasValue(obj.Banner_us) ? obj.Banner: obj.Banner_us)"></object></a>
+
+                        }
+                        else
+                        {
+                            <a href='@(IsLangVN? obj.Link:obj.Link_us)' target="_blank"><img src="@(FBabymartvn.IsLangVNHasValue(obj.Banner_us) ?  obj.Banner : obj.Banner_us)" /></a>
+                        }
+
+                    }*@
+
+                
+
+                @*<a href='@(IsLangVN ? "/san-pham/khuyen-mai.html" : "/en/product/saleoff.html")' target="_blank"><img src="@(IsLangVN ? "https://babymart.vn/Images/hinhdulieu/upload/banner_cuoi_nam.jpg" : "https://babymart.vn/Images/hinhdulieu/upload/banner_cuoi_nam.jpg")" /></a>*@
+
+                @*<a href='@(IsLangVN ? "https://babymart.vn/bai-viet/chuong-trinh-vui-xuan-khuan-bao-boi.html" : "https://babymart.vn/bai-viet/chuong-trinh-vui-xuan-khuan-bao-boi.html")' target="_blank"><img src="@(IsLangVN ? "https://babymart.vn/Images/hinhdulieu/upload/glico_milk.jpg" : "https://babymart.vn/Images/hinhdulieu/upload/glico_milk.jpg")" /></a>*@
+
+                <a href='@(IsLangVN ? "/goi-do-so-sinh.html" : "/en/new-baby-checklist.html")' target="_blank"><img src="@(IsLangVN ? "Images/hinhdulieu/upload/banner1.jpg" : "Images/hinhdulieu/upload/Banner%20flash_01_FA-TA.jpg")" /></a>
+
+            </div>
+        </div>
+        <a href="#" class="sliderControl previousSlideButton">
+            <img src="/Images/mobile/images/common/sliderArrows1.png" />
+        </a>
+        <a href="#" class="sliderControl nextSlideButton">
+            <img src="/Images/mobile/images/common/sliderArrows2.png" />
+        </a>
+    </div>
+}
+
+<!-- slider wrapper ends -->
+
+<div class="textBreakBottom"></div>
+@if (spkhuyenmai.Count > 0)
+{
+    <h4 class="sectionTitle">@(IsLangVN ? FBabymartvn.GetContents("SaleOff", "Title").Contents : FBabymartvn.GetContents("SaleOff", "Title").Contents_us)</h4>
+    <div class="homeProductsWrapper">
+        @foreach (var obj in spkhuyenmai)
+        {
+            Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.Mobile.cshtml", obj);
+        }
+        <div class="clear"></div>
+        <div class="see-more">
+            <div class="type-1">
+                <a href='@(IsLangVN ? "/san-pham/khuyen-mai.html" : "en/product/saleoff.html")' target="_blank" class="btn btn-1">
+                    <span class="viewall">@(IsLangVN ? "Xem tất cả" : "View all")</span>
+                </a>
+            </div>
+        </div>
+    </div>
+}
+@if (spbimta.Count > 0)
+{
+    <div class="@bimta.icon icon-mobile"></div>
+    <h4 class="sectionTitle">@(IsLangVN ? bimta.tendanhmuc : bimta.tendanhmuc_us)</h4>
+    <div class="homeProductsWrapper">
+        @foreach (var obj in spbimta)
+        {
+            Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.Mobile.cshtml", obj);
+        }
+        <div class="clear"></div>
+        <div class="see-more">
+            <div class="type-1">
+                <a href='@((IsLangVN ? "/danh-muc/" + bimta.url : "/en/category/" + bimta.url_us) + ".html")' target="_blank" class="btn btn-1">
+                    <span class="viewall">@(IsLangVN ? "Xem tất cả" : "View all")</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+}
+@if (spbinhsua.Count > 0)
+{
+    <div class="@binhsua.icon icon-mobile"></div>
+    <h4 class="sectionTitle">@(IsLangVN ? binhsua.tendanhmuc : binhsua.tendanhmuc_us)</h4>
+    <div class="homeProductsWrapper">
+        @foreach (var obj in spbinhsua)
+        {
+            Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.Mobile.cshtml", obj);
+        }
+        <div class="clear"></div>
+        <div class="see-more">
+            <div class="type-1">
+                <a href='@((IsLangVN ? "/danh-muc/" + binhsua.url : "/en/category/" + binhsua.url_us) + ".html")' target="_blank" class="btn btn-1">
+                    <span class="viewall">@(IsLangVN ? "Xem tất cả" : "View all")</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+}
+@if (spanuong.Count > 0)
+{
+    <div class="@anuong.icon icon-mobile"></div>
+    <h4 class="sectionTitle">@(IsLangVN ? anuong.tendanhmuc : anuong.tendanhmuc_us)</h4>
+    <div class="homeProductsWrapper">
+        @foreach (var obj in spanuong)
+        {
+            Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.Mobile.cshtml", obj);
+        }
+        <div class="clear"></div>
+        <div class="see-more">
+            <div class="type-1">
+                <a href='@((IsLangVN ? "/danh-muc/" + anuong.url : "/en/category/" + anuong.url_us) + ".html")' target="_blank" class="btn btn-1">
+                    <span class="viewall">@(IsLangVN ? "Xem tất cả" : "View all")</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+}
+@if (spbekhoe.Count > 0)
+{
+    <div class="@bekhoe.icon icon-mobile"></div>
+    <h4 class="sectionTitle">@(IsLangVN ? bekhoe.tendanhmuc : bekhoe.tendanhmuc_us)</h4>
+    <div class="homeProductsWrapper">
+        @foreach (var obj in spbekhoe)
+        {
+            Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.Mobile.cshtml", obj);
+        }
+        <div class="clear"></div>
+        <div class="see-more">
+            <div class="type-1">
+                <a href='@((IsLangVN ? "/danh-muc/" + bekhoe.url : "/en/category/" + bekhoe.url_us) + ".html")' target="_blank" class="btn btn-1">
+                    <span class="viewall">@(IsLangVN ? "Xem tất cả" : "View all")</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+}
+@if (spquanao.Count > 0)
+{
+    <div class="@quanao.icon icon-mobile"></div>
+    <h4 class="sectionTitle">@(IsLangVN ? quanao.tendanhmuc : quanao.tendanhmuc_us)</h4>
+    <div class="homeProductsWrapper">
+        @foreach (var obj in spquanao)
+        {
+            Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.Mobile.cshtml", obj);
+        }
+        <div class="clear"></div>
+        <div class="see-more">
+            <div class="type-1">
+                <a href='@((IsLangVN ? "/danh-muc/" + quanao.url : "/en/category/" + quanao.url_us) + ".html")' target="_blank" class="btn btn-1">
+                    <span class="viewall">@(IsLangVN ? "Xem tất cả" : "View all")</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+}
+<div id="content-wrap">
+    <div class="container">
+        @if (IsLangVN)
+        {
+            Html.RenderAction("GadgetsMagazine", "Common");
+        }
+    </div>
+</div>
+@if (spbengu.Count > 0)
+{
+    <div class="@bengu.icon icon-mobile"></div>
+    <h4 class="sectionTitle">@(IsLangVN ? bengu.tendanhmuc : bengu.tendanhmuc_us)</h4>
+    <div class="homeProductsWrapper">
+        @foreach (var obj in spbengu)
+        {
+            Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.Mobile.cshtml", obj);
+        }
+        <div class="clear"></div>
+        <div class="see-more">
+            <div class="type-1">
+                <a href='@((IsLangVN ? "/danh-muc/" + bengu.url : "/en/category/" + bengu.url_us) + ".html")' target="_blank" class="btn btn-1">
+                    <span class="viewall">@(IsLangVN ? "Xem tất cả" : "View all")</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+}
+@if (spvesinh.Count > 0)
+{
+    <div class="@vesinh.icon icon-mobile"></div>
+    <h4 class="sectionTitle">@(IsLangVN ? vesinh.tendanhmuc : vesinh.tendanhmuc_us)</h4>
+    <div class="homeProductsWrapper">
+        @foreach (var obj in spvesinh)
+        {
+            Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.Mobile.cshtml", obj);
+        }
+        <div class="clear"></div>
+        <div class="see-more">
+            <div class="type-1">
+                <a href='@((IsLangVN ? "/danh-muc/" + vesinh.url : "/en/category/" + vesinh.url_us) + ".html")' target="_blank" class="btn btn-1">
+                    <span class="viewall">@(IsLangVN ? "Xem tất cả" : "View all")</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+}
+@if (spvuichoi.Count > 0)
+{
+    <div class="@vuichoi.icon icon-mobile"></div>
+    <h4 class="sectionTitle">@(IsLangVN ? vuichoi.tendanhmuc : vuichoi.tendanhmuc_us)</h4>
+    <div class="homeProductsWrapper">
+        @foreach (var obj in spvuichoi)
+        {
+            Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.Mobile.cshtml", obj);
+        }
+        <div class="clear"></div>
+        <div class="see-more">
+            <div class="type-1">
+                <a href='@((IsLangVN ? "/danh-muc/" + vuichoi.url : "/en/category/" + vuichoi.url_us) + ".html")' target="_blank" class="btn btn-1">
+                    <span class="viewall">@(IsLangVN ? "Xem tất cả" : "View all")</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+}
+@if (spdinhduong.Count > 0)
+{
+    <div class="@dinhduong.icon icon-mobile"></div>
+    <h4 class="sectionTitle">@(IsLangVN ? dinhduong.tendanhmuc : dinhduong.tendanhmuc_us)</h4>
+    <div class="homeProductsWrapper">
+        @foreach (var obj in spdinhduong)
+        {
+            Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.Mobile.cshtml", obj);
+        }
+        <div class="clear"></div>
+        <div class="see-more">
+            <div class="type-1">
+                <a href='@((IsLangVN ? "/danh-muc/" + dinhduong.url : "/en/category/" + dinhduong.url_us) + ".html")' target="_blank" class="btn btn-1">
+                    <span class="viewall">@(IsLangVN ? "Xem tất cả" : "View all")</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+}
+@if (spchome.Count > 0)
+{
+    <div class="@chome.icon icon-mobile"></div>
+    <h4 class="sectionTitle">@(IsLangVN ? chome.tendanhmuc : chome.tendanhmuc_us)</h4>
+    <div class="homeProductsWrapper">
+        @foreach (var obj in spchome)
+        {
+            Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.Mobile.cshtml", obj);
+        }
+        <div class="clear"></div>
+        <div class="see-more">
+            <div class="type-1">
+                <a href='@((IsLangVN ? "/danh-muc/" + chome.url : "/en/category/" + chome.url_us) + ".html")' target="_blank" class="btn btn-1">
+                    <span class="viewall">@(IsLangVN ? "Xem tất cả" : "View all")</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+}
+@if (spxe.Count > 0)
+{
+    <div class="@xe.icon icon-mobile"></div>
+    <h4 class="sectionTitle">@(IsLangVN ? xe.tendanhmuc : xe.tendanhmuc_us)</h4>
+    <div class="homeProductsWrapper">
+        @foreach (var obj in spxe)
+        {
+            Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.Mobile.cshtml", obj);
+        }
+        <div class="clear"></div>
+        <div class="see-more">
+            <div class="type-1">
+                <a href='@((IsLangVN ? "/danh-muc/" + xe.url : "/en/category/" + xe.url_us) + ".html")' target="_blank" class="btn btn-1">
+                    <span class="viewall">@(IsLangVN ? "Xem tất cả" : "View all")</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+}

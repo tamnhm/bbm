@@ -1,0 +1,409 @@
+﻿@model Babymart.Models.ModelProduct
+@{
+    var ptgh = (Babymart.Models.shop_page)ViewData["PTGH"];
+    var pttt = (Babymart.Models.shop_page)ViewData["PTTT"];
+    var spkhac = (List<Babymart.Models.shop_collection>)ViewData["Spkhac"];
+    var spdaxem = (List<Babymart.Models.shop_collection>)ViewData["Spdaxem"];
+    var spTags = (List<Babymart.Models.Module.sys_tags_SummaryModel>)ViewData["Tags"];
+    var listArticle = (List<Babymart.Models.Module.ModelModuleDetail>)ViewData["ListArticleTags"];
+    var GetHttpCookieLang = FBabymartvn.GetHttpCookieLang();
+    var IsLangVN = FBabymartvn.IsLangVN();
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    for (int i = 0; i < 20; i++)
+    {
+        listItems.Add(new SelectListItem
+        {
+            Text = i.ToString(),
+            Value = i.ToString()
+        });
+    }
+    DateTime countdown = new DateTime();
+    if (Model != null)
+    {
+        if (Model.timeend != null)
+        {
+            countdown = DateTime.Parse(Model.timeend.ToString());
+        }
+    }
+
+}
+@section SEOContent{
+    @if (Model != null)
+    {
+        <title>@(IsLangVN ? Model.sptitle : Model.sptitle_us)</title>
+        <meta name="keywords" content="@(IsLangVN ? Model.spkeywords : Model.spkeywords_us)" />
+        <meta name="description" content="@(IsLangVN ? Model.spdescription : Model.spdescription_us)" />
+
+    }
+}
+@section scripts{
+
+    <script type="text/javascript" src="~/Scripts/forntpage/jquery.countdown.min.js"></script>
+    <script type='text/javascript' src='//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js' data-shr-siteid='ceb96f6b971835b99b16c20b3089ca1d' data-cfasync='false' async='async'></script>
+    <script type="text/javascript" src="~/Scripts/forntpage/jquery.elevatezoom.js"></script>
+    <script type="text/javascript" src="~/Scripts/forntpage/jquery.fancybox.js"></script>
+    @*<script async="async">
+        !function (e, t, n) { var o, c = e.getElementsByTagName(t)[0]; e.getElementById(n) || (o = e.createElement(t), o.id = n, o.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.4&appId=500280200120390", c.parentNode.insertBefore(o, c)) }(document, "script", "facebook-jssdk");
+    </script>*@
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+
+            var austDay = new Date();
+            austDay = "@(countdown.Year.ToString() + "/" + countdown.Month.ToString() + "/" + countdown.Day.ToString())"
+            $("#count-down").countdown(austDay, function (event) {
+                $(this).text(
+                event.strftime('%D ngày %H giờ %M phút %S')
+            );
+            });
+            $(".product-zoom").click(function () {
+                debugger
+                $("#picture-large").modal('show');
+            });
+            
+        });
+        function changeqr() {
+            $("#addcart").attr("disabled", "");
+        }
+        function test() {
+            console.log('KONIEC');
+        }
+    </script>
+}
+@if (Model != null)
+{
+
+    <div class="columns-container">
+        <div class="container" id="columns">
+            <div class="breadcrumb clearfix">
+                <a class="home" href="@(IsLangVN?"/":"/en")" title="Return to Home">@(IsLangVN ? "Trang chủ" : "Home")</a>
+                <span class="navigation-pipe">&nbsp;</span>
+                <a href="@((IsLangVN ? "/danh-muc/" + Model.urldanhmuc : "/en/category/" + Model.urldanhmuc_us) + ".html")" title="@(FBabymartvn.IsLangVNHasValue(Model.tendanhmuc_us) ? Model.tendanhmuc : Model.tendanhmuc_us)">@(FBabymartvn.IsLangVNHasValue(Model.tendanhmuc_us) ? Model.tendanhmuc : Model.tendanhmuc_us)</a>
+                <span class="navigation-pipe">&nbsp;</span>
+                <a href="@((IsLangVN ? "/chuyen-muc/" + Model.urldanhmuccon : "/en/group/" + Model.urldanhmuccon_us) + ".html")" title="@(FBabymartvn.IsLangVNHasValue(Model.tendanhmucon_us) ? Model.tendanhmucon : Model.tendanhmucon_us)">@(FBabymartvn.IsLangVNHasValue(Model.tendanhmucon_us) ? Model.tendanhmucon : Model.tendanhmucon_us)</a>
+                <span class="navigation-pipe">&nbsp;</span>
+                <span class="navigation_page">@(FBabymartvn.IsLangVNHasValue(Model.tensp_us) ? Model.tensp : Model.tensp_us)</span>
+            </div>
+            <div class="row">
+
+                <!-- Center colunm-->
+                <div class="center_column col-xs-12 col-sm-12" id="center_column">
+                    <!-- Product -->
+                    <div id="product">
+                        <div class="primary-box row">
+                            <div class="pb-left-column col-xs-12 col-sm-5">
+                                <!-- product-imge-->
+                                <div class="product-image">
+                                    <div class="product-full">
+
+                                        <img class="product-zoom" alt="@Model.tensp" src="@(Common.UrllocationDetail() + Model.shop_image.First().url)" data-zoom-image="@(Common.UrllocationDetail() + Model.shop_image.First().url)" />
+                                        <span></span>
+                                    </div>
+                                    <div style="text-align: center;"><i class="fa fa-search-plus" aria-hidden="true" style="vertical-align:baseline;"></i> @(IsLangVN ? "Bấm vào hình để xem kích thước lớn hơn" : "Click the picture to see bigger one")</div>
+                                    @if (Model.shop_image.Count > 1)
+                                    {
+                                        <div class="product-img-thumb" id="gallery_01">
+                                            <ul class="owl-carousel" data-items="3" data-nav="true" data-dots="false" data-margin="21" data-loop="false">
+                                                @foreach (var item in Model.shop_image)
+                                                {
+                                                    <li>
+                                                        <a href="#" data-image="@(Common.UrllocationDetail() + item.url)" data-zoom-image="@(Common.UrllocationDetail() + item.url)">
+                                                            <img src="@(Common.UrllocationDetail() + item.url)" alt="@Model.tensp" />
+                                                        </a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                </div>
+                                <!-- product-imge-->
+                            </div>
+                            <div class="pb-right-column col-xs-12 col-sm-7">
+                                <h1 class="product-name">@(FBabymartvn.IsLangVNHasValue(Model.tensp_us) ? Model.tensp : Model.tensp_us)</h1>
+                                <div class="product-comments">
+                                    <div class="comments-advices">
+                                        <a href="/bai-viet/phuong-thuc-giao-hang.html"><span class="glyphicon glyphicon-plane"></span>@(IsLangVN ? "Giao hàng toàn quốc" : "Nationwide Delivery")</a>
+                                        <a><span class="glyphicon glyphicon-ok"></span>@(IsLangVN ? "Đã mua" : "Purchased"): @Model.countsale</a>
+                                        <a href="#comment-product" class="comment-product"><i class="fa fa-pencil"></i> @(IsLangVN ? "Nhận xét sản phẩm" : "Product review")</a>
+                                    </div>
+                                </div>
+                                <div class="info-orther">
+                                    <div>
+                                        -&nbsp;&nbsp;
+                                        @if (Model.shop_thuonghieu != null && !String.IsNullOrEmpty(Model.shop_thuonghieu.tenhieu) && Model.shop_thuonghieu.tenhieu != "Khác")
+                                        {
+                                            <a href="@((IsLangVN ? "/thuong-hieu/" : "/en/lable/") + "" + @Model.shop_thuonghieu.url + ".html")">@Model.shop_thuonghieu.tenhieu</a><span> | </span>
+                                        }<strong>@(IsLangVN ? "Mã SP" : "ID"):</strong> @Model.masp
+                                    </div>
+                                    @if (Model.showcm == true && Model.chieudai > 0 && Model.chieurong > 0 && Model.chieucao > 0)
+                                    {
+                                        <div>-&nbsp;&nbsp;<strong>@(IsLangVN ? "Kích thước bao bì (dài x rộng x cao, cm):" : "Size (long x wide x high, cm):")</strong> @(Model.chieudai + " x " + Model.chieurong + " x " + Model.chieucao )</div>
+                                    }
+                                    @if (Model.showkg == true)
+                                    {
+                                        <div>-&nbsp;&nbsp;<strong>@(IsLangVN ? "Khối lượng bao bì (kg):" : "Weight:")</strong> @Model.kg</div>
+                                    }
+                                    @if (Model.showcm == true && Model.chieudaisd > 0 && Model.chieurongsd > 0 && Model.chieucaosd > 0)
+                                    {
+                                        <div>-&nbsp;&nbsp;<strong>@(IsLangVN ? "Kích thước sử dụng (dài x rộng x cao, cm):" : "Size (long x wide x high, cm):")</strong> @(Model.chieudaisd + " x " + Model.chieurongsd + " x " + Model.chieucaosd)</div>
+                                    }
+                                    @Html.Raw(FBabymartvn.IsLangVNHasValue(Model.thongtin_us) ? Model.thongtin : Model.thongtin_us)
+                                </div>
+                                <div class="form-action">
+                                    @if (Model.timeend != null && Model.timeend > DateTime.Now)
+                                    {
+                                        <div class="full-width bottom-side tt-km-box">
+                                            <span class="promo-tim-remain">
+                                                @(IsLangVN ? "Thời gian khuyến mãi còn lại:" : "Promotion remaining time:")
+                                                <span id="count-down"></span>
+                                            </span>
+                                        </div>
+                                    }
+                                    @{var bt = Model.shop_bienthe.Where(o => o.isdelete == false).ToList();}
+
+                                    @if (Model.ischeckout == false)
+                                    {
+                                        if (bt.Count == 1 && bt.First().title.Equals("default"))
+                                        {
+                                            <div class="product-price-group">
+                                                <span class="price">@string.Format("{0:0,0 đ}", bt.First().gia)</span>
+                                                @if (bt.First().giasosanh > 0)
+                                                {
+                                                    <span class="old-price">@string.Format("{0:0,0 đ}", bt.First().giasosanh)</span>
+                                                }
+                                                @if (bt.First().giasosanh > 0)
+                                                {
+                                                    <a class="btn-add-cart btn-sale-off" href="@("/gio-hang.html/" + bt.First().id + "/1")"><i class="fa fa-cart-plus"></i>&nbsp;&nbsp;&nbsp;&nbsp;@(IsLangVN ? "Mua ngay" : "Buy now")</a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="btn-add-cart" href="@("/gio-hang.html/" + bt.First().id + "/1")"><i class="fa fa-cart-plus"></i>&nbsp;&nbsp;&nbsp;&nbsp;@(IsLangVN ? "Mua ngay" : "Buy now")</a>
+                                                }
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="product-price-group">
+                                                @using (Html.BeginForm())
+                                                {
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><strong>@(IsLangVN ? "Loại sản phẩm" : "Type")</strong></td>
+                                                                <td><strong>@(IsLangVN ? "Đơn giá" : "Price")</strong></td>
+                                                                <td></td>
+                                                                <td><strong>@(IsLangVN ? "Số lượng" : "Count")</strong></td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @for (var i = 0; i < Model.shop_bienthe.Count; i++)
+                                                            {
+                                                                <tr>
+                                                                    <td>@Html.HiddenFor(m => Model.shop_bienthe[i].id)</td>
+                                                                    <td>@(FBabymartvn.IsLangVNHasValue(Model.shop_bienthe[i].title_us) ? Model.shop_bienthe[i].title : Model.shop_bienthe[i].title_us)</td>
+                                                                    <td>@string.Format("{0:0,0 đ}", Model.shop_bienthe[i].gia)</td>
+                                                                    <td>
+                                                                        @if (Model.shop_bienthe[i].giasosanh > 0)
+                                                                        {
+                                                                            <del>@string.Format("{0:0,0 đ}", Model.shop_bienthe[i].giasosanh)</del>
+                                                                        }
+                                                                    </td>
+                                                                    <td>
+                                                                        @Html.DropDownListFor(model => Model.shop_bienthe[i].soluong, listItems)
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                    if (IsLangVN)
+                                                    {
+                                                        <button type="submit" class="btn-add-cart" id="addcart" style="margin-left:0"><i class="fa fa-cart-plus"></i>&nbsp;&nbsp;&nbsp;&nbsp;Mua Ngay</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="submit" class="btn-add-cart" id="addcart" style="margin-left:0"><i class="fa fa-cart-plus"></i>&nbsp;&nbsp;&nbsp;&nbsp;Buy now</button>
+                                                    }
+                                                    <p style="font-size: 18px; text-align: right; color: red; padding: 10px;">
+                                                        @Html.Raw(ViewBag.Eror)
+                                                    </p>
+                                                }
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="product-price-group">
+                                            <span class="price">@string.Format("{0:0,0 đ}", bt.First().gia)</span>
+                                            @if (bt.First().giasosanh > 0)
+                                            {
+                                                <span class="old-price">@string.Format("{0:0,0 đ}", bt.First().giasosanh)</span>
+                                            }
+                                            <a class="btn-add-cart btn-sold-out">@(IsLangVN ? "Tạm hết hàng" : "Sold out")</a>
+                                        </div>
+                                    }
+                                </div>
+                                @foreach (var item in Model.shop_bienthe)
+                                {
+                                    if (item.giasosanh != null && item.giasosanh > 0)
+                                    {
+                                        if (item.ischecksaleoff == true)
+                                        {
+                                            if (IsLangVN)
+                                            {
+                                                <div class="form-share">
+                                                    <p style="font-size: 20px; margin-top: 5px; color: rgb(230, 116, 14); font-weight: bold;">Giá khuyến mãi chỉ áp dụng cho thành viên</p>
+                                                    <div style="font-size: 15px;">
+                                                        <span>Bạn có phải là thành viên của babymart.vn?</span>
+                                                        <ul>
+                                                            <li>- Là thành viên và chưa đăng nhập, bạn vui lòng <a href="/dang-nhap.html" target="_blank" style="color: blue">Đăng nhập</a> </li>
+                                                            <li>- Chưa là thành viên, bạn có thể <a href="/dang-ky.html" target="_blank" style="color: blue">Đăng ký</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="form-share">
+                                                    <p style="font-size: 20px; margin-top: 5px; color: rgb(230, 116, 14); font-weight: bold;">The promotion price is applied for babymart.vn's member only</p>
+                                                    <div style="font-size: 15px;">
+                                                        <span>Are you babymart.vn's member?</span>
+                                                        <ul>
+                                                            <li>- Yes, please <a href="/dang-nhap.html" target="_blank" style="color: blue">Login</a> </li>
+                                                            <li>- No, you can <a href="/dang-ky.html" target="_blank" style="color: blue">Register</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+                                <div class="form-share">
+                                    <div class="share-fb-product">
+                                        <div class="fb-like" data-href="@Request.Url.AbsoluteUri" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                                    </div>
+                                    <div class='shareaholic-canvas' data-app='share_buttons' data-app-id='21159288'></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- tab product -->
+                        @if (IsLangVN)
+                        {
+                            <div class="item-ip">
+                                <div class="wrap-p clearfix">
+                                    @if (spTags != null && spTags.Count > 0)
+                                    {
+
+                                        <div class="item-content-detail">
+                                            <h3><span class="glyphicon glyphicon-tags"></span>Tags:</h3>
+                                            @foreach (var item in spTags)
+                                            {
+                                                <a href="/san-pham/tags/@item.Tags" class="tag"><span>@item.Tags</span></a>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                        }
+                        <div class="product-tab">
+                            <ul class="nav-tab">
+                                <li class="active">
+                                    <a aria-expanded="false" data-toggle="tab" href="#product-detail">@(IsLangVN ? "Thông tin chi tiết" : "Detail information")</a>
+                                </li>
+                            </ul>
+                            <div class="tab-container">
+                                <div id="product-detail" class="tab-panel active" style="">
+                                    @Html.Raw(IsLangVN ? Model.chitiet : Model.chitiet_us)
+                                </div>
+                            </div>
+                        </div>
+                        <div id="comment-product"></div>
+                        @*<div class="fb-comments" data-href="@Request.Url.AbsoluteUri" data-width="100%" data-numposts="5" data-colorscheme="light"></div>*@
+                        @if (spdaxem != null && spdaxem.Count > 0)
+                        {
+                            <div class="page-product-box">
+                                <h3 class="heading">@(IsLangVN ? "Sản phẩm đã xem" : "Viewed products")</h3>
+                                <div class="product-featured clearfix">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-right-tab">
+                                            <div class="product-featured-tab-content">
+                                                <div class="tab-container">
+                                                    <div class="tab-panel active" id="tab-14">
+                                                        <div class="box-full clearfix">
+                                                            <ul class="product-list">
+                                                                @foreach (var obj in spdaxem)
+                                                                {
+                                                                    Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.cshtml", obj.shop_sanpham);
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="page-product-box">
+                            <h3 class="heading">@(IsLangVN ? "Sản phẩm liên quan" : "Related products")</h3>
+                            <div class="product-featured clearfix">
+                                <div class="row">
+                                    <div class="col-sm-12 col-right-tab">
+                                        <div class="product-featured-tab-content">
+                                            <div class="tab-container">
+                                                <div class="tab-panel active" id="tab-14">
+                                                    <div class="box-full clearfix">
+                                                        <ul class="product-list">
+                                                            @if (spkhac != null && spkhac.Count > 0)
+                                                            {
+                                                                foreach (var obj in spkhac)
+                                                                {
+                                                                    Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.cshtml", obj.shop_sanpham);
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div id="content-wrap">
+                            <div class="container">
+                                @if (IsLangVN)
+                                {
+                                    Html.RenderPartial("~/Views/Shared/Partial/_Goctuvan.cshtml", listArticle);
+                                }
+                            </div>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                                        }
+                                        else
+                                        {
+                                            <div style="width: 1150px; background: white; height: 100px; text-align: center; padding-top: 50px;">
+                                                <h3>@(IsLangVN ? "Sản phẩm này không tồn tại, vui lòng quay lại" : "Product not exits, please return") <a href="@(IsLangVN?"/":"/en")">@(IsLangVN ? "Trang chủ" : "Home")</a></h3>
+                                            </div>
+                                        }
+
+<div class="modal fade" id="picture-large" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="min-height: 0; padding: 0; border: none;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size: 50px; position: absolute; z-index: 999; right: 6px;"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="padding: 2px;">
+                <img class="product-zoom" alt="@Model.tensp" src="@(Common.UrllocationDetail() + Model.shop_image.First().url)" data-zoom-image="@(Common.UrllocationDetail() + Model.shop_image.First().url)" />
+            </div>
+        </div>
+    </div>
+</div>

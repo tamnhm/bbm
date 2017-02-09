@@ -1,0 +1,97 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Apple devices fullscreen -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Apple devices fullscreen -->
+    <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <title>FLAT - Dashboard</title>
+    <!-----------------------------------Css----------------------------------------------------->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/Content/me/css/bootstrap.min.css">
+    <!-- Bootstrap responsive -->
+    <link rel="stylesheet" href="/Content/me/css/bootstrap-responsive.min.css">
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/jquery-ui/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/Content/me/css/plugins/jquery-ui/smoothness/jquery.ui.theme.css">
+    @RenderSection("stylesheet", required: false)
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="/Content/me/css/style.css">
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="/Content/me/custom/toastr.css">
+    <!-- Color CSS -->
+    <link rel="stylesheet" href="/Content/me/css/themes.css">
+    <!--Custom-->
+    <link rel="stylesheet" href="/Content/me/custom/checkbox.css" />
+    <!-- Notify -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/gritter/jquery.gritter.css">
+    <!-----------------------------------Css----------------------------------------------------->
+    <!-----------------------------------Javascript---------------------------------------------->
+    <!-- jQuery -->
+    <script src="/Scripts/me/flat/jquery.min.js"></script>
+    <script src="/Scripts/me/file-upload/jquery-ui-1.9.2.min.js"></script>
+
+    <!-- Nice Scroll -->
+    <script src="/Scripts/me/flat/plugins/nicescroll/jquery.nicescroll.min.js"></script>
+    <!-- Touch enable for jquery UI -->
+    <script src="/Scripts/me/flat/plugins/touch-punch/jquery.touch-punch.min.js"></script>
+    <!-- slimScroll -->
+    <script src="/Scripts/me/flat/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/Scripts/me/flat/bootstrap.min.js"></script>
+    <!-- select2 -->
+    <script src="/Scripts/me/flat/plugins/select2/select2.min.js"></script>
+    <!-- Notify -->
+    <script src="/Scripts/me/flat/plugins/gritter/jquery.gritter.min.js"></script>
+    <!-- imagesLoaded -->
+    <script src="/Scripts/me/flat/plugins/imagesLoaded/jquery.imagesloaded.min.js"></script>
+    <!-- Bootbox -->
+    <script src="/Scripts/me/flat/plugins/bootbox/jquery.bootbox.js"></script>
+    @RenderSection("script", required: false)
+    
+    <!-- Theme framework -->
+    <script src="/Scripts/me/flat/eakroko.min.js"></script>
+    <!-- Theme scripts -->
+    <script src="/Scripts/me/flat/application.min.js"></script>
+    <!-- Just for demonstration -->
+    <script src="/Scripts/me/flat/demonstration.min.js"></script>
+     <link href="/Content/mystyle.css" rel="stylesheet" />
+    <!--[if lte IE 9]>
+        <script src="/Scripts/me/flat/plugins/placeholder/jquery.placeholder.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('input, textarea').placeholder();
+            });
+        </script>
+    <![endif]-->
+    <script>
+        function imgerror(image) {
+        image.onerror = "";
+        image.src = "/Content/img/imgerror.png";
+        return true;
+    }
+    </script>
+    @Scripts.Render("~/bundles/commonjs_ko")
+    @RenderSection("scripts_ko", required: false)
+    <!-----------------------------------Javascript---------------------------------------------->
+</head>
+<body>
+    @Html.Partial("_MenuTop")
+    <div class="container-fluid" id="content">
+        @Html.Partial("_MenuLeft")
+        <div id="main">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    @RenderSection("templates", required: false)
+    <div class="pageloading" style="display:none">
+        <div class="icon"></div>
+    </div>
+</body>
+</html>

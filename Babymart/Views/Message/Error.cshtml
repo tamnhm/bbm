@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Error";
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+@section scripts{
+    <script>
+        window.onload = function() {
+            var countdownElement = document.getElementById('countdown'),
+                seconds = 3,
+                second = 0,
+                interval;
+             
+
+        interval = setInterval(function() {
+            countdownElement.firstChild.data =  (seconds - second);
+            if (second >= seconds) {
+                clearInterval(interval); 
+                window.open("/",'_self');  
+            }
+
+            second++;
+        }, 1000);
+    }
+    </script>
+}
+@section SEOContent{
+
+    @foreach (var item in (List<Babymart.Models.sys_content>)FBabymartvn.ListContents("Index"))
+    {
+        if (!item.Name.Equals("H1"))
+        {
+            if (item.Name.Equals("title"))
+            {
+                <title>@item.Contents</title>
+            }
+
+            else
+            {
+                <meta name="@item.Name" content="@item.Contents" />
+            }
+        }
+    }
+    @*<meta http-equiv="refresh" content="4; url=@(IsLangVN ? "/" : "/en")" />*@
+}
+@if (IsLangVN)
+{
+    <div class='clearfix layout-content-common' style="text-align:center">
+        <img src="~/Content/forntpage/images/error.png" />
+        <p style="font-size: 16px">Trang này không tồn tại, sẽ chuyển về trang chủ trong vòng <span id="countdown" style="font-weight:bold"> </span> giây, hoặc bạn bấm  <a href="/" title="Babymart.vn" style="color:blue">vào đây</a> để chuyển nhanh.</p>
+    </div>
+
+}
+else
+{
+    <div class='clearfix layout-content-common' style="text-align:center">
+        <img src="~/Content/forntpage/images/error.png" />
+        <p style="font-size: 16px">Page not found, auto redirect to home page about <span id="countdown" style="font-weight:bold"> </span> sencond , or click  <a href="/en" title="Babymart.vn" style="color:blue">here</a></p>
+    </div>
+
+}

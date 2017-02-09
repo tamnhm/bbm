@@ -1,0 +1,15 @@
+﻿
+nav.submenu{float:left;height:42px;}
+nav.submenu ul ul{display:none;}
+nav.submenu ul li:hover > ul{display:block;}
+nav.submenu ul{position:relative;display:inline-table;}
+nav.submenu ul:after{content:"";clear:both;display:block;}
+nav.submenu ul li{float:left;}
+nav.submenu ul li:hover{}
+nav.submenu ul li a{display:block;padding:11px 10px;color:#fff;text-decoration:none;}
+nav.submenu ul ul{background:#5f6975;border-radius:0px;padding:0;position:absolute;top:100%;z-index:99999;min-width:180px;margin-top:-3px}
+nav.submenu ul ul li{float:none;border-top:1px solid #E8F4DE;position:relative;background:rgba(97, 184, 73, 1);}
+nav.submenu ul ul li a{color:#fff;}
+nav.submenu ul ul li a:hover{color:rgb(255, 158, 0);}
+nav.submenu ul ul ul{position:absolute;left:100%;top:0;margin-top:-1px;}
+nav.submenu ul li ul li a{padding:10px 20px;}

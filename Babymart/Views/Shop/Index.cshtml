@@ -1,0 +1,969 @@
+﻿@{
+    var urllocation = System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocation"];
+    var urllocationnhanhieu = System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocationnhanhieu"];
+    var spkhuyenmai = (List<Babymart.Models.shop_sanpham>)ViewData["Spgiamgia"];
+    var spmoi = (List<Babymart.Models.shop_sanpham>)ViewData["Spmoi"];
+    var spbimta = (List<Babymart.Models.shop_sanpham>)ViewData["Spbimta"];
+    var dmbimta = (List<Babymart.Models.shop_danhmuccon>)ViewData["Dmbimta"];
+    var bimta = (Babymart.Models.shop_danhmuc)ViewData["bimta"];
+    var spbinhsua = (List<Babymart.Models.shop_sanpham>)ViewData["Spbinhsua"];
+    var dmbinhsua = (List<Babymart.Models.shop_danhmuccon>)ViewData["Dmbinhsua"];
+    var binhsua = (Babymart.Models.shop_danhmuc)ViewData["binhsua"];
+    var spbekhoe = (List<Babymart.Models.shop_sanpham>)ViewData["Spbekhoe"];
+    var dmbekhoe = (List<Babymart.Models.shop_danhmuccon>)ViewData["Dmbekhoe"];
+    var bekhoe = (Babymart.Models.shop_danhmuc)ViewData["bekhoe"];
+    var spanuong = (List<Babymart.Models.shop_sanpham>)ViewData["Spanuong"];
+    var dmanuong = (List<Babymart.Models.shop_danhmuccon>)ViewData["Dmanuong"];
+    var anuong = (Babymart.Models.shop_danhmuc)ViewData["anuong"];
+    var spbengu = (List<Babymart.Models.shop_sanpham>)ViewData["Spbengu"];
+    var dmbengu = (List<Babymart.Models.shop_danhmuccon>)ViewData["Dmbengu"];
+    var bengu = (Babymart.Models.shop_danhmuc)ViewData["bengu"];
+    var spvuichoi = (List<Babymart.Models.shop_sanpham>)ViewData["Spvuichoi"];
+    var dmvuichoi = (List<Babymart.Models.shop_danhmuccon>)ViewData["Dmvuichoi"];
+    var vuichoi = (Babymart.Models.shop_danhmuc)ViewData["vuichoi"];
+    var spdinhduong = (List<Babymart.Models.shop_sanpham>)ViewData["Spdinhduong"];
+    var dmdinhduong = (List<Babymart.Models.shop_danhmuccon>)ViewData["Dmdinhduong"];
+    var dinhduong = (Babymart.Models.shop_danhmuc)ViewData["dinhduong"];
+    var spchome = (List<Babymart.Models.shop_sanpham>)ViewData["Spchome"];
+    var dmchome = (List<Babymart.Models.shop_danhmuccon>)ViewData["Dmchome"];
+    var chome = (Babymart.Models.shop_danhmuc)ViewData["chome"];
+    var spquanao = (List<Babymart.Models.shop_sanpham>)ViewData["Spquanao"];
+    var dmquanao = (List<Babymart.Models.shop_danhmuccon>)ViewData["Dmquanao"];
+    var quanao = (Babymart.Models.shop_danhmuc)ViewData["quanao"];
+    var spvesinh = (List<Babymart.Models.shop_sanpham>)ViewData["Spvesinh"];
+    var dmvesinh = (List<Babymart.Models.shop_danhmuccon>)ViewData["Dmvesinh"];
+    var vesinh = (Babymart.Models.shop_danhmuc)ViewData["vesinh"];
+    var spxe = (List<Babymart.Models.shop_sanpham>)ViewData["Spxe"];
+    var dmxe = (List<Babymart.Models.shop_danhmuccon>)ViewData["Dmxe"];
+    var xe = (Babymart.Models.shop_danhmuc)ViewData["xe"];
+    var banner = (List<Babymart.Models.sys_Banner>)ViewData["Banner"];
+    var articalTags = new List<Babymart.Models.Module.ModelModuleDetail>();
+    if (ViewData["ArticlesTags"] != null)
+    {
+        articalTags = ((List<Babymart.Models.Module.ModelModuleDetail>
+            )ViewData["ArticlesTags"]);
+    }
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+@section SEOContent{
+    @foreach (var item in (List<Babymart.Models.sys_content>)FBabymartvn.ListContents("Home"))
+    {
+        if (!item.Name.Equals("H1"))
+        {
+            if (item.Name.Equals("title"))
+            {
+                <title>@(IsLangVN ? item.Contents : item.Contents_us)</title>
+            }
+
+            else
+            {
+                <meta name="@item.Name" content="@(IsLangVN ? item.Contents : item.Contents_us)" />
+            }
+        }
+    }
+    <link href="~/Scripts/libs/animate-slider/style-banner.css" rel="stylesheet" />
+}
+
+@section scripts{
+    @*<script src="@Url.Content("~/Scripts/sys/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>*@
+
+    <script src="~/Scripts/libs/animate-slider/jquery.min.js"></script>
+    @*<script src="~/Scripts/libs/animate-slider/jquery-banner.min.js"></script>*@
+
+    <script async src="~/Scripts/sys/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script>
+
+        //$(document).ready(function () {
+        //    $('#layerslider').layerSlider({
+        //        skinsPath: 'Scripts/libs/animate-slider/skin/',
+        //        skin: 'glass',
+        //        thumbnailNavigation: 'hover',
+        //        hoverPrevNext: false,
+        //        autoPlayVideos: false
+        //    });
+        //});
+
+        //$(document).ready(function () {
+        //    $('.layerslider-small').layerSlider({
+        //        skinsPath: 'Scripts/libs/animate-slider/skin/',
+        //        skin: 'glass',
+        //        thumbnailNavigation: 'hover',
+        //        hoverPrevNext: false,
+        //        autoPlayVideos: false
+        //    });
+        //});
+        //$('body').addClass('home');
+        //$('.box-vertical-megamenus h4').addClass('dis-none');
+        //$('#main-menu').addClass('dis-none');
+        //$('ol.nav-menu').css('display', 'block');
+        $(document).ready(function () { $("#layerslider").layerSlider({ skinsPath: "Scripts/libs/animate-slider/skin/", skin: "glass", thumbnailNavigation: "hover", hoverPrevNext: !1, autoPlayVideos: !1 }) }), $(document).ready(function () { $(".layerslider-small").layerSlider({ skinsPath: "Scripts/libs/animate-slider/skin/", skin: "glass", thumbnailNavigation: "hover", hoverPrevNext: !1, autoPlayVideos: !1 }) }), $("body").addClass("home"), $(".box-vertical-megamenus h4").addClass("dis-none"), $("#main-menu").addClass("dis-none"), $("ol.nav-menu").css("display", "block");
+    </script>
+    <!--[if lt IE 9]>
+        <script src="~/Scripts/libs/animate-slider/html5.js"></script>
+    <![endif]-->
+
+}
+<h1 class="hidden">@FBabymartvn.GetContents("Home", "H1").Contents</h1>
+@*<div class="content-page" style="background-image:url('https://babymart.vn/Images/hinhdulieu/upload/snow_vect.jpg')">*@
+    <div class="content-page">
+        <div id="home-slider">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3 "></div>
+                    @*@if (banner.Count > 0)
+                        {
+                        <div class="col-md-9 header-top-right">
+                            <div class="homeslider">
+                                <ul id="contenhomeslider">
+                                    @foreach (var obj in banner)
+                                        {
+                                            if (Path.GetExtension(obj.Banner).ToLower() == ".swf")
+                                            {
+                                            <li><a href='@(IsLangVN? obj.Link:obj.Link_us)' target="_blank"><object width="645" height="209" data="@(FBabymartvn.IsLangVNHasValue(obj.Banner_us) ? obj.Banner: obj.Banner_us)"></object></a></li>
+                                            }
+                                            else
+                                            {
+                                            <li><a href='@(IsLangVN? obj.Link:obj.Link_us)' target="_blank"><img src="@(FBabymartvn.IsLangVNHasValue(obj.Banner_us) ?  obj.Banner : obj.Banner_us)" alt="banner" /></a></li>
+                                            }
+                                        }
+                                </ul>
+                            </div>
+                        </div>
+                        }*@
+                    <div class="col-md-9 header-top-right">
+                        <div class="layerslider-container">
+                            <div id="layerslider" style="width: 900px; height: 453px; margin: 0 auto;">
+
+                                
+
+                                @*<div class="ls-layer" style="slidedelay: 5000; transition2d: 24,25,27,28,34,35,37,38,110,113; ">
+                                    <img src="@(IsLangVN ? "https://babymart.vn/Images/hinhdulieu/upload/bg_cuoi_nam.jpg" : "https://babymart.vn/Images/hinhdulieu/upload/bg_cuoi_nam.jpg")" width="900" height="454" class="ls-bg" alt="Slide background">
+                                    @if (IsLangVN)
+                                    {
+                                        <img class="ls-s2" src="https://babymart.vn/Images/hinhdulieu/upload/slogan_cuoi_nam.png" width="491" height="104" alt="babymart.vn, đồ sơ sinh, mẹ và bé, máy hút sữa" style="top:65px; left:357px;slidedirection : left; durationin:1000; easingin:easeInOutQuint; easingout:easeInOutQuint;  delayin : 100;rotatein:90; rotateout : -90; scalein : 2.5; scaleout : 0;" />
+                                    }
+                                    else
+                                    {
+                                        <img class="ls-s2" src="https://babymart.vn/Images/hinhdulieu/upload/slogan_cuoi_nam.png" width="491" height="104" alt="babymart.vn, đồ sơ sinh, mẹ và bé, máy hút sữa" style="top:65px; left:357px; font-size: 30px; slidedirection: left; durationin: 1000; easingin: easeInOutQuint; easingout: easeInOutQuint; delayin: 100; rotatein: 90; rotateout: -90; scalein: 2.5; scaleout: 0; " />
+                                    }
+
+                                    <div class="ls-s-1 b tblack" style="top:0%; left:50%;">
+                                        <a href="@(IsLangVN ? "https://babymart.vn/san-pham/khuyen-mai.html" : "https://babymart.vn/en/product/saleoff.html")" target="_blank" style="padding: 500px;"></a>
+                                    </div>
+                                </div>*@
+
+                                @*<div class="ls-layer" style="slidedelay: 5000; transition2d: 24,25,27,28,34,35,37,38,110,113; ">
+                                    <img src="@(IsLangVN ? "https://babymart.vn/Images/hinhdulieu/upload/glico_milk.jpg" : "https://babymart.vn/Images/hinhdulieu/upload/glico_milk.jpg")" width="900" height="454" class="ls-bg" alt="Slide background">
+                                    <div class="ls-s-1 b tblack" style="top:0%; left:50%;">
+                                        <a href="@(IsLangVN ? "https://babymart.vn/bai-viet/chuong-trinh-vui-xuan-khuan-bao-boi.html" : "https://babymart.vn/bai-viet/chuong-trinh-vui-xuan-khuan-bao-boi.html")" target="_blank" style="padding: 500px;"></a>
+                                    </div>
+                                </div>*@
+
+                                <div class="ls-layer" style="slidedelay: 5000; transition2d: 24,25,27,28,34,35,37,38,110,113; ">
+                                    <img src="@(IsLangVN ? "Images/hinhdulieu/pic-banner/banner1-tv.jpg" : "Images/hinhdulieu/pic-banner/banner1-ta.jpg")" width="900" height="453" class="ls-bg" alt="Slide background">
+                                    @if (IsLangVN)
+                                    {
+                                        <img class="ls-s2" src="Images/hinhdulieu/pic-banner/text-1-list-tv.png" width="637" height="125" alt="babymart.vn, đồ sơ sinh, mẹ và bé, máy hút sữa" style="top:10px; left:0px;slidedirection : left; durationin:1000; easingin:easeInOutQuint; easingout:easeInOutQuint;  delayin : 100;rotatein:90; rotateout : -90; scalein : 2.5; scaleout : 0;" />
+                                    }
+                                    else
+                                    {
+                                        <img class="ls-s2" src="Images/hinhdulieu/pic-banner/text-1-list-ta.png" alt="babymart.vn, đồ sơ sinh, mẹ và bé, máy hút sữa" style="top: 10px; left: 5px; font-size: 30px; slidedirection: left; durationin: 1000; easingin: easeInOutQuint; easingout: easeInOutQuint; delayin: 100; rotatein: 90; rotateout: -90; scalein: 2.5; scaleout: 0; " />
+                                    }
+                                    @if (IsLangVN)
+                                    {
+                                        <img class="ls-s2" src="Images/hinhdulieu/pic-banner/text-2-list-tv.png" width="624" height="150" alt="babymart.vn, đồ sơ sinh, mẹ và bé, máy hút sữa" style="top: 130px; left: 280px; slidedirection: fade; durationin: 1800; delayin: 800; scalein : 30" />
+                                    }
+                                    else
+                                    {
+                                        <img class="ls-s2" src="Images/hinhdulieu/pic-banner/text-2-list-ta.png" alt="babymart.vn, đồ sơ sinh, mẹ và bé, máy hút sữa" style="top: 130px; left: 280px; slidedirection: fade; durationin: 1800; delayin: 800; scalein: 30" />
+                                    }
+                                    <div class="ls-s-1 b tblack" style="top:0%; left:50%;">
+                                        <a href="@(IsLangVN ? "/goi-do-so-sinh.html" : "/en/new-baby-checklist.html")" target="_blank" style="padding: 500px;"></a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearb"></div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="service" class="container">
+                <div class="service">
+                    <div class="col-xs-6 col-sm-3 service-item">
+                        <div class="icon">
+                            <div class="icon-1"></div>
+                        </div>
+                        <div class="info">
+                            <a href="/bai-viet/phuong-thuc-giao-hang.html"><h3>@(IsLangVN ? "Giao hàng toàn quốc" : "Nationwide Delivery")</h3></a>
+                            <span>@(IsLangVN ? "Miễn phí nội thành HCM" : "Free delivery inner HCMc")</span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 service-item">
+                        <div class="icon">
+                            <div class="icon-2"></div>
+                        </div>
+                        <div class="info">
+                            <a href="/bai-viet/chinh-sach-doi-tra.html"><h3>@(IsLangVN ? "7 ngày đổi trả hàng" : "7 days change goods")</h3></a>
+                            <span>@(IsLangVN ? "Hoàn tiền nếu hàng lỗi" : "Refund if goods error")</span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 service-item">
+                        <div class="icon">
+                            <div class="icon-3"></div>
+                        </div>
+
+                        <div class="info">
+                            <a href="#"><h3>@(IsLangVN ? "Hỗ trợ 24/7" : "Support 24/7")</h3></a>
+                            <span>Hotline: 0909 324 824</span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 service-item">
+                        <div class="icon">
+                            <div class="icon-4"></div>
+                        </div>
+                        <div class="info">
+                            <a href="/bai-viet/uu-dai-thanh-vien.html"><h3>@(IsLangVN ? "Ưu đãi thành viên" : "Preferential member")</h3></a>
+                            <span>@(IsLangVN ? "Tích lũy điểm khi đặt hàng" : "Accumulate points when ordering")</span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            @if (spkhuyenmai.Count > 0)
+            {
+                <div class="category-featured electronic">
+                    <nav class="navbar nav-menu show-brand">
+                        <div class="container">
+                            <div class="navbar-brand">
+                                <a href="@(IsLangVN ? "/san-pham/khuyen-mai.html" : "en/product/saleoff.html")">
+                                    <span id="prommotion-icon"></span>
+                                    @*<img src="https://babymart.vn/Images/hinhdulieu/upload/circle.gif" width="40px" />*@
+                                    @(IsLangVN ? FBabymartvn.GetContents("SaleOff", "Title").Contents : FBabymartvn.GetContents("SaleOff", "Title").Contents_us)
+                                </a>
+                            </div>
+                            <span class="toggle-menu"></span>
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav"></ul>
+                            </div>
+                        </div>
+                        <div id="elevator-12" class="floor-elevator">
+                            <a href="#" class="btn-elevator disabled up fa fa-angle-up"></a>
+                            <a href="#elevator-1" class="btn-elevator  down fa fa-angle-down"></a>
+                        </div>
+                    </nav>
+                    <div class="product-featured clearfix">
+                        <div class="row">
+                            <div class="col-sm-12 col-right-tab">
+                                <div class="product-featured-tab-content">
+                                    <div class="tab-container">
+                                        <div class="tab-panel active" id="tab-14">
+                                            <div class="box-full clearfix">
+                                                <ul class="product-list">
+                                                    @foreach (var obj in spkhuyenmai)
+                                                    {
+                                                        Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.cshtml", obj);
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="type-1">
+                    <a href='@(IsLangVN ? "/san-pham/khuyen-mai.html" : "en/product/saleoff.html")' target="_blank" class="btn1 btn-1">
+                        <span class="viewall">@(IsLangVN ? "Xem tất cả" : "View all")</span>
+                        <span class="round"><i class="fa fa-chevron-right"></i></span>
+                    </a>
+                </div>
+            }
+            @if (spbimta.Count > 0 && dmbimta.Count > 0)
+            {
+                <div class="category-featured sports floor1">
+                    <nav class="navbar nav-menu show-brand">
+                        <div class="container">
+                            <div class="navbar-brand">
+                                <a href="@((IsLangVN ? "/danh-muc/" + bimta.url : "/en/category/" + bimta.url_us) + ".html")">
+                                    <div class="icon-menu bimta"></div>
+                                    @(IsLangVN ? bimta.tendanhmuc : bimta.tendanhmuc_us)
+                                </a>
+                            </div>
+                            <span class="toggle-menu"></span>
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav"></ul>
+                            </div>
+                        </div>
+                        <div id="elevator-1" class="floor-elevator">
+                            <a href="#" class="btn-elevator disabled up fa fa-angle-up"></a>
+                            <a href="#elevator-2" class="btn-elevator down fa fa-angle-down"></a>
+                        </div>
+                    </nav>
+                    <div class="product-featured clearfix">
+                        <div class="row">
+                            <div class="col-sm-2 sub-category-wapper">
+                                <div class="item">
+                                    <ul class="sub-category-list">
+                                        @foreach (var obj1 in dmbimta)
+                                        {
+                                            <li>
+                                                <a href='@((IsLangVN ? "/chuyen-muc/" + obj1.url : "/en/group/" + obj1.url_us) + ".html")'>
+                                                    <i class="fa fa-angle-double-right"></i> @(FBabymartvn.IsLangVNHasValue(obj1.tendanhmuccon_us) ? obj1.tendanhmuccon : obj1.tendanhmuccon_us)
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-right-tab">
+                                <div class="product-featured-tab-content">
+                                    <div class="tab-container">
+                                        <div class="tab-panel active">
+                                            <div class="box-full clearfix">
+                                                <ul class="product-list row">
+                                                    @foreach (var obj in spbimta)
+                                                    {
+                                                        Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.cshtml", obj);
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @*<div class="container category-featured">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <a href="/bai-viet/babymart.vn-thong-bao-nghi-tet-nguyen-dan-binh-than-2016.html" title="Babymart.vn thông báo nghỉ Tết Nguyên đán Bính Thân 2016">
+                                <img src="~/Content/forntpage/images/ui/nghi-tet.jpg" class="img-responsive" alt="Babymart.vn thông báo nghỉ Tết Nguyên đán Bính Thân 2016" />
+                            </a>
+                        </div>
+                    </div>
+                </div>*@
+            @*<div class="container banner-small">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="layerslider-container">
+                                <div class="layerslider-small" style="width: 900px; height: 453px; margin: 0 auto;">
+                                    <div class="ls-layer" style="slidedelay: 5000; transition2d: 24,25,27,28,34,35,37,38,110,113; ">
+                                        <img src="https://babymart.vn/Images/hinhdulieu/upload/khuyen-mai-Goon-27-10-banner-full.jpg" class="ls-bg" alt="Slide background" />
+                                        <img class="ls-bg" src="Images/hinhdulieu/pic-banner/km-gif.gif" alt="Khuyến mãi đặc biệt" style="top:25%;left:14%" />
+                                        <div class="ls-s-1 b tblack" style="top:0%; left:50%;">
+                                            <a href="@(IsLangVN ? "https://babymart.vn/bai-viet/suu-tap-tem-goo.n-nhan-qua-that-cool.html" : "https://babymart.vn/bai-viet/suu-tap-tem-goo.n-nhan-qua-that-cool.html")" target="_blank" style="padding: 500px;"></a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="layerslider-container">
+                                <div class="layerslider-small" style="width: 900px; height: 453px; margin: 0 auto;">
+                                    <div class="ls-layer" style="slidedelay: 5000; transition2d: 24,25,27,28,34,35,37,38,110,113; ">
+                                        <img src="https://babymart.vn/Images/hinhdulieu/upload/khuyen-mai-Goon-27-10-banner-full.jpg" class="ls-bg" alt="Slide background" />
+                                        <img class="ls-bg" src="Images/hinhdulieu/pic-banner/km-gif.gif" alt="Khuyến mãi đặc biệt" style="top:25%;left:14%" />
+                                        <div class="ls-s-1 b tblack" style="top:0%; left:50%;">
+                                            <a href="@(IsLangVN ? "https://babymart.vn/bai-viet/suu-tap-tem-goo.n-nhan-qua-that-cool.html" : "https://babymart.vn/bai-viet/suu-tap-tem-goo.n-nhan-qua-that-cool.html")" target="_blank" style="padding: 500px;"></a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+            @if (spbinhsua.Count > 0 && dmbinhsua.Count > 0)
+            {
+                <div class="category-featured sports floor2">
+                    <nav class="navbar nav-menu show-brand">
+                        <div class="container">
+                            <div class="navbar-brand">
+                                <a href="@((IsLangVN ? "/danh-muc/" + binhsua.url : "/en/category/" + binhsua.url_us) + ".html")">
+                                    <div class="icon-menu binhsua"></div>
+                                    @(IsLangVN ? binhsua.tendanhmuc : binhsua.tendanhmuc_us)
+                                </a>
+                            </div>
+                            <span class="toggle-menu"></span>
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav"></ul>
+                            </div>
+                        </div>
+                        <div id="elevator-2" class="floor-elevator">
+                            <a href="#elevator-1" class="btn-elevator up fa fa-angle-up"></a>
+                            <a href="#elevator-3" class="btn-elevator down fa fa-angle-down"></a>
+                        </div>
+                    </nav>
+                    <div class="product-featured clearfix">
+                        <div class="row">
+                            <div class="col-sm-2 sub-category-wapper">
+                                <div class="item">
+                                    <ul class="sub-category-list">
+                                        @foreach (var obj1 in dmbinhsua)
+                                        {
+                                            <li>
+                                                <a href='@((IsLangVN ? "/chuyen-muc/" + obj1.url : "/en/group/" + obj1.url_us) + ".html")'>
+                                                    <i class="fa fa-angle-double-right"></i> @(FBabymartvn.IsLangVNHasValue(obj1.tendanhmuccon_us) ? obj1.tendanhmuccon : obj1.tendanhmuccon_us)
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-right-tab">
+                                <div class="product-featured-tab-content">
+                                    <div class="tab-container">
+                                        <div class="tab-panel active">
+                                            <div class="box-full clearfix">
+                                                <ul class="product-list row">
+                                                    @foreach (var obj in spbinhsua)
+                                                    {
+                                                        Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.cshtml", obj);
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (spanuong.Count > 0 && dmanuong.Count > 0)
+            {
+                <div class="category-featured sports floor3">
+                    <nav class="navbar nav-menu show-brand">
+                        <div class="container">
+                            <div class="navbar-brand">
+                                <a href="@((IsLangVN ? "/danh-muc/" + anuong.url : "/en/category/" + anuong.url_us) + ".html")">
+                                    <div class="icon-menu anuong"></div>
+                                    @(IsLangVN ? anuong.tendanhmuc : anuong.tendanhmuc_us)
+                                </a>
+                            </div>
+                            <span class="toggle-menu"></span>
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav"></ul>
+                            </div>
+                        </div>
+                        <div id="elevator-3" class="floor-elevator">
+                            <a href="#elevator-2" class="btn-elevator up fa fa-angle-up"></a>
+                            <a href="#elevator-4" class="btn-elevator down fa fa-angle-down"></a>
+                        </div>
+                    </nav>
+                    <div class="product-featured clearfix">
+                        <div class="row">
+                            <div class="col-sm-2 sub-category-wapper">
+                                <div class="item">
+                                    <ul class="sub-category-list">
+                                        @foreach (var obj1 in dmanuong)
+                                        {
+                                            <li>
+                                                <a href='@((IsLangVN ? "/chuyen-muc/" + obj1.url : "/en/group/" + obj1.url_us) + ".html")'>
+                                                    <i class="fa fa-angle-double-right"></i> @(FBabymartvn.IsLangVNHasValue(obj1.tendanhmuccon_us) ? obj1.tendanhmuccon : obj1.tendanhmuccon_us)
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-right-tab">
+                                <div class="product-featured-tab-content">
+                                    <div class="tab-container">
+                                        <div class="tab-panel active">
+                                            <div class="box-full clearfix">
+                                                <ul class="product-list row">
+                                                    @foreach (var obj in spanuong)
+                                                    {
+                                                        Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.cshtml", obj);
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (spbekhoe.Count > 0 && dmbekhoe.Count > 0)
+            {
+                <div class="category-featured sports floor4">
+                    <nav class="navbar nav-menu show-brand">
+                        <div class="container">
+                            <div class="navbar-brand">
+                                <a href="@((IsLangVN ? "/danh-muc/" + bekhoe.url : "/en/category/" + bekhoe.url_us) + ".html")">
+                                    <div class="icon-menu antoan"></div>
+                                    @(IsLangVN ? bekhoe.tendanhmuc : bekhoe.tendanhmuc_us)
+                                </a>
+                            </div>
+                            <span class="toggle-menu"></span>
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav"></ul>
+                            </div>
+                        </div>
+                        <div id="elevator-4" class="floor-elevator">
+                            <a href="#elevator-3" class="btn-elevator up fa fa-angle-up"></a>
+                            <a href="#elevator-5" class="btn-elevator down fa fa-angle-down"></a>
+                        </div>
+                    </nav>
+                    <div class="product-featured clearfix">
+                        <div class="row">
+                            <div class="col-sm-2 sub-category-wapper">
+                                <div class="item">
+                                    <ul class="sub-category-list">
+                                        @foreach (var obj1 in dmbekhoe)
+                                        {
+                                            <li>
+                                                <a href='@((IsLangVN ? "/chuyen-muc/" + obj1.url : "/en/group/" + obj1.url_us) + ".html")'>
+                                                    <i class="fa fa-angle-double-right"></i> @(FBabymartvn.IsLangVNHasValue(obj1.tendanhmuccon_us) ? obj1.tendanhmuccon : obj1.tendanhmuccon_us)
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-right-tab">
+                                <div class="product-featured-tab-content">
+                                    <div class="tab-container">
+                                        <div class="tab-panel active">
+                                            <div class="box-full clearfix">
+                                                <ul class="product-list row">
+                                                    @foreach (var obj in spbekhoe)
+                                                    {
+                                                        Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.cshtml", obj);
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (spquanao.Count > 0 && dmquanao.Count > 0)
+            {
+                <div class="category-featured sports floor5">
+                    <nav class="navbar nav-menu show-brand">
+                        <div class="container">
+                            <div class="navbar-brand">
+                                <a href="@((IsLangVN ? "/danh-muc/" + quanao.url : "/en/category/" + quanao.url_us) + ".html")">
+                                    <div class="icon-menu quanao"></div>
+                                    @(IsLangVN ? quanao.tendanhmuc : quanao.tendanhmuc_us)
+                                </a>
+                            </div>
+                            <span class="toggle-menu"></span>
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav"></ul>
+                            </div>
+                        </div>
+                        <div id="elevator-5" class="floor-elevator">
+                            <a href="#elevator-4" class="btn-elevator up fa fa-angle-up"></a>
+                            <a href="#elevator-6" class="btn-elevator down fa fa-angle-down"></a>
+                        </div>
+                    </nav>
+                    <div class="product-featured clearfix">
+                        <div class="row">
+                            <div class="col-sm-2 sub-category-wapper">
+                                <div class="item">
+                                    <ul class="sub-category-list">
+                                        @foreach (var obj1 in dmquanao)
+                                        {
+                                            <li>
+                                                <a href='@((IsLangVN ? "/chuyen-muc/" + obj1.url : "/en/group/" + obj1.url_us) + ".html")'>
+                                                    <i class="fa fa-angle-double-right"></i> @(FBabymartvn.IsLangVNHasValue(obj1.tendanhmuccon_us) ? obj1.tendanhmuccon : obj1.tendanhmuccon_us)
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-right-tab">
+                                <div class="product-featured-tab-content">
+                                    <div class="tab-container">
+                                        <div class="tab-panel active">
+                                            <div class="box-full clearfix">
+                                                <ul class="product-list row">
+                                                    @foreach (var obj in spquanao)
+                                                    {
+                                                        Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.cshtml", obj);
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (spbengu.Count > 0 && dmbengu.Count > 0)
+            {
+                <div class="category-featured sports floor6">
+                    <nav class="navbar nav-menu show-brand">
+                        <div class="container">
+                            <div class="navbar-brand">
+                                <a href="@((IsLangVN ? "/danh-muc/" + bengu.url : "/en/category/" + bengu.url_us) + ".html")">
+                                    <div class="icon-menu bengu"></div>
+                                    @(IsLangVN ? bengu.tendanhmuc : bengu.tendanhmuc_us)
+                                </a>
+                            </div>
+                            <span class="toggle-menu"></span>
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav"></ul>
+                            </div>
+                        </div>
+                        <div id="elevator-6" class="floor-elevator">
+                            <a href="#elevator-5" class="btn-elevator up fa fa-angle-up"></a>
+                            <a href="#elevator-7" class="btn-elevator down fa fa-angle-down"></a>
+                        </div>
+                    </nav>
+                    <div class="product-featured clearfix">
+                        <div class="row">
+                            <div class="col-sm-2 sub-category-wapper">
+                                <div class="item">
+                                    <ul class="sub-category-list">
+                                        @foreach (var obj1 in dmbengu)
+                                        {
+                                            <li>
+                                                <a href='@((IsLangVN ? "/chuyen-muc/" + obj1.url : "/en/group/" + obj1.url_us) + ".html")'>
+                                                    <i class="fa fa-angle-double-right"></i> @(FBabymartvn.IsLangVNHasValue(obj1.tendanhmuccon_us) ? obj1.tendanhmuccon : obj1.tendanhmuccon_us)
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-right-tab">
+                                <div class="product-featured-tab-content">
+                                    <div class="tab-container">
+                                        <div class="tab-panel active">
+                                            <div class="box-full clearfix">
+                                                <ul class="product-list row">
+                                                    @foreach (var obj in spbengu)
+                                                    {
+                                                        Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.cshtml", obj);
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (spvesinh.Count > 0 && dmvesinh.Count > 0)
+            {
+                <div class="category-featured sports floor7">
+                    <nav class="navbar nav-menu show-brand">
+                        <div class="container">
+                            <div class="navbar-brand">
+                                <a href="@((IsLangVN ? "/danh-muc/" + vesinh.url : "/en/category/" + vesinh.url_us) + ".html")">
+                                    <div class="icon-menu betam"></div>
+                                    @(IsLangVN ? vesinh.tendanhmuc : vesinh.tendanhmuc_us)
+                                </a>
+                            </div>
+                            <span class="toggle-menu"></span>
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav"></ul>
+                            </div>
+                        </div>
+                        <div id="elevator-7" class="floor-elevator">
+                            <a href="#elevator-6" class="btn-elevator up fa fa-angle-up"></a>
+                            <a href="#elevator-8" class="btn-elevator down fa fa-angle-down"></a>
+                        </div>
+                    </nav>
+                    <div class="product-featured clearfix">
+                        <div class="row">
+                            <div class="col-sm-2 sub-category-wapper">
+                                <div class="item">
+                                    <ul class="sub-category-list">
+                                        @foreach (var obj1 in dmvesinh)
+                                        {
+                                            <li>
+                                                <a href='@((IsLangVN ? "/chuyen-muc/" + obj1.url : "/en/group/" + obj1.url_us) + ".html")'>
+                                                    <i class="fa fa-angle-double-right"></i> @(FBabymartvn.IsLangVNHasValue(obj1.tendanhmuccon_us) ? obj1.tendanhmuccon : obj1.tendanhmuccon_us)
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-right-tab">
+                                <div class="product-featured-tab-content">
+                                    <div class="tab-container">
+                                        <div class="tab-panel active">
+                                            <div class="box-full clearfix">
+                                                <ul class="product-list row">
+                                                    @foreach (var obj in spvesinh)
+                                                    {
+                                                        Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.cshtml", obj);
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (spvuichoi.Count > 0 && dmvuichoi.Count > 0)
+            {
+                <div class="category-featured sports floor8">
+                    <nav class="navbar nav-menu show-brand">
+                        <div class="container">
+                            <div class="navbar-brand">
+                                <a href="@((IsLangVN ? "/danh-muc/" + vuichoi.url : "/en/category/" + vuichoi.url_us) + ".html")">
+                                    <div class="icon-menu dochoi"></div>
+                                    @(IsLangVN ? vuichoi.tendanhmuc : vuichoi.tendanhmuc_us)
+                                </a>
+                            </div>
+                            <span class="toggle-menu"></span>
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav"></ul>
+                            </div>
+                        </div>
+                        <div id="elevator-8" class="floor-elevator">
+                            <a href="#elevator-7" class="btn-elevator up fa fa-angle-up"></a>
+                            <a href="#elevator-9" class="btn-elevator down fa fa-angle-down"></a>
+                        </div>
+                    </nav>
+                    <div class="product-featured clearfix">
+                        <div class="row">
+                            <div class="col-sm-2 sub-category-wapper">
+                                <div class="item">
+                                    <ul class="sub-category-list">
+                                        @foreach (var obj1 in dmvuichoi)
+                                        {
+                                            <li>
+                                                <a href='@((IsLangVN ? "/chuyen-muc/" + obj1.url : "/en/group/" + obj1.url_us) + ".html")'>
+                                                    <i class="fa fa-angle-double-right"></i> @(FBabymartvn.IsLangVNHasValue(obj1.tendanhmuccon_us) ? obj1.tendanhmuccon : obj1.tendanhmuccon_us)
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-right-tab">
+                                <div class="product-featured-tab-content">
+                                    <div class="tab-container">
+                                        <div class="tab-panel active">
+                                            <div class="box-full clearfix">
+                                                <ul class="product-list row">
+                                                    @foreach (var obj in spvuichoi)
+                                                    {
+                                                        Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.cshtml", obj);
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (spdinhduong.Count > 0 && dmdinhduong.Count > 0)
+            {
+                <div class="category-featured sports floor9">
+                    <nav class="navbar nav-menu show-brand">
+                        <div class="container">
+                            <div class="navbar-brand">
+                                <a href="@((IsLangVN ? "/danh-muc/" + dinhduong.url : "/en/category/" + dinhduong.url_us) + ".html")">
+                                    <div class="icon-menu dinhduongbome"></div>
+                                    @(IsLangVN ? dinhduong.tendanhmuc : dinhduong.tendanhmuc_us)
+                                </a>
+                            </div>
+                            <span class="toggle-menu"></span>
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav"></ul>
+                            </div>
+                        </div>
+                        <div id="elevator-9" class="floor-elevator">
+                            <a href="#elevator-8" class="btn-elevator up fa fa-angle-up"></a>
+                            <a href="#elevator-10" class="btn-elevator down fa fa-angle-down"></a>
+                        </div>
+                    </nav>
+                    <div class="product-featured clearfix">
+                        <div class="row">
+                            <div class="col-sm-2 sub-category-wapper">
+                                <div class="item">
+                                    <ul class="sub-category-list">
+                                        @foreach (var obj1 in dmdinhduong)
+                                        {
+                                            <li>
+                                                <a href='@((IsLangVN ? "/chuyen-muc/" + obj1.url : "/en/group/" + obj1.url_us) + ".html")'>
+                                                    <i class="fa fa-angle-double-right"></i> @(FBabymartvn.IsLangVNHasValue(obj1.tendanhmuccon_us) ? obj1.tendanhmuccon : obj1.tendanhmuccon_us)
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-right-tab">
+                                <div class="product-featured-tab-content">
+                                    <div class="tab-container">
+                                        <div class="tab-panel active">
+                                            <div class="box-full clearfix">
+                                                <ul class="product-list row">
+                                                    @foreach (var obj in spdinhduong)
+                                                    {
+                                                        Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.cshtml", obj);
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (spchome.Count > 0 && dmchome.Count > 0)
+            {
+                <div class="category-featured sports floor10">
+                    <nav class="navbar nav-menu show-brand">
+                        <div class="container">
+                            <div class="navbar-brand">
+                                <a href="@((IsLangVN ? "/danh-muc/" + chome.url : "/en/category/" + chome.url_us) + ".html")">
+                                    <div class="icon-menu chome"></div>
+                                    @(IsLangVN ? chome.tendanhmuc : chome.tendanhmuc_us)
+                                </a>
+                            </div>
+                            <span class="toggle-menu"></span>
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav"></ul>
+                            </div>
+                        </div>
+                        <div id="elevator-10" class="floor-elevator">
+                            <a href="#elevator-9" class="btn-elevator up fa fa-angle-up"></a>
+                            <a href="#elevator-11" class="btn-elevator down fa fa-angle-down"></a>
+                        </div>
+                    </nav>
+                    <div class="product-featured clearfix">
+                        <div class="row">
+                            <div class="col-sm-2 sub-category-wapper">
+                                <div class="item">
+                                    <ul class="sub-category-list">
+                                        @foreach (var obj1 in dmchome)
+                                        {
+                                            <li>
+                                                <a href='@((IsLangVN ? "/chuyen-muc/" + obj1.url : "/en/group/" + obj1.url_us) + ".html")'>
+                                                    <i class="fa fa-angle-double-right"></i> @(FBabymartvn.IsLangVNHasValue(obj1.tendanhmuccon_us) ? obj1.tendanhmuccon : obj1.tendanhmuccon_us)
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-right-tab">
+                                <div class="product-featured-tab-content">
+                                    <div class="tab-container">
+                                        <div class="tab-panel active">
+                                            <div class="box-full clearfix">
+                                                <ul class="product-list row">
+                                                    @foreach (var obj in spchome)
+                                                    {
+                                                        Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.cshtml", obj);
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (spxe.Count > 0 && dmxe.Count > 0)
+            {
+                <div class="category-featured sports floor11">
+                    <nav class="navbar nav-menu show-brand">
+                        <div class="container">
+                            <div class="navbar-brand">
+                                <a href="@((IsLangVN ? "/danh-muc/" + xe.url : "/en/category/" + xe.url_us) + ".html")">
+                                    <div class="icon-menu xechobe"></div>
+                                    @(IsLangVN ? xe.tendanhmuc : xe.tendanhmuc_us)
+                                </a>
+                            </div>
+                            <span class="toggle-menu"></span>
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav"></ul>
+                            </div>
+                        </div>
+                        <div id="elevator-11" class="floor-elevator">
+                            <a href="#elevator-10" class="btn-elevator up fa fa-angle-up"></a>
+                            <a href="#elevator-12" class="btn-elevator down fa fa-angle-down"></a>
+                        </div>
+                    </nav>
+                    <div class="product-featured clearfix">
+                        <div class="row">
+                            <div class="col-sm-2 sub-category-wapper">
+                                <div class="item">
+                                    <ul class="sub-category-list">
+                                        @foreach (var obj1 in dmxe)
+                                        {
+                                            <li>
+                                                <a href='@((IsLangVN ? "/chuyen-muc/" + obj1.url : "/en/group/" + obj1.url_us) + ".html")'>
+                                                    <i class="fa fa-angle-double-right"></i> @(FBabymartvn.IsLangVNHasValue(obj1.tendanhmuccon_us) ? obj1.tendanhmuccon : obj1.tendanhmuccon_us)
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-10 col-right-tab">
+                                <div class="product-featured-tab-content">
+                                    <div class="tab-container">
+                                        <div class="tab-panel active">
+                                            <div class="box-full clearfix">
+                                                <ul class="product-list row">
+                                                    @foreach (var obj in spxe)
+                                                    {
+                                                        Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProductHome.cshtml", obj);
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+<div id="content-wrap">
+    <div class="container">
+        @if (IsLangVN)
+        {
+            Html.RenderAction("GadgetsMagazine", "Common");
+            Html.RenderPartial("~/Views/Shared/Partial/_Goctuvan.cshtml", articalTags);
+        }
+    </div>
+
+</div>

@@ -1,0 +1,72 @@
+﻿@model Babymart.ViewModels.ShoppingCartViewModel
+@{
+    var urllocation = System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocation"];
+    var modelsSS = (Babymart.Models.Module.PlanCartModel)Session["PlanCart"];
+    var totalCart = (Model.CartItemModel.Count > 0 ? Model.CartTotal : 0) + (modelsSS != null ? modelsSS.TotalSum : 0);
+    var IsLangVN = FBabymartvn.IsLangVN();
+    var countItem = (Model.CartItemModel.Count > 0 ? Model.CartItemModel.Count() : 0) + (modelsSS != null ? 1 : 0);
+}
+<div class="col-xs-5 col-sm-3 col-md-2 group-button-header">
+
+    <div class="btn-cart" id="cart-block">
+        <a title="My cart" href="gio-hang.html">@(IsLangVN ? "Giỏ hàng" : "Cart")</a>
+        <span class="notify notify-right cart-total-bar">@countItem</span>
+        @if (Model.CartItemModel.Count() >= 1 || modelsSS != null)
+        {
+            <div class="cart-block">
+                <div class="cart-block-content">
+                    <h5 class="cart-title "><span class="cart-total-bar">@countItem</span> @(IsLangVN ? "sản phẩm trong giỏ hàng." : "items in your cart.")</h5>
+                    <div class="cart-block-list">
+                        <ul>
+                            @if (Model.CartItemModel.Count() >= 1)
+                            {
+                                foreach (var item in Model.CartItemModel)
+                                {
+                                    <li id="row-bar-@item.RecordId" class="product-info">
+                                        <div class="p-left">
+                                            <a class="remove_link RemoveLinkBar" data-id="@item.RecordId"></a>
+                                            <a href="@((IsLangVN ? "/tin-tuc/" + item.shop_bienthe.spurl : "/en/product/" + item.shop_bienthe.spurl_us) + ".html")">
+                                                <img class="img-responsive" onerror="imgError(this)" src='@(urllocation + item.shop_bienthe.imgsp)' alt="@(IsLangVN ? item.shop_bienthe.tensp : item.shop_bienthe.tensp_us)" />
+                                            </a>
+                                        </div>
+                                        <div class="p-right">
+                                            <p class="p-name">@(IsLangVN ? item.shop_bienthe.tensp : item.shop_bienthe.tensp_us)</p>
+                                            <p class="p-rice">@string.Format("{0:0,0 đ}", item.shop_bienthe.gia)</p>
+                                            <p>@(IsLangVN ? "Số lượng" : "Quantity"): @item.Count</p>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                            @if (modelsSS != null)
+                            {
+                                <li class="clearfix">
+                                    <div style="float:left;width: 90%;">
+                                        <a href="@(IsLangVN ? "/goi-do-so-sinh.html" : "/en/new-baby-checklist.html")">
+                                            <img src="/Content/forntpage/images/module/cart-plan.jpg" style="width: 100%;">
+                                        </a>
+                                    </div>
+                                    <div style="float:left">
+                                        <a class="delete RemoveLinkBar_Plan RemoveLinkBar">
+                                            <img src="http://localhost:11418/Content/forntpage/images/ui/card-remove-home-page.png">
+                                        </a>
+                                    </div>
+                                    <div id="bb_loading" style="display:none;  position: absolute;  top: 0px;left: -0.1%;background: rgba(25, 25, 25, 0.43);width: 100%; height: 100%;">
+                                        <img src="~/Images/Sys/baby-loading.gif" style="width: 100px;margin-left: 40%;" />
+                                    </div>
+                                </li>
+
+                            }
+                        </ul>
+                        <div class="toal-cart">
+                            <span>@(IsLangVN ? "Tổng đơn hàng:" : "Total:")</span>
+                            <span id="total-price" class="toal-price pull-right">@string.Format("{0:0,0 đ}", totalCart)</span>
+                        </div>
+                        <div class="cart-buttons">
+                            <a class="btn-check-out" href="/gio-hang.html" title="xem giỏ hàng">@(IsLangVN ? "Xem giỏ hàng" : "Review")</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

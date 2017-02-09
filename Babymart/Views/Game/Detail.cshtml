@@ -1,0 +1,91 @@
+﻿@model Babymart.Models.module_detail
+@{
+    ViewBag.Title = "Detail";
+}
+@section SEOContent{
+
+    <title>@Html.Raw(Model.title)</title>
+    <meta name="keywords" content="@Html.Raw(Model.keyword)" />
+    <meta name="description" content="@Html.Raw(Model.description)" />
+}
+@if (Model != null)
+{
+<div class="columns-container">
+    <div class="container" id="columns">
+        <!-- breadcrumb -->
+        <div class="breadcrumb clearfix">
+            <a class="home" href="/" title="Return to Home">Trang chủ</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <a class="home" href="/game.html" title="Blog">Game vui</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <a class="home" href="@("/game/"+Model.module_menu.url+"/"+Model.module_group.url+".html")" title="Blog">@Model.module_group.title</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span>@Model.title</span>
+        </div>
+        <!-- ./breadcrumb -->
+        <!-- row -->
+        <div class="row">
+            <!-- Left colunm -->
+            <div class="column col-xs-12 col-sm-3 col-sm-push-9" id="left_column">
+                <!-- Blog category -->
+                @if (ViewBag.typemodule != null)
+                {
+                    Html.RenderAction("MenuModule", "Common", new { idtype = ViewBag.typemodule });
+                }
+                <!-- ./blog category  -->
+                <!-- Popular Posts --> 
+                    @{Html.RenderAction("GadgetsMagazine2", "Common");} 
+            </div>
+            <!-- ./left colunm -->
+            <!-- Center colunm-->
+            <div class="center_column col-xs-12 col-sm-9 col-sm-pull-3" id="center_column">
+                <h1 class="page-heading">
+                    <span class="page-heading-title2">@Model.title</span>
+                </h1>
+                <article class="entry-detail">
+                    <div class="guide">
+                        @Html.Raw(FBabymartvn.IsLangVNHasValue(Model.extract_us) ? Model.extract : Model.extract_us)
+                    </div> 
+                    <div class="content-text clearfix text-center"> 
+                        @Html.Raw(FBabymartvn.IsLangVNHasValue(Model.contents_us) ? Model.contents : Model.contents_us)
+					</div>  
+                </article>
+                <!-- Related Posts -->
+                <div class="single-box"> 
+                    <h2>Bình luận</h2> 
+                    <div style="margin-top: 20px; border-top: 1px solid #ccc;">
+                        <div class="fb-comments" data-href="@Request.Url.AbsoluteUri" data-colorscheme="light"
+                             data-numposts="5" data-width="800"></div>
+                    </div>
+                </div>
+                <div class="single-box" style="margin-top:40px">
+                    <h2>Game khác</h2> 
+                    <ul class="related-posts owl-carousel" data-dots="false" data-loop="true" data-nav = "true" data-margin = "30" data-autoplayTimeout="1000" data-autoplayHoverPause = "true" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":5}}'>
+                        @foreach (var item in (List<Babymart.Models.module_detail>)ViewData["ArticlesRelated"])
+                        {
+                        <li class="post-item">
+                            <article class="entry">
+                                <div class="entry-thumb image-hover2">
+                                    <a href="@("/game/"+item.module_group.url+"/"+item.id+"/"+item.url+".html")" title="@item.title">
+                                        <img alt="@item.title" src="@(Common.urlModule()+item.img)" />
+                                    </a>
+                                </div>
+                                <div class="entry-ci">
+                                    <h3 class="entry-title"><a href="@("/game/"+item.module_group.url+"/"+item.id+"/"+item.url+".html")" title="@item.title">@item.title</a></h3>
+                                </div>
+                            </article>
+                        </li>
+                        } 
+                    </ul>
+                    <a class="more" href="@("/game/"+Model.module_menu.url+"/"+Model.module_group.url+".html")">
+                        @(FBabymartvn.IsLangVN() ? "Xem thêm..." : "More...")
+                    </a>
+                </div>
+                <!-- ./Related Posts -->
+            </div>
+            <!-- ./ Center colunm -->
+        </div>
+        <!-- ./row-->
+    </div>
+</div>
+}

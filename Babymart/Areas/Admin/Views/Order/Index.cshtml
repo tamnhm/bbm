@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Sản phẩm";
+
+}
+@section stylesheet{
+
+    <!-- Datepicker -->
+    <link rel="stylesheet" href="/Content/me/css/plugins/datepicker/datepicker.css">
+
+
+}
+@section script{
+    <script type="text/javascript" src="~/Scripts/me/tiny_mce/tinymce.min.js"> </script>
+    <script type="text/javascript" src="https://tinymce.cachefly.net/4.0/jquery.tinymce.min.js"> </script>
+    <script src="~/Scripts/me/custom/bootstrap-datetimepicker.js"></script>
+    <script src="/Scripts/me/file-upload/jquery.fileupload.js"></script>
+    <script src="/Scripts/me/file-upload/jquery.fileupload-ui.js"></script>
+    <script src="/Scripts/me/file-upload/jquery.iframe-transport.js"></script>
+
+
+}
+@section scripts_ko{
+    <style>
+        table a {
+            cursor: pointer;
+        }
+    </style>
+    @Scripts.Render("~/module/order")
+    <script>
+        $(document).ready(function () {
+            (new Orders.mvOrders().Start())
+
+        });
+
+    </script>
+}
+
+
+@section templates {
+    @Html.Partial("_list")
+}
+<!-- ko if:ShowType() === 'List'-->
+<div data-bind="template: { name: 'OrderListTmpl',data:mvlist}"></div>
+<!-- /ko -->
+@*<!-- ko if:ShowType() === 'Edit'-->
+<div data-bind="template: { name: 'OrderEditTmpl',data:mvedit}"></div>
+<!-- /ko -->*@

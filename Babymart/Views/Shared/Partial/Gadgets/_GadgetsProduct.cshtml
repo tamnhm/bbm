@@ -1,0 +1,121 @@
+﻿@model List<Babymart.Models.shop_sanpham>
+@{
+    var IsLangVN = FBabymartvn.IsLangVN(); 
+}
+@if (Model != null && Model.Count > 0)
+{     
+    <div class="block left-module">
+        <p class="title_block">@(IsLangVN ? "Sản phẩm khuyến mãi" : "Promotional products")</p>
+        <div class="block_content">
+            <div class="product-featured clearfix">
+                <div class="row">
+                    <div class="col-sm-12 col-right-tab">
+                        <div class="product-featured-tab-content">
+                            <div class="tab-container">
+                                <div class="tab-panel active" id="tab-15">
+                                    <div class="box-full clearfix">
+                                        <ul class="product-list clearfix">
+                                            @foreach (var obj in Model)
+                                            {
+                                                var bienthe = obj.shop_bienthe.ToList();
+                                                bool isone = bienthe.Count == 1 ? true : false;  
+                                                <li style="width:100%" itemscope="" itemtype="http://schema.org/Product">
+                                                    <div class="left-block">
+                                                        <a href="@((IsLangVN ? "/tin-tuc/" + obj.spurl : "/en/product/" + obj.spurl_us) + ".html")">
+                                                            @if (obj.shop_image.Count > 0)
+                                                            {
+                                                                <img itemprop="image" onerror="imgError(this)" src="@(Common.urlProduct() + obj.shop_image.FirstOrDefault().url)" alt="@obj.tensp" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <img itemprop="image" onerror="imgError(this)" src="" alt="sản phẩm" width='208' height='208' />
+                                                            }
+                                                        </a>
+                                                        <div class="add-to-cart">
+                                                            @if (obj.ischeckout == false)
+                                                            {
+                                                                if (bienthe.Count <= 1)
+                                                                {
+                                                                    if (bienthe.First().giasosanh > 0)
+                                                                    {
+                                                                        <a href="@("/gio-hang.html/" + obj.shop_bienthe.FirstOrDefault().id + "/1")">@(IsLangVN ? "Thêm vào giỏ hàng" : "Add to cart")</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a href="@("/gio-hang.html/" + obj.shop_bienthe.FirstOrDefault().id + "/1")">@(IsLangVN ? "Thêm vào giỏ hàng" : "Add to cart")</a>
+                                                                    }
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                if (bienthe.First().giasosanh > 0)
+                                                                {
+                                                                }
+                                                                else
+                                                                {
+                                                                }
+                                                            }
+                                                        </div>
+                                                        <div class="label-promo">
+                                                            @if (isone)
+                                                            {
+                                                                if (bienthe.First().giasosanh > 0)
+                                                                {
+                                                                    <span>-@(100 - (bienthe.First().gia * 100) / bienthe.First().giasosanh)%</span>
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                foreach (var i in bienthe)
+                                                                {
+                                                                    if (i.giasosanh > 0)
+                                                                    {
+                                                                        <span class="sold-out">Sale off</span>
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            @if (obj.ischeckout == true)
+                                                            {
+                                                                <span class="sold-out">@(IsLangVN ? "Tạm hết hàng:" : "Sold out:")</span>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="right-block">
+                                                        <h3 itemprop="name" class="product-name"><a itemprop="url" href="@((IsLangVN ? "/tin-tuc/" + obj.spurl : "/en/product/" + obj.spurl_us) + ".html")">@(FBabymartvn.IsLangVNHasValue(obj.tensp_us) ? obj.tensp : obj.tensp_us)</a> - <span>@obj.masp</span></h3>
+
+                                                        <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer" class="content_price">
+                                                            @if (isone)
+                                                            {
+                                                                <span class="price product-price"> @string.Format("{0:0,0 đ}", bienthe.First().gia) </span>
+                                                                if (bienthe.First().giasosanh > 0)
+                                                                {
+                                                                    <span class="price old-price">@string.Format("{0:0,0 đ}", bienthe.First().giasosanh)</span>
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="price product-price">@(IsLangVN ? "Xem giá chi tiết" : "Detail")</span>
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div> 
+                        <div class="products-block">
+                            <div class="products-block-bottom">
+                                <a class="link-all" href="@(IsLangVN ? "/san-pham/khuyen-mai.html" : "en/product/saleoff.html")">@(IsLangVN ? "Xem tất cả" : "View all")</a>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+}

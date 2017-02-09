@@ -1,0 +1,75 @@
+﻿@model IList<Babymart.Models.shop_collection>
+@{
+    var IsLangVN = FBabymartvn.IsLangVN();
+    var count = Model != null ? Model.Count : 0;
+    var danhmucon = (List<Babymart.Models.shop_danhmuccon>)ViewData["danhmuccon"];
+}
+@section SEOContent{
+    @foreach (var item in (List<Babymart.Models.sys_content>)FBabymartvn.ListContents("Home"))
+    {
+        if (item.Name.Equals("title"))
+        {
+            <title>@(IsLangVN ? item.Contents : item.Contents_us)</title>
+        }
+        else
+        {
+            <meta name="@item.Name" content="@(IsLangVN ? item.Contents : item.Contents_us)" />
+        }
+    }
+    <style>
+        .highlight1 {
+            background: #FFFF95;
+            margin-right: -4px;
+            padding-right: 4px;
+        }
+    </style>
+}
+@section scripts{
+    <script>
+        jQuery.fn.highlight = function (str, className) {
+            var regex = new RegExp(str, "gi");
+            return this.each(function () {
+                this.innerHTML = this.innerHTML.replace(regex, function (matched) {
+                    return "<span class=\"" + className + "\">" + matched + "</span>";
+                });
+            });
+        };
+        jQuery.fn.highlight = function (str, className) {
+            var regex = new RegExp(str, "gi");
+            return this.each(function () {
+                $(this).contents().filter(function () {
+                    return this.nodeType == 3 && regex.test(this.nodeValue);
+                }).replaceWith(function () {
+                    return (this.nodeValue || "").replace(regex, function (match) {
+                        return "<span class=\"" + className + "\">" + match + "</span>";
+                    });
+                });
+            });
+        };
+        var content = $('span.title span').text();
+        var terms = content.split(/(\s)/);
+        $.each(terms, function (_, term) {
+            // highlight the new term
+            term = term.trim();
+            if (term != "") $(".homeProductTitle *").highlight(term, 'highlight1');
+        });
+    </script>
+}
+
+@if (Model != null && Model.Count > 0)
+{
+    <div id="search_title">
+        <span class="title">@(IsLangVN ? "Kết quả tìm kiếm :" : "Result :") <span style="color: red; font-weight: bold;">@ViewData["keysearch"]</span> </span><span class="quantity">(@count)</span>
+    </div>
+    <div class="homeProductsWrapper">
+        @{ Html.RenderPartial("~/Views/Shared/Partial/Gadgets/Shop/_listProduct.Mobile.cshtml"); }
+    </div>
+}
+else
+{
+    <div id="search_title">
+        <span class="title">@(IsLangVN ? "Kết quả tìm kiếm :" : "Result :") <span style="color: red; font-weight: bold;">@ViewData["keysearch"]</span> </span><span class="quantity">(0)</span>
+    </div>
+
+}
+

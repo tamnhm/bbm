@@ -1,0 +1,223 @@
+﻿@{
+    var controller = FBabymartvn.ControllerNameCurrent();
+    var action = FBabymartvn.ActionNameCurrent();
+    var headcontent = (Babymart.Models.sys_content)FBabymartvn.GetContents("Head", "Head");
+    Babymart.Infractstructure.UtilsBB.SetCookie_User();
+    var IsLangVN = FBabymartvn.IsLangVN();
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta name="geo.region" content="VN-SG" />
+    <meta name="geo.placename" content="Ho Chi Minh, Tan Phu" />
+    <meta name="geo.position" content="10.794316;106.630443" />
+    <meta name="ICBM" content="10.794316, 106.630443" />
+    <meta name="DC.title" content="babymart, Tan Phu, TP HCM" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="~/Content/img/data/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @RenderSection("SEOContent", required: false)
+    <link rel="canonical" href="@HttpContext.Current.Request.Url.AbsoluteUri">
+
+    <link rel="stylesheet" type="text/css" href="~/Content/forntpage/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/forntpage/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/forntpage/css/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/forntpage/css/jquery.bxslider.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/forntpage/css/owl.carousel.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/forntpage/css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/forntpage/css/animate.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/forntpage/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/forntpage/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/forntpage/css/responsive.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/forntpage/css/option2.css" />
+
+    <link href="https://plus.google.com/+babymartshop" rel="publisher" />
+
+    @Html.Raw(headcontent.Contents)
+</head>
+<body class="option2">
+    @*<div id="header" class="header" style="background-image:url('https://babymart.vn/Images/hinhdulieu/upload/snow_vect.jpg')">*@
+    <div id="header">
+        @Html.Partial("Partial/_Header")
+        <div id="nav-top-menu" class="nav-top-menu">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3" id="box-vertical-megamenus">
+                        @if (controller.ToString() == "Customer" ||
+controller.ToString() == "Shop" ||
+controller.ToString() == "Cart" ||
+controller.ToString() == "Pages" ||
+controller.ToString() == "Message" ||
+controller.ToString() == "Plan" ||
+
+controller.ToString() == "customer" ||
+controller.ToString() == "shop" ||
+controller.ToString() == "cart" ||
+controller.ToString() == "pages" ||
+controller.ToString() == "message" ||
+controller.ToString() == "plan"
+)
+                        {
+
+                            <div class="box-vertical-megamenus" @(action.ToString().Equals("DeatialProduct") || action.ToString().Equals("deatialproduct") ? "" : String.Empty)>
+                                @{Html.RenderAction("Menu", "Common");}
+                            </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="box-vertical-megamenus" @(action.ToString().Equals("DeatialProduct") || action.ToString().Equals("deatialproduct") ? "" : String.Empty)>
+                                            @{Html.RenderAction("Menu", "Common");}
+                                        </div>
+                                                }
+                    </div>
+                    @Html.Partial("Partial/_TopBar")
+                </div>
+                <div id="form-search-opntop"></div>
+                <div id="user-info-opntop"></div>
+                <div id="shopping-cart-box-ontop">
+                    <i class="fa fa-shopping-cart"></i>
+                    <div class="shopping-cart-box-ontop-content"></div>
+                </div>
+                <div id="form-language"></div>
+            </div>
+        </div>
+    </div>
+    <div id="opacity"></div>
+    @RenderBody()
+    @*<footer id="footer" style="background-image:url('https://babymart.vn/Images/hinhdulieu/upload/snow_vect.jpg')">*@
+    <footer id="footer">
+        <div class="container">
+            <!-- introduce-box -->
+            <div id="introduce-box" class="row">
+                <div class="col-md-3">
+                    <div id="address-box">
+                        <a href='@(IsLangVN ? "/" : "/en")' title='babymart'>
+                            @if (IsLangVN)
+                            {<img width="270" height="55" alt="babymart.vn" src="~/Content/forntpage/images/ui/logo.png" />}
+                            else
+                            {<img width="270" height="55" alt="babymart.vn" src="~/Content/forntpage/images/ui/logo-TA.png" />}
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <ul id="introduce-company" class="introduce-list">
+                                <li><a href="/bai-viet/huong-dan-mua-hang.html">@(IsLangVN ? "Hướng dẫn mua hàng" : "Shopping Guide")</a></li>
+                                <li><a href="/bai-viet/chinh-sach-doi-tra.html">@(IsLangVN ? "Chính sách đổi trả" : "Returns and Exchanges policy")</a></li>
+                                <li><a href="/bai-viet/thong-tin-chuyen-khoan.html">@(IsLangVN ? "Phương thức thanh toán" : "Payment method")</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <ul id="introduce-support" class="introduce-list">
+                                <li><a href="/bai-viet/uu-dai-thanh-vien.html">@(IsLangVN ? "Ưu đãi thành viên" : "Reasons to love babymart.vn’s registry")</a></li>
+                                <li><a href="/bai-viet/phuong-thuc-giao-hang.html">@(IsLangVN ? "Phương thức giao hàng" : "Shipping Information")</a></li>
+                                <li><a href="/bai-viet/chinh-sach-bao-mat-thong-tin.html">@(IsLangVN ? "Chính sách bảo mật thông tin" : "Privacy policy")</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div id="contact-box">
+                        <div class="introduce-title">@(IsLangVN ? "Kết nối cùng chúng tôi" : "Connect with us")</div>
+                        <div class="social-link">
+                            <a href="https://www.facebook.com/babymartvietnam/?fref=ts" rel="nofollow"><i class="fa fa-facebook"></i></a>
+                            <a href="https://plus.google.com/+babymartshop/" rel="nofollow"><i class="fa fa-google-plus"></i></a>
+                            <a href="http://shopdodungchomevabe.tumblr.com/" rel="nofollow"><i class="fa fa-tumblr"></i></a>
+                            <a href="https://www.youtube.com/user/babymartshop" rel="nofollow"><i class="fa fa-youtube"></i></a>
+                            <a href="https://twitter.com/babymart_vn" rel="nofollow"><i class="fa fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /#introduce-box -->
+            <!-- #trademark-box -->
+            <div id="trademark-box">
+                <div class="row">
+                    <div class="col-sm-9">
+                        @if (IsLangVN)
+                        {
+                            <p><strong>Công ty TNHH MTV Thương Mại và Dịch Vụ Babymart</strong></p>
+                                <p><strong>MST:</strong> 0313023936 <strong>Cấp ngày:</strong> 22/11/2014 <strong>Tại:</strong>Tp.HCM</p>
+                                <p><strong>Địa chỉ:</strong> 3/19 Phan Văn Sửu, Phường 13, Quận Tân Bình, Tp.HCM</p>
+                                <p><strong>Địa chỉ trưng bày và bán sản phẩm:</strong> 325 Trương Vĩnh Ký, Phường Tân Thành, Quận Tân Phú, Tp.HCM <br> <i>(Ngay ngã tư Tân Sơn Nhì – Trương Vĩnh  Ký)</i></p>
+                                <p><strong>Điện thoại:</strong> 84.8.6672.0909 - 84.8.3812.3813 - 84.8.3813.0245 | Hotline: 0909.324.824</p>
+                                <p><strong>Website:</strong> <a href="https://babymart.vn/">Babymart.vn</a></p>
+                        }
+                        else
+                        {
+                            <p><strong>Babymart Trading and Services Co., Ltd</strong></p>
+                                <p><strong>Registered</strong> in Ho Chi Minh City, <strong>No.</strong> 0313023936</p>
+                                <p><strong>Address:</strong> 3/19 Phan Van Suu St, Ward 13, Tan Binh Dist, Ho Chi Minh City</p>
+                                <p><strong>Showroom:</strong> 325 Truong Vinh Ky St, Tan Thanh ward, Tan Phu Dist, Ho Chi Minh City <i>(Tan Son Nhi - Truong Vinh Ky crossroads)</i></p>
+                                <p><strong>Hotline:</strong> 0918.644.643 <strong>Tel:</strong>84.8.3813.0245</p>
+                                <p><strong>Website:</strong> <a href="https://babymart.vn/">Babymart.vn</a></p>
+                        }
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        <a rel="nofollow" href="http://www.online.gov.vn/CustomWebsiteDisplay.aspx?DocId=14291" target="_blank">
+                            <img src="@(IsLangVN ? "https://babymart.vn/Images/hinhdulieu/upload/dathongbao.png" : "https://babymart.vn/Images/hinhdulieu/upload/dangkywebsitevoibocongthuong-TA.png")" alt="Bộ Công Thương" width="211" height="80">
+                        </a>
+                    </div>
+                </div>
+            </div> <!-- /#trademark-box -->
+            <div class="clearfix"></div>
+            <div id="footer-menu-box">
+                @if (IsLangVN)
+                {
+                    <div class="col-sm-12">
+                        <ul class="footer-menu-list">
+                            <li><a href="https://babymart.vn/goi-do-so-sinh.html">Đồ Sơ Sinh</a></li>
+                            <li><a href="https://babymart.vn/">Đồ dùng mẹ và bé</a></li>
+                            <li><a href="https://babymart.vn/chuyen-muc/may-hut-sua.html">Máy hút sữa</a></li>
+                            <li><a href="https://babymart.vn/chuyen-muc/do-choi-thong-minh.html">Đồ chơi thông minh</a></li>
+                        </ul>
+                    </div>
+                }
+                else
+                { }
+                <p class="text-center">
+                    @if (IsLangVN)
+                    {
+                        <span>&#169; Bản quyền thuộc về Công ty TNHH MTV Thương Mại & Dịch Vụ Babymart</span>
+                    }
+                    else
+                    {
+                        <span>&#169; 2015 Babymart Trading & Services Co., Ltd. All Rights Reserved</span>
+                    }
+            </div><!-- /#footer-menu-box -->
+        </div>
+    </footer>
+
+    @*<img src="https://babymart.vn/Images/hinhdulieu/upload/top-left.png" width="144" height="150" alt="bgnoel1" title="bgnoel1" style="display: block;position: fixed;top: 0px;left: 0px;z-index: 9999;box-sizing: content-box;" />
+        <img src="https://babymart.vn/Images/hinhdulieu/upload/top-right.png" width="150" height="143" alt="bgnoel2" title="bgnoel2" style="display: block;position: fixed;top: 0px;right: 0px;z-index: 9999;box-sizing: content-box;" />*@
+
+    <a href="#" class="scroll_top" title="Scroll to Top" style="display: none">Scroll</a>
+    @*@{Html.RenderAction("Footer", "Common");}*@
+
+    @*<script async="async" type="text/javascript" src="~/Scripts/forntpage/min.js"></script>
+        <script async="async" type="text/javascript" src="~/Scripts/forntpage/bootstrap.min.js"></script>
+        <script async="async" type="text/javascript" src="~/Scripts/forntpage/select2.min.js"></script>
+        <script async="async" type="text/javascript" src="~/Scripts/forntpage/jquery.bxslider.min.js"></script>
+        <script async="async" type="text/javascript" src="~/Scripts/forntpage/owl.carousel.min.js"></script>
+        <script async="async" type="text/javascript" src="~/Scripts/forntpage/jquery.plugin.min.js"></script>
+        <script async="async" type="text/javascript" src="~/Scripts/forntpage/jquery.actual.min.js"></script>
+        <script async="async" type="text/javascript" src="~/Scripts/forntpage/theme-script.min.js"></script>*@
+    @*combine to one*@
+    <script src="~/Scripts/forntpage/jquery-1.11.2.min.js"></script>
+
+
+    <script src="https://uhchat.net/code.php?f=ad89c1"></script>
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/forntpage/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        var google_tag_params = { ecomm_prodid: "1234", ecomm_pagetype: "product", ecomm_totalvalue: 49.99 }, google_conversion_id = 993178103, google_custom_params = window.google_tag_params, google_remarketing_only = !0;
+        !function (e, a, t, n, c, o, s) { e.GoogleAnalyticsObject = c, e[c] = e[c] || function () { (e[c].q = e[c].q || []).push(arguments) }, e[c].l = 1 * new Date, o = a.createElement(t), s = a.getElementsByTagName(t)[0], o.async = 1, o.src = n, s.parentNode.insertBefore(o, s) }(window, document, "script", "//www.google-analytics.com/analytics.js", "ga"), ga("create", "UA-40175858-1", "auto"), ga("send", "pageview");
+        $(window).scroll(function () { var a = $(window).scrollTop(), b = $("#header").height() + $(".breadcrumb").height() + $("#list-extra").height() + $("#newpost").height(); a >= b + 50 ? $("#findus").addClass("findus-scroll") : $("#findus").removeClass("findus-scroll") }), $(function () { $.widget("app.autocomplete", $.ui.autocomplete, { options: { highlightClass: "ui-state-highlight" }, _renderItem: function (a, b) { var c = new RegExp("(" + this.term + ")", "gi"), d = this.options.highlightClass, e = "<span class='" + d + "'>$1</span>", f = b.label.replace(c, e), g = $("<li/>").appendTo(a); return $("<a/>").html(f).appendTo(g), g } }), $("#qsearch").autocomplete({ source: '@Url.Action("GetCustomers", "Shop")', select: function (a, b) { $(this).val(b.item.value), $("#searchForm").submit() } }) });
+    </script>
+    <noscript>
+        <div style="display:inline;">
+            <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/993178103/?value=0&amp;guid=ON&amp;script=0" />
+        </div>
+    </noscript>
+</body>
+</html>

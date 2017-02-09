@@ -1,0 +1,641 @@
+﻿<script id="ProductEditTmpl" type="text/html">
+    <div class="row-fluid" data-bind="with:mProduct">
+        <div class="span12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3><i class="icon-th-list"></i> Sản phẩm</h3>
+                </div>
+                <div class="box-content nopadding">
+                    <form action="#" method="POST" class='form-horizontal form-bordered' enctype='multipart/form-data'>
+                        <div class="control-group">
+                            <div class="form-actions actionsz">
+                                <a class="btn btn-warning" style="border:100px;border-radius:100px" data-bind="attr:{href: $parent.linkout(),target:'_blank' }"><i class="glyphicon-eye_open"></i></a>
+                                <a class="btn btn-success" data-bind="attr:{href: $parent.linkadd(),target:'_blank' }"><i class="icon-plus-sign"></i></a>
+                                <button data-bind="click:$parent.submit" class="btn btn-primary"><i class="icon-save"></i></button>
+                                <a class="btn" data-bind="attr:{href:$parent.linkback}"><i class="icon-arrow-left"> Hủy</i></a>
+
+                            </div>
+                        </div>
+                        <!--ko if: $parent.HasError() && $parent.Validator().errors().length > 0-->
+                        <div class="control-group error">
+                            <label for="textfield" class="control-label"><b>Lỗi</b></label>
+                            <div class="controls">
+                                <span data-bind="text: 'Có ' + $parent.Validator().errors().length + ' lỗi trên trang:'"></span>
+                                <ul data-bind="foreach: $parent.Validator().errors">
+                                    <li data-bind="text: $data"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--/ko-->
+                        <div class="control-group">
+                            <h4 class="control-label">Danh mục</h4>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Site</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <select class="select2-me input-xlarge" data-bind="options:$parent.ArraySite, optionsText: 'tenloai',value: $parent.selectedSite,optionsCaption: 'Chọn Site'"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group" data-bind="visible:$parent.ArryDanhmuc().length>0?true:false">
+                            <label for="textfield" class="control-label"><b>Danh mục</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <select class="select2-me input-xlarge" data-bind="options:$parent.ArryDanhmuc, optionsText: 'tendanhmuc',value: $parent.selecteddanhmuc@*, optionsCaption: 'Chọn danh mục'*@ "></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group" data-bind="visible:$parent.ArryDanhmuc().length>0?true:false">
+                            <label for="textfield" class="control-label"><b>Danh mục con</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <select class="select2-me input-xlarge" data-bind="options:$parent.ArryDanhmuccon,optionsText: 'tendanhmuccon',value: $parent.selecteddanhmuccon @*,optionsCaption: 'Chọn danh mục con'*@ "></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group" data-bind="visible:$parent.ArryDanhmuc().length>0 && !$parent.IsaddNew()?true:false">
+                            <label for="textfield" class="control-label"></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <button class="btn btn-primary" data-bind="click:$parent.submitCollection">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group" data-bind="visible:$parent.ArrayCollection().length>0?true:false">
+                            <label for="textfield" class="control-label"><b>Collection</b></label>
+                            <div class="controls">
+                                <table class="table table-hover table-nomargin table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Collection</th>
+                                            <th class="hidden-480">Xóa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach:$parent.ArrayCollection">
+                                        <tr>
+                                            <td data-bind="text:lable"></td>
+                                            <td><span data-bind="click:$root.mvedit.removeCollection" class="btn btn-danger"><i class="icon-remove"></i></span></td>
+
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+
+                            <h4 class="control-label">Thông tin chung</h4>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Thương hiệu</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <select class="select2-me input-xlarge" data-bind="options:$parent.ArrayBrand, optionsText: 'tenhieu',optionsValue: 'mahieu',value:mahieu,optionsCaption: 'Chọn thương hiệu'"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Loại đồ sơ sinh</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <select class="select2-me input-xlarge" data-bind="options:$parent.ListplanType, optionsText: 'Type',optionsValue: 'Id',value:plantype,optionsCaption: 'Chọn đồ sơ sinh'"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Mã sản phẩm</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <input type="text" placeholder="Mã sản phẩm" class="input-medium" data-bind="value:masp">
+                                    <span class="add-on"><i class="icon-key"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Tên sản phẩm</b></label>
+                            <div class="controls">
+                                <input type="text" data-bind="value:tensp,valueUpdate: 'afterkeydown'" class="input-xxxlarge">
+                                @*<div style="margin-top:10px">
+                                        <input type="checkbox" name="autourl" id="autourl" class="css-checkbox" data-bind="checked:$parent.autourl,checkedValue:true">
+                                        <label for="autourl" class="css-label radGroup1 chk" style="width:100%">Tự động điền biểu mẫu</label>
+
+                                    </div>*@
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Tên sản phẩm (TA)</b></label>
+                            <div class="controls">
+                                <input type="text" data-bind="value:tensp_us" class="input-xxxlarge">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Kích thước bao bì </b></label>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Trọng lượng </b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <input type="text" placeholder="Trọng lượng" class="input-medium" data-bind="value:kg">
+                                    <span class="add-on">kg</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Chiều dài</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <input type="text" placeholder="Chiều dài" class="input-medium" data-bind="value:chieudai">
+                                    <span class="add-on">cm</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Chiều rộng</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <input type="text" placeholder="Chiều rộng" class="input-medium" data-bind="value:chieurong">
+                                    <span class="add-on">cm</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Chiều cao</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <input type="text" placeholder="Chiều cao" class="input-medium" data-bind="value:chieucao">
+                                    <span class="add-on">cm</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Kích thước sử dụng </b></label>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Chiều dài</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <input type="text" placeholder="Chiều dài" class="input-medium" data-bind="value:chieudaisd">
+                                    <span class="add-on">cm</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Chiều rộng</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <input type="text" placeholder="Chiều rộng" class="input-medium" data-bind="value:chieurongsd">
+                                    <span class="add-on">cm</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Chiều cao</b></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <input type="text" placeholder="Chiều cao" class="input-medium" data-bind="value:chieucaosd">
+                                    <span class="add-on">cm</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Ẩn /Hiện</b></label>
+                            <div class="controls">
+                                <div class="check-line">
+                                    <input type="checkbox" name="checshow" id="checshow" class="css-checkbox" data-bind="checked:hide,checkedValue:true">
+                                    <label for="checshow" class="css-label radGroup1 chk" style="width:100%"><b>Ẩn sản phẩm</b></label>
+
+                                </div>
+                                <div class="check-line">
+                                    <input type="checkbox" name="showhome" id="showhome" class="css-checkbox" data-bind="checked:showhome,checkedValue:true">
+                                    <label for="showhome" class="css-label radGroup1 chk" style="width:100%"><b>Sản phẩm nổi bật</b></label>
+
+                                </div>
+                                <div class="check-line">
+                                    <input type="checkbox" name="showbanner" id="showbanner" class="css-checkbox" data-bind="checked:showbanner,checkedValue:true">
+                                    <label for="showbanner" class="css-label radGroup1 chk" style="width:100%"><b>babymart.mobi</b></label>
+
+                                </div>
+                                <div class="check-line">
+                                    <input type="checkbox" name="showcm" id="showcm" class="css-checkbox" data-bind="checked:showcm,checkedValue:true">
+                                    <label for="showcm" class="css-label radGroup1 chk" style="width:100%"><b>Hiện kích thước</b></label>
+
+                                </div>
+                                <div class="check-line">
+                                    <input type="checkbox" name="showkg" id="showkg" class="css-checkbox" data-bind="checked:showkg,checkedValue:true">
+                                    <label for="showkg" class="css-label radGroup1 chk" style="width:100%"><b>Hiện khối lượng</b></label>
+
+                                </div>
+
+                                <div class="check-line">
+                                    <input type="checkbox" name="showsptangkemvaomuckm" id="showsptangkemvaomuckm" class="css-checkbox" data-bind="checked:showsptangkemvaomuckm,checkedValue:true">
+                                    <label for="showsptangkemvaomuckm" class="css-label radGroup1 chk" style="width:100%"><b>Hiển thị sản phẩm tặng kèm vào khuyến mãi</b></label>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Hết hàng</b></label>
+                            <div class="controls">
+                                <div class="check-line">
+                                    <input type="checkbox" name="hethang" id="hethang" class="css-checkbox" data-bind="checked:ischeckout,checkedValue:true">
+                                    <label for="hethang" class="css-label radGroup1 chk" style="width:100%"><b>Hết hàng</b></label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+
+
+
+
+
+
+                            <label for="textfield" class="control-label"><b>Tags</b></label>
+                            <div class="controls">
+                                <input type="text" data-bind="value:$parent.TagAdd">
+                                <div style="margin-top:10px">
+                                    <b>Tags đã thêm:</b>
+                                    <!--ko if:ListTags().length >0-->
+                                    <!--ko foreach:ListTags()-->
+                                    <span data-bind="text:Tags" style="background-color:green;color:white;   padding: 5px;cursor:pointer"></span>
+                                    <i data-bind="click:$parents[1].RemoveTag" style="
+                                       color:red;
+                                       margin-left -4px;
+                                       padding 6px;
+                                       cursor pointer;
+                                       background green;
+                                       border-left 1px solid rgb(24, 8, 8);
+                                       cursor:pointer;
+                                       " class="icon-trash"></i>
+
+                                    <!--/ko-->
+                                    <!--/ko-->
+                                    <!--ko if:ListTags().length <=0-->
+                                    <span class="danger">Không có tags nào được thêm.</span>
+                                    <!--/ko-->
+                                </div>
+                                <div style="margin-top:10px">
+                                    <b>Tags gợi ý:</b>
+                                    <button data-bind="click:$parent.MoreTags">Xem</button>
+                                    <p></p>
+                                    <!--ko if:$parent.IsMoreTag()-->
+                                    <!--ko if:$parent.ListTags().length >0-->
+                                    <!--ko foreach:$parent.ListTags-->
+                                    <span data-bind="text:Tags,click:$parents[1].ClickAddTags" style="background: rgb(159, 171, 250); padding: 5px; cursor: pointer"></span>
+                                    <!--/ko-->
+                                    <!--/ko-->
+                                    <!--ko if:$parent.ListTags().length <=0-->
+                                    <span class="text-danger">Không có tags gợi ý nào.</span>
+                                    <!--/ko-->
+                                    <!--/ko-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label">Tag cho Bài viết tư vấn</label>
+                            <div class="controls">
+                                <div style="margin-top:10px">
+                                    <b>Tags đã thêm:</b>
+                                    <!--ko if:ListTagsArticle() && ListTagsArticle().length >0-->
+                                    <!--ko foreach:ListTagsArticle()-->
+                                    <span data-bind="text:Tags" style="background-color:green;color:white;   padding: 5px;cursor:pointer"></span>
+                                    <i data-bind="click:$parents[1].RemoveTag" style="
+                                       color:red;
+                                       margin-left -4px;
+                                       padding 6px;
+                                       cursor pointer;
+                                       background green;
+                                       border-left 1px solid rgb(24, 8, 8);
+                                       cursor:pointer;
+                                       " class="icon-trash"></i>
+
+                                    <!--/ko-->
+                                    <!--/ko-->
+                                    <!--ko if:ListTagsArticle() && ListTagsArticle().length <=0-->
+                                    <span class="danger">Không có tags nào được thêm.</span>
+                                    <!--/ko-->
+                                </div>
+                                <div style="margin-top:10px">
+                                    <b>Tags gợi ý:</b>
+                                    <button data-bind="click:$parent.MoreTags1">Xem</button>
+                                    <p></p>
+                                    <!--ko if:$parent.IsMoreTag1()-->
+                                    <!--ko if:$parent.TagArticle().length >0-->
+                                    <!--ko foreach:$parent.TagArticle-->
+                                    <span data-bind="text:Tags,click:$parents[1].ClickAddTagsArticle" style="background: rgb(159, 171, 250); padding: 5px; cursor: pointer"></span>
+                                    <!--/ko-->
+                                    <!--/ko-->
+                                    <!--ko if:$parent.TagArticle().length <=0-->
+                                    <span class="text-danger">Không có tags gợi ý nào.</span>
+                                    <!--/ko-->
+                                    <!--/ko-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="control-label">
+                                <h4>Biến thể <a class="btn btn-success" data-bind="click:$parent.AddBienthe"><i class="icon-plus-sign"></i></a></h4>
+                            </div>
+
+                        </div>
+                        <div class="control-group">
+                            <div class="control-label">
+                                <p><b>Biến thể</b></p>
+                            </div>
+                            <!--ko if: $parent.Bienthe().length == 1-->
+                            <!--ko foreach: $parent.Bienthe-->
+                            <div class="controls">
+                                <div class="span3">
+                                    <label for="textfield" class="control-label">Tiêu đề</label>
+                                    <div class="controls-row">
+                                        <strong data-bind="text:title"></strong>
+                                    </div>
+                                </div><div class="span3">
+                                    <label for="textfield" class="control-label">Giá</label>
+                                    <div class="controls-row">
+                                        <input type="text" data-bind="value:gia" class="input-block-level">
+                                    </div>
+                                </div><div class="span3">
+                                    <label for="textfield" class="control-label">Giá so sánh</label>
+                                    <div class="controls-row">
+                                        <input type="text" data-bind="value:giasosanh" class="input-block-level">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ko-->
+                            <!--/ko-->
+                            <!--ko if: $parent.Bienthe().length > 1-->
+                            <!--ko foreach: $parent.Bienthe-->
+                            <!-- ko if: !isdelete() -->
+                            <div class="controls">
+                                <div class="span2">
+                                    <label for="textfield" class="control-label">Tiêu đề</label>
+                                    <div class="controls-row">
+                                        <input type="text" data-bind="value:title" class="input-block-level">
+                                    </div>
+                                </div>
+                                <div class="span2">
+                                    <label for="textfield" class="control-label">Tiêu đề(TA)</label>
+                                    <div class="controls-row">
+                                        <input type="text" data-bind="value:title_us" class="input-block-level">
+                                    </div>
+                                </div>
+                                <div class="span2">
+                                    <label for="textfield" class="control-label">Giá</label>
+                                    <div class="controls-row">
+                                        <input type="text" data-bind="value:gia" class="input-block-level">
+                                    </div>
+                                </div><div class="span2">
+                                    <label for="textfield" class="control-label">Giá so sánh</label>
+                                    <div class="controls-row">
+                                        <input type="text" data-bind="value:giasosanh" class="input-block-level">
+                                    </div>
+                                </div><div class="span2">
+                                    <label for="textfield" class="control-label"></label>
+                                    <div class="controls-row">
+                                        <button class="btn  btn-danger" data-bind="click:$root.mvedit.RemoveBienthe"><i class="icon-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ko-->
+                            <!--/ko-->
+                            <!--/ko-->
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"></label>
+                            <div class="controls">
+                                <input type="checkbox" name="checkboxG5" id="checkboxG5" class="css-checkbox" data-bind="checked:ischecksaleoff,checkedValue:true">
+                                <label for="checkboxG5" class="css-label radGroup1 chk" style="width:100%">Chỉ giảm giá cho thành viên</label>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Ngày kết thúc</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-medium datepick" data-date-format="yyyy-mm-dd" data-bind="datepicker:timeend" />
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="textfield" class="control-label">
+                                <b>Quà tặng</b>
+                            </label>
+                            <div class="controls">
+                                <div class="input-append input-prepend">
+                                    <input type="checkbox" name="ischeckgift" id="ischeckgift" class="css-checkbox" data-bind="checked:$parent.ischeckgift,checkedValue:true">
+                                    <label for="ischeckgift" class="css-label radGroup1 chk">Kèm quà tặng</label>
+                                    <br />
+                                    <!-- ko if:$parent.InitFinishGift() -->
+                                    <!--ko if:$parent.ischeckgift()-->
+                                    <textarea class="form-control" rows="10" data-bind="tinymce:gift"></textarea>
+                                    <!-- /ko -->
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                        </div>
+                        <!--ko if:!$parent.IsaddNew()-->
+                        <div class="control-group">
+                            <div class="control-label">
+                                <label for="textfield"><b>Hình ảnh</b></label>
+                                <input id="fu-my-auto-upload" name="MyFile" type="file" class="custom-file-input control-label " data-bind="event:{change:$parent.upload('#fu-my-auto-upload')},valueUpdate: 'afterkeydown'" style="line-height: 20px; width: 120px">
+
+                            </div>
+                            <div class="controls">
+
+                                <div data-bind="foreach:$parent.ImgArray">
+                                    <div class="imgproduct" style="float: left; margin: 5px;">
+                                        <img data-bind="attr: { src:UrllocationDetail + url() }" style="width:220px" onerror="imgerror(this)" />
+                                        <p>
+                                            <span>
+                                                <a class="btn  btn-danger" data-bind="click:$root.mvedit.RemoveImg"><i class="icon-trash"></i> </a>
+                                            </span>
+
+                                            <span>
+                                                <a class="btn  btn-primary" data-bind="click:$root.mvedit.UpdateImg"><i class="icon-pencil"></i></a>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <!--/ko-->
+                        <!--ko if:!$parent.IsaddNew()-->
+                        <div class="control-group">
+                            <div class="control-label">
+                                <label for="textfield"><b>Hình ảnh Thumbnail</b></label>
+                                <input id="fu-my-auto-uploadThumbnail" name="MyFile" type="file" class="custom-file-input control-label " data-bind="event:{change:$parent.uploadThumbnail('#fu-my-auto-uploadThumbnail')},valueUpdate: 'afterkeydown'" style="line-height: 20px; width: 120px">
+                            </div>
+                            <div class="controls">
+                                <div data-bind="foreach:$parent.ImgArray">
+                                    <div class="imgproduct" style="float: left; margin: 5px;">
+                                        <img data-bind="attr: { src:urllocation + url() }" style="width:220px" onerror="imgerror(this)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ko-->
+                        <div class="control-group">
+                            <h4 class="control-label">SEO</h4>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Meta Title</b></label>
+                            <div class="controls">
+
+                                <textarea rows="5" data-bind="value:sptitle" class="input-xxxlarge"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Meta Title US</b></label>
+                            <div class="controls">
+
+                                <textarea rows="5" data-bind="value:sptitle_us" class="input-xxxlarge"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Description</b></label>
+                            <div class="controls">
+
+                                <textarea rows="5" data-bind="value:spdescription" class="input-xxxlarge"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Description EN</b></label>
+                            <div class="controls">
+
+                                <textarea rows="5" data-bind="value:spdescription_us" class="input-xxxlarge"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Key word</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:spkeywords">
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Key word EN</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:spkeywords_us">
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Url</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:spurl">
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Url EN</b></label>
+                            <div class="controls">
+                                <input type="text" class="input-xxxlarge" data-bind="value:spurl_us">
+
+                            </div>
+                        </div>
+
+
+                        <div class="control-group">
+                            <h4 class="control-label">Thông tin</h4>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Thông tin</b></label>
+                            <div class="controls">
+                                <!-- ko if:$parent.InitFinish() -->
+                                <textarea class="form-control" rows="10" data-bind="tinymce:thongtin"></textarea>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Thông tin(TA)</b></label>
+                            <div class="controls">
+                                <!-- ko if:$parent.InitFinish() -->
+                                <textarea class="form-control" rows="10" data-bind="tinymce:thongtin_us"></textarea>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Chi tiết</b></label>
+                            <div class="controls">
+                                <!-- ko if:$parent.InitFinish() -->
+                                <textarea class="form-control" rows="10" data-bind="tinymce:chitiet"></textarea>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="textfield" class="control-label"><b>Chi tiết(TA)</b></label>
+                            <div class="controls">
+                                <!-- ko if:$parent.InitFinish() -->
+                                <textarea class="form-control" rows="10" data-bind="tinymce:chitiet_us"></textarea>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="form-actions actionsz" style="float:left">
+                                <a class="btn btn-danger" data-bind="click:$parent.RemoveProduct"><i class="icon-remove"></i></a>
+
+                            </div>
+                            <div class="form-actions actionsz">
+                                <a class="btn btn-warning" style="border:100px;border-radius:100px" data-bind="attr:{href: $parent.linkout(),target:'_blank' }"><i class="glyphicon-eye_open"></i></a>
+                                <a class="btn btn-success" data-bind="attr:{href: $parent.linkadd(),target:'_blank' }"><i class="icon-plus-sign"></i></a>
+                                <button data-bind="click:$parent.submit" class="btn btn-primary"><i class="icon-save"></i></button>
+                                <a class="btn" data-bind="attr:{href:$parent.linkback}"><i class="icon-arrow-left"> Hủy</i></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-update-img" data-bind="with:Imgobject" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Hình ảnh</h3>
+        </div>
+        <div class="modal-body">
+            <div class="box box-bordered">
+                <div class="form-horizontal form-bordered">
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Hình ảnh</label>
+                        <div class="controls">
+
+                            <img data-bind="attr: { src:url() }" onerror="CommonUtils.ErrorImage(this)" style="width:220px" />
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Ảnh chính</label>
+                        <div class="controls">
+                            <input type="checkbox" name="primary" id="primary" class="css-checkbox" data-bind="checked:ImgPrimary,checkedValue:true">
+                            <label for="primary" class="css-label radGroup1 chk">Ảnh chính</label>
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="textfield" class="control-label">Alt</label>
+                        <div class="controls">
+                            <input type="text" data-bind="value:alt" class="input-xxxlarge">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+            <button class="btn btn-danger" data-dismiss="modal" data-bind="click:$parent.RemoveImg">Xóa</button>
+            <button class="btn btn-primary" data-bind="click:$parent.SubmitUpdateImg">Lưu</button>
+        </div>
+
+    </div>
+</script>
