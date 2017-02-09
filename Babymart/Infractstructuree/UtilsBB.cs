@@ -10,6 +10,8 @@ using Babymart.DAL.Administrator;
 using Babymart.Models.Module.Enum;
 using Babymart.DAL.Customer;
 using Babymart.Infractstructuree;
+using System.Web.Mvc;
+
 namespace Babymart.Infractstructure
 {
     public static class UtilsBB
@@ -127,7 +129,7 @@ namespace Babymart.Infractstructure
             var bienthe = db.shop_bienthe.Find(id);
 
             var q = from product in db.shop_sanpham
-                    where product.id==bienthe.idsp
+                    where product.id == bienthe.idsp
                     && product.hide == false
                     select product;
 
@@ -344,6 +346,31 @@ namespace Babymart.Infractstructure
             return
                 false;
         }
+        public static ContentResult JsonMaxValue(object result)
+        {
+            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            serializer.MaxJsonLength = Int32.MaxValue;
+            return new ContentResult
+            {
+                Content = serializer.Serialize(result),
+                ContentType = "application/json"
+            };
+        }
+        //protected override JsonResult JsonMaxValue(object data, 
+        //    string contentType,
+        //    System.Text.Encoding contentEncoding, 
+        //    JsonRequestBehavior behavior)
+        //{
+        //    return new JsonResult()
+        //    {
+        //        Data = data,
+        //        ContentType = contentType,
+        //        ContentEncoding = contentEncoding,
+        //        JsonRequestBehavior = behavior,
+        //        MaxJsonLength = Int32.MaxValue
+        //    };
+        //}
     }
-   
+
+
 }

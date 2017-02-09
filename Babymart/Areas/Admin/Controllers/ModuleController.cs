@@ -96,7 +96,7 @@ namespace Babymart.Areas.Admin.Controllers
                 listTag = listTag.OrderBy(o => o).ToList();
                 item.Tags = listTag.ToArray();
             }
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return UtilsBB.JsonMaxValue(result);
         }
         [HttpPost]
         public ActionResult InsertArticle(ModelModuleDetail model)
