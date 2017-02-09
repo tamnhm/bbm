@@ -1,4 +1,5 @@
-﻿var Banner = Banner || {};
+﻿debugger
+var Banner = Banner || {};
 Banner.mvBanner = function () {
     var self = this;
     self.BannerList = ko.observableArray();
