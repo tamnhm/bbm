@@ -1,4 +1,5 @@
-﻿var Banner = Banner || {};
+﻿debugger
+var Banner = Banner || {};
 Banner.mBanner = function () {
     var self = this;
     self.Id = ko.observable();
