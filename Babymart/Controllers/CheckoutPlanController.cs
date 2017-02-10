@@ -141,7 +141,7 @@ namespace Babymart.Controllers
                 ViewBag.Message = "Đặt hàng thành công";
                 ViewBag.Code = "1";
             }
-            return View("Checkout/success");
+            return View();
         }
         public ActionResult CancelCart()
         {
@@ -294,7 +294,7 @@ namespace Babymart.Controllers
 
                 //SendmailCheckout(kh.email, kh.hoten, content, iddh);
                 //this.Session["PlanCart"] = null;
-                return Json("/xac-nhan-thanh-cong.html/" + iddh, JsonRequestBehavior.AllowGet);
+                return Json("/xac-nhan-thanh-cong-do-so-sinh.html/" + iddh, JsonRequestBehavior.AllowGet);
             }
 
         }
