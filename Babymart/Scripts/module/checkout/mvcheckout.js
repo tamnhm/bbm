@@ -98,7 +98,7 @@ Checkout.mvCheckout = function () {
     self.thoigiangiaohang = ko.observable();
     self.flagquan = ko.observable(false);
     self.diachi = ko.computed(function () {
-        return self.mCustomer().duong() + ' ,' + self.nameQuan() + ' ,' + self.nameTp();
+        return self.mCustomer().duong() + ', ' + self.nameQuan() + ', ' + self.nameTp();
     });
     self.Validator = ko.computed(function () {
         return (ko.validatedObservable(self.mCustomer()));
