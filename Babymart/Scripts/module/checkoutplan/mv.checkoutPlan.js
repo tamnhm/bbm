@@ -82,7 +82,7 @@ Checkoutplan.mvCheckout = function () {
     self.nameQuan = ko.observable();
     self.nametimeship = ko.observable();
     self.diachi = ko.computed(function () {
-        return self.mCustomer().duong() + ' ,' + self.nameQuan() + ' ,' + self.nameTp();
+        return self.mCustomer().duong() + ', ' + self.nameQuan() + ', ' + self.nameTp();
     });
     self.LoadCart = function () {
         self.Isloadercart(true);
