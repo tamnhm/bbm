@@ -42,6 +42,9 @@
         <label class="control-label left" for="lastName">@(IsLangVN ? "Điểm tích lũy : " : "Accumulation Point : ") </label>
         <div class="controls">
             <b data-bind="text: mCustomer().diem"></b>
+            <!--ko if: DisscountForCustomer()>0-->
+            <b><span style="color:red;"> - Đã giảm 5% hóa đơn và 1000 điểm tích lũy</span></b>
+            <!--/ko-->
         </div>
     </div>
     <!--/ko-->

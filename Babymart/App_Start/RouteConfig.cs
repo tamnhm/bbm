@@ -220,8 +220,8 @@ namespace Babymart
           );
             routes.MapRoute(
          name: "CheckoutSusscePlan",
-         url: "xac-nhan-thanh-cong-do-so-sinh.html/{MaDH}",
-         defaults: new { controller = "CheckoutPlan", action = "Success", MaDH = UrlParameter.Optional }
+         url: "xac-nhan-thanh-cong-do-so-sinh.html",
+         defaults: new { controller = "CheckoutPlan", action = "Success"}
          );
             routes.MapRoute(
         name: "CancelPlan",

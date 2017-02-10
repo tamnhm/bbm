@@ -1681,6 +1681,7 @@
     <Content Include="Areas\Admin\Views\Order\Indonhang.cshtml" />
     <None Include="Properties\PublishProfiles\Babymart.pubxml" />
     <None Include="Properties\PublishProfiles\Babymat3.0.pubxml" />
+    <None Include="Properties\PublishProfiles\BBMWeb.pubxml" />
     <None Include="Properties\PublishProfiles\webaaaaaaaa.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
