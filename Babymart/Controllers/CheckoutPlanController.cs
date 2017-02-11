@@ -67,7 +67,7 @@ namespace Babymart.Controllers
             return View();
 
         }
-        public ActionResult Success(string MaDH)
+        public ActionResult Success()
         {
             if (!string.IsNullOrEmpty(Request.QueryString["rspCode"]))
             {
@@ -81,7 +81,7 @@ namespace Babymart.Controllers
                         this.Session["khachhang"] = null;
                         this.Session["khachhang"] = objkh;
                     }
-                    //ViewBag.Madh = MaDH;
+                    ViewBag.Madh = this.Session["madonhang"];
                     var kh = (ModeCustomerPost)this.Session["khachhang"];
                     if (kh != null)
                     {
@@ -119,7 +119,7 @@ namespace Babymart.Controllers
                     this.Session["khachhang"] = null;
                     this.Session["khachhang"] = objkh;
                 }
-                ViewBag.Madh = MaDH;
+                ViewBag.Madh = this.Session["madonhang"];
                 var kh = (ModeCustomerPost)this.Session["khachhang"];
                 if (kh != null)
                 {
@@ -294,7 +294,7 @@ namespace Babymart.Controllers
 
                 //SendmailCheckout(kh.email, kh.hoten, content, iddh);
                 //this.Session["PlanCart"] = null;
-                return Json("/xac-nhan-thanh-cong-do-so-sinh.html/" + iddh, JsonRequestBehavior.AllowGet);
+                return Json("/xac-nhan-thanh-cong-do-so-sinh.html/", JsonRequestBehavior.AllowGet);
             }
 
         }

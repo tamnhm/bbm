@@ -207,16 +207,16 @@
         @if (this.Session["PlanCart"] != null)
         {
         <div class="cart_navigation cheli-bot">
-            <a class="prev-btn" data-bind="click:CancelPlan">@(IsLangVN ? "Hủy đơn hàng" : "Cancel")</a> 
-            <a class="prev-btn" data-bind="click:pushTypePlan">@(IsLangVN ? "Thêm sản phẩm" : "More")</a>
-            <a class="next-btn" data-bind="click:addCartSubmit">@(IsLangVN ? "Thanh toán" : "Payment")</a>
+            <a class="prev-btn" data-bind="click:CancelPlan" style="cursor:pointer">@(IsLangVN ? "Hủy đơn hàng" : "Cancel")</a> 
+            <a class="prev-btn" data-bind="click:pushTypePlan" style="cursor:pointer">@(IsLangVN ? "Thêm sản phẩm" : "More")</a>
+            <a class="next-btn" data-bind="click:addCartSubmit" style="cursor:pointer">@(IsLangVN ? "Thanh toán" : "Payment")</a>
         </div>
         }
         else
         { 
         <div class="cart_navigation cheli-bot">
-            <a class="prev-btn" data-bind="click:CancelPlan">@(IsLangVN ? "Hủy đơn hàng" : "Cancel")</a>  
-            <a class="next-btn" data-bind="click:addCartSubmit">@(IsLangVN ? "Thanh toán" : "Payment")</a>
+            <a class="prev-btn" data-bind="click:CancelPlan" style="cursor:pointer">@(IsLangVN ? "Hủy đơn hàng" : "Cancel")</a>  
+            <a class="next-btn" data-bind="click:addCartSubmit" style="cursor:pointer">@(IsLangVN ? "Thanh toán" : "Payment")</a>
         </div>
         }
         <div class="clearfix"></div>
