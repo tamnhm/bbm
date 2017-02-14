@@ -639,7 +639,7 @@
         </div>
         <!--/ko-->
     </div>
-    <!--ko if:mCheckout().Gift() && mCheckout().Gift().length>0-->
+    @*<!--ko if:mCheckout().Gift() && mCheckout().Gift().length>0-->
     <div>
         <p><b>@(IsLangVN ? "Quà tặng" : "Gift")</b></p>
         <!--ko foreach:mCheckout().Gift()-->
@@ -649,7 +649,7 @@
         </div>
         <!--/ko-->
     </div>
-    <!--/ko-->
+    <!--/ko-->*@
     <div class="shoppingCartButtonsWrapper">
         <!--ko if: HasError()-->
         <!--ko if: Validator().errors().length > 0  -->

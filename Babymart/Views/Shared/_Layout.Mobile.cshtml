@@ -25,7 +25,6 @@
 </head>
 <body>
     <!-- JavaScript files start -->
-    
     <!-- website wrapper start -->
     @{Html.RenderAction("Menu", "Common");}
     <!-- website wrapper starts -->
@@ -44,11 +43,11 @@
             <!-- header outer wrapper ends -->
             <!-- page content wrapper starts -->
             @*<div class="pageContentWrapper" style="background-image:url('https://babymart.vn/Images/hinhdulieu/upload/snow_vect.jpg')">*@
-            <div class="pageContentWrapper" >
+            <div class="pageContentWrapper">
                 <!-- shop search form wrapper starts -->
                 @Html.Partial("Partial/_Search.Mobile")
                 <div id="danhmuc" style="margin-bottom:30px;">
-                    <div id="menuclick" style="background: #c92029;" ><span>@(IsLangVN ? "DANH MỤC SẢN PHẨM" : "CATEGORY") </span><img src="/Images/mobile/images/common/mainMenuButtonBg.png" style="float:right;margin-top: 10px;right:10px;" /></div>
+                    <div id="menuclick"><span>@(IsLangVN ? "DANH MỤC SẢN PHẨM" : "CATEGORY") </span><img src="/Images/mobile/images/common/mainMenuButtonBg.png" style="float:right;margin-top: 10px;right:10px;" /></div>
                 </div>
                 @RenderBody()
             </div>
@@ -58,7 +57,8 @@
             <div class="footerDecoration"></div>
 
             <!-- footer wrapper starts -->
-            <div class="footerWrapper" style="background: #df0000 url('https://babymart.vn/Images/hinhdulieu/upload/footer-mobile-newyear-2017.png') 0 top no-repeat;background-size: 100%;color: white;">
+            @*<div class="footerWrapper" style="background: #df0000 url('https://babymart.vn/Images/hinhdulieu/upload/footer-mobile-newyear-2017.png') 0 top no-repeat;background-size: 100%;color: white;">*@
+            <div class="footerWrapper" style="background-size: 100%;color: white;">
                 @{Html.RenderAction("Footer", "Common");}
             </div>
             <!-- footer wrapper ends -->

@@ -113,12 +113,16 @@ Plan.mvPlan = function () {
                 if (obj.Name() == 'Percent' && obj.OperatorOption() == '>=')
                     return obj;
             });
-            if (self.Total() >= min.OperatorValue()) {
-                if (self.Total() < less.OperatorValue()) {
-                    percent = less.Value();
-                } else {
-                    percent = more.Value();
-                }
+            //if (self.Total() >= min.OperatorValue()) {
+            //    if (self.Total() < less.OperatorValue()) {
+            //        percent = less.Value();
+            //    } else {
+            //        percent = more.Value();
+            //    }
+            //}
+
+            if (self.Total() >= 1000000) {
+                percent = 5;
             }
             return percent;
         }

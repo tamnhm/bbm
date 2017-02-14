@@ -60,7 +60,7 @@ Checkoutplan.mvCheckout = function () {
         { lable: isEnLag == 'True' ? "Bưu điện/Chuyển phát nhanh" : "Post", value: 1 },
         { lable: isEnLag == 'True' ? "Xe khách" : "Coach", value: 2 }
     ]);
-    self.giogiao = ko.observableArray([ 
+    self.giogiao = ko.observableArray([
           { gio: isEnLag == 'True' ? "Giờ hành chánh" : "Office hours", value: 2 },
           { gio: isEnLag == 'True' ? "Ngoài giờ hành chánh" : "Out of office hours", value: 3 },
           { gio: isEnLag == 'True' ? "Bất kỳ giờ nào trong ngày" : "Any time of day", value: 4 }
@@ -149,7 +149,7 @@ Checkoutplan.mvCheckout = function () {
     self.HasError = ko.observable();
     self.IssessionKhachhang = ko.observable(false);
     self.thoigiangiaohang = ko.observable();
-    self.flagquan=ko.observable(false);
+    self.flagquan = ko.observable(false);
     self.mCustomer().idtp.subscribe(function (id) {
         self.Isloadercart(true);
         var phat = ko.utils.arrayFirst(self.Thanhpho(), function (obj) {
@@ -223,7 +223,7 @@ Checkoutplan.mvCheckout = function () {
                 || idquan == 136
                 || idquan == 137
                 || self.mCheckout().TotalSum() < 150000)
-                self.getPriceShip(idquan); 
+                self.getPriceShip(idquan);
             else
                 self.shipvalue(0);
         }
@@ -394,12 +394,12 @@ Checkoutplan.mvCheckout = function () {
     };
     self.OrderCart = function () {
         if (self.Validator().isValid()) {
-            if (self.mCustomer().idtp() == 1) { 
-                if (self.Validator().isValid()) { 
+            if (self.mCustomer().idtp() == 1) {
+                if (self.Validator().isValid()) {
                     $('#modal_confimcall').modal('show');
                 }
             }
-            else { 
+            else {
                 self.SubmitCartLink();
             }
         }
@@ -458,20 +458,32 @@ Checkoutplan.mvCheckout = function () {
     });
     self.diemsanpham = function () {
         self.mCustomer().diemsp(0);
+        var diem = 0;
         if (self.IssessionKhachhang()
             && self.mCheckout().PlanModel().length > 0
             && self.mCheckout().ToTal() < 1000000) {
-            var diem = 0;
             ko.utils.arrayForEach(self.mCheckout().PlanModel(), function (obj) {
                 if (obj.gia() > 0) {
                     var u = obj.Count() * obj.gia();
                     diem += u;
                 }
             });
-            var resultdiem = diem / 1000;
-            self.mCustomer().diemsp(resultdiem);
         }
+        else if (self.IssessionKhachhang()
+            && self.mCheckout().PlanModel().length > 0
+            && self.mCheckout().ToTal() >= 1000000) {
+            ko.utils.arrayForEach(self.mCheckout().PlanModel(), function (obj) {
+                if (obj.gia() > 0) {
+                    var u = obj.Count() * obj.gia();
+                    diem += u;
+                }
+            });
+            diem = (diem * 0.95);
+        }
+            var resultdiem = diem / 1000;
+            self.mCustomer().diemsp(resultdiem.toFixed(0));   
     };
+
     self.mCustomer().selectPayment.subscribe(function (id) {
         if (id == 3) {
             //$('#modal_selectPayment_thuho').modal('show');

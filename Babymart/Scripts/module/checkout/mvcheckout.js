@@ -225,11 +225,10 @@ Checkout.mvCheckout = function () {
     };
     self.tongtiencothegiam = ko.observable(0);
     self.tinhtongtiencothegiam = function () {
-        if (self.IssessionKhachhang() && self.mCheckout().CartItemModel().length > 0) {
-            debugger
+        if (self.mCheckout().CartItemModel().length > 0) {
             var tongtien = 0;
             ko.utils.arrayForEach(self.mCheckout().CartItemModel(), function (obj) {
-                if (!obj.shop_bienthe.giasosanh() > 0 && obj.ProductId() != 23568 && obj.ProductId() != 23569 && obj.ProductId() != 1049 && obj.ProductId() != 1050 && obj.ProductId() != 1051 && obj.ProductId() != 1052 && obj.shop_bienthe.masp().indexOf('TA') != 0) {
+                if (!obj.shop_bienthe.giasosanh() > 0 && obj.ProductId() != 23568 && obj.ProductId() != 23569 && obj.ProductId() != 1049 && obj.ProductId() != 1050 && obj.ProductId() != 1051 && obj.ProductId() != 1052 && obj.shop_bienthe.masp().indexOf('TA') != 0 && obj.shop_bienthe.masp().slice(0, 1) != 'T') {
                     var u = obj.Count() * obj.shop_bienthe.gia();
                     tongtien += u;
                 }
@@ -417,7 +416,6 @@ Checkout.mvCheckout = function () {
         self.SubmitCart();
     };
     self.OrderCart = function () {
-        debugger
         if (self.Validator().isValid()) {
             if (self.mCustomer().idtp() == 1) {
                 if (self.Validator().isValid()) {
@@ -524,14 +522,15 @@ Checkout.mvCheckout = function () {
                             totalSaleOff = totalSaleOff + val.shop_bienthe.gia();
                         }
                     });
-                    if (self.mCustomer().diem() >= 1000 && countforItemselfoff != countItem) {
+                    debugger
+                    self.tinhtongtiencothegiam();
+                    if (self.mCustomer().diem() >= 1000 && countforItemselfoff != countItem && self.tongtiencothegiam()>0) {
                         $('#modal_disscount').modal('show');
                     }
                     self.TotalSaleOff(totalSaleOff);
                     self.sessionIdQuan(sessionKhachhang.idquan);
                     self.IssessionKhachhang(true);
                     self.diemsanpham();
-                    self.tinhtongtiencothegiam();
                 } else {
                     //if (data.isHasSaleoff)
                     //    $('#modal_showRegister').modal('show');
@@ -547,7 +546,7 @@ Checkout.mvCheckout = function () {
     self.cal_disscount = function () {
         var totaldisscount = 0;
         ko.utils.arrayForEach(self.mCheckout().CartItemModel(), function (obj) {
-            if (!obj.shop_bienthe.giasosanh() > 0 && obj.ProductId() != 23568 && obj.ProductId() != 23569 && obj.ProductId() != 1049 && obj.ProductId() != 1050 && obj.ProductId() != 1051 && obj.ProductId() != 1052 && obj.shop_bienthe.masp().indexOf('TA') != 0) {
+            if (!obj.shop_bienthe.giasosanh() > 0 && obj.ProductId() != 23568 && obj.ProductId() != 23569 && obj.ProductId() != 1049 && obj.ProductId() != 1050 && obj.ProductId() != 1051 && obj.ProductId() != 1052 && obj.shop_bienthe.masp().indexOf('TA') != 0 && obj.shop_bienthe.masp().slice(0,1) != 'T') {
                 var u = obj.Count() * obj.shop_bienthe.gia();
                 totaldisscount += u;
             }

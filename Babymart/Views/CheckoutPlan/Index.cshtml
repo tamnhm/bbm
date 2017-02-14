@@ -147,7 +147,7 @@
         </tr>
     </tbody>
 </table>
-<!--ko if:mCheckout().Gift() && mCheckout().Gift().length>0-->
+@*<!--ko if:mCheckout().Gift() && mCheckout().Gift().length>0-->
 <div>
     <p><b>@(IsLangVN ? "Quà tặng" : "Gift") </b></p>
     <!--ko foreach:mCheckout().Gift()-->
@@ -157,7 +157,7 @@
     </div>
     <!--/ko-->
 </div>
-<!--/ko-->
+<!--/ko-->*@
 <div style="clear:both"></div>
 <p class="right-align left_arrow" style="margin-top:10px">
     <a href="@(IsLangVN ? "/goi-do-so-sinh.html" : "/en/new-baby-checklist.html")" class="button higher bold" style="float:left">@(IsLangVN ? "Mua thêm" : "Buy more")</a>

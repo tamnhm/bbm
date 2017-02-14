@@ -1088,7 +1088,7 @@
             </tr>
         </tbody>
     </table>
-    <!--ko if:mCheckout().Gift() && mCheckout().Gift().length>0-->
+    @*<!--ko if:mCheckout().Gift() && mCheckout().Gift().length>0-->
     <div>
         <p><b>@(IsLangVN ? "Quà tặng" : "Gift")</b></p>
         <!--ko foreach:mCheckout().Gift()-->
@@ -1098,7 +1098,7 @@
         </div>
         <!--/ko-->
     </div>
-    <!--/ko-->
+    <!--/ko-->*@
     <div style="clear:both"></div>
 </form>
 
@@ -1347,7 +1347,7 @@
                     </tr>
                 </tfoot>
             </table>
-            <!--ko if:mCheckout().Gift() && mCheckout().Gift().length>0-->
+            @*<!--ko if:mCheckout().Gift() && mCheckout().Gift().length>0-->
             <div>
                 <p><b>@(IsLangVN ? "Quà tặng" : "Gift") </b></p>
                 <!--ko foreach:mCheckout().Gift()-->
@@ -1357,7 +1357,7 @@
                 </div>
                 <!--/ko-->
             </div>
-            <!--/ko-->
+            <!--/ko-->*@
             <br />
             <div style="line-height:1;margin-top: 10px;">
                 <!--ko if: IsShipxedo()-->

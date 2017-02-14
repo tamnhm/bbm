@@ -189,7 +189,7 @@
                 <tr>
                     <td colspan="7" class="text-right">@(IsLangVN ? "Tổng thanh toán:" : "Total of payment:") <span data-bind="textMoney:TotalSum"></span> đ</td>
                 </tr>
-                <!--ko if:gift().length>0-->
+                @*<!--ko if:gift().length>0-->
                 <!--ko foreach:gift-->
                 <tr>
                     <td colspan="7" class="">
@@ -201,7 +201,7 @@
                     </td>
                 </tr>
                 <!--/ko-->
-                <!--/ko-->
+                <!--/ko-->*@
             </tbody>
         </table>
         @if (this.Session["PlanCart"] != null)
