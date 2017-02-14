@@ -3,6 +3,8 @@
     ViewBag.Title = "Shopping Cart";
     var urllocation = System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocation"];
     List<SelectListItem> listItems = new List<SelectListItem>();
+    int stt = 1;
+    var goidoSS = (Babymart.Models.Module.PlanCartModel)Session["PlanCart"];
 
     for (int i = 1; i < 20; i++)
     {
@@ -211,11 +213,26 @@
         <!-- ../page heading-->
         <div class="page-content page-order">
             <div class="heading-counter warning">
-                @(IsLangVN ? "Giỏ hàng hiện tại đang có: " : "My cart has: ")<span id="cart-status">@count</span> @(IsLangVN ? "sản phẩm" : "product")
+                <strong>
+                    @(IsLangVN ? "Giỏ hàng hiện tại đang có: " : "My cart has: ")<span id="cart-status">@count</span> @(IsLangVN ? "sản phẩm" : "product")
+                    @if (goidoSS != null)
+                    {
+
+                        <span> và 1 @(IsLangVN ? "Gói đồ dùng cho mẹ chuẩn bị sinh" : "New Baby Checklist")</span>
+                    }
+                </strong>
             </div>
             <div class="order-detail-content">
                 <form>
-                    @if (Model.CartItemModel.Count > 0)
+                    @if (goidoSS == null && Model.CartItemModel.Count <= 0)
+                    {
+                        <div id="emptycart" style="text-align: center;padding: 30px;">
+                            <h3 style="border: none;">
+                                @(IsLangVN ? "Bạn chưa có sản phẩm nào trong giỏ hàng !" : "Empty cart")
+                            </h3>
+                        </div>
+                    }
+                    @if (Model.CartItemModel.Count > 0 || goidoSS != null)
                     {
                         <table class="table table-bordered table-responsive cart_summary">
                             <thead>
@@ -230,90 +247,163 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.CartItemModel)
+                                @if (Model.CartItemModel.Count > 0)
                                 {
-                                    <tr id="row-@item.RecordId">
-                                        <td></td>
-                                        <td class="cart_product">
-                                            <a href="@((IsLangVN ? "/tin-tuc/" + item.shop_bienthe.spurl : "/en/product/" + item.shop_bienthe.spurl_us) + ".html")">
-                                                @if (item.shop_bienthe.imgsp != null)
+                                    foreach (var item in Model.CartItemModel)
+                                    {
+                                        <tr id="row-@item.RecordId">
+                                            <td></td>
+                                            <td class="cart_product">
+                                                <a href="@((IsLangVN ? "/tin-tuc/" + item.shop_bienthe.spurl : "/en/product/" + item.shop_bienthe.spurl_us) + ".html")">
+                                                    @if (item.shop_bienthe.imgsp != null)
+                                                    {
+                                                        <img onerror="imgError(this)" src='@(urllocation + item.shop_bienthe.imgsp)' alt='@(FBabymartvn.IsLangVNHasValue(item.shop_bienthe.tensp_us) ? item.shop_bienthe.tensp : item.shop_bienthe.tensp_us)' />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img onerror="imgError(this)" src="" />
+                                                    }
+                                                </a>
+                                            </td>
+                                            <td class="cart_description">
+                                                <p class="product-name"><a href="@((IsLangVN ? "/tin-tuc/" + item.shop_bienthe.spurl : "/en/product/" + item.shop_bienthe.spurl_us) + ".html")">@(FBabymartvn.IsLangVNHasValue(item.shop_bienthe.tensp_us) ? item.shop_bienthe.tensp : item.shop_bienthe.tensp_us)</a></p>
+                                                <small style=" display block" class="cart_ref">@(item.shop_bienthe.masp != null ? (IsLangVN ? "Mã SP: " : "ID: ") + @item.shop_bienthe.masp : "")</small>
+                                                <small>@(item.shop_bienthe.title != null && item.shop_bienthe.title != "default" ? (IsLangVN ? "Đặc điểm: " : "Status: ") + item.shop_bienthe.title : "")</small>
+                                            </td>
+                                            <td class="price">
+                                                <div>
+                                                    @string.Format("{0:0,0 đ}", item.shop_bienthe.gia)
+                                                </div>
+                                                @if (item.shop_bienthe.giasosanh > 0)
                                                 {
-                                                    <img onerror="imgError(this)" src='@(urllocation + item.shop_bienthe.imgsp)' alt='@(FBabymartvn.IsLangVNHasValue(item.shop_bienthe.tensp_us) ? item.shop_bienthe.tensp : item.shop_bienthe.tensp_us)' />
+                                                    <div class="old-price">@string.Format("{0:0,0 đ}", item.shop_bienthe.giasosanh)</div>
+                                                }
+                                            </td>
+                                            <td id="quantity" class="qty">
+                                                @Html.TextBoxFor(model => model.CartItems[ix].Count, item.Count.ToString(), new { onchange = "if(this.value==0) {change(" + item.RecordId + ",1);this.value=1;} else change(" + item.RecordId + ",this.value);", Value = item.Count, type = "number", min = "1", max = "99", maxlength = "2", oninput = "if(value.length>2)value=value.slice(0,2)", @class = "form-control input-sm" })
+                                            </td>
+                                            <td class="price" id="sum-@item.RecordId">
+                                                <span>@string.Format("{0:0,0 đ}", item.Count * item.shop_bienthe.gia)</span>
+                                            </td>
+                                            <td class="action">
+                                                <a href="#" onclick="DetelePro(@item.RecordId)">Delete item</a>
+                                                <div class="dialog-confirm-@item.RecordId" data-id="@item.RecordId"></div>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                    <tr>
+                                        <td colspan="5" class="text-right"><strong>@(IsLangVN ? "Tổng tiền" : "Total"):</strong></td>
+                                        <td colspan="2" class="text-right"><strong id="cart-total">@string.Format("{0:0,0 đ}", Model.CartTotal)</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="cart_navigation">
+                                                <a class="prev-btn" href="@(IsLangVN?"/":"/en")">@(IsLangVN ? "Tiếp tục mua hàng" : "Buy more")</a>
+                                                <span>@(IsLangVN ? "Hỗ trợ mua hàng: 08.6672.0909 | 08.3812.3813" : "Customer Care: 0918.644.643")</span>
+                                                <div class="pull-right" @(Model.CartItemModel.Count > 0 ? "" : "style=display:none")>
+                                                    @if (Session["khachhang"] == null)
+                                                    {
+                                                        <a href='/dat-hang.html' class='next-btn'>@(IsLangVN ? "Thanh toán" : "Payment")</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href='/xac-nhan-2.html' class='next-btn'>@(IsLangVN ? "Thanh toán" : "Payment")</a>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                                @if (goidoSS != null && goidoSS.PlanModel != null)
+                                {
+                                    <tr>
+                                        <td colspan="7">
+                                            <h2 class="text-center">Gói đồ sơ sinh</h2>
+                                        </td>
+                                    </tr>
+                                    foreach (var item in goidoSS.PlanModel)
+                                    {
+                                        <tr>
+                                            <td>@(stt++)</td>
+                                            <td class="cart_product">
+                                                @if (item.hinhanh != null)
+                                                {
+                                                    <img onerror="imgError(this)" src='@(urllocation + item.hinhanh)' alt='@(FBabymartvn.IsLangVNHasValue(item.tensp_us) ? item.tensp : item.tensp_us)' />
                                                 }
                                                 else
                                                 {
                                                     <img onerror="imgError(this)" src="" />
                                                 }
-                                            </a>
-                                        </td>
-                                        <td class="cart_description">
-                                            <p class="product-name"><a href="@((IsLangVN ? "/tin-tuc/" + item.shop_bienthe.spurl : "/en/product/" + item.shop_bienthe.spurl_us) + ".html")">@(FBabymartvn.IsLangVNHasValue(item.shop_bienthe.tensp_us) ? item.shop_bienthe.tensp : item.shop_bienthe.tensp_us)</a></p>
-                                            <small style=" display block" class="cart_ref">@(item.shop_bienthe.masp != null ? (IsLangVN ? "Mã SP: " : "ID: ") + @item.shop_bienthe.masp : "")</small>
-                                            <small>@(item.shop_bienthe.title != null && item.shop_bienthe.title != "default" ? (IsLangVN ? "Đặc điểm: " : "Status: ") + item.shop_bienthe.title : "")</small>
-                                        </td>
-                                        <td class="price">
-                                            <div>
-                                                @string.Format("{0:0,0 đ}", item.shop_bienthe.gia)
+                                            </td>
+                                            <td class="cart_description">
+                                                <p class="product-name">
+                                                    @(FBabymartvn.IsLangVNHasValue(item.tensp_us) ? item.tensp : item.tensp_us)
+                                                </p>
+                                            </td>
+                                            <td class="price">
+                                                <div>
+                                                    @string.Format("{0:0,0 đ}", item.gia)
+                                                </div>
+                                            </td>
+                                            <td id="quantity" class="qty">
+                                                @item.Count
+                                            </td>
+                                            <td class="price" colspan="2">
+                                                <span>@string.Format("{0:0,0 đ}", item.Count * item.gia)</span>
+                                            </td>
+                                        </tr>
+                                    }
+
+
+                                    <tr>
+                                        <td colspan="5" class="text-right">@(IsLangVN ? "Tổng tiền hàng:" : "Order Total:")</td>
+                                        <td colspan="2"><strong>@string.Format("{0:0,0 đ}", goidoSS.ToTal)</strong></td>
+                                    </tr>
+                                    if (goidoSS.Percent > 0)
+                                    {
+                                        <tr>
+                                            <td colspan="5" class="text-right">@(IsLangVN ? "Hỗ trợ mẹ: " : "Pregnancy assistance:") </td>
+                                            <td colspan="2" class="text-right">
+                                                <strong>@string.Format("{0:0,0 đ}", ((goidoSS.ToTal * goidoSS.Percent) / 100)) </strong>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                    <tr>
+                                        <td colspan="5" class="text-right">@(IsLangVN ? "Tổng thanh toán:" : "Total of payment:")</td>
+                                        <td colspan="2"><strong>@string.Format("{0:0,0 đ}", goidoSS.TotalSum)</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="cart_navigation">
+                                                <a class="prev-btn" href="@(IsLangVN?"/":"/en")">@(IsLangVN ? "Tiếp tục mua hàng" : "Buy more")</a>
+                                                <a class="prev-btn" href="/goi-do-so-sinh.html">@(IsLangVN ? "Sửa gói đồ sơ sinh" : "Edit")</a>
+                                                <div class="pull-right">
+                                                    @if (Session["khachhang"] == null)
+                                                    {
+                                                        <a href='/dat-hang-do-so-sinh.html' class='next-btn'>@(IsLangVN ? "Thanh toán" : "Payment")</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href='/xac-nhan-2-do-so-sinh.html' class='next-btn'>@(IsLangVN ? "Thanh toán" : "Payment")</a>
+                                                    }
+                                                </div>
                                             </div>
-                                            @if (item.shop_bienthe.giasosanh > 0)
-                                            {
-                                                <div class="old-price">@string.Format("{0:0,0 đ}", item.shop_bienthe.giasosanh)</div>
-                                            }
-                                        </td>
-                                        <td id="quantity" class="qty">
-                                            @Html.TextBoxFor(model => model.CartItems[ix].Count, item.Count.ToString(), new { onchange = "if(this.value==0) {change(" + item.RecordId + ",1);this.value=1;} else change(" + item.RecordId + ",this.value);", Value = item.Count, type = "number", min = "1", max = "99", maxlength = "2", oninput = "if(value.length>2)value=value.slice(0,2)", @class = "form-control input-sm" })
-                                        </td>
-                                        <td class="price" id="sum-@item.RecordId">
-                                            <span>@string.Format("{0:0,0 đ}", item.Count * item.shop_bienthe.gia)</span>
-                                        </td>
-                                        <td class="action">
-                                            <a href="#" onclick="DetelePro(@item.RecordId)">Delete item</a>
-                                            <div class="dialog-confirm-@item.RecordId" data-id="@item.RecordId"></div>
                                         </td>
                                     </tr>
                                 }
                             </tbody>
-                            <tfoot>
-
-                                <tr>
-                                    <td colspan="5"><strong>@(IsLangVN ? "Tổng tiền" : "Total"):</strong></td>
-                                    <td colspan="2"><strong id="cart-total">@string.Format("{0:0,0 đ}", Model.CartTotal)</strong></td>
-                                </tr>
-                            </tfoot>
                         </table>
-                        <div id="emptycart" style="display:none;text-align: center;padding: 30px;">
-                            <h3 style="border: none;">
-                                @(IsLangVN ? "Bạn chưa có sản phẩm nào trong giỏ hàng !" : "Empty cart")
-                            </h3>
-                        </div>
                     }
-                    else
-                    {
-                        <div id="emptycart" style="text-align: center;padding: 30px;">
-                            <h3 style="border: none;">
-                                @(IsLangVN ? "Bạn chưa có sản phẩm nào trong giỏ hàng !" : "Empty cart")
-                            </h3>
-                        </div>
-                    }
+
                 </form>
-                <div class="cart_navigation">
-                    <a class="prev-btn" href="@(IsLangVN?"/":"/en")">@(IsLangVN ? "Tiếp tục mua hàng" : "Buy more")</a>
-                    <span>@(IsLangVN ? "Hỗ trợ mua hàng: 08.6672.0909 | 08.3812.3813" : "Customer Care: 0918.644.643")</span>
-                    <div class="pull-right" @(Model.CartItemModel.Count > 0 ? "" : "style=display:none")>
-                        @if (Session["khachhang"] == null)
-                        {
-                            <a href='/dat-hang.html' class='next-btn'>@(IsLangVN ? "Thanh toán" : "Payment")</a>
-                        }
-                        else
-                        {
-                            <a href='/xac-nhan-2.html' class='next-btn'>@(IsLangVN ? "Thanh toán" : "Payment")</a>
-                        }
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
 </div>
+
 <div id="signup" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
     <div id="signup-ct">
         <div id="signup-header">
