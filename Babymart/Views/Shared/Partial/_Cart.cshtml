@@ -41,13 +41,16 @@
                             {
                                 <li class="clearfix">
                                     <div style="float:left;">
-                                        <a href="@(IsLangVN ? "/goi-do-so-sinh.html" : "/en/new-baby-checklist.html")">
-                                            <img src="/Content/forntpage/images/module/cart-plan.jpg" style="width: 100%;">
-                                        </a>
+                                        @*<a href="@(IsLangVN ? "/goi-do-so-sinh.html" : "/en/new-baby-checklist.html")">
+                                            
+                                        </a>*@
+                                        <div class="cart-buttons">
+                                            <a class="btn-check-out" href="@(IsLangVN ? "/goi-do-so-sinh.html" : "/en/new-baby-checklist.html")" title="xem giỏ hàng sơ sinh">@(IsLangVN ? "Xem giỏ hàng sơ sinh" : "Review baby checklist")</a>
+                                        </div>
                                     </div>
                                     <div style="float:right">
                                         <a class="delete RemoveLinkBar_Plan RemoveLinkBar">
-                                            <img src="/Content/forntpage/images/module/remove-cart-plan.jpg">
+                                            <img src="/Content/forntpage/images/module/remove-cart-plan.jpg" title="huỷ giỏ hàng sơ sinh" alt="huỷ giỏ hàng sơ sinh">
                                         </a>
                                     </div>
                                     <div id="bb_loading" style="display:none;  position: absolute;  top: 0px;left: -0.1%;background: rgba(25, 25, 25, 0.43);width: 100%; height: 100%;">
