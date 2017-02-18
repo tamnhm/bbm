@@ -147,6 +147,7 @@ Checkoutplan.mvCheckout = function () {
         return (ko.validatedObservable(self.mCustomer()))();
     });
     self.HasError = ko.observable();
+    self.DisscountForCustomer = ko.observable(0);
     self.IssessionKhachhang = ko.observable(false);
     self.thoigiangiaohang = ko.observable();
     self.flagquan = ko.observable(false);
@@ -168,7 +169,6 @@ Checkoutplan.mvCheckout = function () {
             data: { id: id },
             cache: false,
             success: function (data) {
-                debugger
                 if (id == 1) {
                     self.VisibleTp(true);
                 } else {
@@ -194,7 +194,6 @@ Checkoutplan.mvCheckout = function () {
         });
     });
     self.mCustomer().idquan.subscribe(function (id) {
-
         if (id != undefined) {
             if (self.mCustomer().idtp() == 1) {
                 if (self.mCheckout().TotalSum() < 150000
@@ -210,7 +209,6 @@ Checkoutplan.mvCheckout = function () {
         }
     });
     self.mCustomer().selectGio.subscribe(function (id) {
-        debugger
         var idquan = self.mCustomer().idquan();
         if (id == 3) {
             //$('#modal_selectngoaigiohanhchanh').modal('show');
@@ -228,6 +226,25 @@ Checkoutplan.mvCheckout = function () {
                 self.shipvalue(0);
         }
     });
+    self.tongtiencothegiam = ko.observable(0);
+    self.tinhtongtiencothegiam = function () {
+        if (self.mCheckout().PlanModel().length > 0) {
+            var tongtien = 0;
+            ko.utils.arrayForEach(self.mCheckout().PlanModel(), function (obj) {
+                if (obj.masp() == null) {
+                    if (obj.gia() > 0 && obj.IdProdut() != 23568 && obj.IdProdut() != 23569 && obj.IdProdut() != 1049 && obj.IdProdut() != 1050 && obj.IdProdut() != 1051 && obj.IdProdut() != 1052 && obj.tensp().indexOf('TA') == -1 && obj.tensp().indexOf('T0') == -1 && obj.tensp().indexOf('T1') == -1 && obj.tensp().indexOf('T2') == -1 && obj.tensp().indexOf('T3') == -1 && obj.tensp().indexOf('T4') == -1 && obj.tensp().indexOf('T5') == -1 && obj.tensp().indexOf('T6') == -1 && obj.tensp().indexOf('T7') == -1 && obj.tensp().indexOf('T8') == -1 && obj.tensp().indexOf('T9') == -1) {
+                        tongtien += obj.sum();
+                    }
+                }
+                else {
+                    if (obj.gia() > 0 && obj.IdProdut() != 23568 && obj.IdProdut() != 23569 && obj.IdProdut() != 1049 && obj.IdProdut() != 1050 && obj.IdProdut() != 1051 && obj.IdProdut() != 1052 && obj.masp().indexOf('TA') ==-1 && obj.masp().slice(0, 1) != 'T') {
+                        tongtien += obj.sum();
+                    }
+                }
+            });
+            self.tongtiencothegiam(tongtien);
+        }
+    };
     self.getPriceShip = function (id) {
         if (id && self.mCustomer().idtp()) {
             self.shipvalue(0);
@@ -416,7 +433,6 @@ Checkoutplan.mvCheckout = function () {
         if (self.Validator().isValid()) {
             self.messenger(isEnLag == 'True' ? 'Hệ thống đang xử lý, vui lòng đợi....' : 'Processing, please wait...');
             self.waitloader(true);
-            debugger
             var donhang = new Checkoutplan.mDonhang();
             donhang.makh(self.mCustomer().MaKH());
             donhang.ghichu(self.NoteCheckout())
@@ -426,6 +442,7 @@ Checkoutplan.mvCheckout = function () {
             donhang.pttt(self.mCustomer().selectPayment());
             donhang.ptgh(self.selectTypeShip().value);
             donhang.thongtinxedo(self.Infxedo());
+            //donhang.datru_diem(self.datru_diem());
             donhang.typeconfim(self.typeconfim());
             donhang.NLpayBankType(self.mCustomer().SelectedNLpayBankType());
             donhang.BankOnline(self.mCustomer().SelectedBankOnline());
@@ -505,7 +522,10 @@ Checkoutplan.mvCheckout = function () {
         }
     });
     self.totalcartmoney = ko.computed(function () {
-        return self.mCheckout().TotalSum() + self.shipvalue() + self.phithuho();
+        var result = self.mCheckout().TotalSum() + self.shipvalue() + self.phithuho();
+        if (self.DisscountForCustomer() > 0)
+            result = result - self.DisscountForCustomer()
+        return result
     });
     self.Start = function () {
         ko.applyBindings(self);
@@ -532,6 +552,10 @@ Checkoutplan.mvCheckout = function () {
                     ko.mapping.fromJS(sessionKhachhang, {}, self.mCustomer());
                     self.sessionIdQuan(sessionKhachhang.idquan);
                     self.IssessionKhachhang(true);
+                    self.tinhtongtiencothegiam();
+                    if (self.mCustomer().diem() >= 1000 && self.tongtiencothegiam() > 0 && self.mCheckout().TotalSum() < 1000000) {
+                        $('#modal_disscount').modal('show');
+                    }
                     self.diemsanpham();
                 }
                 var tmpPlanModel = ko.observableArray();
@@ -552,6 +576,32 @@ Checkoutplan.mvCheckout = function () {
         }).always(function () {
             self.Isloadercart(false);
         });
-    }
+    };
+    self.datru_diem = ko.observable(0);
+    self.cal_disscount = function () {
+        var totaldisscount = 0;
+        ko.utils.arrayForEach(self.mCheckout().PlanModel(), function (obj) {
+            if (obj.masp() == null) {
+                if (obj.gia() > 0 && obj.IdProdut() != 23568 && obj.IdProdut() != 23569 && obj.IdProdut() != 1049 && obj.IdProdut() != 1050 && obj.IdProdut() != 1051 && obj.IdProdut() != 1052 && obj.tensp().indexOf('TA') == -1 && obj.tensp().indexOf('T0') == -1 && obj.tensp().indexOf('T1') == -1 && obj.tensp().indexOf('T2') == -1 && obj.tensp().indexOf('T3') == -1 && obj.tensp().indexOf('T4') == -1 && obj.tensp().indexOf('T5') == -1 && obj.tensp().indexOf('T6') == -1 && obj.tensp().indexOf('T7') == -1 && obj.tensp().indexOf('T8') == -1 && obj.tensp().indexOf('T9') == -1) {
+                    totaldisscount += obj.sum();
+                }
+            }
+            else {
+                if (obj.gia() > 0 && obj.IdProdut() != 23568 && obj.IdProdut() != 23569 && obj.IdProdut() != 1049 && obj.IdProdut() != 1050 && obj.IdProdut() != 1051 && obj.IdProdut() != 1052 && obj.masp().indexOf('TA') == -1 && obj.masp().slice(0, 1) != 'T') {
+                    totaldisscount += obj.sum();
+                }
+            }
+        });
+        self.DisscountForCustomer((totaldisscount * 5) / 100)
+
+        if (totaldisscount != 0) {
+            var diem = self.mCustomer().diem() - 1000;
+            self.mCustomer().diem(diem);
+            self.datru_diem(1000);
+        }
+        var diemspsaugiam = self.mCustomer().diemsp() - (self.DisscountForCustomer() / 1000);
+        self.mCustomer().diemsp(diemspsaugiam.toFixed(0));
+        $('#modal_disscount').modal('hide');
+    };
 
 };

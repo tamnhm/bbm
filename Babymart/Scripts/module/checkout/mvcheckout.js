@@ -228,9 +228,17 @@ Checkout.mvCheckout = function () {
         if (self.mCheckout().CartItemModel().length > 0) {
             var tongtien = 0;
             ko.utils.arrayForEach(self.mCheckout().CartItemModel(), function (obj) {
-                if (!obj.shop_bienthe.giasosanh() > 0 && obj.ProductId() != 23568 && obj.ProductId() != 23569 && obj.ProductId() != 1049 && obj.ProductId() != 1050 && obj.ProductId() != 1051 && obj.ProductId() != 1052 && obj.shop_bienthe.masp().indexOf('TA') != 0 && obj.shop_bienthe.masp().slice(0, 1) != 'T') {
-                    var u = obj.Count() * obj.shop_bienthe.gia();
-                    tongtien += u;
+                if (obj.shop_bienthe.masp() == null) {
+                    if (!obj.shop_bienthe.giasosanh() > 0 && obj.ProductId() != 23568 && obj.ProductId() != 23569 && obj.ProductId() != 1049 && obj.ProductId() != 1050 && obj.ProductId() != 1051 && obj.ProductId() != 1052 && obj.shop_bienthe.title().indexOf('TA') == -1 && obj.shop_bienthe.title().indexOf('T0') == -1 && obj.shop_bienthe.title().indexOf('T1') == -1 && obj.shop_bienthe.title().indexOf('T2') == -1 && obj.shop_bienthe.title().indexOf('T3') == -1 && obj.shop_bienthe.title().indexOf('T4') == -1 && obj.shop_bienthe.title().indexOf('T5') == -1 && obj.shop_bienthe.title().indexOf('T6') == -1 && obj.shop_bienthe.title().indexOf('T7') == -1 && obj.shop_bienthe.title().indexOf('T8') == -1 && obj.shop_bienthe.title().indexOf('T9') == -1) {
+                        var u = obj.Count() * obj.shop_bienthe.gia();
+                        tongtien += u;
+                    }
+                }
+                else {
+                    if (!obj.shop_bienthe.giasosanh() > 0 && obj.ProductId() != 23568 && obj.ProductId() != 23569 && obj.ProductId() != 1049 && obj.ProductId() != 1050 && obj.ProductId() != 1051 && obj.ProductId() != 1052 && obj.shop_bienthe.masp().indexOf('TA') != 0 && obj.shop_bienthe.masp().slice(0, 1) != 'T') {
+                        var u = obj.Count() * obj.shop_bienthe.gia();
+                        tongtien += u;
+                    }
                 }
             });
             self.tongtiencothegiam(tongtien);
@@ -522,9 +530,8 @@ Checkout.mvCheckout = function () {
                             totalSaleOff = totalSaleOff + val.shop_bienthe.gia();
                         }
                     });
-                    debugger
                     self.tinhtongtiencothegiam();
-                    if (self.mCustomer().diem() >= 1000 && countforItemselfoff != countItem && self.tongtiencothegiam()>0) {
+                    if (self.mCustomer().diem() >= 1000 && countforItemselfoff != countItem && self.tongtiencothegiam() > 0) {
                         $('#modal_disscount').modal('show');
                     }
                     self.TotalSaleOff(totalSaleOff);
@@ -546,9 +553,17 @@ Checkout.mvCheckout = function () {
     self.cal_disscount = function () {
         var totaldisscount = 0;
         ko.utils.arrayForEach(self.mCheckout().CartItemModel(), function (obj) {
-            if (!obj.shop_bienthe.giasosanh() > 0 && obj.ProductId() != 23568 && obj.ProductId() != 23569 && obj.ProductId() != 1049 && obj.ProductId() != 1050 && obj.ProductId() != 1051 && obj.ProductId() != 1052 && obj.shop_bienthe.masp().indexOf('TA') != 0 && obj.shop_bienthe.masp().slice(0,1) != 'T') {
-                var u = obj.Count() * obj.shop_bienthe.gia();
-                totaldisscount += u;
+            if (obj.shop_bienthe.masp() == null) {
+                if (!obj.shop_bienthe.giasosanh() > 0 && obj.ProductId() != 23568 && obj.ProductId() != 23569 && obj.ProductId() != 1049 && obj.ProductId() != 1050 && obj.ProductId() != 1051 && obj.ProductId() != 1052 && obj.shop_bienthe.title().indexOf('TA') == -1 && obj.shop_bienthe.title().indexOf('T0') == -1 && obj.shop_bienthe.title().indexOf('T1') == -1 && obj.shop_bienthe.title().indexOf('T2') == -1 && obj.shop_bienthe.title().indexOf('T3') == -1 && obj.shop_bienthe.title().indexOf('T4') == -1 && obj.shop_bienthe.title().indexOf('T5') == -1 && obj.shop_bienthe.title().indexOf('T6') == -1 && obj.shop_bienthe.title().indexOf('T7') == -1 && obj.shop_bienthe.title().indexOf('T8') == -1 && obj.shop_bienthe.title().indexOf('T9') == -1) {
+                    var u = obj.Count() * obj.shop_bienthe.gia();
+                    totaldisscount += u;
+                }
+            }
+            else {
+                if (!obj.shop_bienthe.giasosanh() > 0 && obj.ProductId() != 23568 && obj.ProductId() != 23569 && obj.ProductId() != 1049 && obj.ProductId() != 1050 && obj.ProductId() != 1051 && obj.ProductId() != 1052 && obj.shop_bienthe.masp().indexOf('TA') != 0 && obj.shop_bienthe.masp().slice(0, 1) != 'T') {
+                    var u = obj.Count() * obj.shop_bienthe.gia();
+                    totaldisscount += u;
+                }
             }
         });
         self.DisscountForCustomer((totaldisscount * 5) / 100)

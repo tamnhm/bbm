@@ -94,7 +94,7 @@ namespace Babymart.Controllers
                     noidungmail = this.Session["noidungmail"].ToString();
                     madonhang = long.Parse(this.Session["madonhang"].ToString());
                     SendmailCheckout(emailkhach, tenkhach, noidungmail, madonhang);
-                    UtilsBB.EmptyCart();
+                    //UtilsBB.EmptyCart();
                     this.Session["PlanCart"] = null;
                     this.Session["emailkhach"] = null;
                     this.Session["tenkhach"] = null;
@@ -132,7 +132,7 @@ namespace Babymart.Controllers
                 noidungmail = this.Session["noidungmail"].ToString();
                 madonhang = long.Parse(this.Session["madonhang"].ToString());
                 SendmailCheckout(emailkhach, tenkhach, noidungmail, madonhang);
-                UtilsBB.EmptyCart();
+                //UtilsBB.EmptyCart();
                 this.Session["PlanCart"] = null;
                 this.Session["emailkhach"] = null;
                 this.Session["tenkhach"] = null;

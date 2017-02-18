@@ -8,6 +8,21 @@ Checkoutplan.mCheckout = function () {
     self.TotalSum = ko.observable();
     self.KgTotal = ko.observable();
 };
+Checkoutplan.PlanModel = function () {
+    var self = this;
+    self.Count = ko.observable();
+    self.Id = ko.observable();
+    self.IdProdut = ko.observable();
+    self.gia = ko.observable();
+    self.hinhanh = ko.observable();
+    self.kg = ko.observable();
+    self.masp = ko.observable();
+    self.namePlan = ko.observable();
+    self.sum = ko.observable();
+    self.tensp = ko.observable();
+    self.tensp_us = ko.observable();
+    self.typePlan = ko.observable();  
+};
 Checkoutplan.mPlanModel = function () {
     var self = this;
     self.Count = ko.observable();

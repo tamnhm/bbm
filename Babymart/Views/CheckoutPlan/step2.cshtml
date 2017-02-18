@@ -105,6 +105,9 @@
         <label class="control-label" for="lastName">@(IsLangVN ? "Điểm tích lũy : " : "Accumulation Point : ")  </label>
         <div class="controls">
             <b data-bind="text: mCustomer().diem"></b>
+            <!--ko if: DisscountForCustomer()>0-->
+            <b><span style="color:red;"> - Đã giảm 5% hóa đơn và 1000 điểm tích lũy</span></b>
+            <!--/ko-->
         </div>
     </div>
     <!--/ko-->
@@ -1023,6 +1026,15 @@
 
                 <td class="stronger" style="text-align: right;"><span class="size-16 align-right" data-bind="textMoney:mCheckout().ToTal()"></span> đ</td>
             </tr>
+            <!-- ko if:DisscountForCustomer()>0 -->
+            <tr>
+                <td colspan="5" rowspan="2"></td>
+            </tr>
+            <tr>
+                <td class="stronger">@(IsLangVN ? "Phí giảm cho thành viên : " : "Member Discounts : ")</td>
+                <td class="stronger"><div class="size-16 align-right"><span data-bind="textMoney:DisscountForCustomer()"></span> đ</div></td>
+            </tr>
+            <!-- /ko -->
             <!--ko if:mCheckout().Percent()>0-->
             <tr>
                 <td colspan="5" rowspan="2"></td>
@@ -1829,3 +1841,37 @@
         <!--/ko-->
     </div>
 </script>
+<div id="modal_disscount" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">@(IsLangVN ? "Thông báo" : "Notify")</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-horizontal form-bordered">
+            <div style="text-align: left;">
+                <p style="font-weight:bold">
+                    @if (IsLangVN)
+                    {
+                        <span>
+                            Bạn đã tích lũy đủ điểm ưu đãi. Bạn có muốn áp dụng quyền giảm ưu đãi đối với đơn hàng này không, giảm 5% trên <span data-bind="textMoney:tongtiencothegiam"></span> đ mua hàng<br />
+                            <span style="color:red">(không áp dụng giảm ưu đãi cho các sản phẩm đang khuyến mãi, bỉm tã và thực phẩm).</span><br />
+                            Bạn có thể giữ lại quyền ưu đãi để áp dụng cho đơn hàng sau bằng cách nhấn nút "Không".
+                            Mỗi lần áp dụng, số điểm tích lũy của bạn sẽ bị trừ 1000.
+                        </span>
+                    }
+                    else
+                    {
+                        <span>
+                            You'll officially qualify to redeem your point. We'll convert your points into 5% discount on your purchase or  If you wish to keep it Please click "No,Thanks"
+                            After redeeming points for discount, your accumulation points will reduce 1000 points.
+                        </span>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="button" data-dismiss="modal" aria-hidden="true" style=" margin-right 20px">@(IsLangVN ? " Không, Cảm ơn! " : "No, thank")</button>
+        <button class="button" data-bind="click:cal_disscount">@(IsLangVN ? "Có" : "Yes")</button>
+    </div>
+</div>
