@@ -23,14 +23,14 @@ namespace Babymart
             try
             {
                 ViewEngines.Engines.Clear();
-                ViewEngines.Engines.Add(new Microsoft.Web.Mvc.FixedRazorViewEngine()); 
+                ViewEngines.Engines.Add(new Microsoft.Web.Mvc.FixedRazorViewEngine());
                 AreaRegistration.RegisterAllAreas();
                 var dislayModels = DisplayModeProvider.Instance.Modes;
                 WebApiConfig.Register(GlobalConfiguration.Configuration);
                 FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
                 RouteConfig.RegisterRoutes(RouteTable.Routes);
                 BundleConfig.RegisterBundles(BundleTable.Bundles);
-                BundleMobileConfig.RegisterBundles(BundleTable.Bundles); 
+                BundleMobileConfig.RegisterBundles(BundleTable.Bundles);
                 AuthConfig.RegisterAuth();
                 GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("")
@@ -106,6 +106,6 @@ namespace Babymart
                     }
                 }
             }
-        } 
+        }
     }
 }

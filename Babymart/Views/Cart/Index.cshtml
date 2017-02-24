@@ -365,7 +365,7 @@
                                         <tr>
                                             <td colspan="5" class="text-right">@(IsLangVN ? "Hỗ trợ mẹ: " : "Pregnancy assistance:") </td>
                                             <td colspan="2" class="text-right">
-                                                <strong>@string.Format("{0:0,0 đ}", ((goidoSS.ToTal * goidoSS.Percent) / 100)) </strong>
+                                                <strong>@string.Format("{0:0,0 đ}", goidoSS.ToTal- goidoSS.TotalSum )</strong>
                                             </td>
                                         </tr>
                                     }
@@ -381,7 +381,7 @@
                                                 <a class="prev-btn" href="/goi-do-so-sinh.html">@(IsLangVN ? "Sửa gói đồ sơ sinh" : "Edit")</a>
                                                 <div class="pull-right">
                                                     @if (Session["khachhang"] == null)
-                                                    {
+                                                        {
                                                         <a href='/dat-hang-do-so-sinh.html' class='next-btn'>@(IsLangVN ? "Thanh toán" : "Payment")</a>
                                                     }
                                                     else
@@ -413,7 +413,7 @@
         <form action="">
             <div class="popup-content">
                 @if (IsLangVN)
-                {
+                                                {
                     <ul>
                         <li class="text-left"> Bạn chưa là thành viên của <b>Babymart.vn?</b> – <a href="/dang-ky.html">Đăng ký</a></li>
                         <li class="text-left">Bạn là thành viên của <b>Babymart.vn?</b> – <a href="/dang-nhap.html">Đăng nhập</a></li>

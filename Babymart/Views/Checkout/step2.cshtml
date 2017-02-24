@@ -3,6 +3,11 @@
     var IsLangVN = FBabymartvn.IsLangVN();
     var urllocation = System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocation"];
     var khachhangJS = Json.Encode((Babymart.Models.Module.ModeCustomerPost)Session["khachhang"]);
+    var datrudiem = 0;
+    if (Session["datrudiem"]!=null)
+    {
+        datrudiem = (int)Session["datrudiem"];
+    }
 }
 @section SEOContent{
     <title>Đặt hàng - Bước 2 - Babymart.vn</title>
@@ -35,12 +40,14 @@
     @Scripts.Render("~/module/checkout")
 
     <script>
+        debugger
         var isEnLag = '@(IsLangVN)';
         var urllocation = "@urllocation";
         var sessionKhachhang = @Html.Raw(khachhangJS+';')
+        var sessiondatrudiem = @Html.Raw(datrudiem)
         $(document).ready(function () {
-            (new Checkout.mvCheckout().Start());
-        });
+        (new Checkout.mvCheckout().Start());
+    });
     </script>
     <style>
         table.thuho {
@@ -66,11 +73,11 @@
         <div class="span2">
             @if (IsLangVN)
             {
-            <img id="logo" alt="babymart.vn" src="/Content/forntpage/images/ui/logo-cart.png">
+                <img id="logo" alt="babymart.vn" src="/Content/forntpage/images/ui/logo-cart.png">
             }
             else
             {
-            <img id="logo" alt="babymart.vn" src="/Content/forntpage/images/ui/logo-cart-en.png">
+                <img id="logo" alt="babymart.vn" src="/Content/forntpage/images/ui/logo-cart-en.png">
             }
         </div>
         <div class="span6">
@@ -113,8 +120,13 @@
         <label class="control-label" for="lastName">@(IsLangVN ? "Điểm tích lũy : " : "Accumulation Point : ") </label>
         <div class="controls">
             <b data-bind="text: mCustomer().diem"></b>
-            <!--ko if: DisscountForCustomer()>0-->
+            <!--ko if: DisscountForCustomer()>0 && sessiondatrudiem==0-->
+
             <b><span style="color:red;"> - Đã giảm 5% hóa đơn và 1000 điểm tích lũy</span></b>
+            <!--/ko-->
+            <!--ko if: DisscountForCustomer()>0 && sessiondatrudiem>0-->
+
+            <b><span style="color:red;"> - Đã giảm 5% hóa đơn</span></b>
             <!--/ko-->
         </div>
     </div>
@@ -162,55 +174,55 @@
             <div id="donhang<150ktanphu">
                 @if (IsLangVN)
                 {
-                <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
-                <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Khu vực</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Mức phí (VNĐ)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Quận Tân Phú</div>
-                            </td>
-                            <td>
-                                <div align="center">10.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
+                    <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận Tân Phú</div>
+                                </td>
+                                <td>
+                                    <div align="center">10.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
                 }
                 else
                 {
-                <p>For orders up to 150,000VND, Shippping rate per Address:</p>
-                <table border="0" cellspacing="0" cellpadding="0" width="100%">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Districts</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Fee (VND)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Tan Phu</div>
-                            </td>
-                            <td>
-                                <div align="center">10.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p>(*) For orders over 150,000VND Free Ship.</p>
+                    <p>For orders up to 150,000VND, Shippping rate per Address:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Tan Phu</div>
+                                </td>
+                                <td>
+                                    <div align="center">10.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) For orders over 150,000VND Free Ship.</p>
                 }
             </div>
             <!--/ko-->
@@ -218,55 +230,55 @@
             <div id="donhang<150ktanbinh">
                 @if (IsLangVN)
                 {
-                <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
-                <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Khu vực</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Mức phí (VNĐ)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Quận Tân Bình</div>
-                            </td>
-                            <td>
-                                <div align="center">15.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
+                    <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận Tân Bình</div>
+                                </td>
+                                <td>
+                                    <div align="center">15.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
                 }
                 else
                 {
-                <p>For orders up to 150,000VND, Shippping rate per Address:</p>
-                <table border="0" cellspacing="0" cellpadding="0" width="100%">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Districts</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Fee (VND)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Tan Binh</div>
-                            </td>
-                            <td>
-                                <div align="center">15.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p>(*)For orders over 150,000VND Free Ship.</p>
+                    <p>For orders up to 150,000VND, Shippping rate per Address:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Tan Binh</div>
+                                </td>
+                                <td>
+                                    <div align="center">15.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*)For orders over 150,000VND Free Ship.</p>
                 }
             </div>
             <!--/ko-->
@@ -274,55 +286,55 @@
             <div id="donhang<150k11,12">
                 @if (IsLangVN)
                 {
-                <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
-                <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Khu vực</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Mức phí (VNĐ)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Quận 11, 12, Gò Vấp, Bình Thạnh, Phú Nhuận, Bình Tân</div>
-                            </td>
-                            <td>
-                                <div align="center">20.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
+                    <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 11, 12, Gò Vấp, Bình Thạnh, Phú Nhuận, Bình Tân</div>
+                                </td>
+                                <td>
+                                    <div align="center">20.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
                 }
                 else
                 {
-                <p>For orders up to 150,000VND, Shippping rate per Address:</p>
-                <table border="0" cellspacing="0" cellpadding="0" width="100%">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Districts</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Fee (VND)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>11 , 12, Go Vap, Binh Thanh, Phu Nhuan, Binh Tan</div>
-                            </td>
-                            <td>
-                                <div align="center">20.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p>(*) For orders over 150,000VND Free Ship.</p>
+                    <p>For orders up to 150,000VND, Shippping rate per Address:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>11 , 12, Go Vap, Binh Thanh, Phu Nhuan, Binh Tan</div>
+                                </td>
+                                <td>
+                                    <div align="center">20.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) For orders over 150,000VND Free Ship.</p>
                 }
             </div>
             <!--/ko-->
@@ -330,55 +342,55 @@
             <div id="donhang<150k1,3">
                 @if (IsLangVN)
                 {
-                <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
-                <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Khu vực</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Mức phí (VNĐ)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Quận 1, 3, 4, 5, 6, 10</div>
-                            </td>
-                            <td>
-                                <div align="center">25.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
+                    <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 1, 3, 4, 5, 6, 10</div>
+                                </td>
+                                <td>
+                                    <div align="center">25.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
                 }
                 else
                 {
-                <p>For orders up to 150,000VND, Shippping rate per Address:</p>
-                <table border="0" cellspacing="0" cellpadding="0" width="100%">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Districts</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Fee (VND)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>1, 3, 4, 5, 6, 10</div>
-                            </td>
-                            <td>
-                                <div align="center">25.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p>(*) For orders over 150,000VND Free Ship.</p>
+                    <p>For orders up to 150,000VND, Shippping rate per Address:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>1, 3, 4, 5, 6, 10</div>
+                                </td>
+                                <td>
+                                    <div align="center">25.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) For orders over 150,000VND Free Ship.</p>
                 }
             </div>
             <!--/ko-->
@@ -386,55 +398,55 @@
             <div id="donhang<150k2,7,8">
                 @if (IsLangVN)
                 {
-                <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
-                <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Khu vực</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Mức phí (VNĐ)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Quận 2, 7, 8</div>
-                            </td>
-                            <td>
-                                <div align="center">30.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
+                    <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 2, 7, 8</div>
+                                </td>
+                                <td>
+                                    <div align="center">30.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
                 }
                 else
                 {
-                <p>For orders up to 150,000VND, Shippping rate per Address:</p>
-                <table border="0" cellspacing="0" cellpadding="0" width="100%">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Districts</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Fee (VND)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>2, 7, 8</div>
-                            </td>
-                            <td>
-                                <div align="center">30.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p>(*) For orders over 150,000VND Free Ship.</p>
+                    <p>For orders up to 150,000VND, Shippping rate per Address:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>2, 7, 8</div>
+                                </td>
+                                <td>
+                                    <div align="center">30.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) For orders over 150,000VND Free Ship.</p>
                 }
             </div>
             <!--/ko-->
@@ -442,55 +454,55 @@
             <div id="donhang<150k9,thuduc">
                 @if (IsLangVN)
                 {
-                <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
-                <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Khu vực</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Mức phí (VNĐ)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Quận 9, Thủ Đức</div>
-                            </td>
-                            <td>
-                                <div align="center">40.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
+                    <p class="text-warning">Với giá trị hóa đơn dưới 150,000VNĐ, bạn vui lòng hỗ trợ phí giao hàng với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 9, Thủ Đức</div>
+                                </td>
+                                <td>
+                                    <div align="center">40.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để được giao hàng miễn phí, bạn có thể <a href="/">mua thêm</a> sản phẩm với tổng giá trị đơn hàng trên 150,000VNĐ.</p>
                 }
                 else
                 {
-                <p>For orders up to 150,000VND, Shippping rate per Address:</p>
-                <table border="0" cellspacing="0" cellpadding="0" width="100%">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Districts</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Fee (VND)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>9, Thu Duc</div>
-                            </td>
-                            <td>
-                                <div align="center">40.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p>(*) For orders over 150,000VND Free Ship.</p>
+                    <p>For orders up to 150,000VND, Shippping rate per Address:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>9, Thu Duc</div>
+                                </td>
+                                <td>
+                                    <div align="center">40.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) For orders over 150,000VND Free Ship.</p>
                 }
             </div>
             <!--/ko-->
@@ -505,11 +517,11 @@
             <p class="text-warning">
                 @if (IsLangVN)
                 {
-                <span>Xem chi tiết <a href="/bai-viet/thong-tin-chuyen-khoan.html" target="_blank">Hình thức thanh toán</a></span>
+                    <span>Xem chi tiết <a href="/bai-viet/thong-tin-chuyen-khoan.html" target="_blank">Hình thức thanh toán</a></span>
                 }
                 else
                 {
-                <span>Detail of <a href="/bai-viet/thong-tin-chuyen-khoan.html" target="_blank">Payment methods</a></span>
+                    <span>Detail of <a href="/bai-viet/thong-tin-chuyen-khoan.html" target="_blank">Payment methods</a></span>
                 }
             </p>
             <!--ko if: mCustomer().selectPayment() == 4 -->
@@ -530,55 +542,55 @@
             <div id="selectngoaigiohanhchinhtanphu">
                 @if (IsLangVN)
                 {
-                <p class="text-warning">Bạn vui lòng hỗ trợ phí ngoài giờ với biểu phí như sau:</p>
-                <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Khu vực</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Mức phí (VNĐ)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Quận Tân Phú</div>
-                            </td>
-                            <td>
-                                <div align="center">10.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p class="text-warning">(*) Để không mất phí ngoài giờ, bạn nên chọn thời gian giao hàng trong giờ hành chánh.</p>
+                    <p class="text-warning">Bạn vui lòng hỗ trợ phí ngoài giờ với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận Tân Phú</div>
+                                </td>
+                                <td>
+                                    <div align="center">10.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để không mất phí ngoài giờ, bạn nên chọn thời gian giao hàng trong giờ hành chánh.</p>
                 }
                 else
                 {
-                <p>With overtime delivery, please refer to overtime fee as below:</p>
-                <table border="0" cellspacing="0" cellpadding="0" width="100%">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Districts</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Fee (VND)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Tan Phu</div>
-                            </td>
-                            <td>
-                                <div align="center">10.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p>(*) In order to save overtime fee, you should select the office hours for delivery.</p>
+                    <p>With overtime delivery, please refer to overtime fee as below:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Tan Phu</div>
+                                </td>
+                                <td>
+                                    <div align="center">10.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) In order to save overtime fee, you should select the office hours for delivery.</p>
                 }
             </div>
             <!--/ko-->
@@ -586,55 +598,55 @@
             <div id="selectngoaigiohanhchinhtanbinh">
                 @if (IsLangVN)
                 {
-                <p class="text-warning">Bạn vui lòng hỗ trợ phí ngoài giờ với biểu phí như sau:</p>
-                <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Khu vực</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Mức phí (VNĐ)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Quận Tân Bình</div>
-                            </td>
-                            <td>
-                                <div align="center">15.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p class="text-warning">(*) Để không mất phí ngoài giờ, bạn nên chọn thời gian giao hàng trong giờ hành chánh.</p>
+                    <p class="text-warning">Bạn vui lòng hỗ trợ phí ngoài giờ với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận Tân Bình</div>
+                                </td>
+                                <td>
+                                    <div align="center">15.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để không mất phí ngoài giờ, bạn nên chọn thời gian giao hàng trong giờ hành chánh.</p>
                 }
                 else
                 {
-                <p>With overtime delivery, please refer to overtime fee as below:</p>
-                <table border="0" cellspacing="0" cellpadding="0" width="100%">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Districts</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Fee (VND)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Tan Binh</div>
-                            </td>
-                            <td>
-                                <div align="center">15.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p>(*) In order to save overtime fee, you should select the office hours for delivery.</p>
+                    <p>With overtime delivery, please refer to overtime fee as below:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Tan Binh</div>
+                                </td>
+                                <td>
+                                    <div align="center">15.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) In order to save overtime fee, you should select the office hours for delivery.</p>
                 }
             </div>
             <!--/ko-->
@@ -642,55 +654,55 @@
             <div id="selectngoaigiohanhchinh11,12">
                 @if (IsLangVN)
                 {
-                <p class="text-warning">Bạn vui lòng hỗ trợ phí ngoài giờ với biểu phí như sau:</p>
-                <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Khu vực</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Mức phí (VNĐ)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Quận 11, 12, Gò Vấp, Bình Thạnh, Phú Nhuận, Bình Tân</div>
-                            </td>
-                            <td>
-                                <div align="center">20.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p class="text-warning">(*) Để không mất phí ngoài giờ, bạn nên chọn thời gian giao hàng trong giờ hành chánh.</p>
+                    <p class="text-warning">Bạn vui lòng hỗ trợ phí ngoài giờ với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 11, 12, Gò Vấp, Bình Thạnh, Phú Nhuận, Bình Tân</div>
+                                </td>
+                                <td>
+                                    <div align="center">20.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để không mất phí ngoài giờ, bạn nên chọn thời gian giao hàng trong giờ hành chánh.</p>
                 }
                 else
                 {
-                <p>With overtime delivery, please refer to overtime fee as below:</p>
-                <table border="0" cellspacing="0" cellpadding="0" width="100%">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Districts</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Fee (VND)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>11 , 12, Go Vap, Binh Thanh, Phu Nhuan, Binh Tan</div>
-                            </td>
-                            <td>
-                                <div align="center">20.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p>(*) In order to save overtime fee, you should select the office hours for delivery.</p>
+                    <p>With overtime delivery, please refer to overtime fee as below:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>11 , 12, Go Vap, Binh Thanh, Phu Nhuan, Binh Tan</div>
+                                </td>
+                                <td>
+                                    <div align="center">20.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) In order to save overtime fee, you should select the office hours for delivery.</p>
                 }
             </div>
             <!--/ko-->
@@ -698,55 +710,55 @@
             <div id="selectngoaigiohanhchinh1,3">
                 @if (IsLangVN)
                 {
-                <p class="text-warning">Bạn vui lòng hỗ trợ phí ngoài giờ với biểu phí như sau:</p>
-                <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Khu vực</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Mức phí (VNĐ)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Quận 1, 3, 4, 5, 6, 10</div>
-                            </td>
-                            <td>
-                                <div align="center">25.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p class="text-warning">(*) Để không mất phí ngoài giờ, bạn nên chọn thời gian giao hàng trong giờ hành chánh.</p>
+                    <p class="text-warning">Bạn vui lòng hỗ trợ phí ngoài giờ với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 1, 3, 4, 5, 6, 10</div>
+                                </td>
+                                <td>
+                                    <div align="center">25.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để không mất phí ngoài giờ, bạn nên chọn thời gian giao hàng trong giờ hành chánh.</p>
                 }
                 else
                 {
-                <p>With overtime delivery, please refer to overtime fee as below:</p>
-                <table border="0" cellspacing="0" cellpadding="0" width="100%">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Districts</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Fee (VND)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>1, 3, 4, 5, 6, 10</div>
-                            </td>
-                            <td>
-                                <div align="center">25.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p>(*) In order to save overtime fee, you should select the office hours for delivery.</p>
+                    <p>With overtime delivery, please refer to overtime fee as below:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>1, 3, 4, 5, 6, 10</div>
+                                </td>
+                                <td>
+                                    <div align="center">25.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) In order to save overtime fee, you should select the office hours for delivery.</p>
                 }
             </div>
             <!--/ko-->
@@ -754,55 +766,55 @@
             <div id="selectngoaigiohanhchinh2,7,8">
                 @if (IsLangVN)
                 {
-                <p class="text-warning">Bạn vui lòng hỗ trợ phí ngoài giờ với biểu phí như sau:</p>
-                <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Khu vực</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Mức phí (VNĐ)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Quận 2, 7, 8</div>
-                            </td>
-                            <td>
-                                <div align="center">30.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p class="text-warning">(*) Để không mất phí ngoài giờ, bạn nên chọn thời gian giao hàng trong giờ hành chánh.</p>
+                    <p class="text-warning">Bạn vui lòng hỗ trợ phí ngoài giờ với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 2, 7, 8</div>
+                                </td>
+                                <td>
+                                    <div align="center">30.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để không mất phí ngoài giờ, bạn nên chọn thời gian giao hàng trong giờ hành chánh.</p>
                 }
                 else
                 {
-                <p>With overtime delivery, please refer to overtime fee as below:</p>
-                <table border="0" cellspacing="0" cellpadding="0" width="100%">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Districts</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Fee (VND)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>2, 7, 8</div>
-                            </td>
-                            <td>
-                                <div align="center">30.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p>(*) In order to save overtime fee, you should select the office hours for delivery.</p>
+                    <p>With overtime delivery, please refer to overtime fee as below:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>2, 7, 8</div>
+                                </td>
+                                <td>
+                                    <div align="center">30.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) In order to save overtime fee, you should select the office hours for delivery.</p>
                 }
             </div>
             <!--/ko-->
@@ -810,55 +822,55 @@
             <div id="selectngoaigiohanhchinh9,thuduc">
                 @if (IsLangVN)
                 {
-                <p class="text-warning">Bạn vui lòng hỗ trợ phí ngoài giờ với biểu phí như sau:</p>
-                <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Khu vực</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Mức phí (VNĐ)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Quận 9, Thủ Đức</div>
-                            </td>
-                            <td>
-                                <div align="center">40.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p class="text-warning">(*) Để không mất phí ngoài giờ, bạn nên chọn thời gian giao hàng trong giờ hành chánh.</p>
+                    <p class="text-warning">Bạn vui lòng hỗ trợ phí ngoài giờ với biểu phí như sau:</p>
+                    <table border="1" cellspacing="1" cellpadding="1" width="100%" class="text-warning">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Khu vực</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Mức phí (VNĐ)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>Quận 9, Thủ Đức</div>
+                                </td>
+                                <td>
+                                    <div align="center">40.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p class="text-warning">(*) Để không mất phí ngoài giờ, bạn nên chọn thời gian giao hàng trong giờ hành chánh.</p>
                 }
                 else
                 {
-                <p>With overtime delivery, please refer to overtime fee as below:</p>
-                <table border="0" cellspacing="0" cellpadding="0" width="100%">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div align="center"><strong>Districts</strong></div>
-                            </td>
-                            <td>
-                                <div align="center"><strong>Fee (VND)</strong></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>9, Thu Duc</div>
-                            </td>
-                            <td>
-                                <div align="center">40.000</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <p>(*) In order to save overtime fee, you should select the office hours for delivery.</p>
+                    <p>With overtime delivery, please refer to overtime fee as below:</p>
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div align="center"><strong>Districts</strong></div>
+                                </td>
+                                <td>
+                                    <div align="center"><strong>Fee (VND)</strong></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>9, Thu Duc</div>
+                                </td>
+                                <td>
+                                    <div align="center">40.000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p>(*) In order to save overtime fee, you should select the office hours for delivery.</p>
                 }
             </div>
             <!--/ko-->
@@ -897,11 +909,11 @@
             <p class="text-warning">
                 @if (IsLangVN)
                 {
-                <span>Xem chi tiết <a href="/bai-viet/thong-tin-chuyen-khoan.html" target="_blank">Hình thức thanh toán</a></span>
+                    <span>Xem chi tiết <a href="/bai-viet/thong-tin-chuyen-khoan.html" target="_blank">Hình thức thanh toán</a></span>
                 }
                 else
                 {
-                <span>Detail of <a href="/bai-viet/thong-tin-chuyen-khoan.html" target="_blank">Payment methods</a></span>
+                    <span>Detail of <a href="/bai-viet/thong-tin-chuyen-khoan.html" target="_blank">Payment methods</a></span>
                 }
             </p>
             <!--ko if: mCustomer().selectPayment() == 3-->
@@ -1232,7 +1244,7 @@
                             <div style="padding:8px 0">@(IsLangVN ? "Bạn vui lòng giữ máy điện thoại trong thời gian hẹn giao hàng để chúng tôi tiện liên lạc. Xin cám ơn!" : "Please keep your mobile phone ready during delivery for easy contact. Thank you!")</div>
                         </td>
                     </tr>
-                    
+
                 </tbody>
             </table>
             <table style="width:100%">
@@ -1600,18 +1612,18 @@
                     }
                     else
                     {
-                    <span>
-                        You'll officially qualify to redeem your point. We'll convert your points into 5% discount on your purchase or  If you wish to keep it Please click "No,Thanks"
-                        After redeeming points for discount, your accumulation points will reduce 1000 points.
-                    </span>
+                        <span>
+                            You'll officially qualify to redeem your point. We'll convert your points into 5% discount on your purchase or  If you wish to keep it Please click "No,Thanks"
+                            After redeeming points for discount, your accumulation points will reduce 1000 points.
+                        </span>
                     }
                 </p>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button class="button" data-dismiss="modal" aria-hidden="true" style=" margin-right 20px">@(IsLangVN ? " Không, Cảm ơn! " : "No, thank")</button>
         <button class="button" data-bind="click:cal_disscount">@(IsLangVN ? "Có" : "Yes")</button>
+        <button class="button" data-dismiss="modal" aria-hidden="true" style="margin-right:20px">@(IsLangVN ? " Không, Cảm ơn! " : "No, thank")</button>
     </div>
 </div>
 <div id="modal_showRegister" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -1660,27 +1672,27 @@
                 <div style="font-weight:bold">
                     @if (IsLangVN)
                     {
-                        <h4 class="text-left" style="font-size:17px; ">Sau khi đặt hàng thành công, email xác nhận đơn hàng sẽ được gửi đến bạn. Bạn có cần chúng tôi gọi điện thoại trước khi giao hàng ?</h4>
-                        <label class="text-left" style="font-weight:bold">
-                            <input type="radio" name="sex" data-bind="checkedValue:1,checked:typeconfim" />
-                            Có
-                        </label>
-                        <label class="text-left" style="font-weight:bold">
-                            <input type="radio" name="sex" data-bind="checkedValue:3,checked:typeconfim" />
-                            Không cần, cứ giao theo thời gian tôi đã chọn.
-                        </label>
+                    <h4 class="text-left" style="font-size:17px; ">Sau khi đặt hàng thành công, email xác nhận đơn hàng sẽ được gửi đến bạn. Bạn có cần chúng tôi gọi điện thoại trước khi giao hàng ?</h4>
+                    <label class="text-left" style="font-weight:bold">
+                        <input type="radio" name="sex" data-bind="checkedValue:1,checked:typeconfim" />
+                        Có
+                    </label>
+                    <label class="text-left" style="font-weight:bold">
+                        <input type="radio" name="sex" data-bind="checkedValue:3,checked:typeconfim" />
+                        Không cần, cứ giao theo thời gian tôi đã chọn.
+                    </label>
                     }
                     else
                     {
-                        <h4 class="text-left" style="font-size:17px; ">Beside an confirmation email to be sent to you, which further confirmation method do you want:</h4>
-                        <label class="text-left" style="font-weight:bold">
-                            <input type="radio" name="sex" data-bind="checkedValue:1,checked:typeconfim" />
-                            By phone
-                        </label>
-                        <label class="text-left" style="font-weight:bold">
-                            <input type="radio" name="sex" data-bind="checkedValue:3,checked:typeconfim" />
-                            Just by email, then deliver goods by the chosen timing.
-                        </label>
+                    <h4 class="text-left" style="font-size:17px; ">Beside an confirmation email to be sent to you, which further confirmation method do you want:</h4>
+                    <label class="text-left" style="font-weight:bold">
+                        <input type="radio" name="sex" data-bind="checkedValue:1,checked:typeconfim" />
+                        By phone
+                    </label>
+                    <label class="text-left" style="font-weight:bold">
+                        <input type="radio" name="sex" data-bind="checkedValue:3,checked:typeconfim" />
+                        Just by email, then deliver goods by the chosen timing.
+                    </label>
                     }
                 </div>
             </div>

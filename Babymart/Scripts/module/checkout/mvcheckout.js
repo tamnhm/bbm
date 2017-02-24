@@ -244,6 +244,7 @@ Checkout.mvCheckout = function () {
             self.tongtiencothegiam(tongtien);
         }
     };
+    self.totalmoney = ko.observable(0);
     //-------------------Ship-------------------
 
     self.getPriceShip = function (id) {
@@ -516,9 +517,9 @@ Checkout.mvCheckout = function () {
                 self.Vung(CommonUtils.MapArray(data.vung, Checkout.mVung));
                 self.ListTinhtra(CommonUtils.MapArray(data.tinhtra, Checkout.Chuyenphat_tinh_tra));
                 ko.mapping.fromJS(data.cart, {}, self.mCheckout);
+                self.totalmoney(self.mCheckout().CartTotal());
                 if (sessionKhachhang) {
                     ko.mapping.fromJS(sessionKhachhang, {}, self.mCustomer());
-
                     var isshow_disscount = false;
                     var countItem = self.mCheckout().CartItemModel().length;
                     var countforItemselfoff = 0;
@@ -531,13 +532,19 @@ Checkout.mvCheckout = function () {
                         }
                     });
                     self.tinhtongtiencothegiam();
-                    if (self.mCustomer().diem() >= 1000 && countforItemselfoff != countItem && self.tongtiencothegiam() > 0) {
+                    self.diemsanpham();
+                    debugger
+                    if (self.mCustomer().diem() >= 1000 && countforItemselfoff != countItem && self.tongtiencothegiam() > 0 && sessiondatrudiem != 1000) {
                         $('#modal_disscount').modal('show');
                     }
+                    else if (self.mCustomer().diem() >= 1000 && countforItemselfoff != countItem && self.tongtiencothegiam() > 0 && sessiondatrudiem == 1000) {
+                        self.cal_disscount();
+                    }
+                    
                     self.TotalSaleOff(totalSaleOff);
                     self.sessionIdQuan(sessionKhachhang.idquan);
                     self.IssessionKhachhang(true);
-                    self.diemsanpham();
+                    
                 } else {
                     //if (data.isHasSaleoff)
                     //    $('#modal_showRegister').modal('show');
@@ -549,7 +556,6 @@ Checkout.mvCheckout = function () {
     };
     self.datru_diem = ko.observable(0);
     self.isDisplayonePoupDisscountForCustomer = ko.observable(true);
-
     self.cal_disscount = function () {
         var totaldisscount = 0;
         ko.utils.arrayForEach(self.mCheckout().CartItemModel(), function (obj) {
@@ -569,12 +575,18 @@ Checkout.mvCheckout = function () {
         self.DisscountForCustomer((totaldisscount * 5) / 100)
 
         if (totaldisscount != 0) {
-            var diem = self.mCustomer().diem() - 1000;
-            self.mCustomer().diem(diem);
+            if (sessiondatrudiem != 1000) {
+                var diem = self.mCustomer().diem() - 1000; 
+            }
+            else {
+                var diem = self.mCustomer().diem();
+            }
             self.datru_diem(1000);
+            self.mCustomer().diem(diem);
         }
-        var diemspsaugiam = self.mCustomer().diemsp() - (self.DisscountForCustomer() / 1000);
+        var diemspsaugiam = (self.totalmoney() - (self.DisscountForCustomer())) / 1000;
         self.mCustomer().diemsp(diemspsaugiam.toFixed(0));
         $('#modal_disscount').modal('hide');
+        
     };
 };

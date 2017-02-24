@@ -101,7 +101,6 @@ namespace Babymart.Controllers
             ViewData["Spxe1"] = _productRepository.ProductIndex(19, 4, UtilsBB.GetStoreId());
             ViewData["Spgiamgia1"] = _productRepository.ProductTop("spgiamgia", 6, UtilsBB.GetStoreId()).Take(6).ToList(); ;
             TempData["IndexMLoadMore"] = 1;
-
             var str = ">>Home";
             ViewBag.Tags = str;
             var listId = TagsCommon.ListRefIdTagBy((int)Tags.TagsModuleMagazine, str);

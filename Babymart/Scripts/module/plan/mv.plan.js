@@ -98,6 +98,22 @@ Plan.mvPlan = function () {
         });
         return sum;
     });
+    self.TotalPro5 = ko.computed(function () {
+        var sum = 0;
+        ko.utils.arrayForEach(self.ListCart(), function (obj) {
+            if (obj.masp() == null) {
+                if (obj.gia() > 0 && obj.IdProdut() != 23568 && obj.IdProdut() != 23569 && obj.IdProdut() != 1049 && obj.IdProdut() != 1050 && obj.IdProdut() != 1051 && obj.IdProdut() != 1052 && obj.tensp().indexOf('TA') == -1 && obj.tensp().indexOf('T0') == -1 && obj.tensp().indexOf('T1') == -1 && obj.tensp().indexOf('T2') == -1 && obj.tensp().indexOf('T3') == -1 && obj.tensp().indexOf('T4') == -1 && obj.tensp().indexOf('T5') == -1 && obj.tensp().indexOf('T6') == -1 && obj.tensp().indexOf('T7') == -1 && obj.tensp().indexOf('T8') == -1 && obj.tensp().indexOf('T9') == -1) {
+                    sum += obj.Count() * obj.gia();
+                }
+            }
+            else {
+                if (obj.gia() > 0 && obj.IdProdut() != 23568 && obj.IdProdut() != 23569 && obj.IdProdut() != 1049 && obj.IdProdut() != 1050 && obj.IdProdut() != 1051 && obj.IdProdut() != 1052 && obj.masp().indexOf('TA') == -1 && obj.masp().slice(0, 1) != 'T') {
+                    sum += obj.Count() * obj.gia();
+                }
+            }
+        });
+        return sum;
+    });
     self.khuyenmai = ko.computed(function () {
         if (self.ListSaleOff() && self.ListSaleOff().length > 0 && self.Total()) {
             var percent = 0;
@@ -178,7 +194,7 @@ Plan.mvPlan = function () {
     };
     self.TotalSum = ko.computed(function () {
         if (self.Total())
-            return self.Total() - ((self.Total() * self.khuyenmai()) / 100);
+            return self.Total() - ((self.TotalPro5() * self.khuyenmai()) / 100);
         return 0;
     });
     self.addCartSubmit = function (data) {

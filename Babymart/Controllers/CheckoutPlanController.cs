@@ -239,7 +239,8 @@ namespace Babymart.Controllers
                 dh.vanglai = _customer.AddVL(Mapper.Map<khachhang_vanglai>(kh));
                 dh.makh = null;
             }
-
+            if (dh.datru_diem != null)
+                Session["datrudiem"] = dh.datru_diem;
             dh.diemsp = int.Parse(kh.diemsp.ToString());
             var tmp = Mapper.Map<ModelDonHangPost>(dh);
             long iddh = _checkout.AddOrder(Mapper.Map<donhang>(tmp));
@@ -290,7 +291,7 @@ namespace Babymart.Controllers
                 this.Session["emailkhach"] = kh.email;
                 this.Session["tenkhach"] = kh.hoten;
                 this.Session["noidungmail"] = content;
-                this.Session["madonhang"] = iddh; 
+                this.Session["madonhang"] = iddh;
 
                 //SendmailCheckout(kh.email, kh.hoten, content, iddh);
                 //this.Session["PlanCart"] = null;

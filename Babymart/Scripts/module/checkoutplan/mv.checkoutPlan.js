@@ -115,6 +115,7 @@ Checkoutplan.mvCheckout = function () {
             self.Isloadercart(false);
         });
     };
+    self.datru_diem = ko.observable(0);
     self.giogiaocuthe = ko.observable();
     self.Thanhpho = ko.observableArray();
     self.Vung = ko.observableArray();
@@ -226,6 +227,7 @@ Checkoutplan.mvCheckout = function () {
                 self.shipvalue(0);
         }
     });
+    self.totalmoney = ko.observable(0);
     self.tongtiencothegiam = ko.observable(0);
     self.tinhtongtiencothegiam = function () {
         if (self.mCheckout().PlanModel().length > 0) {
@@ -237,7 +239,7 @@ Checkoutplan.mvCheckout = function () {
                     }
                 }
                 else {
-                    if (obj.gia() > 0 && obj.IdProdut() != 23568 && obj.IdProdut() != 23569 && obj.IdProdut() != 1049 && obj.IdProdut() != 1050 && obj.IdProdut() != 1051 && obj.IdProdut() != 1052 && obj.masp().indexOf('TA') ==-1 && obj.masp().slice(0, 1) != 'T') {
+                    if (obj.gia() > 0 && obj.IdProdut() != 23568 && obj.IdProdut() != 23569 && obj.IdProdut() != 1049 && obj.IdProdut() != 1050 && obj.IdProdut() != 1051 && obj.IdProdut() != 1052 && obj.masp().indexOf('TA') == -1 && obj.masp().slice(0, 1) != 'T') {
                         tongtien += obj.sum();
                     }
                 }
@@ -442,7 +444,7 @@ Checkoutplan.mvCheckout = function () {
             donhang.pttt(self.mCustomer().selectPayment());
             donhang.ptgh(self.selectTypeShip().value);
             donhang.thongtinxedo(self.Infxedo());
-            //donhang.datru_diem(self.datru_diem());
+            donhang.datru_diem(self.datru_diem());
             donhang.typeconfim(self.typeconfim());
             donhang.NLpayBankType(self.mCustomer().SelectedNLpayBankType());
             donhang.BankOnline(self.mCustomer().SelectedBankOnline());
@@ -473,34 +475,51 @@ Checkoutplan.mvCheckout = function () {
     self.sumdiem = ko.computed(function () {
         return parseInt(self.mCustomer().diem()) + parseInt(self.mCustomer().diemsp());
     });
+    self.hotrome5 = ko.observable(0);
+    self.tinhhotrome5 = function () {
+        var sum = 0;
+        if (self.mCheckout().PlanModel().length > 0
+            && self.mCheckout().ToTal() >= 1000000) {
+            ko.utils.arrayForEach(self.mCheckout().PlanModel(), function (obj) {
+                if (obj.masp() == null) {
+                    if (obj.gia() > 0 && obj.IdProdut() != 23568 && obj.IdProdut() != 23569 && obj.IdProdut() != 1049 && obj.IdProdut() != 1050 && obj.IdProdut() != 1051 && obj.IdProdut() != 1052 && obj.tensp().indexOf('TA') == -1 && obj.tensp().indexOf('T0') == -1 && obj.tensp().indexOf('T1') == -1 && obj.tensp().indexOf('T2') == -1 && obj.tensp().indexOf('T3') == -1 && obj.tensp().indexOf('T4') == -1 && obj.tensp().indexOf('T5') == -1 && obj.tensp().indexOf('T6') == -1 && obj.tensp().indexOf('T7') == -1 && obj.tensp().indexOf('T8') == -1 && obj.tensp().indexOf('T9') == -1) {
+                        sum += obj.Count() * obj.gia();
+                    }
+                }
+                else {
+                    if (obj.gia() > 0 && obj.IdProdut() != 23568 && obj.IdProdut() != 23569 && obj.IdProdut() != 1049 && obj.IdProdut() != 1050 && obj.IdProdut() != 1051 && obj.IdProdut() != 1052 && obj.masp().indexOf('TA') == -1 && obj.masp().slice(0, 1) != 'T') {
+                        sum += obj.Count() * obj.gia();
+                    }
+                }
+            });
+        }
+        sum = (sum * 0.05);
+        self.hotrome5(sum);
+    }
     self.diemsanpham = function () {
         self.mCustomer().diemsp(0);
-        var diem = 0;
+        var diemsum = 0;
+        var diemspsaugiam = 0;
+        ko.utils.arrayForEach(self.mCheckout().PlanModel(), function (obj) {
+            if (obj.gia() > 0) {
+                var u = obj.Count() * obj.gia();
+                diemsum += u;
+            }
+        });
+        diemsum = diemsum / 1000;
         if (self.IssessionKhachhang()
             && self.mCheckout().PlanModel().length > 0
             && self.mCheckout().ToTal() < 1000000) {
-            ko.utils.arrayForEach(self.mCheckout().PlanModel(), function (obj) {
-                if (obj.gia() > 0) {
-                    var u = obj.Count() * obj.gia();
-                    diem += u;
-                }
-            });
+            self.mCustomer().diemsp(diemsum);
         }
         else if (self.IssessionKhachhang()
             && self.mCheckout().PlanModel().length > 0
             && self.mCheckout().ToTal() >= 1000000) {
-            ko.utils.arrayForEach(self.mCheckout().PlanModel(), function (obj) {
-                if (obj.gia() > 0) {
-                    var u = obj.Count() * obj.gia();
-                    diem += u;
-                }
-            });
-            diem = (diem * 0.95);
+            diemspsaugiam = diemsum - (self.hotrome5() / 1000)
+            self.mCustomer().diemsp(diemspsaugiam.toFixed(0));
         }
-            var resultdiem = diem / 1000;
-            self.mCustomer().diemsp(resultdiem.toFixed(0));   
     };
-
+    
     self.mCustomer().selectPayment.subscribe(function (id) {
         if (id == 3) {
             //$('#modal_selectPayment_thuho').modal('show');
@@ -521,6 +540,7 @@ Checkoutplan.mvCheckout = function () {
             self.phithuho(0);
         }
     });
+    
     self.totalcartmoney = ko.computed(function () {
         var result = self.mCheckout().TotalSum() + self.shipvalue() + self.phithuho();
         if (self.DisscountForCustomer() > 0)
@@ -548,15 +568,23 @@ Checkoutplan.mvCheckout = function () {
                 self.Vung(CommonUtils.MapArray(data.vung, Checkoutplan.mVung));
                 self.ListTinhtra(CommonUtils.MapArray(data.tinhtra, Checkoutplan.Chuyenphat_tinh_tra));
                 ko.mapping.fromJS(data.cart, {}, self.mCheckout);
+                self.totalmoney(self.mCheckout().ToTal());
+
+                self.tinhhotrome5();
                 if (sessionKhachhang) {
+                    
                     ko.mapping.fromJS(sessionKhachhang, {}, self.mCustomer());
                     self.sessionIdQuan(sessionKhachhang.idquan);
                     self.IssessionKhachhang(true);
                     self.tinhtongtiencothegiam();
-                    if (self.mCustomer().diem() >= 1000 && self.tongtiencothegiam() > 0 && self.mCheckout().TotalSum() < 1000000) {
+                    self.diemsanpham();
+                    if (self.mCustomer().diem() >= 1000 && self.tongtiencothegiam() > 0 && self.mCheckout().TotalSum() < 1000000 && sessiondatrudiem == 0) {
                         $('#modal_disscount').modal('show');
                     }
-                    self.diemsanpham();
+                    else if ((self.mCustomer().diem() >= 1000 && self.tongtiencothegiam() > 0 && self.mCheckout().TotalSum() < 1000000 && sessiondatrudiem == 1000)) {
+                        self.cal_disscount();
+
+                    }
                 }
                 var tmpPlanModel = ko.observableArray();
                 var tmpPlanGiftModel = ko.observableArray();
@@ -577,7 +605,7 @@ Checkoutplan.mvCheckout = function () {
             self.Isloadercart(false);
         });
     };
-    self.datru_diem = ko.observable(0);
+
     self.cal_disscount = function () {
         var totaldisscount = 0;
         ko.utils.arrayForEach(self.mCheckout().PlanModel(), function (obj) {
@@ -593,13 +621,18 @@ Checkoutplan.mvCheckout = function () {
             }
         });
         self.DisscountForCustomer((totaldisscount * 5) / 100)
-
         if (totaldisscount != 0) {
-            var diem = self.mCustomer().diem() - 1000;
-            self.mCustomer().diem(diem);
+            if (sessiondatrudiem != 1000) {
+                var diem = self.mCustomer().diem() - 1000;
+            }
+            else {
+                var diem = self.mCustomer().diem();
+            }
             self.datru_diem(1000);
+            self.mCustomer().diem(diem);
+            
         }
-        var diemspsaugiam = self.mCustomer().diemsp() - (self.DisscountForCustomer() / 1000);
+        var diemspsaugiam = (self.totalmoney() - self.DisscountForCustomer()) / 1000;
         self.mCustomer().diemsp(diemspsaugiam.toFixed(0));
         $('#modal_disscount').modal('hide');
     };

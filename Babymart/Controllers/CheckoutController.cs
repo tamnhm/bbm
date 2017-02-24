@@ -72,7 +72,7 @@ namespace Babymart.Controllers
             return View();
         }
 
-        //public ActionResult Success(string MaDH
+        //public ActionResult Success(string MaDH)
         public ActionResult Success()
         {
             if (!string.IsNullOrEmpty(Request.QueryString["rspCode"]))
@@ -264,6 +264,8 @@ namespace Babymart.Controllers
                 dh.vanglai = _customer.AddVL(Mapper.Map<khachhang_vanglai>(kh));
                 dh.makh = null;
             }
+            if (dh.datru_diem != null)
+                Session["datrudiem"] = dh.datru_diem;
             dh.diemsp = int.Parse(kh.diemsp.ToString());
             var tmp = Mapper.Map<ModelDonHangPost>(dh);
             long iddh = _checkout.AddOrder(Mapper.Map<donhang>(tmp));

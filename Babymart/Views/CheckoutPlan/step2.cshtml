@@ -2,6 +2,11 @@
     Layout = "~/Views/Shared/_Checkout.cshtml";
 
     var khachhangJS = Json.Encode((Babymart.Models.Module.ModeCustomerPost)Session["khachhang"]);
+    var datrudiem = 0;
+    if (Session["datrudiem"] != null)
+    {
+        datrudiem = (int)Session["datrudiem"];
+    }
     var urllocation = System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocation"];
     var IsLangVN = FBabymartvn.IsLangVN();
 }
@@ -34,9 +39,11 @@
 @section scripts{
     @Scripts.Render("~/module/checkout_plan")
     <script>
+        debugger
         var isEnLag = '@(IsLangVN)';
         var urllocation = "@urllocation";
         var sessionKhachhang = @Html.Raw(khachhangJS+';')
+        var sessiondatrudiem = @Html.Raw(datrudiem)
         $(document).ready(function () {
             (new Checkoutplan.mvCheckout().Start());
         });
@@ -105,8 +112,12 @@
         <label class="control-label" for="lastName">@(IsLangVN ? "Điểm tích lũy : " : "Accumulation Point : ")  </label>
         <div class="controls">
             <b data-bind="text: mCustomer().diem"></b>
-            <!--ko if: DisscountForCustomer()>0-->
+            <!--ko if: DisscountForCustomer()>0 && sessiondatrudiem==0-->
             <b><span style="color:red;"> - Đã giảm 5% hóa đơn và 1000 điểm tích lũy</span></b>
+            <!--/ko-->
+            <!--ko if: DisscountForCustomer()>0 && sessiondatrudiem>0-->
+
+            <b><span style="color:red;"> - Đã giảm 5% hóa đơn</span></b>
             <!--/ko-->
         </div>
     </div>
@@ -1043,7 +1054,8 @@
                 <td class="stronger">
                     @(IsLangVN ? "Hỗ trợ mẹ : " : "Pregnancy assistance :")
                 </td>
-                <td class="stronger" style="text-align: right;"><span class="size-16 align-right" data-bind="textMoney:(mCheckout().Percent() * mCheckout().ToTal())/100"></span> đ</td>
+                @*<td class="stronger" style="text-align: right;"><span class="size-16 align-right" data-bind="textMoney:(mCheckout().Percent() * mCheckout().ToTal())/100"></span> đ</td>*@
+                <td class="stronger" style="text-align: right;"><span class="size-16 align-right" data-bind="textMoney:hotrome5()"></span> đ</td>
             </tr>
 
             <!--/ko-->
@@ -1305,17 +1317,22 @@
                     <!--/ko-->
                     <tr style="height: 30px;font-weight: bold;font-size: 12px;border-bottom: 1px solid #65b051;background: #F0F7EE;">
                         <td colspan="4"></td>
-
-
                         <td colspan="2">@(IsLangVN ? "Tổng tiền hàng : " : "Order Total : ")</td>
                         <td><span data-bind="textMoney:mCheckout().ToTal()"></span> đ</td>
-
                     </tr>
+                    <!-- ko if:DisscountForCustomer()>0 -->
+                    <tr style="height: 30px;font-weight: bold;font-size: 12px;border-bottom: 1px solid #65b051;background: #F0F7EE;">
+                        <td colspan="4"></td>
+                        <td colspan="2">@(IsLangVN ? "Phí giảm cho thành viên : " : "Member Discounts : ")</td>
+                        <td><span data-bind="textMoney:DisscountForCustomer()"></span> đ</td>
+                    </tr>
+                    <!-- /ko -->
                     <!--ko if:mCheckout().Percent()>0-->
                     <tr style="height: 30px;font-weight: bold;font-size: 12px;border-bottom: 1px solid #65b051;background: #F0F7EE;">
                         <td colspan="4"></td>
                         <td colspan="2">@(IsLangVN ? "Hỗ trợ mẹ : " : "Pregnancy assistance : ")</td>
-                        <td><span data-bind="textMoney:(mCheckout().Percent() * mCheckout().ToTal())/100"></span> đ</td>
+                        @*<td><span data-bind="textMoney:(mCheckout().Percent() * mCheckout().ToTal())/100"></span> đ</td>*@        
+                        <td><span data-bind="textMoney:hotrome5()"></span> đ</td>
                     </tr>
                     <!--/ko-->
 
@@ -1871,7 +1888,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="button" data-dismiss="modal" aria-hidden="true" style=" margin-right 20px">@(IsLangVN ? " Không, Cảm ơn! " : "No, thank")</button>
         <button class="button" data-bind="click:cal_disscount">@(IsLangVN ? "Có" : "Yes")</button>
+        <button class="button" data-dismiss="modal" aria-hidden="true" style="margin-right:20px">@(IsLangVN ? " Không, Cảm ơn! " : "No, thank")</button>
     </div>
 </div>

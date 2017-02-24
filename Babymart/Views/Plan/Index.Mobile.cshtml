@@ -127,9 +127,11 @@
     <div class="content">
         <div class="tong-tien"><strong>@(IsLangVN ? "Tổng tiền hàng :" : "Order Total:") <span data-bind="textMoney:Total"></span><sub> đ</sub></strong></div>
     </div>
+    <!--ko if:khuyenmai()>0-->
     <div class="content">
-        <div class="tong-tien"><strong>@(IsLangVN ? "Hỗ trợ mẹ : " : "Pregnancy assistance :") <span data-bind="textMoney:(khuyenmai() * Total())/100"></span><sub> đ</sub></strong></div>
+        <div class="tong-tien"><strong>@(IsLangVN ? "Hỗ trợ mẹ : " : "Pregnancy assistance :") <span data-bind="textMoney:(khuyenmai() * TotalPro5())/100"></span><sub> đ</sub></strong></div>
     </div>
+    <!--/ko-->
     <div class="content">
         <div class="tong-tien">@(IsLangVN ? "Tổng thanh toán:" : "Total of payment:") <span data-bind="textMoney:TotalSum"></span><sub> đ</sub></div>
     </div>

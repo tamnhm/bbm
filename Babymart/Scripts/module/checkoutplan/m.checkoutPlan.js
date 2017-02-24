@@ -85,6 +85,7 @@ Checkoutplan.mDonhang = function () {
     self.ptgh = ko.observable();
     self.thongtinxedo = ko.observable();
     self.donhang_ct = ko.observableArray();
+    self.datru_diem = ko.observable();
     self.typeconfim = ko.observable(0);
     self.NLpayBankType = ko.observable();
     self.BankOnline = ko.observable();

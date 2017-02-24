@@ -2,6 +2,11 @@
     var IsLangVN = FBabymartvn.IsLangVN();
     var urllocation = System.Web.Configuration.WebConfigurationManager.AppSettings["Urllocation"];
     var khachhangJS = Json.Encode((Babymart.Models.Module.ModeCustomerPost)Session["khachhang"]);
+    var datrudiem = 0;
+    if (Session["datrudiem"] != null)
+    {
+        datrudiem = (int)Session["datrudiem"];
+    }
 }
 @section SEOContent{
     <title>Đặt hàng - Bước 2 - Babymart.vn</title>
@@ -18,15 +23,15 @@
     @Scripts.Render("~/module/checkout")
     <script src="/Scripts/me/flat/bootstrap.min.mobile.js"></script>
     <script src="/Scripts/me/flat/plugins/bootbox/jquery.bootbox.js"></script>
-
     <script>
+        debugger
         var isEnLag = '@(IsLangVN)';
         var urllocation = "@urllocation";
-        var sessionKhachhang = @Html.Raw(khachhangJS+';')
+        var sessionKhachhang = @Html.Raw(khachhangJS + ';');
+        var sessiondatrudiem = @Html.Raw(datrudiem);
         $(document).ready(function () {
             (new Checkout.mvCheckout().Start());
         });
-
     </script>
 }
 <h3 class="pageTitle">Thanh toán</h3>
@@ -42,8 +47,13 @@
         <label class="control-label left" for="lastName">@(IsLangVN ? "Điểm tích lũy : " : "Accumulation Point : ") </label>
         <div class="controls">
             <b data-bind="text: mCustomer().diem"></b>
-            <!--ko if: DisscountForCustomer()>0-->
+            <!--ko if: DisscountForCustomer()>0 && sessiondatrudiem==0-->
+
             <b><span style="color:red;"> - Đã giảm 5% hóa đơn và 1000 điểm tích lũy</span></b>
+            <!--/ko-->
+            <!--ko if: DisscountForCustomer()>0 && sessiondatrudiem>0-->
+
+            <b><span style="color:red;"> - Đã giảm 5% hóa đơn</span></b>
             <!--/ko-->
         </div>
     </div>
@@ -1000,7 +1010,6 @@
         <div class="clear"></div>
         <!--/ko-->
         <!--/ko-->
-
         @*<input type="button" class="shoppingCartCheckoutButton btn btn-success" data-toggle="modal" data-bind="click:SubmitCartLinkForMobile" value="@(IsLangVN ? "Thanh toán" : "Payment")">*@
         <input type="button" class="shoppingCartCheckoutButton btn btn-success" data-toggle="modal" data-bind="click:SubmitCartLink" value="@(IsLangVN ? "Thanh toán" : "Payment")">
     </div>
@@ -1453,8 +1462,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn" data-dismiss="modal" aria-hidden="true" style=" margin-right 20px">@(IsLangVN ? " Không, Cảm ơn! " : "No, thank")</button>
-                <button class="btn  btn-primary" data-bind="click:cal_disscount">@(IsLangVN ? "Có" : "Yes")</button>
+                <button class="shoppingCartCheckoutButton btn btn-primary" data-bind="click:cal_disscount">@(IsLangVN ? "Có" : "Yes")</button>
+                <button class="shoppingCartCheckoutButton btn btn-primary" data-dismiss="modal" aria-hidden="true" style="margin-right:20px">@(IsLangVN ? " Không, Cảm ơn! " : "No, thank")</button>
             </div>
         </div>
     </div>
@@ -1786,6 +1795,6 @@
         </div>
         <!--/ko-->
         @*<!--ko if:mCustomer().SelectedNLpayBankType() == ''-->
-    <!--/ko-->*@
+            <!--/ko-->*@
     </div>
 </script>

@@ -135,7 +135,7 @@
         </tr>
         <tr>
             <td class="stronger" style="text-align: right;">@(IsLangVN ? "Hỗ trợ mẹ" : "Mum assistance") :</td>
-            <td class="stronger" style="text-align: right;"><span class="size-16 align-right" data-bind="textMoney:(mCheckout().Percent() * mCheckout().ToTal())/100"></span> đ</td>
+            <td class="stronger" style="text-align: right;"><span class="size-16 align-right" data-bind="textMoney:mCheckout().ToTal()-mCheckout().TotalSum()"></span> đ</td>
         </tr>
         <!--/ko-->
         <tr>
